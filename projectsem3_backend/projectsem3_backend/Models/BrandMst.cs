@@ -6,11 +6,13 @@ namespace projectsem3_backend.Models
     public class BrandMst
     {
         [Key]
-        [StringLength(10)]
+        [MaxLength(10)]
         public string Brand_ID { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [MaxLength(50)]
         public string Brand_Type { get; set; }
+
+        public string? ImagePath { get; set; }
     }
 }

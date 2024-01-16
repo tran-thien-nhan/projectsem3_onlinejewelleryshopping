@@ -5,10 +5,12 @@ namespace projectsem3_backend.Models
     public class JewelTypeMst
     {
         [Key]
+        [MaxLength(10)]
         public string ID { get; set; }
 
         [Required]
-        public string Jewel_cccType { get; set; }
+        [MaxLength(50)]
+        public string Jewellery_Type { get; set; }
     }
 
 }

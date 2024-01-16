@@ -6,11 +6,11 @@ namespace projectsem3_backend.Models
     public class AdminLoginMst
     {
         [Key]
-        [StringLength(50)]
+        [MaxLength(50)]
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [MaxLength(50)]
         public string Password { get; set; }
     }
 }

@@ -3,12 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace projectsem3_backend.Models
 {
+
     public class StoneMst
     {
-        [Key]
-        public string Id { get; set; }
-
+        [MaxLength(50)]
+        [ForeignKey("ItemMst")]
         public string Style_Code { get; set; }
+
+        [MaxLength(50)]
+        [ForeignKey("StoneQltyMst")]
         public string StoneQlty_ID { get; set; }
 
         [Required]
@@ -25,6 +28,10 @@ namespace projectsem3_backend.Models
 
         [Required]
         public decimal Stone_Amt { get; set; }
-    }
 
+        // Navigation properties
+        public ItemMst ItemMst { get; set; }
+
+        public StoneQltyMst StoneQltyMst { get; set; }
+    }
 }
