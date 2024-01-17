@@ -6,45 +6,36 @@ namespace projectsem3_backend.Models
     public class ItemMst
     {
         [Key]
-        [MaxLength(50)]
         public string Style_Code { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public string Product_Name { get; set; }
 
         [Required]
         public int Pairs { get; set; }
 
-        [MaxLength(10)]
-        [ForeignKey("BrandMst")]
+        [Required]
         public string Brand_ID { get; set; }
 
         [Required]
         public int Quantity { get; set; }
 
-        [MaxLength(10)]
-        [ForeignKey("CatMst")]
+        [Required]
         public string Cat_ID { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public string Prod_Quality { get; set; }
 
-        [MaxLength(10)]
-        [ForeignKey("CertifyMst")]
+        [Required]
         public string Certify_ID { get; set; }
 
-        [MaxLength(10)]
-        [ForeignKey("ProdMst")]
+        [Required]
         public string Prod_ID { get; set; }
 
-        [MaxLength(10)]
-        [ForeignKey("GoldKrtMst")]
+        [Required]        
         public string GoldType_ID { get; set; }
 
-        [MaxLength(10)]
-        [ForeignKey("JewelTypeMst")]
+        [Required]
         public string Jewellery_ID { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
@@ -102,22 +93,22 @@ namespace projectsem3_backend.Models
         public string? ImagePath { get; set; }
 
         // Navigation properties
-        public BrandMst BrandMst { get; set; }
+        public BrandMst? BrandMst { get; set; }
 
-        public CatMst CatMst { get; set; }
+        public CatMst? CatMst { get; set; }
 
-        public CertifyMst CertifyMst { get; set; }
+        public CertifyMst? CertifyMst { get; set; }
 
-        public ProdMst ProdMst { get; set; }
+        public ProdMst? ProdMst { get; set; }
 
-        public GoldKrtMst GoldKrtMst { get; set; }
+        public GoldKrtMst? GoldKrtMst { get; set; }
 
-        public JewelTypeMst JewelTypeMst { get; set; }
+        public JewelTypeMst? JewelTypeMst { get; set; }
 
-        public ICollection<StoneMst> StoneMsts { get; set; }
-        public ICollection<DimMst> DimMsts { get; set; }        
-        public ICollection<OrderDetailMst> OrderDetailMsts { get; set; }
-        public CartList CartLists { get; set; }
+        public ICollection<StoneMst>? StoneMsts { get; set; }
+        public ICollection<DimMst>? DimMsts { get; set; }        
+        public ICollection<OrderDetailMst>? OrderDetailMsts { get; set; }
+        public ICollection<CartList>? CartLists { get; set; }
     }
 
 }
