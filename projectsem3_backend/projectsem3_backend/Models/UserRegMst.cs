@@ -5,7 +5,6 @@ namespace projectsem3_backend.Models
     public class UserRegMst
     {
         [Key]
-        [MaxLength(10)]
         public string UserID { get; set; }
 
         [Required]
@@ -18,11 +17,9 @@ namespace projectsem3_backend.Models
         public string Address { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public string City { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public string State { get; set; }
 
         [Required]
@@ -32,18 +29,18 @@ namespace projectsem3_backend.Models
         public string EmailID { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public string DOB { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public string CDate { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public string Password { get; set; }
-        
+
+        public string? UserImagePath { get; set; }
+
         public ICollection<CartList> CartLists { get; set; }
         public ICollection<OrderMst> OrderMsts { get; set; }
+        public ICollection<Inquiry> Inquiries { get; set; }
     }
 }
