@@ -5,22 +5,19 @@ namespace projectsem3_backend.Models
 {
     public class DimMst
     {
-        [Key]
-        [MaxLength(50)]
-        [ForeignKey("ItemMst")]
+        [Required]
         public string Style_Code { get; set; }
 
         [Required]
-        [ForeignKey("DimQltyMst")]
         public string DimQlty_ID { get; set; }
 
         [Required]
-        [ForeignKey("DimQltySubMst")]
         public string DimSubType_ID { get; set; }
 
-        [ForeignKey("DimInfoMst")]
+        [Required]
         public string DimID { get; set; }
 
+        [Column(TypeName = "decimal(10,2)")]
         [Required]
         public decimal Dim_Crt { get; set; }
 
@@ -46,9 +43,9 @@ namespace projectsem3_backend.Models
 
         public string? ImagePath { get; set; }
 
-        public ItemMst ItemMst { get; set; }
-        public DimQltyMst DimQltyMst { get; set; }
-        public DimQltySubMst DimQltySubMst { get; set; }
-        public DimInfoMst DimInfoMst { get; set; }
+        public ItemMst? ItemMst { get; set; }
+        public DimQltyMst? DimQltyMst { get; set; }
+        public DimQltySubMst? DimQltySubMst { get; set; }
+        public DimInfoMst? DimInfoMst { get; set; }
     }
 }
