@@ -1,14 +1,17 @@
-import AuthFormContainer from './components/AuthFormContainer';
+import "./App.css";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import AuthFormContainer from "./components/AuthFormContainer";
 
 function App() {
   return (
     <div className="">
+      <AuthFormContainer />
       <div>
-        <AuthFormContainer />
         {/* <Routes>
           <Route path="/signin" element={<SigninForm />} />
           <Route path="/register" element={<SignupForm />} />
         </Routes> */}
+        {/* <AdminDashboard /> */}
       </div>
     </div>
   );

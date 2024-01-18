@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
 import Panel from './Panel';
-import '../asset/style/style.css';
+import '../asset/css/style.css'
 import logoImage from '../asset/img/logo.svg';
 import registerImage from '../asset/img/register.svg';
 
