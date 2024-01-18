@@ -16,7 +16,9 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,7 +31,9 @@ namespace projectsem3_backend.Migrations
                 {
                     Brand_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Brand_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +45,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     Cat_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Cat_Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Cat_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +60,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     Certify_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Certify_Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Certify_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,7 +79,10 @@ namespace projectsem3_backend.Migrations
                     DimSubType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DimCrt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DimPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DimImg = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DimImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +94,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     DimQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,7 +109,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     DimSubType_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,7 +124,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     GoldType_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Gold_Crt = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Gold_Crt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,7 +139,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Jewellery_Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Jewellery_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,7 +154,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     Prod_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Prod_Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Prod_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,7 +169,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     StoneQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StoneQlty = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    StoneQlty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,7 +194,9 @@ namespace projectsem3_backend.Migrations
                     DOB = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -198,7 +231,10 @@ namespace projectsem3_backend.Migrations
                     Other_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Tot_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     MRP = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -252,7 +288,8 @@ namespace projectsem3_backend.Migrations
                     Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmailID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cdate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Cdate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,7 +312,8 @@ namespace projectsem3_backend.Migrations
                     Order_Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Order_Note = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderStatus = table.Column<int>(type: "int", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -329,7 +367,10 @@ namespace projectsem3_backend.Migrations
                     Dim_Size = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Dim_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Dim_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -370,7 +411,10 @@ namespace projectsem3_backend.Migrations
                     Stone_Pcs = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Stone_Crt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Stone_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
+                    Stone_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

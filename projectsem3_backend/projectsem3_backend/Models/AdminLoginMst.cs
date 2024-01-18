@@ -12,5 +12,8 @@ namespace projectsem3_backend.Models
         [Required]
         [MaxLength(50)]
         public string Password { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

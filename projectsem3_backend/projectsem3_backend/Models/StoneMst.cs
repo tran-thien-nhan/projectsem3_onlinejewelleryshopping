@@ -32,6 +32,11 @@ namespace projectsem3_backend.Models
         [Required]
         public decimal Stone_Amt { get; set; }
 
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+
+        public bool Visible { get; set; }
+
         // Navigation properties
         public ItemMst? ItemMst { get; set; }
 

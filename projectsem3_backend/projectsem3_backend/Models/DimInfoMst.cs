@@ -22,6 +22,11 @@ namespace projectsem3_backend.Models
         [Required]
         public string DimImg { get; set; }
 
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+
+        public bool Visible { get; set; }
+
         public DimMst? DimMst { get; set; }
     }
 }

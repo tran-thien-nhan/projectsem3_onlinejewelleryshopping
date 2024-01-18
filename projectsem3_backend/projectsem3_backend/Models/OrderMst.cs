@@ -20,6 +20,8 @@ namespace projectsem3_backend.Models
 
         public DateTime? OrderDate { get; set; }
 
+        public bool Visible { get; set; }
+
         // Navigation property
         public UserRegMst? UserRegMst { get; set; }
         public ICollection<OrderDetailMst>? OrderDetailMsts { get; set; }

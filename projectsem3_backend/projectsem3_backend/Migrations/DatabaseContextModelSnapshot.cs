@@ -28,10 +28,16 @@ namespace projectsem3_backend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("UserName");
 
@@ -47,8 +53,14 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
 
                     b.HasKey("Brand_ID");
 
@@ -93,6 +105,15 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.HasKey("Cat_ID");
 
                     b.ToTable("CatMsts");
@@ -107,6 +128,15 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.HasKey("Certify_ID");
 
                     b.ToTable("CertifyMsts");
@@ -116,6 +146,9 @@ namespace projectsem3_backend.Migrations
                 {
                     b.Property<string>("DimID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DimCrt")
                         .IsRequired()
@@ -137,6 +170,12 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.HasKey("DimID");
 
                     b.ToTable("DimInfoMsts");
@@ -149,6 +188,9 @@ namespace projectsem3_backend.Migrations
 
                     b.Property<string>("DimQlty_ID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DimID")
                         .IsRequired()
@@ -179,6 +221,12 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.HasKey("Style_Code", "DimQlty_ID");
 
                     b.HasIndex("DimID")
@@ -196,9 +244,18 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("DimQlty_ID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DimQlty")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
 
                     b.HasKey("DimQlty_ID");
 
@@ -210,9 +267,18 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("DimSubType_ID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DimQlty")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
 
                     b.HasKey("DimSubType_ID");
 
@@ -224,9 +290,18 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("GoldType_ID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Gold_Crt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
 
                     b.HasKey("GoldType_ID");
 
@@ -265,6 +340,9 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.HasKey("ID");
 
                     b.HasIndex("UserID");
@@ -288,6 +366,9 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("Certify_ID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("GoldType_ID")
                         .IsRequired()
@@ -351,6 +432,12 @@ namespace projectsem3_backend.Migrations
                     b.Property<decimal>("Tot_Making")
                         .HasColumnType("decimal(10, 2)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Wstg")
                         .HasColumnType("decimal(10, 2)");
 
@@ -379,9 +466,18 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Jewellery_Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 
@@ -448,6 +544,9 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.HasKey("Order_ID");
 
                     b.HasIndex("UserID");
@@ -460,9 +559,18 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("Prod_ID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Prod_Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
 
                     b.HasKey("Prod_ID");
 
@@ -476,6 +584,9 @@ namespace projectsem3_backend.Migrations
 
                     b.Property<string>("StoneQlty_ID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Stone_Amt")
                         .HasColumnType("decimal(10,2)");
@@ -492,6 +603,12 @@ namespace projectsem3_backend.Migrations
                     b.Property<decimal>("Stone_Rate")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
+
                     b.HasKey("Style_Code", "StoneQlty_ID");
 
                     b.HasIndex("StoneQlty_ID");
@@ -504,9 +621,18 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("StoneQlty_ID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("StoneQlty")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit");
 
                     b.HasKey("StoneQlty_ID");
 
@@ -530,6 +656,9 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DOB")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -549,6 +678,9 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserFname")
                         .IsRequired()

@@ -28,6 +28,8 @@ namespace projectsem3_backend.Models
         [Required]
         public DateTime Cdate { get; set; }
 
+        public bool Visible { get; set; }
+
         // Navigation property
         public UserRegMst? UserRegMst { get; set; }
     }

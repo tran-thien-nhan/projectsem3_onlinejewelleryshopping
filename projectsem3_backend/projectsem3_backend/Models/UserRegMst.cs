@@ -39,6 +39,9 @@ namespace projectsem3_backend.Models
 
         public string? UserImagePath { get; set; }
 
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+
         public ICollection<CartList> CartLists { get; set; }
         public ICollection<OrderMst> OrderMsts { get; set; }
         public ICollection<Inquiry> Inquiries { get; set; }
