@@ -2,5 +2,6 @@
 {
     public interface IVisibleEntity
     {
+        bool Visible { get; set; }
     }
 }
