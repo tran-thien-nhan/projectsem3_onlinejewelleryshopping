@@ -41,9 +41,9 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseCors("AllowAllOrigins");
+
+app.UseAuthorization();
 
 app.MapControllers();
 
