@@ -18,7 +18,7 @@ namespace projectsem3_backend.Helper
             if (entity != null)
             {
                 entity.Visible = !entity.Visible;
-                db.Set<T>().Update(entity);
+                //db.Set<T>().Update(entity);
                 await db.SaveChangesAsync();
             }
 
