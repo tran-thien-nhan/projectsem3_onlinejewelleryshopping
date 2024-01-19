@@ -3382,11 +3382,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\judyh\\Desktop\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
+      "projectUniqueName": "C:\\Users\\judyh\\Desktop\\các projects\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
       "projectName": "projectsem3_backend",
-      "projectPath": "C:\\Users\\judyh\\Desktop\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
+      "projectPath": "C:\\Users\\judyh\\Desktop\\các projects\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
       "packagesPath": "C:\\Users\\judyh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\judyh\\Desktop\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\obj\\",
+      "outputPath": "C:\\Users\\judyh\\Desktop\\các projects\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\judyh\\AppData\\Roaming\\NuGet\\NuGet.Config",

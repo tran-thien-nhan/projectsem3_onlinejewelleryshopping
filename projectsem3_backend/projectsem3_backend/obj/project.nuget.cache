@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hNjOSWNFjgRALGMzNoWr7qjmN5xJ/+yLAo4whEFTva0ShhIUfnaMF//qzQzJTJZbkU5TO3Ul1HE4lY5BYzUlJw==",
+  "dgSpecHash": "y3doki9D9U1yyDsjLFWJw39p29nv+RbPOnVxn7z4XXh3nNcrbE1R405zGEBEANzZ6CmexckgmQRh+3/5KAvVyw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\judyh\\Desktop\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
+  "projectFilePath": "C:\\Users\\judyh\\Desktop\\các projects\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\judyh\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
