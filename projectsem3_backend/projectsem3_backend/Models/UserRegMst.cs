@@ -37,8 +37,6 @@ namespace projectsem3_backend.Models
         [Required]
         public string Password { get; set; }
 
-        public string? UserImagePath { get; set; }
-
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

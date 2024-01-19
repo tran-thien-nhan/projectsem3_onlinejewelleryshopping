@@ -12,7 +12,7 @@ using projectsem3_backend.data;
 namespace projectsem3_backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240118063139_InitialCreate")]
+    [Migration("20240119064413_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -45,6 +45,22 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("UserName");
 
                     b.ToTable("AdminLoginMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            UserName = "admin1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(713),
+                            Password = "123",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(725)
+                        },
+                        new
+                        {
+                            UserName = "admin2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(726),
+                            Password = "123",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(727)
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.BrandMst", b =>
@@ -68,6 +84,32 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("Brand_ID");
 
                     b.ToTable("BrandMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            Brand_ID = "1",
+                            Brand_Type = "Asmi",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8292),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8297),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Brand_ID = "2",
+                            Brand_Type = "D’damas",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8299),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8299),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Brand_ID = "3",
+                            Brand_Type = "ABC Jewelers",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8301),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8302),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.CartList", b =>
@@ -81,6 +123,9 @@ namespace projectsem3_backend.Migrations
                     b.Property<string>("Product_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Style_Code")
                         .IsRequired()
@@ -97,6 +142,35 @@ namespace projectsem3_backend.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("CartLists");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = "1",
+                            MRP = 1000m,
+                            Product_Name = "Product 1",
+                            Quantity = 1,
+                            Style_Code = "1",
+                            UserID = "1"
+                        },
+                        new
+                        {
+                            ID = "2",
+                            MRP = 2000m,
+                            Product_Name = "Product 2",
+                            Quantity = 1,
+                            Style_Code = "2",
+                            UserID = "2"
+                        },
+                        new
+                        {
+                            ID = "3",
+                            MRP = 1500m,
+                            Product_Name = "Product 3",
+                            Quantity = 1,
+                            Style_Code = "3",
+                            UserID = "3"
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.CatMst", b =>
@@ -120,6 +194,32 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("Cat_ID");
 
                     b.ToTable("CatMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            Cat_ID = "1",
+                            Cat_Name = "Silver Jewelry",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8942),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8944),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Cat_ID = "2",
+                            Cat_Name = "Gold Jewelry",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8947),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8947),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Cat_ID = "3",
+                            Cat_Name = "Diamond Jewelry",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8958),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8959),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.CertifyMst", b =>
@@ -143,6 +243,32 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("Certify_ID");
 
                     b.ToTable("CertifyMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            Certify_ID = "1",
+                            Certify_Type = "BIS Hallmark",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9414),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9416),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Certify_ID = "2",
+                            Certify_Type = "IGI",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9418),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9418),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Certify_ID = "3",
+                            Certify_Type = "GIA",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9420),
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9420),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.DimInfoMst", b =>
@@ -158,7 +284,6 @@ namespace projectsem3_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DimImg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DimPrice")
@@ -182,6 +307,44 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("DimID");
 
                     b.ToTable("DimInfoMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            DimID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6798),
+                            DimCrt = "1",
+                            DimImg = "",
+                            DimPrice = "1000",
+                            DimSubType = "Premium",
+                            DimType = "Diamond",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6810),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6813),
+                            DimCrt = "2",
+                            DimImg = "",
+                            DimPrice = "2000",
+                            DimSubType = "Standard",
+                            DimType = "Diamond",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6814),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6816),
+                            DimCrt = "3",
+                            DimImg = "",
+                            DimPrice = "1500",
+                            DimSubType = "Economy",
+                            DimType = "Diamond",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6817),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.DimMst", b =>
@@ -221,9 +384,6 @@ namespace projectsem3_backend.Migrations
                     b.Property<decimal>("Dim_Size")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -240,6 +400,56 @@ namespace projectsem3_backend.Migrations
                     b.HasIndex("DimSubType_ID");
 
                     b.ToTable("DimMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            Style_Code = "1",
+                            DimQlty_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5128),
+                            DimID = "1",
+                            DimSubType_ID = "1",
+                            Dim_Amt = 1000m,
+                            Dim_Crt = 1m,
+                            Dim_Gm = 1m,
+                            Dim_Pcs = 1m,
+                            Dim_Rate = 1000m,
+                            Dim_Size = 1m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5138),
+                            Visible = false
+                        },
+                        new
+                        {
+                            Style_Code = "2",
+                            DimQlty_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5143),
+                            DimID = "2",
+                            DimSubType_ID = "2",
+                            Dim_Amt = 2000m,
+                            Dim_Crt = 2m,
+                            Dim_Gm = 2m,
+                            Dim_Pcs = 2m,
+                            Dim_Rate = 2000m,
+                            Dim_Size = 2m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5143),
+                            Visible = false
+                        },
+                        new
+                        {
+                            Style_Code = "3",
+                            DimQlty_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5148),
+                            DimID = "3",
+                            DimSubType_ID = "3",
+                            Dim_Amt = 1500m,
+                            Dim_Crt = 3m,
+                            Dim_Gm = 3m,
+                            Dim_Pcs = 3m,
+                            Dim_Rate = 1500m,
+                            Dim_Size = 3m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5148),
+                            Visible = false
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.DimQltyMst", b =>
@@ -263,6 +473,48 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("DimQlty_ID");
 
                     b.ToTable("DimQltyMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            DimQlty_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5803),
+                            DimQlty = "AD",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5805),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimQlty_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5808),
+                            DimQlty = "VS",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5809),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimQlty_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5810),
+                            DimQlty = "SI",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5811),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimQlty_ID = "4",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5812),
+                            DimQlty = "FD",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5813),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimQlty_ID = "5",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5814),
+                            DimQlty = "WS",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5815),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.DimQltySubMst", b =>
@@ -286,6 +538,32 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("DimSubType_ID");
 
                     b.ToTable("DimQltySubMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            DimSubType_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9561),
+                            DimQlty = "Premium",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9565),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimSubType_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9568),
+                            DimQlty = "Standard",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9569),
+                            Visible = true
+                        },
+                        new
+                        {
+                            DimSubType_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9570),
+                            DimQlty = "Economy",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9571),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.GoldKrtMst", b =>
@@ -309,6 +587,32 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("GoldType_ID");
 
                     b.ToTable("GoldKrtMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            GoldType_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9887),
+                            Gold_Crt = "18K",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9889),
+                            Visible = true
+                        },
+                        new
+                        {
+                            GoldType_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9891),
+                            Gold_Crt = "22K",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9892),
+                            Visible = true
+                        },
+                        new
+                        {
+                            GoldType_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9893),
+                            Gold_Crt = "24K",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9894),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.Inquiry", b =>
@@ -351,6 +655,44 @@ namespace projectsem3_backend.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Inquiries");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = "1",
+                            Cdate = new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5107),
+                            City = "HCM",
+                            Comment = "Test 1",
+                            Contact = "0123456789",
+                            EmailID = "user1@gmail.com",
+                            Name = "User 1",
+                            UserID = "1",
+                            Visible = true
+                        },
+                        new
+                        {
+                            ID = "2",
+                            Cdate = new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5112),
+                            City = "HCM",
+                            Comment = "Test 2",
+                            Contact = "0987654321",
+                            EmailID = "user2@gmail.com",
+                            Name = "User 2",
+                            UserID = "2",
+                            Visible = true
+                        },
+                        new
+                        {
+                            ID = "3",
+                            Cdate = new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5114),
+                            City = "HCM",
+                            Comment = "Test 3",
+                            Contact = "0135792468",
+                            EmailID = "user3@gmail.com",
+                            Name = "User 3",
+                            UserID = "3",
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.ItemMst", b =>
@@ -462,6 +804,101 @@ namespace projectsem3_backend.Migrations
                     b.HasIndex("Prod_ID");
 
                     b.ToTable("ItemMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            Style_Code = "1",
+                            Brand_ID = "1",
+                            Cat_ID = "1",
+                            Certify_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4801),
+                            GoldType_ID = "1",
+                            Gold_Amt = 1000m,
+                            Gold_Making = 1000m,
+                            Gold_Rate = 1000m,
+                            Gold_Wt = 1m,
+                            ImagePath = "",
+                            Jewellery_ID = "1",
+                            MRP = 1000m,
+                            Net_Gold = 1m,
+                            Other_Making = 1000m,
+                            Pairs = 1,
+                            Prod_ID = "1",
+                            Prod_Quality = "Premium",
+                            Product_Name = "Product 1",
+                            Quantity = 1,
+                            Stone_Making = 1000m,
+                            Stone_Wt = 1m,
+                            Tot_Gross_Wt = 1m,
+                            Tot_Making = 1000m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4814),
+                            Visible = true,
+                            Wstg = 1m,
+                            Wstg_Per = 1m
+                        },
+                        new
+                        {
+                            Style_Code = "2",
+                            Brand_ID = "2",
+                            Cat_ID = "2",
+                            Certify_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4821),
+                            GoldType_ID = "2",
+                            Gold_Amt = 2000m,
+                            Gold_Making = 2000m,
+                            Gold_Rate = 2000m,
+                            Gold_Wt = 2m,
+                            ImagePath = "",
+                            Jewellery_ID = "2",
+                            MRP = 2000m,
+                            Net_Gold = 2m,
+                            Other_Making = 2000m,
+                            Pairs = 2,
+                            Prod_ID = "2",
+                            Prod_Quality = "Standard",
+                            Product_Name = "Product 2",
+                            Quantity = 2,
+                            Stone_Making = 2000m,
+                            Stone_Wt = 2m,
+                            Tot_Gross_Wt = 2m,
+                            Tot_Making = 2000m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4822),
+                            Visible = true,
+                            Wstg = 2m,
+                            Wstg_Per = 2m
+                        },
+                        new
+                        {
+                            Style_Code = "3",
+                            Brand_ID = "3",
+                            Cat_ID = "3",
+                            Certify_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4827),
+                            GoldType_ID = "3",
+                            Gold_Amt = 1500m,
+                            Gold_Making = 1500m,
+                            Gold_Rate = 1500m,
+                            Gold_Wt = 3m,
+                            ImagePath = "",
+                            Jewellery_ID = "3",
+                            MRP = 1500m,
+                            Net_Gold = 3m,
+                            Other_Making = 1500m,
+                            Pairs = 3,
+                            Prod_ID = "3",
+                            Prod_Quality = "Economy",
+                            Product_Name = "Product 3",
+                            Quantity = 3,
+                            Stone_Making = 1500m,
+                            Stone_Wt = 3m,
+                            Tot_Gross_Wt = 3m,
+                            Tot_Making = 1500m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4828),
+                            Visible = true,
+                            Wstg = 3m,
+                            Wstg_Per = 3m
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.JewelTypeMst", b =>
@@ -485,6 +922,40 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("JewelTypeMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(803),
+                            Jewellery_Type = "Ring",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(804),
+                            Visible = true
+                        },
+                        new
+                        {
+                            ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(806),
+                            Jewellery_Type = "Earring",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(807),
+                            Visible = true
+                        },
+                        new
+                        {
+                            ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(809),
+                            Jewellery_Type = "Necklace",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(809),
+                            Visible = true
+                        },
+                        new
+                        {
+                            ID = "4",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(811),
+                            Jewellery_Type = "Bracelet",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(811),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.OrderDetailMst", b =>
@@ -578,6 +1049,40 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("Prod_ID");
 
                     b.ToTable("ProdMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            Prod_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(358),
+                            Prod_Type = "Gold Ring",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(360),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Prod_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(362),
+                            Prod_Type = "Diamond Earring",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(363),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Prod_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(365),
+                            Prod_Type = "Silver Necklace",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(366),
+                            Visible = true
+                        },
+                        new
+                        {
+                            Prod_ID = "4",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(367),
+                            Prod_Type = "Silver Ring",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(368),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.StoneMst", b =>
@@ -617,6 +1122,47 @@ namespace projectsem3_backend.Migrations
                     b.HasIndex("StoneQlty_ID");
 
                     b.ToTable("StoneMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            Style_Code = "1",
+                            StoneQlty_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2462),
+                            Stone_Amt = 1000m,
+                            Stone_Crt = 1m,
+                            Stone_Gm = 1m,
+                            Stone_Pcs = 1m,
+                            Stone_Rate = 1000m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2474),
+                            Visible = false
+                        },
+                        new
+                        {
+                            Style_Code = "2",
+                            StoneQlty_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2477),
+                            Stone_Amt = 2000m,
+                            Stone_Crt = 2m,
+                            Stone_Gm = 2m,
+                            Stone_Pcs = 2m,
+                            Stone_Rate = 2000m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2478),
+                            Visible = false
+                        },
+                        new
+                        {
+                            Style_Code = "3",
+                            StoneQlty_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2480),
+                            Stone_Amt = 1500m,
+                            Stone_Crt = 3m,
+                            Stone_Gm = 3m,
+                            Stone_Pcs = 3m,
+                            Stone_Rate = 1500m,
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2481),
+                            Visible = false
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.StoneQltyMst", b =>
@@ -640,6 +1186,32 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("StoneQlty_ID");
 
                     b.ToTable("StoneQltyMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            StoneQlty_ID = "1",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2996),
+                            StoneQlty = "Ruby",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2999),
+                            Visible = true
+                        },
+                        new
+                        {
+                            StoneQlty_ID = "2",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3003),
+                            StoneQlty = "Meena",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3004),
+                            Visible = true
+                        },
+                        new
+                        {
+                            StoneQlty_ID = "3",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3005),
+                            StoneQlty = "Sapphire",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3006),
+                            Visible = true
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.UserRegMst", b =>
@@ -689,9 +1261,6 @@ namespace projectsem3_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserLname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -699,6 +1268,56 @@ namespace projectsem3_backend.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("UserRegMsts");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = "1",
+                            Address = "HCM",
+                            CDate = "01/01/2000",
+                            City = "HCM",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5715),
+                            DOB = "01/01/2000",
+                            EmailID = "user1@gmail.com",
+                            MobNo = "0123456789",
+                            Password = "123",
+                            State = "HCM",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5726),
+                            UserFname = "User",
+                            UserLname = "1"
+                        },
+                        new
+                        {
+                            UserID = "2",
+                            Address = "HCM",
+                            CDate = "01/01/2000",
+                            City = "HCM",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5730),
+                            DOB = "01/01/2000",
+                            EmailID = "user2@gmail.com",
+                            MobNo = "0123456789",
+                            Password = "123",
+                            State = "HCM",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5731),
+                            UserFname = "User",
+                            UserLname = "2"
+                        },
+                        new
+                        {
+                            UserID = "3",
+                            Address = "HCM",
+                            CDate = "01/01/2000",
+                            City = "HCM",
+                            CreatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5734),
+                            DOB = "01/01/2000",
+                            EmailID = "user3@gmail.com",
+                            MobNo = "0123456789",
+                            Password = "123",
+                            State = "HCM",
+                            UpdatedAt = new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5735),
+                            UserFname = "User",
+                            UserLname = "3"
+                        });
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.CartList", b =>

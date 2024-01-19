@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using projectsem3_backend.data;
+using projectsem3_backend.Repository;
+using projectsem3_backend.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<DatabaseContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection"))
 );
+
+builder.Services.AddScoped<IItemMstRepo, ItemMstRepo>();
 
 var app = builder.Build();
 

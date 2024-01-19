@@ -15,6 +15,8 @@ namespace projectsem3_backend.Models
         [Required]
         public string Product_Name { get; set; }
 
+        public int Quantity { get; set; }
+
         [Column(TypeName = "decimal(10, 2)")]
         [Required]
         public decimal MRP { get; set; }

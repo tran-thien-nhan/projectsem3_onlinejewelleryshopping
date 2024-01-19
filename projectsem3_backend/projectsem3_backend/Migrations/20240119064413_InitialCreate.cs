@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace projectsem3_backend.Migrations
 {
     /// <inheritdoc />
@@ -79,7 +81,7 @@ namespace projectsem3_backend.Migrations
                     DimSubType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DimCrt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DimPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DimImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DimImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Visible = table.Column<bool>(type: "bit", nullable: false)
@@ -194,7 +196,6 @@ namespace projectsem3_backend.Migrations
                     DOB = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -334,6 +335,7 @@ namespace projectsem3_backend.Migrations
                     UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Product_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     MRP = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
                 },
                 constraints: table =>
@@ -367,7 +369,6 @@ namespace projectsem3_backend.Migrations
                     Dim_Size = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Dim_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Dim_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Visible = table.Column<bool>(type: "bit", nullable: false)
@@ -461,6 +462,179 @@ namespace projectsem3_backend.Migrations
                         principalTable: "OrderMsts",
                         principalColumn: "Order_ID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AdminLoginMsts",
+                columns: new[] { "UserName", "CreatedAt", "Password", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { "admin1", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(713), "123", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(725) },
+                    { "admin2", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(726), "123", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(727) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BrandMsts",
+                columns: new[] { "Brand_ID", "Brand_Type", "CreatedAt", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", "Asmi", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8292), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8297), true },
+                    { "2", "D’damas", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8299), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8299), true },
+                    { "3", "ABC Jewelers", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8301), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8302), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CatMsts",
+                columns: new[] { "Cat_ID", "Cat_Name", "CreatedAt", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", "Silver Jewelry", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8942), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8944), true },
+                    { "2", "Gold Jewelry", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8947), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8947), true },
+                    { "3", "Diamond Jewelry", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8958), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8959), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CertifyMsts",
+                columns: new[] { "Certify_ID", "Certify_Type", "CreatedAt", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", "BIS Hallmark", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9414), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9416), true },
+                    { "2", "IGI", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9418), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9418), true },
+                    { "3", "GIA", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9420), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9420), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DimInfoMsts",
+                columns: new[] { "DimID", "CreatedAt", "DimCrt", "DimImg", "DimPrice", "DimSubType", "DimType", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6798), "1", "", "1000", "Premium", "Diamond", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6810), true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6813), "2", "", "2000", "Standard", "Diamond", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6814), true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6816), "3", "", "1500", "Economy", "Diamond", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6817), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DimQltyMsts",
+                columns: new[] { "DimQlty_ID", "CreatedAt", "DimQlty", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5803), "AD", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5805), true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5808), "VS", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5809), true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5810), "SI", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5811), true },
+                    { "4", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5812), "FD", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5813), true },
+                    { "5", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5814), "WS", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5815), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DimQltySubMsts",
+                columns: new[] { "DimSubType_ID", "CreatedAt", "DimQlty", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9561), "Premium", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9565), true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9568), "Standard", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9569), true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9570), "Economy", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9571), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GoldKrtMsts",
+                columns: new[] { "GoldType_ID", "CreatedAt", "Gold_Crt", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9887), "18K", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9889), true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9891), "22K", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9892), true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9893), "24K", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9894), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JewelTypeMsts",
+                columns: new[] { "ID", "CreatedAt", "Jewellery_Type", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(803), "Ring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(804), true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(806), "Earring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(807), true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(809), "Necklace", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(809), true },
+                    { "4", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(811), "Bracelet", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(811), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProdMsts",
+                columns: new[] { "Prod_ID", "CreatedAt", "Prod_Type", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(358), "Gold Ring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(360), true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(362), "Diamond Earring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(363), true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(365), "Silver Necklace", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(366), true },
+                    { "4", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(367), "Silver Ring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(368), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StoneQltyMsts",
+                columns: new[] { "StoneQlty_ID", "CreatedAt", "StoneQlty", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2996), "Ruby", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2999), true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3003), "Meena", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3004), true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3005), "Sapphire", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3006), true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserRegMsts",
+                columns: new[] { "UserID", "Address", "CDate", "City", "CreatedAt", "DOB", "EmailID", "MobNo", "Password", "State", "UpdatedAt", "UserFname", "UserLname" },
+                values: new object[,]
+                {
+                    { "1", "HCM", "01/01/2000", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5715), "01/01/2000", "user1@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5726), "User", "1" },
+                    { "2", "HCM", "01/01/2000", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5730), "01/01/2000", "user2@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5731), "User", "2" },
+                    { "3", "HCM", "01/01/2000", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5734), "01/01/2000", "user3@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5735), "User", "3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Inquiries",
+                columns: new[] { "ID", "Cdate", "City", "Comment", "Contact", "EmailID", "Name", "UserID", "Visible" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5107), "HCM", "Test 1", "0123456789", "user1@gmail.com", "User 1", "1", true },
+                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5112), "HCM", "Test 2", "0987654321", "user2@gmail.com", "User 2", "2", true },
+                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5114), "HCM", "Test 3", "0135792468", "user3@gmail.com", "User 3", "3", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ItemMsts",
+                columns: new[] { "Style_Code", "Brand_ID", "Cat_ID", "Certify_ID", "CreatedAt", "GoldType_ID", "Gold_Amt", "Gold_Making", "Gold_Rate", "Gold_Wt", "ImagePath", "Jewellery_ID", "MRP", "Net_Gold", "Other_Making", "Pairs", "Prod_ID", "Prod_Quality", "Product_Name", "Quantity", "Stone_Making", "Stone_Wt", "Tot_Gross_Wt", "Tot_Making", "UpdatedAt", "Visible", "Wstg", "Wstg_Per" },
+                values: new object[,]
+                {
+                    { "1", "1", "1", "1", new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4801), "1", 1000m, 1000m, 1000m, 1m, "", "1", 1000m, 1m, 1000m, 1, "1", "Premium", "Product 1", 1, 1000m, 1m, 1m, 1000m, new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4814), true, 1m, 1m },
+                    { "2", "2", "2", "2", new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4821), "2", 2000m, 2000m, 2000m, 2m, "", "2", 2000m, 2m, 2000m, 2, "2", "Standard", "Product 2", 2, 2000m, 2m, 2m, 2000m, new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4822), true, 2m, 2m },
+                    { "3", "3", "3", "3", new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4827), "3", 1500m, 1500m, 1500m, 3m, "", "3", 1500m, 3m, 1500m, 3, "3", "Economy", "Product 3", 3, 1500m, 3m, 3m, 1500m, new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4828), true, 3m, 3m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CartLists",
+                columns: new[] { "ID", "MRP", "Product_Name", "Quantity", "Style_Code", "UserID" },
+                values: new object[,]
+                {
+                    { "1", 1000m, "Product 1", 1, "1", "1" },
+                    { "2", 2000m, "Product 2", 1, "2", "2" },
+                    { "3", 1500m, "Product 3", 1, "3", "3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DimMsts",
+                columns: new[] { "DimQlty_ID", "Style_Code", "CreatedAt", "DimID", "DimSubType_ID", "Dim_Amt", "Dim_Crt", "Dim_Gm", "Dim_Pcs", "Dim_Rate", "Dim_Size", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", "1", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5128), "1", "1", 1000m, 1m, 1m, 1m, 1000m, 1m, new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5138), false },
+                    { "2", "2", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5143), "2", "2", 2000m, 2m, 2m, 2m, 2000m, 2m, new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5143), false },
+                    { "3", "3", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5148), "3", "3", 1500m, 3m, 3m, 3m, 1500m, 3m, new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5148), false }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StoneMsts",
+                columns: new[] { "StoneQlty_ID", "Style_Code", "CreatedAt", "Stone_Amt", "Stone_Crt", "Stone_Gm", "Stone_Pcs", "Stone_Rate", "UpdatedAt", "Visible" },
+                values: new object[,]
+                {
+                    { "1", "1", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2462), 1000m, 1m, 1m, 1m, 1000m, new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2474), false },
+                    { "2", "2", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2477), 2000m, 2m, 2m, 2m, 2000m, new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2478), false },
+                    { "3", "3", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2480), 1500m, 3m, 3m, 3m, 1500m, new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2481), false }
                 });
 
             migrationBuilder.CreateIndex(

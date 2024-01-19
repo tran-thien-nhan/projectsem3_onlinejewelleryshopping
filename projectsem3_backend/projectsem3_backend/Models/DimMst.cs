@@ -41,8 +41,6 @@ namespace projectsem3_backend.Models
         [Required]
         public decimal Dim_Amt { get; set; }
 
-        public string? ImagePath { get; set; }
-
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

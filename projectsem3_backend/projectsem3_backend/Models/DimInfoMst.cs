@@ -19,8 +19,7 @@ namespace projectsem3_backend.Models
         [Required]
         public string DimPrice { get; set; }
 
-        [Required]
-        public string DimImg { get; set; }
+        public string? DimImg { get; set; }
 
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
