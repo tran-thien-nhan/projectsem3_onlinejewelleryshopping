@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { useItem } from "../../Context/ItemContext";
 import "../../asset/css/itemlist.css";
 
-function Index() {
+function ItemList() {
   const { items, loading, error } = useItem();
-
   return (
     <div className="container-fluid my-2">
       {loading ? (
@@ -35,11 +34,6 @@ function Index() {
                         />
                         <div className="card-body">
                           <h5 className="card-title">{item.product_Name}</h5>
-                          <p className="card-text">Pairs: {item.pairs}</p>
-                          <p className="card-text">
-                            Quality: {item.prod_Quality}
-                          </p>
-                          <p className="card-text">MRP: {item.mrp}</p>
                         </div>
                       </div>
                     </Link>
@@ -56,4 +50,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default ItemList;

@@ -1,0 +1,8 @@
+.custom-card {
+    transition: filter 0.3s ease-in-out;
+  }
+  
+  .custom-card:hover {
+    filter: brightness(80%);
+  }
+  
