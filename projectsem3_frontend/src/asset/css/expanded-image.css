@@ -1,0 +1,47 @@
+/* Các lớp không thay đổi */
+.expanded-image {
+  width: 40%;
+  height: 90%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.5s;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .expanded-image {
+    width: 90%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+}
+
+.expanded-image.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  cursor: pointer;
+}
+
+.expanded-image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+.expanded-image-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
