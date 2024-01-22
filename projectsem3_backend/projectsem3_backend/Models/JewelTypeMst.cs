@@ -8,12 +8,12 @@ namespace projectsem3_backend.Models
         public string ID { get; set; }
 
         [Required]
-        public string Jewellery_Type { get; set; }
+        public string? Jewellery_Type { get; set; }
 
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public bool Visible { get; set; }
+        public bool? Visible { get; set; }
 
         public ICollection<ItemMst>? ItemMsts { get; set; }
     }

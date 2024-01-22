@@ -120,8 +120,8 @@ namespace projectsem3_backend.data
                         State = "HCM",
                         MobNo = "0123456789",
                         EmailID = "user1@gmail.com",
-                        DOB = "01/01/2000",
-                        CDate = "01/01/2000",
+                        DOB = DateTime.Now,
+                        CDate = DateTime.Now,
                         Password = "123",
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
@@ -136,8 +136,8 @@ namespace projectsem3_backend.data
                         State = "HCM",
                         MobNo = "0123456789",
                         EmailID = "user2@gmail.com",
-                        DOB = "01/01/2000",
-                        CDate = "01/01/2000",
+                        DOB = DateTime.Now,
+                        CDate = DateTime.Now,
                         Password = "123",
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
@@ -152,8 +152,8 @@ namespace projectsem3_backend.data
                         State = "HCM",
                         MobNo = "0123456789",
                         EmailID = "user3@gmail.com",
-                        DOB = "01/01/2000",
-                        CDate = "01/01/2000",
+                        DOB = DateTime.Now,
+                        CDate = DateTime.Now,
                         Password = "123",
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now

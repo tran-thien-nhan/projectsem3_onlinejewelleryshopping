@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useItem } from "../../Context/ItemContext";
+import { useData } from "../../Context/DataContext";
 import "../../asset/css/itemlist.css";
 import HeroSection from "./Layout/HeroSection";
 
 function ItemList() {
-  const { items, loading, error } = useItem();
+  const { items, loading, error } = useData();
   return (
     <div className="container-fluid my-2">
       {loading ? (
@@ -20,7 +20,7 @@ function ItemList() {
               <div className="row">
                 {Array.isArray(items) && items.length > 0 ? (
                   items.map((item) => (
-                    <div key={item.prod_ID} className="col-md-4 mb-3">
+                    <div key={item.prod_ID} className="col-md-3 mb-3">
                       <Link
                         to={`/item/${item.style_Code}`}
                         className="card-link"
@@ -34,6 +34,8 @@ function ItemList() {
                             }
                             className="card-img-top"
                             alt={item.product_Name}
+                            height={400}
+                            width={300}
                           />
                           <div className="card-body">
                             <h5 className="card-title">{item.product_Name}</h5>

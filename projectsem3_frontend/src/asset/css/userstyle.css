@@ -40,6 +40,7 @@ a.more {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 .custom-navbar .navbar-brand {
   font-size: 32px;
   font-weight: 600;
@@ -118,6 +119,14 @@ a.more {
 }
 .custom-navbar .custom-navbar-cta li:first-child {
   margin-right: 20px;
+}
+
+.dropdown-menu{
+  background-color: #3b5d50 !important;
+}
+
+.dropdown-menu :hover{
+  background-color: #3b5d50 !important;
 }
 
 .hero {

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useItem } from "../../Context/ItemContext";
+import { Navigate, useParams } from "react-router-dom";
+import { useData } from "../../Context/DataContext";
 import "../../asset/css/expanded-image.css";
 
 function ItemDetail() {
   const { styleCode } = useParams();
-  const { items, loading, error } = useItem();
+  const { items, loading, error } = useData();
   const [quantity, setQuantity] = useState(1);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
   const [isOverlayActive, setIsOverlayActive] = useState(false);

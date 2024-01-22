@@ -6,21 +6,21 @@ namespace projectsem3_backend.Models
     public class OrderMst
     {
         [Key]
-        public string Order_ID { get; set; }
+        public string? Order_ID { get; set; }
 
-        public string UserID { get; set; }
+        public string? UserID { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal TotalPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
 
-        public string Order_Address { get; set; }
+        public string? Order_Address { get; set; }
 
-        public string Order_Note { get; set; }
-        public int OrderStatus { get; set; }
+        public string? Order_Note { get; set; }
+        public int? OrderStatus { get; set; }
 
         public DateTime? OrderDate { get; set; }
 
-        public bool Visible { get; set; }
+        public bool? Visible { get; set; }
 
         // Navigation property
         public UserRegMst? UserRegMst { get; set; }

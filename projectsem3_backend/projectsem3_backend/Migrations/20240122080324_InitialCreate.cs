@@ -17,8 +17,8 @@ namespace projectsem3_backend.Migrations
                 name: "AdminLoginMsts",
                 columns: table => new
                 {
-                    UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -32,10 +32,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     Brand_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Brand_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Brand_Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -50,7 +50,7 @@ namespace projectsem3_backend.Migrations
                     Cat_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,7 +65,7 @@ namespace projectsem3_backend.Migrations
                     Certify_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -78,9 +78,9 @@ namespace projectsem3_backend.Migrations
                 {
                     DimID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DimType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DimSubType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DimCrt = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DimPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DimSubType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DimCrt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DimPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DimImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -96,10 +96,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     DimQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -111,10 +111,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     DimSubType_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DimQlty = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -126,10 +126,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     GoldType_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Gold_Crt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gold_Crt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -144,7 +144,7 @@ namespace projectsem3_backend.Migrations
                     Jewellery_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -156,10 +156,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     Prod_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Prod_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Prod_Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -171,10 +171,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     StoneQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StoneQlty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StoneQlty = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -186,15 +186,15 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserFname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserLname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MobNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DOB = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserFname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserLname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MobNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DOB = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -209,29 +209,29 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Product_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pairs = table.Column<int>(type: "int", nullable: false),
-                    Brand_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Cat_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Prod_Quality = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Certify_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Prod_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    GoldType_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Jewellery_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Gold_Wt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Wt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Net_Gold = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Wstg_Per = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Wstg = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Tot_Gross_Wt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Gold_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Gold_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Gold_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Other_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Tot_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    MRP = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Product_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Pairs = table.Column<int>(type: "int", nullable: true),
+                    Brand_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    Cat_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Prod_Quality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Certify_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Prod_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    GoldType_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Jewellery_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Gold_Wt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Stone_Wt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Net_Gold = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Wstg_Per = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Wstg = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Tot_Gross_Wt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Gold_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Gold_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Gold_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Stone_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Other_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Tot_Making = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    MRP = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -244,38 +244,32 @@ namespace projectsem3_backend.Migrations
                         name: "FK_ItemMsts_BrandMsts_Brand_ID",
                         column: x => x.Brand_ID,
                         principalTable: "BrandMsts",
-                        principalColumn: "Brand_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Brand_ID");
                     table.ForeignKey(
                         name: "FK_ItemMsts_CatMsts_Cat_ID",
                         column: x => x.Cat_ID,
                         principalTable: "CatMsts",
-                        principalColumn: "Cat_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Cat_ID");
                     table.ForeignKey(
                         name: "FK_ItemMsts_CertifyMsts_Certify_ID",
                         column: x => x.Certify_ID,
                         principalTable: "CertifyMsts",
-                        principalColumn: "Certify_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Certify_ID");
                     table.ForeignKey(
                         name: "FK_ItemMsts_GoldKrtMsts_GoldType_ID",
                         column: x => x.GoldType_ID,
                         principalTable: "GoldKrtMsts",
-                        principalColumn: "GoldType_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "GoldType_ID");
                     table.ForeignKey(
                         name: "FK_ItemMsts_JewelTypeMsts_Jewellery_ID",
                         column: x => x.Jewellery_ID,
                         principalTable: "JewelTypeMsts",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_ItemMsts_ProdMsts_Prod_ID",
                         column: x => x.Prod_ID,
                         principalTable: "ProdMsts",
-                        principalColumn: "Prod_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Prod_ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -283,14 +277,14 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cdate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -299,8 +293,7 @@ namespace projectsem3_backend.Migrations
                         name: "FK_Inquiries_UserRegMsts_UserID",
                         column: x => x.UserID,
                         principalTable: "UserRegMsts",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UserID");
                 });
 
             migrationBuilder.CreateTable(
@@ -308,13 +301,13 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     Order_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Order_Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Order_Note = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderStatus = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Order_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Order_Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderStatus = table.Column<int>(type: "int", nullable: true),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -323,8 +316,7 @@ namespace projectsem3_backend.Migrations
                         name: "FK_OrderMsts_UserRegMsts_UserID",
                         column: x => x.UserID,
                         principalTable: "UserRegMsts",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UserID");
                 });
 
             migrationBuilder.CreateTable(
@@ -332,10 +324,10 @@ namespace projectsem3_backend.Migrations
                 columns: table => new
                 {
                     ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Product_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Product_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
                     MRP = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
                 },
                 constraints: table =>
@@ -345,14 +337,12 @@ namespace projectsem3_backend.Migrations
                         name: "FK_CartLists_ItemMsts_Style_Code",
                         column: x => x.Style_Code,
                         principalTable: "ItemMsts",
-                        principalColumn: "Style_Code",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Style_Code");
                     table.ForeignKey(
                         name: "FK_CartLists_UserRegMsts_UserID",
                         column: x => x.UserID,
                         principalTable: "UserRegMsts",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UserID");
                 });
 
             migrationBuilder.CreateTable(
@@ -361,17 +351,17 @@ namespace projectsem3_backend.Migrations
                 {
                     Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DimQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DimSubType_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DimID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Dim_Crt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Dim_Pcs = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Dim_Gm = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Dim_Size = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Dim_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Dim_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    DimSubType_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DimID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Dim_Crt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Dim_Pcs = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Dim_Gm = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Dim_Size = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Dim_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Dim_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -380,8 +370,7 @@ namespace projectsem3_backend.Migrations
                         name: "FK_DimMsts_DimInfoMsts_DimID",
                         column: x => x.DimID,
                         principalTable: "DimInfoMsts",
-                        principalColumn: "DimID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DimID");
                     table.ForeignKey(
                         name: "FK_DimMsts_DimQltyMsts_DimQlty_ID",
                         column: x => x.DimQlty_ID,
@@ -392,8 +381,7 @@ namespace projectsem3_backend.Migrations
                         name: "FK_DimMsts_DimQltySubMsts_DimSubType_ID",
                         column: x => x.DimSubType_ID,
                         principalTable: "DimQltySubMsts",
-                        principalColumn: "DimSubType_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DimSubType_ID");
                     table.ForeignKey(
                         name: "FK_DimMsts_ItemMsts_Style_Code",
                         column: x => x.Style_Code,
@@ -408,14 +396,14 @@ namespace projectsem3_backend.Migrations
                 {
                     Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     StoneQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Stone_Gm = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Pcs = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Crt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Stone_Gm = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Stone_Pcs = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Stone_Crt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Stone_Rate = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Stone_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Visible = table.Column<bool>(type: "bit", nullable: false)
+                    Visible = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -440,12 +428,12 @@ namespace projectsem3_backend.Migrations
                 {
                     Order_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Product_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Gold_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Stone_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Making_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Total_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
+                    Product_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    Gold_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Stone_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Making_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Total_Amt = table.Column<decimal>(type: "decimal(10,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -469,8 +457,8 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "UserName", "CreatedAt", "Password", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { "admin1", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(713), "123", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(725) },
-                    { "admin2", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(726), "123", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(727) }
+                    { "admin1", new DateTime(2024, 1, 22, 15, 3, 24, 302, DateTimeKind.Local).AddTicks(5511), "123", new DateTime(2024, 1, 22, 15, 3, 24, 302, DateTimeKind.Local).AddTicks(5529) },
+                    { "admin2", new DateTime(2024, 1, 22, 15, 3, 24, 302, DateTimeKind.Local).AddTicks(5532), "123", new DateTime(2024, 1, 22, 15, 3, 24, 302, DateTimeKind.Local).AddTicks(5533) }
                 });
 
             migrationBuilder.InsertData(
@@ -478,9 +466,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Brand_ID", "Brand_Type", "CreatedAt", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "Asmi", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8292), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8297), true },
-                    { "2", "D’damas", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8299), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8299), true },
-                    { "3", "ABC Jewelers", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8301), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8302), true }
+                    { "1", "Asmi", new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(1500), new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(1521), true },
+                    { "2", "D’damas", new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(1525), new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(1526), true },
+                    { "3", "ABC Jewelers", new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(1528), new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(1529), true }
                 });
 
             migrationBuilder.InsertData(
@@ -488,9 +476,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Cat_ID", "Cat_Name", "CreatedAt", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "Silver Jewelry", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8942), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8944), true },
-                    { "2", "Gold Jewelry", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8947), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8947), true },
-                    { "3", "Diamond Jewelry", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8958), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(8959), true }
+                    { "1", "Silver Jewelry", new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(7321), new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(7338), true },
+                    { "2", "Gold Jewelry", new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(7343), new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(7345), true },
+                    { "3", "Diamond Jewelry", new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(7349), new DateTime(2024, 1, 22, 15, 3, 24, 319, DateTimeKind.Local).AddTicks(7351), true }
                 });
 
             migrationBuilder.InsertData(
@@ -498,9 +486,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Certify_ID", "Certify_Type", "CreatedAt", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "BIS Hallmark", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9414), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9416), true },
-                    { "2", "IGI", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9418), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9418), true },
-                    { "3", "GIA", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9420), new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9420), true }
+                    { "1", "BIS Hallmark", new DateTime(2024, 1, 22, 15, 3, 24, 321, DateTimeKind.Local).AddTicks(3160), new DateTime(2024, 1, 22, 15, 3, 24, 321, DateTimeKind.Local).AddTicks(3184), true },
+                    { "2", "IGI", new DateTime(2024, 1, 22, 15, 3, 24, 321, DateTimeKind.Local).AddTicks(3189), new DateTime(2024, 1, 22, 15, 3, 24, 321, DateTimeKind.Local).AddTicks(3190), true },
+                    { "3", "GIA", new DateTime(2024, 1, 22, 15, 3, 24, 321, DateTimeKind.Local).AddTicks(3192), new DateTime(2024, 1, 22, 15, 3, 24, 321, DateTimeKind.Local).AddTicks(3193), true }
                 });
 
             migrationBuilder.InsertData(
@@ -508,9 +496,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "DimID", "CreatedAt", "DimCrt", "DimImg", "DimPrice", "DimSubType", "DimType", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6798), "1", "", "1000", "Premium", "Diamond", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6810), true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6813), "2", "", "2000", "Standard", "Diamond", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6814), true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6816), "3", "", "1500", "Economy", "Diamond", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(6817), true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 318, DateTimeKind.Local).AddTicks(2661), "1", "", "1000", "Premium", "Diamond", new DateTime(2024, 1, 22, 15, 3, 24, 318, DateTimeKind.Local).AddTicks(2671), true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 318, DateTimeKind.Local).AddTicks(2675), "2", "", "2000", "Standard", "Diamond", new DateTime(2024, 1, 22, 15, 3, 24, 318, DateTimeKind.Local).AddTicks(2676), true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 318, DateTimeKind.Local).AddTicks(2678), "3", "", "1500", "Economy", "Diamond", new DateTime(2024, 1, 22, 15, 3, 24, 318, DateTimeKind.Local).AddTicks(2678), true }
                 });
 
             migrationBuilder.InsertData(
@@ -518,11 +506,11 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "DimQlty_ID", "CreatedAt", "DimQlty", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5803), "AD", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5805), true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5808), "VS", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5809), true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5810), "SI", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5811), true },
-                    { "4", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5812), "FD", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5813), true },
-                    { "5", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5814), "WS", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5815), true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5671), "AD", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5677), true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5680), "VS", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5681), true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5683), "SI", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5684), true },
+                    { "4", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5685), "FD", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5686), true },
+                    { "5", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5688), "WS", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(5688), true }
                 });
 
             migrationBuilder.InsertData(
@@ -530,9 +518,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "DimSubType_ID", "CreatedAt", "DimQlty", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9561), "Premium", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9565), true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9568), "Standard", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9569), true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9570), "Economy", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(9571), true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 317, DateTimeKind.Local).AddTicks(348), "Premium", new DateTime(2024, 1, 22, 15, 3, 24, 317, DateTimeKind.Local).AddTicks(352), true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 317, DateTimeKind.Local).AddTicks(355), "Standard", new DateTime(2024, 1, 22, 15, 3, 24, 317, DateTimeKind.Local).AddTicks(356), true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 317, DateTimeKind.Local).AddTicks(357), "Economy", new DateTime(2024, 1, 22, 15, 3, 24, 317, DateTimeKind.Local).AddTicks(358), true }
                 });
 
             migrationBuilder.InsertData(
@@ -540,9 +528,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "GoldType_ID", "CreatedAt", "Gold_Crt", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9887), "18K", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9889), true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9891), "22K", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9892), true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9893), "24K", new DateTime(2024, 1, 19, 13, 44, 13, 86, DateTimeKind.Local).AddTicks(9894), true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(2607), "18K", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(2626), true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(2631), "22K", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(2632), true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(2634), "24K", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(2635), true }
                 });
 
             migrationBuilder.InsertData(
@@ -550,10 +538,10 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "ID", "CreatedAt", "Jewellery_Type", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(803), "Ring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(804), true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(806), "Earring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(807), true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(809), "Necklace", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(809), true },
-                    { "4", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(811), "Bracelet", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(811), true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(821), "Ring", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(826), true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(829), "Earring", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(830), true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(833), "Necklace", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(834), true },
+                    { "4", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(836), "Bracelet", new DateTime(2024, 1, 22, 15, 3, 24, 323, DateTimeKind.Local).AddTicks(837), true }
                 });
 
             migrationBuilder.InsertData(
@@ -561,10 +549,10 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Prod_ID", "CreatedAt", "Prod_Type", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(358), "Gold Ring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(360), true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(362), "Diamond Earring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(363), true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(365), "Silver Necklace", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(366), true },
-                    { "4", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(367), "Silver Ring", new DateTime(2024, 1, 19, 13, 44, 13, 87, DateTimeKind.Local).AddTicks(368), true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9613), "Gold Ring", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9633), true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9637), "Diamond Earring", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9638), true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9640), "Silver Necklace", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9641), true },
+                    { "4", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9643), "Silver Ring", new DateTime(2024, 1, 22, 15, 3, 24, 322, DateTimeKind.Local).AddTicks(9644), true }
                 });
 
             migrationBuilder.InsertData(
@@ -572,9 +560,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "StoneQlty_ID", "CreatedAt", "StoneQlty", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2996), "Ruby", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2999), true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3003), "Meena", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3004), true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3005), "Sapphire", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(3006), true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(7082), "Ruby", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(7088), true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(7090), "Meena", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(7091), true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(7092), "Sapphire", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(7093), true }
                 });
 
             migrationBuilder.InsertData(
@@ -582,9 +570,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "UserID", "Address", "CDate", "City", "CreatedAt", "DOB", "EmailID", "MobNo", "Password", "State", "UpdatedAt", "UserFname", "UserLname" },
                 values: new object[,]
                 {
-                    { "1", "HCM", "01/01/2000", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5715), "01/01/2000", "user1@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5726), "User", "1" },
-                    { "2", "HCM", "01/01/2000", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5730), "01/01/2000", "user2@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5731), "User", "2" },
-                    { "3", "HCM", "01/01/2000", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5734), "01/01/2000", "user3@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 19, 13, 44, 13, 74, DateTimeKind.Local).AddTicks(5735), "User", "3" }
+                    { "1", "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4519), "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4521), new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4499), "user1@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4524), "User", "1" },
+                    { "2", "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4549), "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4550), new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4548), "user2@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4552), "User", "2" },
+                    { "3", "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4559), "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4561), new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4558), "user3@gmail.com", "0123456789", "123", "HCM", new DateTime(2024, 1, 22, 15, 3, 24, 305, DateTimeKind.Local).AddTicks(4562), "User", "3" }
                 });
 
             migrationBuilder.InsertData(
@@ -592,9 +580,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "ID", "Cdate", "City", "Comment", "Contact", "EmailID", "Name", "UserID", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5107), "HCM", "Test 1", "0123456789", "user1@gmail.com", "User 1", "1", true },
-                    { "2", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5112), "HCM", "Test 2", "0987654321", "user2@gmail.com", "User 2", "2", true },
-                    { "3", new DateTime(2024, 1, 19, 13, 44, 13, 73, DateTimeKind.Local).AddTicks(5114), "HCM", "Test 3", "0135792468", "user3@gmail.com", "User 3", "3", true }
+                    { "1", new DateTime(2024, 1, 22, 15, 3, 24, 303, DateTimeKind.Local).AddTicks(3652), "HCM", "Test 1", "0123456789", "user1@gmail.com", "User 1", "1", true },
+                    { "2", new DateTime(2024, 1, 22, 15, 3, 24, 303, DateTimeKind.Local).AddTicks(3671), "HCM", "Test 2", "0987654321", "user2@gmail.com", "User 2", "2", true },
+                    { "3", new DateTime(2024, 1, 22, 15, 3, 24, 303, DateTimeKind.Local).AddTicks(3674), "HCM", "Test 3", "0135792468", "user3@gmail.com", "User 3", "3", true }
                 });
 
             migrationBuilder.InsertData(
@@ -602,9 +590,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Style_Code", "Brand_ID", "Cat_ID", "Certify_ID", "CreatedAt", "GoldType_ID", "Gold_Amt", "Gold_Making", "Gold_Rate", "Gold_Wt", "ImagePath", "Jewellery_ID", "MRP", "Net_Gold", "Other_Making", "Pairs", "Prod_ID", "Prod_Quality", "Product_Name", "Quantity", "Stone_Making", "Stone_Wt", "Tot_Gross_Wt", "Tot_Making", "UpdatedAt", "Visible", "Wstg", "Wstg_Per" },
                 values: new object[,]
                 {
-                    { "1", "1", "1", "1", new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4801), "1", 1000m, 1000m, 1000m, 1m, "", "1", 1000m, 1m, 1000m, 1, "1", "Premium", "Product 1", 1, 1000m, 1m, 1m, 1000m, new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4814), true, 1m, 1m },
-                    { "2", "2", "2", "2", new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4821), "2", 2000m, 2000m, 2000m, 2m, "", "2", 2000m, 2m, 2000m, 2, "2", "Standard", "Product 2", 2, 2000m, 2m, 2m, 2000m, new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4822), true, 2m, 2m },
-                    { "3", "3", "3", "3", new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4827), "3", 1500m, 1500m, 1500m, 3m, "", "3", 1500m, 3m, 1500m, 3, "3", "Economy", "Product 3", 3, 1500m, 3m, 3m, 1500m, new DateTime(2024, 1, 19, 13, 44, 13, 82, DateTimeKind.Local).AddTicks(4828), true, 3m, 3m }
+                    { "1", "1", "1", "1", new DateTime(2024, 1, 22, 15, 3, 24, 314, DateTimeKind.Local).AddTicks(671), "1", 1000m, 1000m, 1000m, 1m, "", "1", 1000m, 1m, 1000m, 1, "1", "Premium", "Product 1", 1, 1000m, 1m, 1m, 1000m, new DateTime(2024, 1, 22, 15, 3, 24, 314, DateTimeKind.Local).AddTicks(690), true, 1m, 1m },
+                    { "2", "2", "2", "2", new DateTime(2024, 1, 22, 15, 3, 24, 314, DateTimeKind.Local).AddTicks(701), "2", 2000m, 2000m, 2000m, 2m, "", "2", 2000m, 2m, 2000m, 2, "2", "Standard", "Product 2", 2, 2000m, 2m, 2m, 2000m, new DateTime(2024, 1, 22, 15, 3, 24, 314, DateTimeKind.Local).AddTicks(702), true, 2m, 2m },
+                    { "3", "3", "3", "3", new DateTime(2024, 1, 22, 15, 3, 24, 314, DateTimeKind.Local).AddTicks(711), "3", 1500m, 1500m, 1500m, 3m, "", "3", 1500m, 3m, 1500m, 3, "3", "Economy", "Product 3", 3, 1500m, 3m, 3m, 1500m, new DateTime(2024, 1, 22, 15, 3, 24, 314, DateTimeKind.Local).AddTicks(711), true, 3m, 3m }
                 });
 
             migrationBuilder.InsertData(
@@ -622,9 +610,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "DimQlty_ID", "Style_Code", "CreatedAt", "DimID", "DimSubType_ID", "Dim_Amt", "Dim_Crt", "Dim_Gm", "Dim_Pcs", "Dim_Rate", "Dim_Size", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "1", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5128), "1", "1", 1000m, 1m, 1m, 1m, 1000m, 1m, new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5138), false },
-                    { "2", "2", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5143), "2", "2", 2000m, 2m, 2m, 2m, 2000m, 2m, new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5143), false },
-                    { "3", "3", new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5148), "3", "3", 1500m, 3m, 3m, 3m, 1500m, 3m, new DateTime(2024, 1, 19, 13, 44, 13, 84, DateTimeKind.Local).AddTicks(5148), false }
+                    { "1", "1", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(3134), "1", "1", 1000m, 1m, 1m, 1m, 1000m, 1m, new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(3152), null },
+                    { "2", "2", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(3158), "2", "2", 2000m, 2m, 2m, 2m, 2000m, 2m, new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(3158), null },
+                    { "3", "3", new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(3163), "3", "3", 1500m, 3m, 3m, 3m, 1500m, 3m, new DateTime(2024, 1, 22, 15, 3, 24, 316, DateTimeKind.Local).AddTicks(3163), null }
                 });
 
             migrationBuilder.InsertData(
@@ -632,9 +620,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "StoneQlty_ID", "Style_Code", "CreatedAt", "Stone_Amt", "Stone_Crt", "Stone_Gm", "Stone_Pcs", "Stone_Rate", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "1", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2462), 1000m, 1m, 1m, 1m, 1000m, new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2474), false },
-                    { "2", "2", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2477), 2000m, 2m, 2m, 2m, 2000m, new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2478), false },
-                    { "3", "3", new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2480), 1500m, 3m, 3m, 3m, 1500m, new DateTime(2024, 1, 19, 13, 44, 13, 77, DateTimeKind.Local).AddTicks(2481), false }
+                    { "1", "1", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(4044), 1000m, 1m, 1m, 1m, 1000m, new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(4062), null },
+                    { "2", "2", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(4068), 2000m, 2m, 2m, 2m, 2000m, new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(4069), null },
+                    { "3", "3", new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(4073), 1500m, 3m, 3m, 3m, 1500m, new DateTime(2024, 1, 22, 15, 3, 24, 309, DateTimeKind.Local).AddTicks(4074), null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -651,7 +639,8 @@ namespace projectsem3_backend.Migrations
                 name: "IX_DimMsts_DimID",
                 table: "DimMsts",
                 column: "DimID",
-                unique: true);
+                unique: true,
+                filter: "[DimID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DimMsts_DimQlty_ID",

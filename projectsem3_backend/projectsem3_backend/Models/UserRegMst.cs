@@ -7,41 +7,41 @@ namespace projectsem3_backend.Models
         [Key]
         public string UserID { get; set; }
 
-        [Required]
-        public string UserFname { get; set; }
 
-        [Required]
-        public string UserLname { get; set; }
+        public string? UserFname { get; set; }
 
-        [Required]
-        public string Address { get; set; }
 
-        [Required]
-        public string City { get; set; }
+        public string? UserLname { get; set; }
 
-        [Required]
-        public string State { get; set; }
 
-        [Required]
-        public string MobNo { get; set; }
+        public string? Address { get; set; }
 
-        [Required]
-        public string EmailID { get; set; }
 
-        [Required]
-        public string DOB { get; set; }
+        public string? City { get; set; }
 
-        [Required]
-        public string CDate { get; set; }
 
-        [Required]
+        public string? State { get; set; }
+
+
+        public string? MobNo { get; set; }
+
+
+        public string? EmailID { get; set; }
+
+
+        public DateTime? DOB { get; set; }
+
+
+        public DateTime? CDate { get; set; }
+
+
         public string Password { get; set; }
 
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public ICollection<CartList> CartLists { get; set; }
-        public ICollection<OrderMst> OrderMsts { get; set; }
-        public ICollection<Inquiry> Inquiries { get; set; }
+        public ICollection<CartList>? CartLists { get; set; }
+        public ICollection<OrderMst>? OrderMsts { get; set; }
+        public ICollection<Inquiry>? Inquiries { get; set; }
     }
 }

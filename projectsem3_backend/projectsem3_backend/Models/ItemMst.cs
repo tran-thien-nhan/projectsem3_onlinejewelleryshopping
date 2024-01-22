@@ -8,87 +8,87 @@ namespace projectsem3_backend.Models
         [Key]
         public string Style_Code { get; set; }
 
-        [Required]
-        public string Product_Name { get; set; }
+ 
+        public string? Product_Name { get; set; }
 
-        [Required]
-        public int Pairs { get; set; }
+ 
+        public int? Pairs { get; set; }
 
-        [Required]
-        public string Brand_ID { get; set; }
+ 
+        public string? Brand_ID { get; set; }
 
-        [Required]
-        public int Quantity { get; set; }
+ 
+        public int? Quantity { get; set; }
 
-        [Required]
-        public string Cat_ID { get; set; }
+ 
+        public string? Cat_ID { get; set; }
 
-        [Required]
-        public string Prod_Quality { get; set; }
+ 
+        public string? Prod_Quality { get; set; }
 
-        [Required]
-        public string Certify_ID { get; set; }
+ 
+        public string? Certify_ID { get; set; }
 
-        [Required]
-        public string Prod_ID { get; set; }
+ 
+        public string? Prod_ID { get; set; }
 
-        [Required]        
-        public string GoldType_ID { get; set; }
+         
+        public string? GoldType_ID { get; set; }
 
-        [Required]
-        public string Jewellery_ID { get; set; }
-
-        [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Gold_Wt { get; set; }
+ 
+        public string? Jewellery_ID { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Stone_Wt { get; set; }
+ 
+        public decimal? Gold_Wt { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Net_Gold { get; set; }
+ 
+        public decimal? Stone_Wt { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Wstg_Per { get; set; }
+ 
+        public decimal? Net_Gold { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Wstg { get; set; }
+ 
+        public decimal? Wstg_Per { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Tot_Gross_Wt { get; set; }
+ 
+        public decimal? Wstg { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Gold_Rate { get; set; }
+ 
+        public decimal? Tot_Gross_Wt { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Gold_Amt { get; set; }
+ 
+        public decimal? Gold_Rate { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Gold_Making { get; set; }
+ 
+        public decimal? Gold_Amt { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Stone_Making { get; set; }
+ 
+        public decimal? Gold_Making { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Other_Making { get; set; }
+ 
+        public decimal? Stone_Making { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal Tot_Making { get; set; }
+ 
+        public decimal? Other_Making { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-        [Required]
-        public decimal MRP { get; set; }
+ 
+        public decimal? Tot_Making { get; set; }
+
+        [Column(TypeName = "decimal(10, 2)")]
+ 
+        public decimal? MRP { get; set; }
 
         public string? ImagePath { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using projectsem3_backend.CustomStatusCode;
 using projectsem3_backend.data;
@@ -61,143 +62,149 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<CustomResult> CreateItemMst(ItemMst itemMst, IFormFile file)
+        public async Task<CustomResult> CreateItemMst(ItemMst newItem, IFormFile file)
         {
-            using (var transaction = await db.Database.BeginTransactionAsync())
+            try
             {
                 try
                 {
-                    itemMst.Style_Code = default;
+                    newItem.Style_Code = Guid.NewGuid().ToString();
 
-                    if (itemMst == null || file == null)
+                    if (file != null)
                     {
-                        return new CustomResult(400, "Invalid input. Product or Image is null.", null);
+                        newItem.ImagePath = FileUpload.SaveImages("itemMstImage", file);
                     }
 
-                    itemMst.ImagePath = FileUpload.SaveImages("productImage", file);
+                    // Thiết lập thời gian tạo và cập nhật
+                    newItem.CreatedAt = DateTime.Now;
+                    newItem.UpdatedAt = DateTime.Now;
 
-                    await db.ItemMsts.AddAsync(itemMst);
+                    // Kiểm tra sự tồn tại
+                    var brand = await db.BrandMsts.SingleOrDefaultAsync(b => b.Brand_ID == newItem.Brand_ID);
+                    var category = await db.CatMsts.SingleOrDefaultAsync(c => c.Cat_ID == newItem.Cat_ID);
+                    var certify = await db.CertifyMsts.SingleOrDefaultAsync(c => c.Certify_ID == newItem.Certify_ID);
+                    var product = await db.ProdMsts.SingleOrDefaultAsync(p => p.Prod_ID == newItem.Prod_ID);
+                    var goldType = await db.GoldKrtMsts.SingleOrDefaultAsync(g => g.GoldType_ID == newItem.GoldType_ID);
+                    var jewellery = await db.JewelTypeMsts.SingleOrDefaultAsync(j => j.ID == newItem.Jewellery_ID);
+
+                    //gán
+                    newItem.BrandMst = brand;
+                    newItem.CatMst = category;
+                    newItem.CertifyMst = certify;
+                    newItem.ProdMst = product;
+                    newItem.GoldKrtMst = goldType;
+                    newItem.JewelTypeMst = jewellery;
+
+                    await db.ItemMsts.AddAsync(newItem);
                     var result = await db.SaveChangesAsync();
-
-                    if (result > 0)
+                    if (result == 1)
                     {
-                        await transaction.CommitAsync();
-                        return new CustomResult(200, "Created Success", itemMst);
+                        return new CustomResult(200, "Create Success", newItem);
                     }
                     else
                     {
-                        FileUpload.DeleteImage(itemMst.ImagePath);
-                        await transaction.RollbackAsync();
-                        return new CustomResult(201, "No changes were made in the database", null);
+                        return new CustomResult(201, "Create Error", null);
                     }
-                }
-                catch (DbUpdateException ex)
-                {
-                    if (ex.InnerException is SqlException sqlException && sqlException.Number == 2627)
-                    {
-                        FileUpload.DeleteImage(itemMst.ImagePath);
-                        await transaction.RollbackAsync();
-                        return new CustomResult(409, "Duplicate entry. Product with the same key already exists.", null);
-                    }
-
-                    FileUpload.DeleteImage(itemMst.ImagePath);
-                    await transaction.RollbackAsync();
-                    return new CustomResult(500, ex.Message, null);
                 }
                 catch (Exception ex)
                 {
-                    FileUpload.DeleteImage(itemMst.ImagePath);
-                    await transaction.RollbackAsync();
+                    // Check for specific DbUpdateException for unique constraint violation (e.g., duplicate key)
+                    if (ex.InnerException is SqlException sqlException && sqlException.Number == 2627)
+                    {
+                        FileUpload.DeleteImage(newItem.ImagePath);
+                        return new CustomResult(409, "Duplicate entry. Another product with the same key already exists.", null);
+                    }
+
+                    FileUpload.DeleteImage(newItem.ImagePath);
                     return new CustomResult(500, ex.Message, null);
                 }
             }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
         }
+
 
         public async Task<CustomResult> UpdateItemMst(ItemMst itemMst, IFormFile file)
         {
-            using (var transaction = await db.Database.BeginTransactionAsync())
+            try
             {
-                try
+                var item = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == itemMst.Style_Code);
+                if (item == null)
                 {
-                    var oldItem = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == itemMst.Style_Code);
-                    if (oldItem == null)
-                    {
-                        return new CustomResult(404, "not found", null);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            oldItem.Style_Code = itemMst.Style_Code;
-                            oldItem.Product_Name = itemMst.Product_Name;
-                            oldItem.Pairs = itemMst.Pairs;
-                            oldItem.Brand_ID = itemMst.Brand_ID;
-                            oldItem.Quantity = itemMst.Quantity;
-                            oldItem.Cat_ID = itemMst.Cat_ID;
-                            oldItem.Prod_Quality = itemMst.Prod_Quality;
-                            oldItem.Certify_ID = itemMst.Certify_ID;
-                            oldItem.Prod_ID = itemMst.Prod_ID;
-                            oldItem.GoldType_ID = itemMst.GoldType_ID;
-                            oldItem.Jewellery_ID = itemMst.Jewellery_ID;
-                            oldItem.Gold_Wt = itemMst.Gold_Wt;
-                            oldItem.Stone_Wt = itemMst.Stone_Wt;
-                            oldItem.Net_Gold = itemMst.Net_Gold;
-                            oldItem.Wstg_Per = itemMst.Wstg_Per;
-                            oldItem.Wstg = itemMst.Wstg;
-                            oldItem.Tot_Gross_Wt = itemMst.Tot_Gross_Wt;
-                            oldItem.Gold_Rate = itemMst.Gold_Rate;
-                            oldItem.Gold_Amt = itemMst.Gold_Amt;
-                            oldItem.Gold_Making = itemMst.Gold_Making;
-                            oldItem.Stone_Making = itemMst.Stone_Making;
-                            oldItem.Other_Making = itemMst.Other_Making;
-                            oldItem.Tot_Making = itemMst.Tot_Making;
-                            oldItem.MRP = itemMst.MRP;
-
-                            if (file != null)
-                            {
-                                FileUpload.DeleteImage(oldItem.ImagePath);
-                                string imageUrl = FileUpload.SaveImages("itemMstImage", file);
-                                oldItem.ImagePath = imageUrl;
-                            }
-
-                            db.ItemMsts.Update(oldItem);
-                            var result = await db.SaveChangesAsync();
-
-
-                            if (result > 0)
-                            {
-                                await transaction.CommitAsync();
-                                return new CustomResult(200, "Update Success", oldItem);
-                            }
-                            else
-                            {
-                                FileUpload.DeleteImage(itemMst.ImagePath);
-                                await transaction.RollbackAsync();
-                                return new CustomResult(201, "No changes were made in the database", null);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Check for specific DbUpdateException for unique constraint violation (e.g., duplicate key)
-                            if (ex.InnerException is SqlException sqlException && sqlException.Number == 2627)
-                            {
-                                FileUpload.DeleteImage(itemMst.ImagePath);
-                                await transaction.RollbackAsync();
-                                return new CustomResult(409, "Duplicate entry. Another product with the same key already exists.", null);
-                            }
-
-                            FileUpload.DeleteImage(itemMst.ImagePath);
-                            await transaction.RollbackAsync();
-                            return new CustomResult(500, ex.Message, null);
-                        }
-                    }
+                    return new CustomResult(201, "Not Found", null);
                 }
-                catch (Exception e)
+
+                //cập nhật thông tin
+                item.Style_Code = itemMst.Style_Code;
+                item.Product_Name = itemMst.Product_Name;
+                item.Brand_ID = itemMst.Brand_ID;
+                item.Cat_ID = itemMst.Cat_ID;
+                item.Certify_ID = itemMst.Certify_ID;
+                item.Prod_ID = itemMst.Prod_ID;
+                item.GoldType_ID = itemMst.GoldType_ID;
+                item.Jewellery_ID = itemMst.Jewellery_ID;
+                item.Gold_Wt = itemMst.Gold_Wt;
+                item.Wstg_Per = itemMst.Wstg_Per;
+                item.Wstg = itemMst.Wstg;
+                item.Tot_Gross_Wt = itemMst.Tot_Gross_Wt;
+                item.Gold_Rate = itemMst.Gold_Rate;
+                item.Gold_Amt = itemMst.Gold_Amt;
+                item.Gold_Making = itemMst.Gold_Making;
+                item.Stone_Making = itemMst.Stone_Making;
+                item.Other_Making = itemMst.Other_Making;
+                item.Tot_Making = itemMst.Tot_Making;
+                item.MRP = itemMst.MRP;
+
+                //cập nhật thời gian cập nhật
+                item.UpdatedAt = DateTime.Now;
+
+                if (file != null)
+                {
+                    item.ImagePath = FileUpload.SaveImages("itemMstImage", file);
+                }
+
+                // Kiểm tra sự tồn tại
+                var brand = await db.BrandMsts.SingleOrDefaultAsync(b => b.Brand_ID == item.Brand_ID);
+                var category = await db.CatMsts.SingleOrDefaultAsync(c => c.Cat_ID == item.Cat_ID);
+                var certify = await db.CertifyMsts.SingleOrDefaultAsync(c => c.Certify_ID == item.Certify_ID);
+                var product = await db.ProdMsts.SingleOrDefaultAsync(p => p.Prod_ID == item.Prod_ID);
+                var goldType = await db.GoldKrtMsts.SingleOrDefaultAsync(g => g.GoldType_ID == item.GoldType_ID);
+                var jewellery = await db.JewelTypeMsts.SingleOrDefaultAsync(j => j.ID == item.Jewellery_ID);
+
+                //gán
+                item.BrandMst = brand;
+                item.CatMst = category;
+                item.CertifyMst = certify;
+                item.ProdMst = product;
+                item.GoldKrtMst = goldType;
+                item.JewelTypeMst = jewellery;
+
+                //cập nhật item
+                db.ItemMsts.Update(item);
+                var result = await db.SaveChangesAsync();
+
+                if (result == 1)
+                {
+                    return new CustomResult(200, "Update Success", item);
+                }
+                else
+                {
+                    return new CustomResult(201, "No changes were made in the database", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Check for specific DbUpdateException for unique constraint violation (e.g., duplicate key)
+                if (ex.InnerException is SqlException sqlException && sqlException.Number == 2627)
                 {
                     FileUpload.DeleteImage(itemMst.ImagePath);
-                    await transaction.RollbackAsync();
-                    return new CustomResult(500, e.Message, null);
+                    return new CustomResult(409, "Duplicate entry. Another product with the same key already exists.", null);
                 }
+
+                FileUpload.DeleteImage(itemMst.ImagePath);
+                return new CustomResult(500, ex.Message, null);
             }
         }
 

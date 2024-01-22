@@ -7,17 +7,13 @@ namespace projectsem3_backend.Models
         [Key]
         public string DimID { get; set; }
 
-        [Required]
         public string DimType { get; set; }
 
-        [Required]
-        public string DimSubType { get; set; }
+        public string? DimSubType { get; set; }
 
-        [Required]
-        public string DimCrt { get; set; }
+        public string? DimCrt { get; set; }
 
-        [Required]
-        public string DimPrice { get; set; }
+        public string? DimPrice { get; set; }
 
         public string? DimImg { get; set; }
 

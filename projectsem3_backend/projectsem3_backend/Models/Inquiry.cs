@@ -8,27 +8,24 @@ namespace projectsem3_backend.Models
         [Key]
         public string ID { get; set; }
 
-        public string UserID { get; set; }
+        public string? UserID { get; set; }
 
-        [Required]
-        public string Name { get; set; }
 
-        [Required]
-        public string City { get; set; }
+        public string? Name { get; set; }
 
-        [Required]
-        public string Contact { get; set; }
 
-        [Required]
-        public string EmailID { get; set; }
+        public string? City { get; set; }
 
-        [Required]
-        public string Comment { get; set; }
 
-        [Required]
-        public DateTime Cdate { get; set; }
+        public string? Contact { get; set; }
 
-        public bool Visible { get; set; }
+        public string? EmailID { get; set; }
+
+        public string? Comment { get; set; }
+
+        public DateTime? Cdate { get; set; }
+
+        public bool? Visible { get; set; }
 
         // Navigation property
         public UserRegMst? UserRegMst { get; set; }

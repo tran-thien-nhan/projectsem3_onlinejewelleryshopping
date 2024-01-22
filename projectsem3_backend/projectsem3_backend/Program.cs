@@ -3,6 +3,7 @@ using Microsoft.Extensions.FileProviders;
 using projectsem3_backend.data;
 using projectsem3_backend.Repository;
 using projectsem3_backend.Service;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,12 @@ builder.Services.AddDbContext<DatabaseContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection"))
 );
 
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddScoped<IItemMstRepo, ItemMstRepo>();
+builder.Services.AddScoped<ICartRepo, CartRepo>();
+builder.Services.AddScoped<IUserRepo, UserRepo>();
 
 var app = builder.Build();
 
