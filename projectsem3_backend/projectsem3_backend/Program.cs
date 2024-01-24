@@ -33,6 +33,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddScoped<IItemMstRepo, ItemMstRepo>();
 builder.Services.AddScoped<ICartRepo, CartRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
 var app = builder.Build();
 

@@ -5,9 +5,17 @@ namespace projectsem3_backend.Repository
 {
     public interface ICartRepo
     {
-        Task<CustomResult> GetAllCart(string userId);
+        Task<CustomResult> GetCartByUserId(string userId);
+
+        Task<CustomResult> GetCarts();
         Task<CustomResult> CreateCart(CartList cart);
+        Task<CustomResult> UpdateQuantityIncreament(string id, int quantity);
+        Task<CustomResult> UpdateQuantityDecreament(string id, int quantity);
+
         Task<CustomResult> UpdateQuantity(string id, int quantity);
         Task<CustomResult> DeleteCart(string id);
+
+        //hàm clearcart
+        Task<CustomResult> ClearCart(string userId);
     }
 }

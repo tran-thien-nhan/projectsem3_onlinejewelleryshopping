@@ -17,28 +17,52 @@ namespace projectsem3_backend.Controllers
             this.cartRepo = cartRepo;
         }
 
-        [HttpGet("{userid}")]
+        [HttpGet("getcartbyuserid/{userId}")]
         public async Task<CustomResult> GetAllCart(string userId)
         {
-            return await cartRepo.GetAllCart(userId);
+            return await cartRepo.GetCartByUserId(userId);
         }
 
-        [HttpPost]
+        [HttpPost("addcart")]
         public async Task<CustomResult> CreateCart([FromForm] CartList cart)
         {
             return await cartRepo.CreateCart(cart);
-        }
-
-        [HttpPut("updatequantity/{cartid}")]
-        public async Task<CustomResult> UpdateQuantity(string cartId, int quantity)
-        {
-            return await cartRepo.UpdateQuantity(cartId, quantity);
         }
 
         [HttpDelete("{id}")]
         public async Task<CustomResult> DeleteCart(string id)
         {
             return await cartRepo.DeleteCart(id);
+        }
+
+        [HttpGet("getall")]
+        public async Task<CustomResult> GetCarts()
+        {
+            return await cartRepo.GetCarts();
+        }
+
+        [HttpDelete("clearcart/{userId}")]
+        public async Task<CustomResult> ClearCart(string userId)
+        {
+            return await cartRepo.ClearCart(userId);
+        }
+
+        [HttpPut("updatequantityincreament/{cartId}/{quantity}")]
+        public async Task<CustomResult> UpdateQuantityIncreament(string cartId, int quantity)
+        {
+            return await cartRepo.UpdateQuantityIncreament(cartId, quantity);
+        }
+
+        [HttpPut("updatequantitydecreament/{cartId}/{quantity}")]
+        public async Task<CustomResult> UpdateQuantityDecreament(string cartId, int quantity)
+        {
+            return await cartRepo.UpdateQuantityDecreament(cartId, quantity);
+        }
+
+        [HttpPut("updatequantity/{cartId}/{quantity}")]
+        public async Task<CustomResult> UpdateQuantity(string cartId, int quantity)
+        {
+            return await cartRepo.UpdateQuantity(cartId, quantity);
         }
     }
 }

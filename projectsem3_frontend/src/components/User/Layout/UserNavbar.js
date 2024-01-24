@@ -12,6 +12,7 @@ const UserNavbar = () => {
   
   const handleLogout = async () => {
     // Remove login information from session
+    sessionStorage.removeItem("userID");
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("password");
     sessionStorage.removeItem("fname");
@@ -19,7 +20,8 @@ const UserNavbar = () => {
     sessionStorage.removeItem("address");
     sessionStorage.removeItem("city");
     sessionStorage.removeItem("mobNo");      
-    sessionStorage.removeItem("dob");    
+    sessionStorage.removeItem("dob");  
+    sessionStorage.removeItem("state");
 
     Swal.fire("Success", "Logout successful!", "success");
     setTimeout(() => {
@@ -29,7 +31,7 @@ const UserNavbar = () => {
 
     // Wait for 1 second before reloading the page
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    window.location.reload();
+    //window.location.reload();
   };
 
   return (
@@ -112,7 +114,7 @@ const UserNavbar = () => {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item nav-link" href="*">
+                      <a className="dropdown-item nav-link" href="/order">
                         Order
                       </a>
                     </li>

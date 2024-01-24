@@ -34,7 +34,7 @@ function ItemList() {
                             }
                             className="card-img-top"
                             alt={item.product_Name}
-                            height={400}
+                            height={350}
                             width={300}
                           />
                           <div className="card-body">

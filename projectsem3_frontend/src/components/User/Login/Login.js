@@ -62,6 +62,7 @@ const Login = () => {
       const acc = response.data.data;
       if (response.status === 200) {
         if (acc != null) {
+          sessionStorage.setItem("userID", acc.userID);
           sessionStorage.setItem("email", acc.emailID);
           sessionStorage.setItem("password", acc.password);
           sessionStorage.setItem("fname", acc.userFname);
@@ -69,6 +70,7 @@ const Login = () => {
           sessionStorage.setItem("address", acc.address);
           sessionStorage.setItem("city", acc.city); 
           sessionStorage.setItem("mobNo", acc.mobNo);
+          sessionStorage.setItem("state", acc.state);
           sessionStorage.setItem("dob", acc.dob);
           // Login successful
           Swal.fire("Success", "Login successful!", "success");

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useData } from "../../Context/DataContext";
 import "../../asset/css/expanded-image.css";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function ItemDetail() {
+  const navigate = useNavigate();
   const { styleCode } = useParams();
   const { items, loading, error } = useData();
   const [quantity, setQuantity] = useState(1);
@@ -24,10 +27,66 @@ function ItemDetail() {
     return <p>Không tìm thấy item.</p>;
   }
 
-  const handleBuy = () => {
-    // Add your buy logic here
-    console.log("Buy button clicked");
-    alert("Buy successfully");
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append("ID", selectedItem.id);
+      formData.append("userID", sessionStorage.getItem("userID"));
+      formData.append("Style_Code", selectedItem.style_Code);
+      formData.append("Quantity", quantity);
+      formData.append("Product_Name", selectedItem.product_Name);
+      formData.append("MRP", selectedItem.mrp);
+
+      const response = await axios.post(
+        "https://localhost:7241/api/Cart/addcart",
+        formData
+      );
+
+      if (response.status === 200) {
+        Swal.fire("Success", "Item added to cart successfully", "success");
+
+        setTimeout(() => {
+          Swal.close();
+          navigate("/cart");
+        }, 1000);
+      }
+    } catch (error) {
+      console.error(error);
+
+      if (error.response) {
+        console.log(error.response.data);
+        Swal.fire(
+          "Error",
+          `Failed to add item to cart. Server responded with ${error.response.status}. ${error.response.data}`,
+          "error"
+        );
+
+        if (error.response) {
+          console.log(error.response.data);
+          const errorMessage = error.response.data.errors.ID[0];
+          Swal.fire(
+            "Error",
+            `Failed to add item to cart. ${errorMessage}`,
+            "error"
+          );
+          console.log(errorMessage);
+        } else if (error.request) {
+          console.log(error.request);
+          Swal.fire("Error", "Failed to connect to the server", "error");
+        } else {
+          console.log(error.message);
+          Swal.fire("Error", "An unexpected error occurred", "error");
+        }
+      } else if (error.request) {
+        console.log(error.request);
+        Swal.fire("Error", "Failed to connect to the server", "error");
+      } else {
+        console.log(error.message);
+        Swal.fire("Error", "An unexpected error occurred", "error");
+      }
+    }
   };
 
   const handleQuantityChange = (event) => {
@@ -53,6 +112,67 @@ function ItemDetail() {
       // Reset state when clicking outside the image
       setIsImageExpanded(false);
       setIsOverlayActive(false);
+    }
+  };
+
+  const buyButton = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append("ID", selectedItem.id);
+      formData.append("userID", sessionStorage.getItem("userID"));
+      formData.append("Style_Code", selectedItem.style_Code);
+      formData.append("Quantity", quantity);
+      formData.append("Product_Name", selectedItem.product_Name);
+      formData.append("MRP", selectedItem.mrp);
+
+      const response = await axios.post(
+        "https://localhost:7241/api/Cart/addcart",
+        formData
+      );
+
+      if (response.status === 200) {
+        Swal.fire("Success", "Item added to cart successfully", "success");
+
+        setTimeout(() => {
+          Swal.close();
+        }, 1000);
+      }
+    } catch (error) {
+      console.error(error);
+
+      if (error.response) {
+        console.log(error.response.data);
+        Swal.fire(
+          "Error",
+          `Failed to add item to cart. Server responded with ${error.response.status}. ${error.response.data}`,
+          "error"
+        );
+
+        if (error.response) {
+          console.log(error.response.data);
+          const errorMessage = error.response.data.errors.ID[0];
+          Swal.fire(
+            "Error",
+            `Failed to add item to cart. ${errorMessage}`,
+            "error"
+          );
+          console.log(errorMessage);
+        } else if (error.request) {
+          console.log(error.request);
+          Swal.fire("Error", "Failed to connect to the server", "error");
+        } else {
+          console.log(error.message);
+          Swal.fire("Error", "An unexpected error occurred", "error");
+        }
+      } else if (error.request) {
+        console.log(error.request);
+        Swal.fire("Error", "Failed to connect to the server", "error");
+      } else {
+        console.log(error.message);
+        Swal.fire("Error", "An unexpected error occurred", "error");
+      }
     }
   };
 
@@ -84,36 +204,69 @@ function ItemDetail() {
         <p className="mb-2">Pairs: {selectedItem.pairs}</p>
         <p className="mb-2">Quality: {selectedItem.prod_Quality}</p>
         <p className="mb-2">Price: ${selectedItem.mrp}</p>
-        <div className="d-flex flex-column">
-          <div className="mb-2">
-            <label htmlFor="quantity">Quantity:</label>
-            <div className="d-flex">
-              <button className="btn btn-dark" onClick={handleDecreaseQuantity}>
-                -
-              </button>
-              <input
-                type="number"
-                id="quantity"
-                value={quantity}
-                onChange={handleQuantityChange}
-                style={{ width: "50px" }}
-                className="form-control mx-2"
-              />
-              <button
-                className="btn btn-dark"
-                onClick={() => setQuantity(quantity + 1)}
-              >
-                +
-              </button>
+
+        <form onSubmit={handleAddToCart}>
+          <input type="hidden" name="id" value={selectedItem.id} />
+          <input
+            type="hidden"
+            name="userID"
+            value={sessionStorage.getItem("userID")}
+          />
+          <input
+            type="hidden"
+            name="styleCode"
+            value={selectedItem.style_Code}
+          />
+          <input
+            type="hidden"
+            name="productName"
+            value={selectedItem.product_Name}
+          />
+          <input type="hidden" name="mrp" value={selectedItem.mrp} />
+
+          <div className="d-flex flex-column">
+            <div className="mb-2">
+              <label htmlFor="quantity">Quantity:</label>
+              <div className="d-flex">
+                <button
+                  type="button"
+                  className="btn btn-dark"
+                  onClick={handleDecreaseQuantity}
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  id="quantity"
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  style={{ width: "50px" }}
+                  className="form-control mx-2"
+                />
+                <button
+                  type="button"
+                  className="btn btn-dark"
+                  onClick={() => setQuantity(quantity + 1)}
+                >
+                  +
+                </button>
+              </div>
             </div>
+            <button
+              type="submit"
+              className="btn btn-secondary col-12 mb-2"
+              onClick={handleAddToCart}
+            >
+              Add To Cart
+            </button>
+            <button
+              className="btn btn-warning col-12"
+              onClick={(e) => buyButton(e)}
+            >
+              Buy It Now
+            </button>
           </div>
-          <button className="btn btn-secondary col-12 mb-2" onClick={handleBuy}>
-            Add To Cart
-          </button>
-          <button className="btn btn-warning col-12" onClick={handleBuy}>
-            Buy It Now
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   );

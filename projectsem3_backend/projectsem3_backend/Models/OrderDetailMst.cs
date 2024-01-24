@@ -15,20 +15,7 @@ namespace projectsem3_backend.Models
         public int? Quantity { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
-
-        public decimal? Gold_Amt { get; set; }
-
-        [Column(TypeName = "decimal(10, 2)")]
-
-        public decimal? Stone_Amt { get; set; }
-
-        [Column(TypeName = "decimal(10, 2)")]
-
-        public decimal? Making_Amt { get; set; }
-
-        [Column(TypeName = "decimal(10, 2)")]
-
-        public decimal? Total_Amt { get; set; }
+        public decimal? MRP { get; set; }
 
         // Navigation properties
         public OrderMst? OrderMst { get; set; }
