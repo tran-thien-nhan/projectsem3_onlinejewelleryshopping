@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { TailSpin } from "react-loader-spinner";
 
 const DataContext = createContext();
 
@@ -32,8 +33,8 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     var userId = sessionStorage.getItem("userID");
-
     if (userId === null) {
       setIsLogin(false);
       Swal.fire("Error", "Please login to continue", "error");
@@ -51,6 +52,8 @@ export const DataProvider = ({ children }) => {
           setOrderList(response.data.data);
         } catch (error) {
           console.error("list error:", error);
+        } finally {
+          setLoading(false);
         }
       };
       fetchData();

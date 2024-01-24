@@ -18,10 +18,12 @@ namespace projectsem3_backend.Service
     public class OrderRepo : IOrderRepo
     {
         private readonly DatabaseContext db;
+        private readonly EmailService emailService;
 
-        public OrderRepo(DatabaseContext db)
+        public OrderRepo(DatabaseContext db, EmailService emailService)
         {
             this.db = db;
+            this.emailService = emailService;
         }
 
         public async Task<CustomResult> CreateOrder(OrderMst order)
@@ -89,6 +91,15 @@ namespace projectsem3_backend.Service
 
                     // Lưu vào db
                     var result = await db.SaveChangesAsync();
+
+                    var userid = order.UserID;
+                    var user1 = await db.UserRegMsts.SingleOrDefaultAsync(u => u.UserID == userid);
+                    var userEmail = user1.EmailID;
+                    var orderDetailList = await db.OrderDetailMsts.Include(o => o.ItemMst).Include(o => o.OrderMst).Where(o => o.Order_ID == order.Order_ID).ToListAsync();
+
+                    // Gửi email xác nhận đơn hàng
+                    await emailService.SendEmailConfirmationAsync(userEmail, order.Order_ID, orderDetailList);
+
                     transaction.Commit(); // Dừng transaction
 
                     if (result != 1)
@@ -337,8 +348,10 @@ namespace projectsem3_backend.Service
                         Table table = new Table(new float[] { 150, 300 });
                         table.AddCell("Order ID:").AddCell(order.Order_ID.ToString());
                         table.AddCell("Order Date:").AddCell(order.OrderDate.ToString());
-                        table.AddCell("Address:").AddCell(Encoding.UTF8.GetString(Encoding.Default.GetBytes(order.Order_Address)));
+                        table.AddCell("Address:").AddCell(order.Order_Address);
                         table.AddCell("Phone:").AddCell(user.MobNo);
+                        table.AddCell("Note:").AddCell(order.Order_Note);
+                        table.AddCell("Email:").AddCell(user.EmailID);
                         document.Add(table);
 
                         // Add order details table

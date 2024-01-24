@@ -35,6 +35,8 @@ builder.Services.AddScoped<ICartRepo, CartRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
+builder.Services.AddTransient<EmailService>(); //<-- thêm đúng dòng này
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

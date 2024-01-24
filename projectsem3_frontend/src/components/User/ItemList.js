@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useData } from "../../Context/DataContext";
 import "../../asset/css/itemlist.css";
 import HeroSection from "./Layout/HeroSection";
+import { TailSpin } from "react-loader-spinner";
 
 function ItemList() {
   const { items, loading, error } = useData();
   return (
     <div className="container-fluid my-2">
       {loading ? (
-        <p>Đang tải...</p>
+        <TailSpin color="red" radius={"8px"} />
       ) : (
         <>
           {error ? (
