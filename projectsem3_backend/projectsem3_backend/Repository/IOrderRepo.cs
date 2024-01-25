@@ -21,7 +21,7 @@ namespace projectsem3_backend.Repository
         Task<MemoryStream> ExportPDFOrderDetails(string orderId);
 
         //get all ordderdetail
-        Task<List<OrderMst>> GetAllOrder();
+        Task<List<OrderMst>> GetAllOrderExcel();
 
         //get all order detail excel
         Task<List<OrderDetailMst>> GetAllOrderDetailExcel();

@@ -8,6 +8,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using projectsem3_backend.Service;
+using OfficeOpenXml;
 
 namespace projectsem3_backend.Controllers
 {
@@ -17,11 +18,13 @@ namespace projectsem3_backend.Controllers
     {
         private readonly IOrderRepo orderRepo;
         private readonly IExcelHandler excelHandler;
+        private readonly IUserRepo userRepo;
 
-        public OrderController(IOrderRepo orderRepo, IExcelHandler excelHandler)
+        public OrderController(IOrderRepo orderRepo, IExcelHandler excelHandler, IUserRepo userRepo)
         {
             this.orderRepo = orderRepo;
             this.excelHandler = excelHandler;
+            this.userRepo = userRepo;
         }
 
         [HttpGet("getall")]
@@ -98,7 +101,7 @@ namespace projectsem3_backend.Controllers
         {
             try
             {
-                var orders = await orderRepo.GetAllOrder();
+                var orders = await orderRepo.GetAllOrderExcel();
                 // Generate the Excel content using IExcelHandler
                 var excelStream = await excelHandler.ExportToExcel<OrderMst>(orders);
 
@@ -129,6 +132,47 @@ namespace projectsem3_backend.Controllers
                 Response.Headers.Add("Content-Disposition", $"attachment; filename=OrderDetail_{DateTime.Now.Ticks}.xlsx");
 
                 // Return the Excel as a file stream
+                return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("exportonefileexcel")]
+        public async Task<IActionResult> ExportOneFileExcel()
+        {
+            try
+            {
+                var orders = await orderRepo.GetAllOrderExcel();
+                var orderDetails = await orderRepo.GetAllOrderDetailExcel();
+                var users = await userRepo.GetAllUsersExcel();
+
+                var excelStream = new MemoryStream();
+
+                using (var package = new ExcelPackage(excelStream))
+                {
+                    // Xuất danh sách đơn đặt hàng vào sheet "Orders"
+                    var orderSheet = package.Workbook.Worksheets.Add("Orders");
+                    await excelHandler.ExportToExcelMultiSheet(orders, orderSheet);
+
+                    // Xuất danh sách chi tiết đơn đặt hàng vào sheet "OrderDetails"
+                    var orderDetailSheet = package.Workbook.Worksheets.Add("OrderDetails");
+                    await excelHandler.ExportToExcelMultiSheet(orderDetails, orderDetailSheet);
+
+                    // Xuất danh sách người dùng vào sheet "Users"
+                    var userSheet = package.Workbook.Worksheets.Add("Users");
+                    await excelHandler.ExportToExcelMultiSheet(users, userSheet);
+
+                    await package.SaveAsync();
+                    excelStream.Seek(0, SeekOrigin.Begin);
+                }
+
+                // Set appropriate content type and content disposition headers
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=Combined_{DateTime.Now.Ticks}.xlsx");
+
+                // Return the combined Excel as a file stream
                 return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             }
             catch (Exception ex)

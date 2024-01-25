@@ -389,7 +389,7 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<List<OrderMst>> GetAllOrder()
+        public async Task<List<OrderMst>> GetAllOrderExcel()
         {
             var orders = await db.OrderMsts.ToListAsync();
             return orders;
