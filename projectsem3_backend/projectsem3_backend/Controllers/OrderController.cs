@@ -93,18 +93,18 @@ namespace projectsem3_backend.Controllers
             }
         }
 
-        [HttpGet("exportexcelorderdetails")]
+        [HttpGet("exportexcelorders")]
         public async Task<IActionResult> ExportExcelOrderDetailsReport()
         {
             try
             {
-                var orderdetail = await orderRepo.GetAllOrderDetail();
+                var orders = await orderRepo.GetAllOrder();
                 // Generate the Excel content using IExcelHandler
-                var excelStream = await excelHandler.ExportToExcel<OrderDetailMst>(orderdetail);
+                var excelStream = await excelHandler.ExportToExcel<OrderMst>(orders);
 
                 // Set appropriate content type and content disposition headers
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.Headers.Add("Content-Disposition", $"attachment; filename=OrderDetails.xlsx");
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=OrderDetails_{DateTime.Now.Ticks}.xlsx");
 
                 // Return the Excel as a file stream
                 return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

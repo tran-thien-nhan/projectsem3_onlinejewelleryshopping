@@ -52,7 +52,7 @@ namespace projectsem3_backend.Service
                     workSheet.Column(i + 1).AutoFit(); // Tự động chỉnh độ rộng cột
                 }
 
-                //workSheet.Cells.LoadFromCollection(data, true); // Đổ dữ liệu từ list vào excel
+                workSheet.Cells.LoadFromCollection(data, true); // Đổ dữ liệu từ list vào excel
                 await package.SaveAsync(); // Lưu file excel
 
                 await stream.CopyToAsync(stream); // Copy stream

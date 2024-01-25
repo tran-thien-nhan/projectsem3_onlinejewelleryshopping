@@ -20,13 +20,11 @@ namespace projectsem3_backend.Service
     {
         private readonly DatabaseContext db;
         private readonly EmailService emailService;
-        private readonly IExcelHandler excelHandler;
 
-        public OrderRepo(DatabaseContext db, EmailService emailService, IExcelHandler excelHandler)
+        public OrderRepo(DatabaseContext db, EmailService emailService)
         {
             this.db = db;
             this.emailService = emailService;
-            this.excelHandler = excelHandler;
         }
 
         public async Task<CustomResult> CreateOrder(OrderMst order)
@@ -391,10 +389,10 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<List<OrderDetailMst>> GetAllOrderDetail()
+        public async Task<List<OrderMst>> GetAllOrder()
         {
-            var orderDetail = await db.OrderDetailMsts.Include(o => o.ItemMst).Include(o => o.OrderMst).ThenInclude(o => o.UserRegMst).ToListAsync();
-            return orderDetail;
+            var orders = await db.OrderMsts.ToListAsync();
+            return orders;
         }
     }
 }
