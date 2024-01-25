@@ -2,10 +2,11 @@
 using projectsem3_backend.Models;
 using System.Text;
 using MailKit.Net.Smtp;
+using projectsem3_backend.Repository;
 
 namespace projectsem3_backend.Service
 {
-    public class EmailService
+    public class EmailService : IEmailService
     {
         public async Task SendEmailConfirmationAsync(string toEmail, string orderId, List<OrderDetailMst> orderDetails)
         {

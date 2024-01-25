@@ -1,4 +1,5 @@
-﻿using projectsem3_backend.CustomStatusCode;
+﻿using Microsoft.AspNetCore.Mvc;
+using projectsem3_backend.CustomStatusCode;
 using projectsem3_backend.Models;
 
 namespace projectsem3_backend.Repository
@@ -18,5 +19,8 @@ namespace projectsem3_backend.Repository
 
         //xuất pdf
         Task<MemoryStream> ExportPDFOrderDetails(string orderId);
+
+        //get all ordderdetail
+        Task<List<OrderDetailMst>> GetAllOrderDetail();
     }
 }

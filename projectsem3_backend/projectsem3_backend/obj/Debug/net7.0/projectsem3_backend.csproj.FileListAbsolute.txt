@@ -135,9 +135,6 @@ C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\project
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
@@ -172,3 +169,9 @@ C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\project
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\MimeKit.dll
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\EPPlus.dll
+C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\EPPlus.Interfaces.dll
+C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\EPPlus.System.Drawing.dll
+C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\judyh\Desktop\các projects\projectsem3_onlinejewelleryshopping\projectsem3_backend\projectsem3_backend\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll

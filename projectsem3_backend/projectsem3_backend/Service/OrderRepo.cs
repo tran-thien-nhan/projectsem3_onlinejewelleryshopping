@@ -12,6 +12,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.Text;
+using System.Net;
 
 namespace projectsem3_backend.Service
 {
@@ -19,11 +20,13 @@ namespace projectsem3_backend.Service
     {
         private readonly DatabaseContext db;
         private readonly EmailService emailService;
+        private readonly IExcelHandler excelHandler;
 
-        public OrderRepo(DatabaseContext db, EmailService emailService)
+        public OrderRepo(DatabaseContext db, EmailService emailService, IExcelHandler excelHandler)
         {
             this.db = db;
             this.emailService = emailService;
+            this.excelHandler = excelHandler;
         }
 
         public async Task<CustomResult> CreateOrder(OrderMst order)
@@ -388,5 +391,10 @@ namespace projectsem3_backend.Service
             }
         }
 
+        public async Task<List<OrderDetailMst>> GetAllOrderDetail()
+        {
+            var orderDetail = await db.OrderDetailMsts.Include(o => o.ItemMst).Include(o => o.OrderMst).ThenInclude(o => o.UserRegMst).ToListAsync();
+            return orderDetail;
+        }
     }
 }

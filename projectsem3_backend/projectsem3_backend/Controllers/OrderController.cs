@@ -7,6 +7,7 @@ using System.Net.Mime;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using projectsem3_backend.Service;
 
 namespace projectsem3_backend.Controllers
 {
@@ -15,10 +16,12 @@ namespace projectsem3_backend.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepo orderRepo;
+        private readonly IExcelHandler excelHandler;
 
-        public OrderController(IOrderRepo orderRepo)
+        public OrderController(IOrderRepo orderRepo, IExcelHandler excelHandler)
         {
             this.orderRepo = orderRepo;
+            this.excelHandler = excelHandler;
         }
 
         [HttpGet("getall")]
@@ -83,6 +86,28 @@ namespace projectsem3_backend.Controllers
 
                 // Return the PDF as a file stream
                 return File(pdfStream.ToArray(), "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("exportexcelorderdetails")]
+        public async Task<IActionResult> ExportExcelOrderDetailsReport()
+        {
+            try
+            {
+                var orderdetail = await orderRepo.GetAllOrderDetail();
+                // Generate the Excel content using IExcelHandler
+                var excelStream = await excelHandler.ExportToExcel<OrderDetailMst>(orderdetail);
+
+                // Set appropriate content type and content disposition headers
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=OrderDetails.xlsx");
+
+                // Return the Excel as a file stream
+                return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             }
             catch (Exception ex)
             {
