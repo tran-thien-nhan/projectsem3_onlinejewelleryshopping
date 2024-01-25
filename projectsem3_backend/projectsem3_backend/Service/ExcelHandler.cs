@@ -21,7 +21,7 @@ namespace projectsem3_backend.Service
 
             using (var package = new ExcelPackage(stream)) // Tạo package excel
             {                
-                var workSheet = package.Workbook.Worksheets.Add("reportOrder"); // Tạo worksheet
+                var workSheet = package.Workbook.Worksheets.Add("Report"); // Tạo worksheet
 
                 workSheet.Cells[1, 5].Style.Font.Bold = true; // In đậm
 
@@ -32,7 +32,7 @@ namespace projectsem3_backend.Service
                 int posRow = 2; // Vị trí dòng đầu tiên để đổ dữ liệu
 
                 // Đổ dữ liệu từ list vào excel
-                for (int row = 0; row < properties.Count(); row++) // Duyệt theo dòng
+                for (int row = 0; row < data.Count(); row++) // Duyệt theo dòng
                 {
                     for (int col = 0; col < properties.Count(); col++) // Duyệt theo cột
                     {

@@ -394,5 +394,11 @@ namespace projectsem3_backend.Service
             var orders = await db.OrderMsts.ToListAsync();
             return orders;
         }
+
+        public async Task<List<OrderDetailMst>> GetAllOrderDetailExcel()
+        {
+            var orderDetailList = await db.OrderDetailMsts.Include(o => o.ItemMst).Include(o => o.OrderMst).ToListAsync();
+            return orderDetailList;
+        }
     }
 }

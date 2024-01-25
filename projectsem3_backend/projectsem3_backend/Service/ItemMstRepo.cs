@@ -275,5 +275,11 @@ namespace projectsem3_backend.Service
                 return new CustomResult(402, e.Message, null);
             }
         }
+
+        public async Task<List<ItemMst>> GetAllItemExcelReport()
+        {
+            var itemList = await db.ItemMsts.ToListAsync();
+            return itemList;
+        }
     }
 }

@@ -54,6 +54,12 @@ namespace projectsem3_backend.Service
             }
         }
 
+        public async Task<List<UserRegMst>> GetAllUsersExcel()
+        {
+            var uselist = await db.UserRegMsts.ToListAsync();
+            return uselist;
+        }
+
         public async Task<CustomResult> GetUserById(string id)
         {
             throw new NotImplementedException();

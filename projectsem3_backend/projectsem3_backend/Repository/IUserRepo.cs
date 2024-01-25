@@ -12,5 +12,7 @@ namespace projectsem3_backend.Repository
         //checklogin
         Task<CustomResult> CheckLogin(string email, string password);
         Task<CustomResult> DeleteUser(string id);
+
+        Task<List<UserRegMst>> GetAllUsersExcel();   
     }
 }

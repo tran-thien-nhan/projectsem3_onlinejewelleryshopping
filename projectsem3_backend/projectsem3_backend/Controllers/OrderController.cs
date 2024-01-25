@@ -104,7 +104,29 @@ namespace projectsem3_backend.Controllers
 
                 // Set appropriate content type and content disposition headers
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.Headers.Add("Content-Disposition", $"attachment; filename=OrderDetails_{DateTime.Now.Ticks}.xlsx");
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=Order_{DateTime.Now.Ticks}.xlsx");
+
+                // Return the Excel as a file stream
+                return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("exportexcelorderdetails")]
+        public async Task<IActionResult> ExportExcelOrderDetails()
+        {
+            try
+            {
+                var orderDetails = await orderRepo.GetAllOrderDetailExcel();
+                // Generate the Excel content using IExcelHandler
+                var excelStream = await excelHandler.ExportToExcel<OrderDetailMst>(orderDetails);
+
+                // Set appropriate content type and content disposition headers
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=OrderDetail_{DateTime.Now.Ticks}.xlsx");
 
                 // Return the Excel as a file stream
                 return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

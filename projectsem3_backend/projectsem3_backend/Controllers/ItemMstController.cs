@@ -11,10 +11,12 @@ namespace projectsem3_backend.Controllers
     public class ItemMstController : ControllerBase
     {
         private readonly IItemMstRepo itemMstRepo;
+        private readonly IExcelHandler excelHandler;
 
-        public ItemMstController(IItemMstRepo itemMstRepo)
+        public ItemMstController(IItemMstRepo itemMstRepo, IExcelHandler excelHandler)
         {
             this.itemMstRepo = itemMstRepo;
+            this.excelHandler = excelHandler;
         }
 
         [HttpGet]
@@ -51,6 +53,25 @@ namespace projectsem3_backend.Controllers
         public async Task<CustomResult> UpdateVisibility(string id)
         {
             return await itemMstRepo.UpdateVisibility(id);
+        }
+
+        [HttpGet("getallitemsexcel")]
+        public async Task<IActionResult> GetAllItemExcel()
+        {
+            try
+            {
+                var itemlist = await itemMstRepo.GetAllItemExcelReport();
+                var excelStream = await excelHandler.ExportToExcel<ItemMst>(itemlist);
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=ItemReport_{DateTime.Now.Ticks}.xlsx");
+
+                // Return the Excel as a file stream
+                return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

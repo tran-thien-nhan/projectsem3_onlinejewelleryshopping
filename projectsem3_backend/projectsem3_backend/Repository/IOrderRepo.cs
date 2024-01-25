@@ -22,5 +22,8 @@ namespace projectsem3_backend.Repository
 
         //get all ordderdetail
         Task<List<OrderMst>> GetAllOrder();
+
+        //get all order detail excel
+        Task<List<OrderDetailMst>> GetAllOrderDetailExcel();
     }
 }

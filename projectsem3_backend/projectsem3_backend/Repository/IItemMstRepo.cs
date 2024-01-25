@@ -12,5 +12,7 @@ namespace projectsem3_backend.Repository
         Task<CustomResult> DeleteItemMst(string id);
         // updatevisibility
         Task<CustomResult> UpdateVisibility(string id);
+
+        Task<List<ItemMst>> GetAllItemExcelReport();
     }
 }
