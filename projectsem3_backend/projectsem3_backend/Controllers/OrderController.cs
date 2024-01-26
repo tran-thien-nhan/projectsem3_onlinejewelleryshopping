@@ -19,12 +19,14 @@ namespace projectsem3_backend.Controllers
         private readonly IOrderRepo orderRepo;
         private readonly IExcelHandler excelHandler;
         private readonly IUserRepo userRepo;
+        private readonly IItemMstRepo itemMstRepo;
 
-        public OrderController(IOrderRepo orderRepo, IExcelHandler excelHandler, IUserRepo userRepo)
+        public OrderController(IOrderRepo orderRepo, IExcelHandler excelHandler, IUserRepo userRepo, IItemMstRepo itemMstRepo)
         {
             this.orderRepo = orderRepo;
             this.excelHandler = excelHandler;
             this.userRepo = userRepo;
+            this.itemMstRepo = itemMstRepo;
         }
 
         [HttpGet("getall")]
@@ -147,6 +149,7 @@ namespace projectsem3_backend.Controllers
                 var orders = await orderRepo.GetAllOrderExcel();
                 var orderDetails = await orderRepo.GetAllOrderDetailExcel();
                 var users = await userRepo.GetAllUsersExcel();
+                var itemlist = await itemMstRepo.GetAllItemExcelReport();
 
                 var excelStream = new MemoryStream();
 
@@ -164,13 +167,17 @@ namespace projectsem3_backend.Controllers
                     var userSheet = package.Workbook.Worksheets.Add("Users");
                     await excelHandler.ExportToExcelMultiSheet(users, userSheet);
 
+                    // Xuất danh sách sản phẩm vào sheet "Items"
+                    var itemSheet = package.Workbook.Worksheets.Add("Items");
+                    await excelHandler.ExportToExcelMultiSheet(itemlist, itemSheet);
+
                     await package.SaveAsync();
                     excelStream.Seek(0, SeekOrigin.Begin);
                 }
 
                 // Set appropriate content type and content disposition headers
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.Headers.Add("Content-Disposition", $"attachment; filename=Combined_{DateTime.Now.Ticks}.xlsx");
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=AllData_{DateTime.Now.Ticks}.xlsx");
 
                 // Return the combined Excel as a file stream
                 return File(excelStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

@@ -16,10 +16,7 @@ import Register from "./components/User/Login/Register";
 import Page404 from "./Pages/Page404";
 import CartList from "./components/User/Cart/CartList";
 import UserInfo from "./components/User/UserInfo";
-import Checkout from "./components/User/Checkout/Checkout";
-import Order from "./components/User/Order/Order";
-import OrderDetail from "./components/User/Order/OrderDetail";
-import ThankYou from "./components/User/Order/ThankYou";
+import AdminDashboard from "./components/Admin/AdminDashboard";
 
 function App() {
   return (
@@ -35,10 +32,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<CartList />} />
             <Route path="/info" element={<UserInfo />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/order/:order_ID" element={<OrderDetail />} />
-            <Route path="/thankyou" element={<ThankYou />} />
+            {/* <Route path="/cart/:styleCode" element={<CartList />} /> */}
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </Router>

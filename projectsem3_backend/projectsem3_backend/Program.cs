@@ -30,6 +30,7 @@ builder.Services.AddDbContext<DatabaseContext>(opts =>
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+//Nhan
 builder.Services.AddScoped<IItemMstRepo, ItemMstRepo>();
 builder.Services.AddScoped<ICartRepo, CartRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -38,6 +39,13 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IExcelHandler, ExcelHandler>();
 
 builder.Services.AddTransient<EmailService>(); //<-- thêm đúng dòng này
+
+//Phi
+builder.Services.AddScoped<ICatMstRepo, CatMstRepo>();
+builder.Services.AddScoped<IGoldKrtMstRepo, GoldKrtMstRepo>();
+builder.Services.AddScoped<IBrandMstRepo, BrandMstRepo>();
+builder.Services.AddScoped<IStoneQltyMstRepo, StoneQltyMstRepo>();
+builder.Services.AddScoped<IStoneMstRepo, StoneMstRepo>();
 
 var app = builder.Build();
 
