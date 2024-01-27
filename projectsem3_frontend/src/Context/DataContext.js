@@ -10,6 +10,7 @@ export const DataProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [orderList, setOrderList] = useState([]);
+  const [allOrderList, setAllOrderList] = useState([]); 
   const [isLogin, setIsLogin] = useState(false);
   const [userID, setUserID] = useState("");
   const [cartList, setCartList] = useState([]);
@@ -35,29 +36,20 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     setLoading(true);
     var userId = sessionStorage.getItem("userID");
-    if (userId === null) {
-      setIsLogin(false);
-      Swal.fire("Error", "Please login to continue", "error");
-      setTimeout(() => {
-        Swal.close();
-      }, 1000);
-    } else {
-      setIsLogin(true);
-      setUserID(userId);
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            `https://localhost:7241/api/Order/getorderbyuserid/${userId}`
-          );
-          setOrderList(response.data.data);
-        } catch (error) {
-          console.error("list error:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
-    }
+    setUserID(userId);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7241/api/Order/getorderbyuserid/${userId}`
+        );
+        setOrderList(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
   const orderListSort = orderList.sort((a, b) => {
@@ -70,29 +62,39 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     var userId = sessionStorage.getItem("userID");
+    setUserID(userId);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7241/api/Cart/getcartbyuserid/${userId}`
+        );
+        setCartList(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+      }
+    };
 
-    if (userId === null) {
-      setIsLogin(false);
-      Swal.fire("Error", "Please login to continue", "error");
-      setTimeout(() => {
-        Swal.close();
-      }, 1000);
-    } else {
-      setIsLogin(true);
-      setUserID(userId);
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            `https://localhost:7241/api/Cart/getcartbyuserid/${userId}`
-          );
-          setCartList(response.data.data);
-        } catch (error) {
-          console.error("list error:", error);
-        }
-      };
+    fetchData();
+  }, []);
 
-      fetchData();
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://localhost:7241/api/Order/getall`
+        );
+        console.log(response.data.data);
+        setAllOrderList(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const value = {
@@ -105,6 +107,7 @@ export const DataProvider = ({ children }) => {
     cartList,
     orderListSort,
     orderListByUserId,
+    allOrderList,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

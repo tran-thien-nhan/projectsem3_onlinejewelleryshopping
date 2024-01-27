@@ -260,7 +260,7 @@ function ItemDetail() {
               Add To Cart
             </button>
             <button
-              className="btn btn-warning col-12"
+              className="btn btn-dark col-12"
               onClick={(e) => buyButton(e)}
             >
               Buy It Now

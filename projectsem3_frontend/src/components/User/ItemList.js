@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useData } from "../../Context/DataContext";
-import "../../asset/css/itemlist.css";
+import "../../asset/css/userstyle.css";
 import HeroSection from "./Layout/HeroSection";
 import { TailSpin } from "react-loader-spinner";
 
@@ -10,7 +10,16 @@ function ItemList() {
   return (
     <div className="container-fluid my-2">
       {loading ? (
-        <TailSpin color="red" radius={"8px"} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <TailSpin color="red" radius={8} />
+        </div>
       ) : (
         <>
           {error ? (

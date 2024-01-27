@@ -11,17 +11,7 @@ const UserNavbar = () => {
   const navigate = useNavigate();
   
   const handleLogout = async () => {
-    // Remove login information from session
-    sessionStorage.removeItem("userID");
-    sessionStorage.removeItem("email");
-    sessionStorage.removeItem("password");
-    sessionStorage.removeItem("fname");
-    sessionStorage.removeItem("lname");
-    sessionStorage.removeItem("address");
-    sessionStorage.removeItem("city");
-    sessionStorage.removeItem("mobNo");      
-    sessionStorage.removeItem("dob");  
-    sessionStorage.removeItem("state");
+    sessionStorage.clear();
 
     Swal.fire("Success", "Logout successful!", "success");
     setTimeout(() => {
@@ -105,7 +95,7 @@ const UserNavbar = () => {
                     style={{ fontWeight: "bold" }}
                   >
                     {/* <img src={userIcon} alt="user" /> */}
-                    hello {sessionStorage.getItem("fname")} {sessionStorage.getItem("lname")} 
+                    hello {sessionStorage.getItem("userName")}
                   </button>
                   <ul className="dropdown-menu">
                     <li>

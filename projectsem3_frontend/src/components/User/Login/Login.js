@@ -3,49 +3,44 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import HeroSection from "../Layout/HeroSection";
+import { useData } from "../../../Context/DataContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    if (!email || !password) {
-      Swal.fire("Error", "Please enter both email and password", "error");
+    if (!username || !password) {
+      Swal.fire("Error", "Please enter both username and password", "error");
       setTimeout(() => {
         Swal.close();
       }, 1000);
       return;
-    } else if (email.length < 2 || password.length < 2) {
+    } else if (username.length < 3 || password.length < 3) {
       Swal.fire(
         "Error",
-        "Email or password must be at least 6 characters",
+        "Username and password must be at least 3 characters",
         "error"
       );
       setTimeout(() => {
         Swal.close();
       }, 1000);
       return;
-    } else if (email.length > 50 || password.length > 50) {
+    } else if (username.length > 20 || password.length > 20) {
       Swal.fire(
         "Error",
-        "Email or password must be less than 50 characters",
+        "Username and password must be at most 20 characters",
         "error"
       );
       setTimeout(() => {
         Swal.close();
       }, 1000);
       return;
-    } else if (!/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/.test(email)) {
-      Swal.fire("Error", "Email is invalid", "error");
-      setTimeout(() => {
-        Swal.close();
-      }, 1000);
-      return;
-    }
-    else{
+    } else {
       // Login failed
       Swal.fire("Error", "Wrong username or password", "error");
 
@@ -57,9 +52,10 @@ const Login = () => {
 
     try {
       const response = await axios.get(
-        `https://localhost:7241/api/User/checklogin/${email}/${password}`
+        `https://localhost:7241/api/User/checklogin/${username}/${password}`
       );
       const acc = response.data.data;
+      console.log(response);
       if (response.status === 200) {
         if (acc != null) {
           sessionStorage.setItem("userID", acc.userID);
@@ -68,23 +64,44 @@ const Login = () => {
           sessionStorage.setItem("fname", acc.userFname);
           sessionStorage.setItem("lname", acc.userLname);
           sessionStorage.setItem("address", acc.address);
-          sessionStorage.setItem("city", acc.city); 
+          sessionStorage.setItem("city", acc.city);
           sessionStorage.setItem("mobNo", acc.mobNo);
           sessionStorage.setItem("state", acc.state);
           sessionStorage.setItem("dob", acc.dob);
-          // Login successful
-          Swal.fire("Success", "Login successful!", "success");
+          sessionStorage.setItem("userName", acc.userName);
 
-          setTimeout(() => {
-            Swal.close();
-            navigate("/");
-          }, 1000);
+          const role = response.data.role;
+          if (role === "admin") {
+            setRole(role);
+            sessionStorage.setItem("role", role);
+            // Login successful
+            Swal.fire("Success", "Login successful!", "success");
+            setTimeout(() => {
+              Swal.close();
+              navigate("/movingtoadmin");
+            }, 1000);
+          } else if (role === "user") {
+            setRole(role);
+            sessionStorage.setItem("role", role);
+            // Login successful
+            Swal.fire("Success", "Login successful!", "success");
+            setTimeout(() => {
+              Swal.close();
+              navigate("/");
+            }, 1000);
+          } else {
+            setRole("");
+            // Login fail
+            Swal.fire("Error", "Login fail!", "error");
+            setTimeout(() => {
+              Swal.close();
+              navigate("/login");
+            }, 1000);
+          }
 
-          // Wait for 1 second before reloading the page
           await new Promise((resolve) => setTimeout(resolve, 2000));
-          //window.location.reload();
         }
-      } 
+      }
     } catch (error) {
       // Handle other errors
       console.error("Error:", error);
@@ -101,15 +118,15 @@ const Login = () => {
             <h2>LOGIN</h2>
             <form onSubmit={handleLogin}>
               <div className="mb-3 mt-3">
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="username">username:</label>
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  id="email"
-                  placeholder="Enter email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="username"
+                  placeholder="Enter username"
+                  name="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="mb-3">

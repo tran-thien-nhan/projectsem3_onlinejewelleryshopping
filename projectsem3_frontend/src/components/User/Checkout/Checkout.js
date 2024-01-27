@@ -121,7 +121,16 @@ const Checkout = () => {
   return (
     <div className="container my-4">
       {loading ? (
-        <TailSpin color="red" radius={"8px"} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <TailSpin color="red" radius={8} />
+        </div>
       ) : (
         <form>
           <div className="row">

@@ -14,7 +14,16 @@ const Thankyou = () => {
   return (
     <div class="container">
       {loading ? (
-        <TailSpin color="red" radius={"8px"} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <TailSpin color="red" radius={8} />
+        </div>
       ) : (
         <div class="row">
           <div class="col-md-12 text-center pt-5">

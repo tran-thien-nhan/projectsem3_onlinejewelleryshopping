@@ -10,7 +10,7 @@ namespace projectsem3_backend.Repository
         Task<CustomResult> Register(UserRegMst userMst);
 
         //checklogin
-        Task<CustomResult> CheckLogin(string email, string password);
+        Task<DataToken> CheckLogin(AdminLoginMst adminlogin);
         Task<CustomResult> DeleteUser(string id);
 
         Task<List<UserRegMst>> GetAllUsersExcel();   

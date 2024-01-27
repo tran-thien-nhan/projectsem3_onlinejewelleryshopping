@@ -113,6 +113,7 @@ namespace projectsem3_backend.data
                     new UserRegMst
                     {
                         UserID = "1",
+                        UserName = "user1",
                         UserFname = "User",
                         UserLname = "1",
                         Address = "HCM",
@@ -129,6 +130,7 @@ namespace projectsem3_backend.data
                     new UserRegMst
                     {
                         UserID = "2",
+                        UserName = "user2",
                         UserFname = "User",
                         UserLname = "2",
                         Address = "HCM",
@@ -145,6 +147,7 @@ namespace projectsem3_backend.data
                     new UserRegMst
                     {
                         UserID = "3",
+                        UserName = "user3",
                         UserFname = "User",
                         UserLname = "3",
                         Address = "HCM",

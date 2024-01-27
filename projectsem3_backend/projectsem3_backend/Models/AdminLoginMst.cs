@@ -9,6 +9,8 @@ namespace projectsem3_backend.Models
 
         public string? Password { get; set; }
 
+        public string? AdminEmail { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

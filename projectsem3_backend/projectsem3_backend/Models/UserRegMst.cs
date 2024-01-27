@@ -7,6 +7,7 @@ namespace projectsem3_backend.Models
         [Key]
         public string UserID { get; set; }
 
+        public string? UserName { get; set; }
 
         public string? UserFname { get; set; }
 

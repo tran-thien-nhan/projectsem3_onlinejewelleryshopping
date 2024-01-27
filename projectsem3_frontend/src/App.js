@@ -1,43 +1,76 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { DataProvider } from "./Context/DataContext";
-import ItemDetail from "./components/User/ItemDetail";
-import ItemList from "./components/User/ItemList";
 import UserNavbar from "./components/User/Layout/UserNavbar";
-import Test from "./components/User/Test";
 import UserFooter from "./components/User/Layout/UserFooter";
-import Login from "./components/User/Login/Login";
-import Register from "./components/User/Login/Register";
-import Page404 from "./Pages/Page404";
-import CartList from "./components/User/Cart/CartList";
-import UserInfo from "./components/User/UserInfo";
-import AdminDashboard from "./components/Admin/AdminDashboard";
+import { privateRouter, publicRouter } from "./configs/routerList";
+import Footer from "./components/Admin/Footer";
+import Sidebar from "./components/Admin/Sidebar";
+import TopbarNavbar from "./components/Admin/TopbarNavbar";
 
 function App() {
+  const [style, setStyle] = useState(
+    "navbar-nav sidebar sidebar-dark accordion"
+  );
+  const role = sessionStorage.getItem("role");
+
   return (
     <div className="">
       <DataProvider>
         <Router>
-          <UserNavbar />
-          <Routes>
-            <Route path="/" element={<ItemList />} />
-            <Route path="/item/:styleCode" element={<ItemDetail />} />
-            <Route path="/hello" element={<Test />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<CartList />} />
-            <Route path="/info" element={<UserInfo />} />
-            {/* <Route path="/cart/:styleCode" element={<CartList />} /> */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="*" element={<Page404 />} />
-          </Routes>
+          {role == "admin" ? (
+            <div>
+              <>
+                <div>
+                  <body id="page-top">
+                    <div id="wrapper">
+                      <div id="content-wrapper" className="d-flex flex-column">
+                        <div id="content">
+                          <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                            <div className="mx-4">
+                              <TopbarNavbar />
+                            </div>
+                          </nav>
+                          <div className="container-fluid d-flex">
+                            <div style={{ backgroundColor: "#3b5d50" }}>
+                              <Sidebar style={style} />
+                            </div>
+                            <div className="container-fluid">
+                              <Routes>
+                                {privateRouter.map((route, index) => (
+                                  <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={route.element}
+                                  />
+                                ))}
+                              </Routes>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <Footer />
+                  </body>
+                </div>
+              </>
+            </div>
+          ) : (
+            <>
+              <UserNavbar />
+              <Routes>
+                {publicRouter.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+              </Routes>
+              <UserFooter />
+            </>
+          )}
         </Router>
-        <UserFooter />
       </DataProvider>
     </div>
   );

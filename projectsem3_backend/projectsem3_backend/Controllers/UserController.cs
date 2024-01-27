@@ -20,10 +20,17 @@ namespace projectsem3_backend.Controllers
             this.excelHandler = excelHandler;
         }
 
-        [HttpGet("checklogin/{email}/{password}")]
-        public async Task<CustomResult> CheckLogin(string email, string password)
+        [HttpGet("checklogin/{username}/{password}")]
+        public async Task<DataToken> CheckLogin(string username, string password)
         {
-            return await userRepo.CheckLogin(email, password);
+            try
+            {
+                return await userRepo.CheckLogin(new AdminLoginMst { UserName = username, Password = password });
+            }
+            catch (Exception e)
+            {
+                return new DataToken(404, e.Message, null, null, null);
+            }
         }
 
         [HttpGet("getalluser")]

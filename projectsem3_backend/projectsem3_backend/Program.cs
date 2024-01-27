@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 using projectsem3_backend.data;
 using projectsem3_backend.Repository;
 using projectsem3_backend.Service;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,8 +27,26 @@ builder.Services.AddCors(options =>
 
 //đăng ký connection
 builder.Services.AddDbContext<DatabaseContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection"))
+    {
+        opts.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection"));
+        //opts.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+    }
 );
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(op =>
+    {
+        op.RequireHttpsMetadata = false;
+        op.SaveToken = true;
+        op.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -65,6 +86,8 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAllOrigins");
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
