@@ -57,5 +57,11 @@ namespace projectsem3_backend.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("getuserbyid/{id}")]
+        public async Task<CustomResult> GetUserById(string id)
+        {
+            return await userRepo.GetUserById(id);
+        }
     }
 }

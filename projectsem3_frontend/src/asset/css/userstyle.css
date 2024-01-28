@@ -910,11 +910,14 @@ textarea {
 
 /*---------------------------------------------*/
 .new-order {
-  background-color: #dde1c8 !important; 
+  background-color: yellow;
+  color: red; 
+  font-weight: bold;
 }
 .sidebar {
   width: 14rem;
-  min-height: 100vh;  
+  min-height: 100vh;
+  border-radius: 50%;  
 }
 
 .sidebartext{

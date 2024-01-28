@@ -95,7 +95,7 @@ const UserNavbar = () => {
                     style={{ fontWeight: "bold" }}
                   >
                     {/* <img src={userIcon} alt="user" /> */}
-                    hello {sessionStorage.getItem("userName")}
+                    Hello {sessionStorage.getItem("userName")}
                   </button>
                   <ul className="dropdown-menu">
                     <li>

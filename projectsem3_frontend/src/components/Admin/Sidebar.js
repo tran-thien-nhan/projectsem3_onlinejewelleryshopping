@@ -6,21 +6,20 @@ const Sidebar = (props) => {
   return (
     <div>
       <ul className={props.style} id="accordionSidebar">
-        <li className="sidebartext">
-          <a className="nav-link" href="/admin">
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <li className="sidebartext">
-          <a className="nav-link" href="/items">
-            <span>List Items</span>
-          </a>
-        </li>
-        <li className="sidebartext">
-          <a className="nav-link" href="/allorders">
-            <span>List Orders</span>
-          </a>
-        </li>
+        {
+          privateRouter.map((route, index) => (
+            route.visible && (
+              <li className="sidebartext" key={index}>
+                <a
+                  className="nav-link"
+                  href={route.path}
+                >
+                  <span>{route.name}</span>
+                </a>
+              </li>
+            )
+          ))
+        }
       </ul>
     </div>
   );

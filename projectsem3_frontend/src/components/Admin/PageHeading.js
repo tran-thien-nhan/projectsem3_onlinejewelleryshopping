@@ -23,7 +23,7 @@ const PageHeading = () => {
             onClick={handleGenerateReport}
             className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
           >
-            <i className="fas fa-download fa-sm text-white-50"></i> Generate Excel Report
+            <i class="fa fa-file-excel mx-2" aria-hidden="true"></i> Generate Excel Report
           </button>
         </div>
       );

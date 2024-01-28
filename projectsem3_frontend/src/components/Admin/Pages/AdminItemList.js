@@ -3,12 +3,18 @@ import { TailSpin } from "react-loader-spinner";
 import { useData } from "../../../Context/DataContext";
 import { saveAs } from "file-saver";
 import axios from "axios";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 const AdminItemList = () => {
   const { items, loading, error } = useData();
   const [sortOrder, setSortOrder] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [mrpSortOrder, setMrpSortOrder] = useState("");
+  const [visibilityFilter, setVisibilityFilter] = useState("all");
+
+  const handleVisibilityFilterChange = (filter) => {
+    setVisibilityFilter(filter);
+  };
 
   const handleGenerateReportItems = async () => {
     try {
@@ -46,10 +52,10 @@ const AdminItemList = () => {
   const handleSortOrderChange = (field) => {
     if (field === "quantity") {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-      setMrpSortOrder(""); // Đặt thứ tự sắp xếp của `mrp` về mặc định
+      setMrpSortOrder("");
     } else if (field === "mrp") {
       setMrpSortOrder(mrpSortOrder === "asc" ? "desc" : "asc");
-      setSortOrder(""); // Đặt thứ tự sắp xếp của `quantity` về mặc định
+      setSortOrder("");
     }
   };
 
@@ -57,16 +63,36 @@ const AdminItemList = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredItems = sortedItems.filter(
-    (item) =>
+  const filteredItems = sortedItems.filter((item) => {
+    const matchesSearchTerm =
       item.style_Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.product_Name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+      item.product_Name.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesVisibilityFilter =
+      visibilityFilter === "all" ||
+      (visibilityFilter === "show" && item.visible) ||
+      (visibilityFilter === "hide" && !item.visible);
+
+    return matchesSearchTerm && matchesVisibilityFilter;
+  });
 
   const handleReset = () => {
     setSearchTerm("");
     setSortOrder("");
     setMrpSortOrder("");
+    setVisibilityFilter("all");
+  };
+
+  const handleUpdateVisibility = async (styleCode) => {
+    try {
+      await axios.put(
+        `https://localhost:7241/api/ItemMst/updatevisibility/${styleCode}`
+      );
+      // Update the visibility of the item in the state or fetch the updated data again
+      await window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -83,6 +109,22 @@ const AdminItemList = () => {
           onChange={handleSearchTermChange}
         />
       </div>
+      <div className="mb-3">
+        <label htmlFor="visibilityFilter" className="form-label">
+          Filter by Visibility
+        </label>
+        <select
+          className="form-select"
+          id="visibilityFilter"
+          onChange={(e) => handleVisibilityFilterChange(e.target.value)}
+          value={visibilityFilter}
+        >
+          <option value="all">All</option>
+          <option value="show">Show</option>
+          <option value="hide">Hide</option>
+        </select>
+      </div>
+
       <div className="site-blocks-table">
         <table className="table table-bordered">
           <thead>
@@ -108,6 +150,7 @@ const AdminItemList = () => {
                   {sortOrder === "asc" ? "Quantity ▲" : "Quantity ▼"}
                 </a>
               </th>
+              <th>Visible</th>
             </tr>
           </thead>
           <tbody>
@@ -140,6 +183,14 @@ const AdminItemList = () => {
                   <td>{item.product_Name}</td>
                   <td>{item.mrp}</td>
                   <td>{item.quantity}</td>
+                  <td>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => handleUpdateVisibility(item.style_Code)}
+                    >
+                      {item.visible ? <FaTimes /> : <FaCheck />}
+                    </button>
+                  </td>
                 </tr>
               ))
             ) : (
@@ -158,9 +209,18 @@ const AdminItemList = () => {
           className="btn btn-danger mx-2"
           onClick={handleGenerateReportItems}
         >
-          <i className="fas fa-download fa-sm text-white-50 mx-2"></i> export
-          items report to excel
+          <i class="fa fa-file-excel mx-2" aria-hidden="true"></i> export items
+          report to excel
         </button>
+        <div className="btn btn-primary">
+          <a
+            href="/createitem"
+            style={{ textDecoration: "none" }}
+            className="text-white"
+          >
+            Create New Item
+          </a>
+        </div>
       </div>
     </div>
   );

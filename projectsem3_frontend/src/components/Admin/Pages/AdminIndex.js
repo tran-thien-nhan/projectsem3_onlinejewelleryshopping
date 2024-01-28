@@ -12,7 +12,7 @@ const AdminIndex = () => {
 
       <div className="row">
         <CardEarning />
-        <CardEarning1 />
+        {/* <CardEarning1 /> */}
       </div>
 
       <div className="row">

@@ -12,6 +12,8 @@ const AdminAllOrders = () => {
   const [searchUserID, setSearchUserID] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage] = useState(4);
 
   const isNewOrder = (order) => {
     const today = new Date();
@@ -82,6 +84,18 @@ const AdminAllOrders = () => {
     setEndDate("");
   };
 
+  const handleUpdateOrderStatus = async (orderId, status) => {
+    try {
+      await axios.put(
+        `https://localhost:7241/api/Order/updateorderstatus/${orderId}/${status}`
+      );
+      // Update the order status in the local state or fetch the updated order list
+      await window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const filteredOrderList = sortedOrderList
     .filter((order) => order.order_ID.toString().includes(searchOrderID))
     .filter((order) =>
@@ -98,6 +112,15 @@ const AdminAllOrders = () => {
       (order) =>
         endDate === "" || new Date(order.orderDate) <= new Date(endDate)
     );
+
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = filteredOrderList.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="container-fluid">
@@ -183,15 +206,12 @@ const AdminAllOrders = () => {
                   style={{ cursor: "pointer", textDecoration: "none" }}
                   onClick={() => handleSortOrderDateChange()}
                 >
-                  Order Date{" "}
-                  {sortOrderDate === "asc"
-                    ? "(old to new) ▲"
-                    : "(new to old) ▼"}
+                  Order Date {sortOrderDate === "asc" ? "▲" : "▼"}
                 </a>
               </th>
-              <th scope="col">User ID</th>
               <th scope="col">Total Amount</th>
               <th scope="col">Order Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -208,25 +228,52 @@ const AdminAllOrders = () => {
                 </td>
               </tr>
             ) : (
-              filteredOrderList.map((order) => (
+              currentOrders.map((order) => (
                 <tr key={order.order_ID}>
-                  <td className={isNewOrder(order) ? "new-order" : ""}>
-                    {order.order_ID}
+                  <td>
+                    {order.order_ID}{" "}
+                    <span className={isNewOrder(order) ? "new-order" : ""}>
+                      {isNewOrder(order) ? "(new)" : ""}
+                    </span>
                   </td>
-                  <td className={isNewOrder(order) ? "new-order" : ""}>
-                    {new Date(order.orderDate).toLocaleString()}
+                  <td>{new Date(order.orderDate).toLocaleString()}</td>
+                  <td>${order.totalPrice}</td>
+                  <td>
+                    {order.orderStatus === 1 && (
+                      <span className="badge bg-primary">Pending</span>
+                    )}
+                    {order.orderStatus === 2 && (
+                      <span className="badge bg-info">Shipping</span>
+                    )}
+                    {order.orderStatus === 3 && (
+                      <span className="badge bg-success">Completed</span>
+                    )}
+                    {order.orderStatus === 4 && (
+                      <span className="badge bg-danger">Cancel</span>
+                    )}
                   </td>
-                  <td className={isNewOrder(order) ? "new-order" : ""}>
-                    {order.userID}
-                  </td>
-                  <td className={isNewOrder(order) ? "new-order" : ""}>
-                    ${order.totalPrice}
-                  </td>
-                  <td className={isNewOrder(order) ? "new-order" : ""}>
-                    {order.orderStatus === 1 && "pending"}
-                    {order.orderStatus === 2 && "shipping"}
-                    {order.orderStatus === 3 && "completed"}
-                    {order.orderStatus === 4 && "cancel"}
+                  <td>
+                    <a
+                      href={`/order/${order.order_ID}`}
+                      className="btn btn-primary btn-sm"
+                    >
+                      View
+                    </a>
+                    <select
+                      className="form-select"
+                      value={order.orderStatus}
+                      onChange={(e) =>
+                        handleUpdateOrderStatus(
+                          order.order_ID,
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      <option value={1}>Pending</option>
+                      <option value={2}>Shipping</option>
+                      <option value={3}>Completed</option>
+                      <option value={4}>Cancel</option>
+                    </select>
                   </td>
                 </tr>
               ))
@@ -242,9 +289,27 @@ const AdminAllOrders = () => {
           className="btn btn-danger mx-2"
           onClick={handleGenerateReportOrder}
         >
-          <i className="fas fa-download fa-sm text-white-50 mx-2"></i> export
-          order report to excel
+          <i class="fa fa-file-excel mx-2" aria-hidden="true"></i> export order
+          report to excel
         </button>
+      </div>
+      <div className="pagination justify-content-center">
+        <ul className="pagination">
+          {Array.from({
+            length: Math.ceil(filteredOrderList.length / ordersPerPage),
+          }).map((_, index) => (
+            <li
+              key={index}
+              className={`page-item ${
+                currentPage === index + 1 ? "active" : ""
+              }`}
+            >
+              <button className="page-link" onClick={() => paginate(index + 1)}>
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

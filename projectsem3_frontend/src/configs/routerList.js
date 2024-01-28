@@ -15,6 +15,10 @@ import MovingToUser from "../components/Admin/MovingToUser";
 import AdminItemList from "../components/Admin/Pages/AdminItemList";
 import AdminIndex from "../components/Admin/Pages/AdminIndex";
 import AdminAllOrders from "../components/Admin/Pages/AdminAllOrders";
+import AdminOrderDetail from "../components/Admin/Pages/AdminOrderDetail";
+import AdminCreateItem from "../components/Admin/Pages/AdminCreateItem";
+import AdminUserList from "../components/Admin/Pages/AdminUserList";
+import AdminUserDetail from "../components/Admin/Pages/AdminUserDetail";
 
 const publicRouter = [
   {
@@ -61,10 +65,10 @@ const publicRouter = [
     path: "/movingtoadmin",
     element: <MovingToAdmin />,
   },
-    // {
-    //   path: "*",
-    //   element: <Page404 />,
-    // },
+  // {
+  //   path: "*",
+  //   element: <Page404 />,
+  // },
 ];
 
 const privateRouter = [
@@ -72,21 +76,49 @@ const privateRouter = [
     path: "/movingtouser",
     element: <MovingToUser />,
     name: "",
+    visible: false,
   },
   {
     path: "/admin",
     element: <AdminIndex />,
-    name: "Index",
+    name: "Dashboard",
+    visible: true,
   },
   {
     path: "/items",
     element: <AdminItemList />,
-    name: "Items List",
+    name: "Items Management",
+    visible: true,
   },
   {
     path: "/allorders",
     element: <AdminAllOrders />,
-    name: "Orders List",
+    name: "Orders Management",
+    visible: true,
+  },
+  {
+    path: "/order/:order_ID",
+    element: <AdminOrderDetail />,
+    name: "Order Detail",
+    visible: false,
+  },
+  {
+    path: "/createitem",
+    element: <AdminCreateItem />,
+    name: "Create Item",
+    visible: false,
+  },
+  {
+    path: "/userlist",
+    element: <AdminUserList />,
+    name: "User Management",
+    visible: true,
+  },
+  {
+    path: "/user/:userID",
+    element: <AdminUserDetail />,
+    name: "user detail",
+    visible: false,
   }
 ];
 

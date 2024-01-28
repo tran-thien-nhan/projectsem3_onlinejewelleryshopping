@@ -14,6 +14,9 @@ namespace projectsem3_backend.Repository
         Task<CustomResult> DeleteOrder(string id);
         Task<CustomResult> UpdateOrderStatus(string id, int status);
 
+        //tính tổng tiền của tất cả order
+        Task<CustomResult> GetTotalMoney();
+
         //get orderdetail
         Task<CustomResult> GetOrderDetail(string orderId);
 

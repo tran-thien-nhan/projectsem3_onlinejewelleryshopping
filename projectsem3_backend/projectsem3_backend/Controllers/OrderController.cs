@@ -61,10 +61,10 @@ namespace projectsem3_backend.Controllers
             return await orderRepo.DeleteOrder(id);
         }
 
-        [HttpPut("updateorderstatus/{id}/{status}")]
-        public async Task<CustomResult> UpdateOrderStatus(string id, int status)
+        [HttpPut("updateorderstatus/{orderid}/{status}")]
+        public async Task<CustomResult> UpdateOrderStatus(string orderid, int status)
         {
-            return await orderRepo.UpdateOrderStatus(id, status);
+            return await orderRepo.UpdateOrderStatus(orderid, status);
         }
 
         [HttpGet("getorderdetail/{orderId}")]
@@ -136,6 +136,12 @@ namespace projectsem3_backend.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("gettotalmoney")]
+        public async Task<CustomResult> GetTotalMoney()
+        {
+            return await orderRepo.GetTotalMoney();
         }
     }
 }

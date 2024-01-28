@@ -14,6 +14,8 @@ export const DataProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [userID, setUserID] = useState("");
   const [cartList, setCartList] = useState([]);
+  const [totalMoney, setTotalMoney] = useState(0);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,6 +99,46 @@ export const DataProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://localhost:7241/api/Order/gettotalmoney`
+        );
+        console.log(response.data.data);
+        setTotalMoney(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://localhost:7241/api/User/getalluser`
+        );
+        console.log(response.data.data);
+        setUserList(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [])
+
   const value = {
     items,
     loading,
@@ -108,6 +150,8 @@ export const DataProvider = ({ children }) => {
     orderListSort,
     orderListByUserId,
     allOrderList,
+    totalMoney,
+    userList,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

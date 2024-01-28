@@ -21,7 +21,7 @@ const Order = () => {
                     <th class="product-price">Total Price</th>
                     <th class="product-quantity">Status</th>
                     <th class="product-total">Notes</th>
-                    <th class="product-total">Address</th>                    
+                    <th class="product-total">Address</th>
                     <th class="product-total">Order Date</th>
                     <th class="product-remove">Detail</th>
                   </tr>
@@ -32,13 +32,21 @@ const Order = () => {
                       <td>{order.order_ID}</td>
                       <td>${order.totalPrice}</td>
                       <td>
-                        {order.orderStatus === 1 && "pending"}
-                        {order.orderStatus === 2 && "shipping"}
-                        {order.orderStatus === 3 && "completed"}
-                        {order.orderStatus === 4 && "cancelled"}
+                        {order.orderStatus === 1 && (
+                          <span className="badge bg-primary">Pending</span>
+                        )}
+                        {order.orderStatus === 2 && (
+                          <span className="badge bg-info">Shipping</span>
+                        )}
+                        {order.orderStatus === 3 && (
+                          <span className="badge bg-success">Completed</span>
+                        )}
+                        {order.orderStatus === 4 && (
+                          <span className="badge bg-danger">Cancel</span>
+                        )}
                       </td>
                       <td>{order.order_Note || "nothing"}</td>
-                      <td>{order.order_Address}</td>                      
+                      <td>{order.order_Address}</td>
                       <td>{order.orderDate}</td>
                       <td>
                         <Link

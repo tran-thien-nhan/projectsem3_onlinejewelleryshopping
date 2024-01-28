@@ -102,7 +102,19 @@ namespace projectsem3_backend.Service
 
         public async Task<CustomResult> GetUserById(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == id);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
         }
 
         public async Task<CustomResult> Register(UserRegMst userMst)

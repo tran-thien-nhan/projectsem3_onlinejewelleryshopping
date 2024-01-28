@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useData } from "../../../Context/DataContext";
-import axios from "axios";
-import { saveAs } from "file-saver";
 
 const OrderDetail = () => {
   const { order_ID } = useParams();
@@ -29,21 +27,6 @@ const OrderDetail = () => {
   if (!Array.isArray(orderDetails) || orderDetails.length === 0) {
     return <p>No order details found.</p>;
   }
-
-  const exportPDF = async () => {
-    try {
-      const response = await axios.get(
-        `https://localhost:7241/api/Order/exportpdforderdetails/${order_ID}`,
-        { responseType: "blob" } // Important for receiving binary data
-      );
-
-      const blob = new Blob([response.data], { type: "application/pdf" });
-      saveAs(blob, `Order_${order_ID}.pdf`);
-    } catch (error) {
-      console.error("Error exporting PDF:", error);
-    }
-  };
-
   return (
     <div className="untree_co-section before-footer-section">
       <div className="container">
@@ -67,10 +50,20 @@ const OrderDetail = () => {
                         <tr key={order.order_ID}>
                           <td>{order.order_ID}</td>
                           <td>
-                            {order.orderStatus === 1 && "pending"}
-                            {order.orderStatus === 2 && "shipping"}
-                            {order.orderStatus === 3 && "completed"}
-                            {order.orderStatus === 4 && "cancelled"}
+                            {order.orderStatus === 1 && (
+                              <span className="badge bg-primary">Pending</span>
+                            )}
+                            {order.orderStatus === 2 && (
+                              <span className="badge bg-info">Shipping</span>
+                            )}
+                            {order.orderStatus === 3 && (
+                              <span className="badge bg-success">
+                                Completed
+                              </span>
+                            )}
+                            {order.orderStatus === 4 && (
+                              <span className="badge bg-danger">Cancel</span>
+                            )}
                           </td>
                           <td>{order.order_Address}</td>
                           <td>{order.order_Note || "nothing"}</td>
@@ -126,9 +119,6 @@ const OrderDetail = () => {
               </table>
             </div>
           </form>
-          <button className="btn btn-warning" onClick={exportPDF}>
-            Export To PDF
-          </button>
         </div>
       </div>
     </div>

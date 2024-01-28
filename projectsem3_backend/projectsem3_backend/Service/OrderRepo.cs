@@ -400,5 +400,26 @@ namespace projectsem3_backend.Service
             var orderDetailList = await db.OrderDetailMsts.Include(o => o.ItemMst).Include(o => o.OrderMst).ToListAsync();
             return orderDetailList;
         }
+
+        public async Task<CustomResult> GetTotalMoney()
+        {
+            try
+            {
+                var order = await db.OrderMsts.ToListAsync();
+                if (order == null)
+                {
+                    return new CustomResult(404, "Order not found!", null);
+                }
+                else
+                {
+                    var totalMoney = order.Sum(o => o.TotalPrice);
+                    return new CustomResult(200, "Get total money successfully!", totalMoney);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new CustomResult(500, ex.Message, null);
+            }
+        }
     }
 }
