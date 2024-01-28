@@ -1,0 +1,137 @@
+﻿using Microsoft.EntityFrameworkCore;
+using projectsem3_backend.CustomStatusCode;
+using projectsem3_backend.data;
+using projectsem3_backend.Models;
+using projectsem3_backend.Repository;
+
+namespace projectsem3_backend.Service
+    {
+    public class DimQltySubMstRepo : IDimQltySubMstRepo
+        {
+        private readonly DatabaseContext _db;
+
+        public DimQltySubMstRepo( DatabaseContext db )
+            {
+            _db = db;
+            }
+
+        public async Task<IEnumerable<DimQltySubMst>> GetAllDimQltySubMst()
+            {
+            try
+                {
+                var result = await _db.DimQltySubMsts.ToListAsync();
+                return result;
+                }
+            catch (Exception ex)
+                {
+                // Handle exception and return appropriate CustomResult
+                return null;
+                }
+            }
+
+        public async Task<CustomResult> GetDimQltySubMstById( string id )
+            {
+            try
+                {
+                var result = await _db.DimQltySubMsts.SingleOrDefaultAsync(i => i.DimSubType_ID == id);
+                if (result == null)
+                    {
+                    return new CustomResult(401, "not found", null);
+                    }
+                else
+                    {
+                    return new CustomResult(200, "Get item success", result);
+                    }
+                }
+            catch (Exception e)
+                {
+                return new CustomResult(500, e.Message, null);
+                }
+            }
+
+        public async Task<CustomResult> CreateDimQltySubMst( DimQltySubMst dimQltySubMst )
+            {
+            try
+                {
+                if (dimQltySubMst == null)
+                    {
+                    return new CustomResult(400, "Invalid input. DimQltySubMst is null.", null);
+                    }
+
+                _db.DimQltySubMsts.Add(dimQltySubMst);
+                var result = await _db.SaveChangesAsync();
+
+                return result > 0 ? new CustomResult(200, "Created Success", dimQltySubMst) : new CustomResult(201, "No changes were made in the database", null);
+                }
+            catch (Exception e)
+                {
+                return new CustomResult(500, e.Message, null);
+                }
+            }
+
+        public async Task<CustomResult> UpdateDimQltySubMst( DimQltySubMst dimQltySubMst )
+            {
+            try
+                {
+                if (dimQltySubMst == null)
+                    {
+                    return new CustomResult(400, "Invalid input. DimQltySubMst is null.", null);
+                    }
+
+                _db.DimQltySubMsts.Update(dimQltySubMst);
+                var result = await _db.SaveChangesAsync();
+
+                return result > 0 ? new CustomResult(200, "Update Success", dimQltySubMst) : new CustomResult(201, "No changes were made in the database", null);
+                }
+            catch (Exception e)
+                {
+                return new CustomResult(500, e.Message, null);
+                }
+            }
+
+        public async Task<CustomResult> DeleteDimQltySubMst( string id )
+            {
+            try
+                {
+                var dimQltySubMst = await _db.DimQltySubMsts.SingleOrDefaultAsync(i => i.DimSubType_ID == id);
+                if (dimQltySubMst == null)
+                    {
+                    return new CustomResult(201, "Not Found", null);
+                    }
+                else
+                    {
+                    _db.DimQltySubMsts.Remove(dimQltySubMst);
+                    var result = await _db.SaveChangesAsync();
+                    return result == 1 ? new CustomResult(200, "Delete Success", dimQltySubMst) : new CustomResult(201, "Delete Error", null);
+                    }
+                }
+            catch (Exception e)
+                {
+                return new CustomResult(402, e.Message, null);
+                }
+            }
+
+        public async Task<CustomResult> UpdateVisibility( string id )
+            {
+            try
+                {
+                var dimQltySubMst = await _db.DimQltySubMsts.SingleOrDefaultAsync(i => i.DimSubType_ID == id);
+                if (dimQltySubMst == null)
+                    {
+                    return new CustomResult(201, "Not Found", null);
+                    }
+                else
+                    {
+                    dimQltySubMst.Visible = !dimQltySubMst.Visible;
+                    _db.DimQltySubMsts.Update(dimQltySubMst);
+                    var result = await _db.SaveChangesAsync();
+                    return result == 1 ? new CustomResult(200, "Update Success", dimQltySubMst) : new CustomResult(201, "No changes were made in the database", null);
+                    }
+                }
+            catch (Exception e)
+                {
+                return new CustomResult(402, e.Message, null);
+                }
+            }
+        }
+    }
