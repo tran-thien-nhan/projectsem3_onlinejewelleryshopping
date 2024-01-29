@@ -21,6 +21,23 @@ import AdminUserList from "../components/Admin/Pages/AdminUserList";
 import AdminUserDetail from "../components/Admin/Pages/AdminUserDetail";
 import VerifyEmailSuccess from "../Pages/VerifyEmailSuccess";
 
+//Phi's routes
+import AdminBrand from './../components/Admin/Pages/AdminBrand';
+import AdminGold from './../components/Admin/Pages/AdminGold';
+import AdminCat from './../components/Admin/Pages/AdminCat';
+import AdminStone from './../components/Admin/Pages/AdminStone';
+
+//Hung's routes
+
+
+
+
+//Minh's routes
+
+
+
+
+
 const publicRouter = [
   {
     path: "/",
@@ -73,6 +90,7 @@ const publicRouter = [
 ];
 
 const privateRouter = [
+  //Nhan's routes
   {
     path: "/movingtouser",
     element: <MovingToUser />,
@@ -120,7 +138,39 @@ const privateRouter = [
     element: <AdminUserDetail />,
     name: "user detail",
     visible: false,
-  }
+  },
+
+  //Phi route's
+  {
+    path: "/brands",
+    element: <AdminBrand />,
+    name: "Brands List",
+    visible: true,
+  },
+  {
+    path: "/gold_krt",
+    element: <AdminGold />,
+    name: "Gold Krt List",
+    visible: true,
+  },
+  {
+    path: "/cat",
+    element: <AdminCat />,
+    name: "Category List",
+    visible: true,
+  },
+  {
+    path: "/stones",
+    element: <AdminStone />,
+    name: "Stone Information List",
+    visible: true,
+  },
+  // {
+  //   path: "/stone_quality",
+  //   element: <AdminAllOrders />,
+  //   name: "Orders List",
+  //   visible: true,
+  // },
 ];
 
 export { publicRouter, privateRouter };

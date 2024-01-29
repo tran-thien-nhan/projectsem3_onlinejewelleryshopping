@@ -6,17 +6,38 @@ import { TailSpin } from "react-loader-spinner";
 const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+  //Nhan's state
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [orderList, setOrderList] = useState([]);
-  const [allOrderList, setAllOrderList] = useState([]); 
-  const [isLogin, setIsLogin] = useState(false);
-  const [userID, setUserID] = useState("");
   const [cartList, setCartList] = useState([]);
   const [totalMoney, setTotalMoney] = useState(0);
   const [userList, setUserList] = useState([]);
+  const [orderList, setOrderList] = useState([]);
+  const [allOrderList, setAllOrderList] = useState([]);
 
+  //Phi's state
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategory] = useState([]);
+  const [golds, setGold] = useState([]);
+  const [stones, setStone] = useState([]);
+  // const [stoneQuantity, setStoneQuantity] = useState([]);
+
+  //Hung's state
+
+
+
+
+  //Minh's state
+
+
+
+
+  //State Chung
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
+  const [userID, setUserID] = useState("");
+
+  //Nhan's Fetch API
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -139,19 +160,123 @@ export const DataProvider = ({ children }) => {
     fetchData();
   }, [])
 
+
+  //Phi's Fetch API
+  //Get Brand
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`https://localhost:7241/api/BrandMst`);
+        console.log(response.data.data);
+        setBrands(response.data.data);
+      } catch (error) {
+        console.error("List error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //Get Category
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://localhost:7241/api/CatMst");
+        // console.log(response.data.data);
+        setCategory(response.data.data);
+      } catch (error) {
+        console.error("List Category error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //Get Gold Krt Data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://localhost:7241/api/GoldKrtMst");
+        console.log(response.data.data);
+        setGold(response.data.data);
+      } catch (error) {
+        console.error("List Gold error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //Get Stone Data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://localhost:7241/api/StoneMst");
+        // console.log(response.data.data);
+        setStone(response.data.data);
+      } catch (error) {
+        console.error("List Stone error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  ////Hung's Fetch Data
+
+
+
+  //Minh's Fetch Data
+
+
+
+
   const value = {
+    //Nhan's value
     items,
-    loading,
-    error,
     orderList,
-    isLogin,
-    userID,
     cartList,
     orderListSort,
     orderListByUserId,
     allOrderList,
     totalMoney,
     userList,
+
+    //Phi's Value
+    brands,
+    categories,
+    golds,
+    stones,
+
+    //Hung's Value
+
+
+    //Minh's Value
+
+
+
+    //Values Chung
+    loading,
+    error,
+    isLogin,
+    userID,
+
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
