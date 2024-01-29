@@ -70,10 +70,16 @@ namespace projectsem3_backend.Controllers
             return await userRepo.Register(user);
         }
 
-        [HttpDelete("verifyemail/{token}")]
-        public async Task<CustomResult> VerifyEmail(string token)
+        [HttpPut("updatestatususer/{userid}")]
+        public async Task<CustomResult> UpdateStatusUser(string userid)
         {
-            return await userRepo.VerifyEmail(token);
+            return await userRepo.UpdateStatusUser(userid);
+        }
+
+        [HttpDelete("deleteuser/{id}")]
+        public async Task<CustomResult> DeleteUser(string id)
+        {
+            return await userRepo.DeleteUser(id);
         }
     }
 }

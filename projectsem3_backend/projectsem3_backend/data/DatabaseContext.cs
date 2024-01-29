@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto;
 using projectsem3_backend.Models;
 
 namespace projectsem3_backend.data
@@ -124,6 +125,7 @@ namespace projectsem3_backend.data
                         DOB = DateTime.Now,
                         CDate = DateTime.Now,
                         Password = "123",
+                        IsVerified = true,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     },
@@ -140,6 +142,7 @@ namespace projectsem3_backend.data
                         EmailID = "user2@gmail.com",
                         DOB = DateTime.Now,
                         CDate = DateTime.Now,
+                        IsVerified = true,
                         Password = "123",
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
@@ -157,6 +160,7 @@ namespace projectsem3_backend.data
                         EmailID = "user3@gmail.com",
                         DOB = DateTime.Now,
                         CDate = DateTime.Now,
+                        IsVerified = true,
                         Password = "123",
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now

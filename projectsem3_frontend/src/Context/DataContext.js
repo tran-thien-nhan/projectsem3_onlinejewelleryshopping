@@ -43,10 +43,10 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get("https://localhost:7241/api/ItemMst");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setItems(response.data.data);
       } catch (error) {
-        console.error("list error:", error);
+        //console.error("list error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -67,7 +67,7 @@ export const DataProvider = ({ children }) => {
         );
         setOrderList(response.data.data);
       } catch (error) {
-        console.error("list error:", error);
+        //console.error("list error:", error);
       } finally {
         setLoading(false);
       }
@@ -107,10 +107,10 @@ export const DataProvider = ({ children }) => {
         const response = await axios.get(
           `https://localhost:7241/api/Order/getall`
         );
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setAllOrderList(response.data.data);
       } catch (error) {
-        console.error("list error:", error);
+        //console.error("list error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -127,10 +127,10 @@ export const DataProvider = ({ children }) => {
         const response = await axios.get(
           `https://localhost:7241/api/Order/gettotalmoney`
         );
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setTotalMoney(response.data.data);
       } catch (error) {
-        console.error("list error:", error);
+        //console.error("list error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -147,10 +147,10 @@ export const DataProvider = ({ children }) => {
         const response = await axios.get(
           `https://localhost:7241/api/User/getalluser`
         );
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setUserList(response.data.data);
       } catch (error) {
-        console.error("list error:", error);
+        //console.error("list error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -168,10 +168,10 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get(`https://localhost:7241/api/BrandMst`);
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setBrands(response.data.data);
       } catch (error) {
-        console.error("List error:", error);
+        //console.error("List error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -190,7 +190,7 @@ export const DataProvider = ({ children }) => {
         // console.log(response.data.data);
         setCategory(response.data.data);
       } catch (error) {
-        console.error("List Category error:", error);
+        //console.error("List Category error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -206,10 +206,10 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get("https://localhost:7241/api/GoldKrtMst");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setGold(response.data.data);
       } catch (error) {
-        console.error("List Gold error:", error);
+        //console.error("List Gold error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -228,7 +228,7 @@ export const DataProvider = ({ children }) => {
         // console.log(response.data.data);
         setStone(response.data.data);
       } catch (error) {
-        console.error("List Stone error:", error);
+        //console.error("List Stone error:", error);
         setError(error);
       } finally {
         setLoading(false);

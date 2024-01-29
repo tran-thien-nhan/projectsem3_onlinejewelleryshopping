@@ -84,7 +84,7 @@ const publicRouter = [
     element: <MovingToAdmin />,
   },
   {
-    path: "/verifyemailsuccess",
+    path: "/verifyemailsuccess/:token",
     element: <VerifyEmailSuccess />,
   },
 ];

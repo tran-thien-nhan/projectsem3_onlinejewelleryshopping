@@ -57,6 +57,13 @@ const Login = () => {
       const acc = response.data.data;
       console.log(response);
       if (response.status === 200) {
+        if (acc.isVerified === false) {
+          Swal.fire("Error", "Please verify your email first", "error");
+          setTimeout(() => {
+            Swal.close();
+          }, 1000);
+          return;
+        }
         if (acc != null) {
           sessionStorage.setItem("userID", acc.userID);
           sessionStorage.setItem("email", acc.emailID);
@@ -69,6 +76,7 @@ const Login = () => {
           sessionStorage.setItem("state", acc.state);
           sessionStorage.setItem("dob", acc.dob);
           sessionStorage.setItem("userName", acc.userName);
+          sessionStorage.setItem("isVerified", acc.isVerified);
 
           const role = response.data.role;
           if (role === "admin") {

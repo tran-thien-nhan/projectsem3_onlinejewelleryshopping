@@ -15,6 +15,7 @@ namespace projectsem3_backend.Repository
 
         Task<List<UserRegMst>> GetAllUsersExcel();
 
-        Task<CustomResult> VerifyEmail(string token);
+        //activate user thông qua isverified
+        Task<CustomResult> UpdateStatusUser(string userid);
     }
 }

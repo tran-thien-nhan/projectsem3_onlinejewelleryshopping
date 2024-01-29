@@ -83,13 +83,6 @@ namespace projectsem3_backend.Service
 
         public async Task<int> SendMailVerifyUserAsync(string toEmail, string token)
         {
-            // Kiểm tra xem địa chỉ email tồn tại không
-            var isValidEmail = await IsEmailValidAsync(toEmail);
-            if (!isValidEmail)
-            {
-                return -2; // Địa chỉ email không tồn tại
-            }
-
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
             message.To.Add(new MailboxAddress("", toEmail));
@@ -105,7 +98,7 @@ namespace projectsem3_backend.Service
                 <body>
                     <h2>Verify Email</h2>
                     <p>Click the link below to verify your email</p>
-                    <a href='http://localhost:3000/verifyemailsuccess?token={token}'>Verify Email</a>
+                    <a href='http://localhost:3000/verifyemailsuccess/{token}'>Verify Email</a>
                 </body>
             </html>";
 
@@ -129,25 +122,6 @@ namespace projectsem3_backend.Service
             {
                 Console.WriteLine($"Error sending email: {ex.Message}");
                 return 0; // Gửi email không thành công
-            }
-        }
-
-
-        private async Task<bool> IsEmailValidAsync(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                string host = addr.Host;
-
-                var lookup = new LookupClient();
-                var result = await lookup.QueryAsync(host, QueryType.MX);
-
-                return result.Answers.MxRecords().Any();
-            }
-            catch
-            {
-                return false;
             }
         }
     }

@@ -38,6 +38,8 @@ namespace projectsem3_backend.Models
 
         public string Password { get; set; }
 
+        public bool? IsVerified { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

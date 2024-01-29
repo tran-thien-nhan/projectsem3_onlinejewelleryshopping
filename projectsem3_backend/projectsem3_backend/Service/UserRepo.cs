@@ -55,7 +55,7 @@ namespace projectsem3_backend.Service
                 var admin = await AuthenticateAdmin(adminlogin);
                 if (user != null)
                 {
-                    var tokenString = TokenService.GenerateJSONWebTokenUser(configuration, user);
+                    var tokenString = TokenService.GenerateJSONWebTokenUser(configuration, user, user.UserID);
                     return new DataToken(200, "Success, this is user", user, tokenString, "user");
                 }
                 else if (admin != null)
@@ -76,7 +76,21 @@ namespace projectsem3_backend.Service
 
         public async Task<CustomResult> DeleteUser(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == id);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+                db.UserRegMsts.Remove(user);
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
         }
 
         public async Task<CustomResult> GetAllUser()
@@ -136,41 +150,25 @@ namespace projectsem3_backend.Service
                         return new CustomResult(404, "User already exists", null);
                     }
 
+                    userMst.UserID = Guid.NewGuid().ToString();
+
                     // Gửi mail verify
-                    var token = TokenService.GenerateJSONWebTokenUser(configuration, userMst);
+                    var token = TokenService.GenerateJSONWebTokenUser(configuration, userMst, userMst.UserID);
 
                     // Thử gửi mail
                     var emailResult = await emailService.SendMailVerifyUserAsync(userMst.EmailID, token);
 
-                    // Kiểm tra kết quả gửi mail
+                    // Nếu gửi mail thất bại, trả về lỗi
                     if (emailResult == 0)
                     {
-                        // Nếu gửi email không thành công, trả về lỗi và không tiếp tục thêm vào cơ sở dữ liệu
                         transaction.Rollback();
-                        return new CustomResult(500, "Failed to send email", null);
-                    }
-                    else if (emailResult == -2)
-                    {
-                        // Nếu địa chỉ mail không tồn tại, trả về thông báo lỗi và không tiếp tục thêm vào cơ sở dữ liệu
-                        transaction.Rollback();
-                        return new CustomResult(500, "Email address does not exist", null);
+                        return new CustomResult(404, "Send mail failed", null);
                     }
 
-                    // Kiểm tra tính hợp lệ của địa chỉ email trước khi thêm vào cơ sở dữ liệu
-                    var isValidEmail = ValidateEmail(userMst.EmailID);
-
-                    if (!isValidEmail)
-                    {
-                        // Nếu địa chỉ email không hợp lệ, trả về lỗi và không tiếp tục thêm vào cơ sở dữ liệu
-                        transaction.Rollback();
-                        return new CustomResult(500, "Invalid email address", null);
-                    }
-
-                    // Không có người dùng tồn tại và địa chỉ email hợp lệ, thực hiện thêm mới
-                    userMst.UserID = Guid.NewGuid().ToString();
                     userMst.CDate = DateTime.Now;
                     userMst.CreatedAt = DateTime.Now;
                     userMst.UpdatedAt = DateTime.Now;
+                    userMst.IsVerified = false;
 
                     // Thêm mới người dùng vào DbContext
                     await db.UserRegMsts.AddAsync(userMst);
@@ -220,43 +218,22 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<CustomResult> VerifyEmail(string token)
+        public async Task<CustomResult> UpdateStatusUser(string userid)
         {
             try
             {
-                var userId = TokenService.ValidateAndExtractUserId(configuration, token);
-
-                if (userId != null)
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
                 {
-                    var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userId);
-
-                    if (user != null)
-                    {
-                        await db.SaveChangesAsync();
-
-                        // Redirect hoặc trả về thông báo xác minh thành công
-                        return new CustomResult(200, "Success", user);
-                    }
+                    return new CustomResult(404, "User not found", null);
                 }
-
-                return new CustomResult(404, "email not found", null);
+                user.IsVerified = !user.IsVerified;
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", user);
             }
             catch (Exception e)
             {
                 return new CustomResult(500, e.Message, null);
-            }
-        }
-
-        private bool ValidateEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
             }
         }
     }
