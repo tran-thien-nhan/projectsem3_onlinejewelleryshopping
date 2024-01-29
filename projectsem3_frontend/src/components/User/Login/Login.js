@@ -141,11 +141,19 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="mb-3">
-                chưa có tài khoản?
-                <a href="/register" className="mx-2">
-                  Đăng Ký
-                </a>
+              <div className="d-flex">
+                <div className="mb-3 col-8">
+                  Not a member yet?
+                  <a href="/register" className="mx-2">
+                    Register
+                  </a>
+                </div>
+                <div className="mb-3 col-8">
+                  Forgot password?
+                  <a href="/register" className="mx-2">
+                    Click Here
+                  </a>
+                </div>
               </div>
               <button
                 onClick={handleLogin}

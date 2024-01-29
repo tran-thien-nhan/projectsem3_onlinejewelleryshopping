@@ -3,6 +3,9 @@ using projectsem3_backend.Models;
 using System.Text;
 using MailKit.Net.Smtp;
 using projectsem3_backend.Repository;
+using projectsem3_backend.CustomStatusCode;
+using System.Net;
+using DnsClient;
 
 namespace projectsem3_backend.Service
 {
@@ -75,6 +78,76 @@ namespace projectsem3_backend.Service
                 await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
+            }
+        }
+
+        public async Task<int> SendMailVerifyUserAsync(string toEmail, string token)
+        {
+            // Kiểm tra xem địa chỉ email tồn tại không
+            var isValidEmail = await IsEmailValidAsync(toEmail);
+            if (!isValidEmail)
+            {
+                return -2; // Địa chỉ email không tồn tại
+            }
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+            message.To.Add(new MailboxAddress("", toEmail));
+            message.Subject = "Verify Email";
+
+            var builder = new BodyBuilder();
+
+            // Template
+            var htmlBody = $@"
+            <html>
+                <head>
+                </head>
+                <body>
+                    <h2>Verify Email</h2>
+                    <p>Click the link below to verify your email</p>
+                    <a href='http://localhost:3000/verifyemailsuccess?token={token}'>Verify Email</a>
+                </body>
+            </html>";
+
+            builder.HtmlBody = htmlBody;
+
+            message.Body = builder.ToMessageBody();
+
+            try
+            {
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync("smtp.gmail.com", 587, false);
+                    await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+
+                return 1; // Gửi email thành công
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+                return 0; // Gửi email không thành công
+            }
+        }
+
+
+        private async Task<bool> IsEmailValidAsync(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                string host = addr.Host;
+
+                var lookup = new LookupClient();
+                var result = await lookup.QueryAsync(host, QueryType.MX);
+
+                return result.Answers.MxRecords().Any();
+            }
+            catch
+            {
+                return false;
             }
         }
     }

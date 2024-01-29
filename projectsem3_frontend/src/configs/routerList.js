@@ -19,6 +19,7 @@ import AdminOrderDetail from "../components/Admin/Pages/AdminOrderDetail";
 import AdminCreateItem from "../components/Admin/Pages/AdminCreateItem";
 import AdminUserList from "../components/Admin/Pages/AdminUserList";
 import AdminUserDetail from "../components/Admin/Pages/AdminUserDetail";
+import VerifyEmailSuccess from "../Pages/VerifyEmailSuccess";
 
 const publicRouter = [
   {
@@ -65,10 +66,10 @@ const publicRouter = [
     path: "/movingtoadmin",
     element: <MovingToAdmin />,
   },
-  // {
-  //   path: "*",
-  //   element: <Page404 />,
-  // },
+  {
+    path: "/verifyemailsuccess",
+    element: <VerifyEmailSuccess />,
+  },
 ];
 
 const privateRouter = [

@@ -46,5 +46,34 @@ namespace projectsem3_backend.Helper
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public static string ValidateAndExtractUserId(IConfiguration configuration, string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(configuration["Jwt:Secret"]);
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var userId = jwtToken.Claims.First(x => x.Type == "userId").Value;
+
+                return userId;
+            }
+            catch (Exception)
+            {
+                // Token không hợp lệ hoặc đã hết hạn
+                return null;
+            }
+        }
+
     }
 }

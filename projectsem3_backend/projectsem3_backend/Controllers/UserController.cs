@@ -63,5 +63,17 @@ namespace projectsem3_backend.Controllers
         {
             return await userRepo.GetUserById(id);
         }
+
+        [HttpPost("register")]
+        public async Task<CustomResult> Register([FromForm] UserRegMst user)
+        {
+            return await userRepo.Register(user);
+        }
+
+        [HttpDelete("verifyemail/{token}")]
+        public async Task<CustomResult> VerifyEmail(string token)
+        {
+            return await userRepo.VerifyEmail(token);
+        }
     }
 }

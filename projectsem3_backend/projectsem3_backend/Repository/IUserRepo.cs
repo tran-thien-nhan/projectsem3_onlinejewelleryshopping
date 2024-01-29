@@ -13,6 +13,8 @@ namespace projectsem3_backend.Repository
         Task<DataToken> CheckLogin(AdminLoginMst adminlogin);
         Task<CustomResult> DeleteUser(string id);
 
-        Task<List<UserRegMst>> GetAllUsersExcel();   
+        Task<List<UserRegMst>> GetAllUsersExcel();
+
+        Task<CustomResult> VerifyEmail(string token);
     }
 }

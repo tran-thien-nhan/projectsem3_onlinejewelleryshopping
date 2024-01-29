@@ -30,6 +30,7 @@ builder.Services.AddDbContext<DatabaseContext>(opts =>
     {
         opts.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection"));
         //opts.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        opts.EnableSensitiveDataLogging();
     }
 );
 

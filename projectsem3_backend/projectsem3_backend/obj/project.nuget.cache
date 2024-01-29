@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "s9PUJ5EjOjj+6pmoh3kD56w2Al7hxAsGKPJdLHUQBx2SBlQE7EE7+SXFT6DKpC2ogbGYVwAUQXlDDq8X3LrybQ==",
+  "dgSpecHash": "GdULscsKzv1L9K7O8V+U69oVzgJzIy0weJZIB1Kx1XcSMVJJuFZI3MUlsh/kRNvlmBI6KZe8JFQ+RetGJXeY+w==",
   "success": true,
   "projectFilePath": "C:\\Users\\judyh\\Desktop\\các projects\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\judyh\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\bouncycastle.netcore\\2.2.1\\bouncycastle.netcore.2.2.1.nupkg.sha512",
+    "C:\\Users\\judyh\\.nuget\\packages\\dnsclient\\1.7.0\\dnsclient.1.7.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\epplus\\7.0.8\\epplus.7.0.8.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\epplus.system.drawing\\6.1.1\\epplus.system.drawing.6.1.1.nupkg.sha512",
@@ -65,7 +66,7 @@
     "C:\\Users\\judyh\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
-    "C:\\Users\\judyh\\.nuget\\packages\\microsoft.win32.registry\\4.3.0\\microsoft.win32.registry.4.3.0.nupkg.sha512",
+    "C:\\Users\\judyh\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\mimekit\\4.3.0\\mimekit.4.3.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
