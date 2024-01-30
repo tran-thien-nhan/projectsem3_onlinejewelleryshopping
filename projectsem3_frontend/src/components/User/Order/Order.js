@@ -4,8 +4,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { useData } from "../../../Context/DataContext";
+import { useTranslation } from "react-i18next";
 
 const Order = () => {
+  const { t, i18n } = useTranslation();
   const { orderListSort } = useData();
 
   return (
@@ -17,13 +19,13 @@ const Order = () => {
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Order ID</th>
-                    <th class="product-price">Total Price</th>
-                    <th class="product-quantity">Status</th>
-                    <th class="product-total">Notes</th>
-                    <th class="product-total">Address</th>
-                    <th class="product-total">Order Date</th>
-                    <th class="product-remove">Detail</th>
+                    <th>{t("Order ID")}</th>
+                    <th class="product-price">{t("Total Price")}</th>
+                    <th class="product-quantity">{t("Status")}</th>
+                    <th class="product-total">{t("Notes")}</th>
+                    <th class="product-total">{t("Address")}</th>
+                    <th class="product-total">{t("Order Date")}</th>
+                    <th class="product-remove">{t("Detail")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -33,19 +35,19 @@ const Order = () => {
                       <td>${order.totalPrice}</td>
                       <td>
                         {order.orderStatus === 1 && (
-                          <span className="badge bg-primary">Pending</span>
+                          <span className="badge bg-primary">{t("Pending")}</span>
                         )}
                         {order.orderStatus === 2 && (
-                          <span className="badge bg-info">Shipping</span>
+                          <span className="badge bg-info">{t("Shipping")}</span>
                         )}
                         {order.orderStatus === 3 && (
-                          <span className="badge bg-success">Completed</span>
+                          <span className="badge bg-success">{t("Completed")}</span>
                         )}
                         {order.orderStatus === 4 && (
-                          <span className="badge bg-danger">Cancel</span>
+                          <span className="badge bg-danger">{t("Cancel")}</span>
                         )}
                       </td>
-                      <td>{order.order_Note || "nothing"}</td>
+                      <td>{t(order.order_Note) || "nothing"}</td>
                       <td>{order.order_Address}</td>
                       <td>{order.orderDate}</td>
                       <td>
@@ -53,7 +55,7 @@ const Order = () => {
                           to={`/order/${order.order_ID}`}
                           class="btn btn-black btn-sm"
                         >
-                          Detail
+                          {t("Detail")}
                         </Link>
                       </td>
                     </tr>

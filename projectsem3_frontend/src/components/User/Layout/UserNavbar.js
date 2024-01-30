@@ -6,14 +6,34 @@ import NavbarDropdownItem from "./NavbarDropdownItem";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const UserNavbar = () => {
   const navigate = useNavigate();
-  
+  const { t, i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  useEffect(() => {
+    // Khi component được tạo, đặt ngôn ngữ theo giá trị đã lưu
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
+      i18n.changeLanguage(storedLanguage);
+    } else {
+      // Nếu không có ngôn ngữ đã lưu, đặt ngôn ngữ mặc định
+      setSelectedLanguage(i18n.language);
+    }
+  }, [i18n]);
+
+  const changeLanguage = (lng) => {
+    setSelectedLanguage(lng);
+    i18n.changeLanguage(lng);
+    localStorage.setItem('language', lng);
+  };
+
   const handleLogout = async () => {
     sessionStorage.clear();
-
-    Swal.fire("Success", "Logout successful!", "success");
+    Swal.fire(t("Success"), t("Logout successful!"), "success");
     setTimeout(() => {
       Swal.close();
       navigate("/login");
@@ -32,7 +52,8 @@ const UserNavbar = () => {
       >
         <div className="container">
           <a className="navbar-brand" href="/">
-            Jewelry Store<span>.</span>
+            {t("Jewelry Store")}
+            <span>.</span>
           </a>
 
           <button
@@ -51,7 +72,7 @@ const UserNavbar = () => {
             <ul className="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
               <li className="nav-item">
                 <a className="nav-link" href="/">
-                  Home
+                  {t("Home")}
                 </a>
               </li>
               <li className="nav-item dropdown">
@@ -61,7 +82,7 @@ const UserNavbar = () => {
                   data-bs-toggle="dropdown"
                   style={{ fontWeight: "bold" }}
                 >
-                  Shop
+                  {t("Shop")}
                 </button>
                 <NavbarDropdownItem />
               </li>
@@ -72,7 +93,7 @@ const UserNavbar = () => {
                   data-bs-toggle="dropdown"
                   style={{ fontWeight: "bold" }}
                 >
-                  Services
+                  {t("Services")}
                 </button>
                 <NavbarDropdownItem />
               </li>
@@ -95,17 +116,17 @@ const UserNavbar = () => {
                     style={{ fontWeight: "bold" }}
                   >
                     {/* <img src={userIcon} alt="user" /> */}
-                    Hello {sessionStorage.getItem("userName")}
+                    {t("Hello")} {sessionStorage.getItem("userName")}
                   </button>
                   <ul className="dropdown-menu">
                     <li>
                       <a className="dropdown-item nav-link" href="/info">
-                        Info
+                        {t("Info")}
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item nav-link" href="/order">
-                        Order
+                        {t("Order")}
                       </a>
                     </li>
                     <li>
@@ -114,7 +135,7 @@ const UserNavbar = () => {
                         onClick={handleLogout}
                         style={{ cursor: "pointer" }}
                       >
-                        Log Out
+                        {t("Log Out")}
                       </a>
                     </li>
                   </ul>
@@ -124,6 +145,20 @@ const UserNavbar = () => {
                 <a className="nav-link" href="/cart">
                   <img src={cartIcon} alt="Cart" />
                 </a>
+              </li>
+              <li className="nav-item mt-2 px-4">
+                <select
+                  id="languageSelect"
+                  onChange={(e) => changeLanguage(e.target.value)}
+                  value={i18n.language}
+                >
+                  <option value="">{t("Language")}</option>
+                  <option value="en">{t("English")}</option>
+                  <option value="vi">{t("Vietnamese")}</option>
+                  <option value="jap">{t("Japanese")}</option>
+                  <option value="ind">{t("Hindi")}</option>
+                  <option value="kor">{t("Korean")}</option>
+                </select>
               </li>
             </ul>
           </div>

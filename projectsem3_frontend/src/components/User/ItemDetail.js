@@ -4,6 +4,7 @@ import { useData } from "../../Context/DataContext";
 import "../../asset/css/expanded-image.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 function ItemDetail() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function ItemDetail() {
   const [quantity, setQuantity] = useState(1);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
+  const { t, i18n } = useTranslation();
 
   if (loading) {
     return <p>Đang tải...</p>;
@@ -45,7 +47,7 @@ function ItemDetail() {
       );
 
       if (response.status === 200) {
-        Swal.fire("Success", "Item added to cart successfully", "success");
+        Swal.fire(t("Success"), t("Item added to cart successfully"), "success");
 
         setTimeout(() => {
           Swal.close();
@@ -58,7 +60,7 @@ function ItemDetail() {
       if (error.response) {
         console.log(error.response.data);
         Swal.fire(
-          "Error",
+          t("Error"),
           `Failed to add item to cart. Server responded with ${error.response.status}. ${error.response.data}`,
           "error"
         );
@@ -133,7 +135,7 @@ function ItemDetail() {
       );
 
       if (response.status === 200) {
-        Swal.fire("Success", "Item added to cart successfully", "success");
+        Swal.fire(t("Success"), t("Item added to cart successfully"), "success");
 
         setTimeout(() => {
           Swal.close();
@@ -201,9 +203,9 @@ function ItemDetail() {
       </div>
       <div className="col-md-6">
         <h2>{selectedItem.product_Name}</h2>
-        <p className="mb-2">Pairs: {selectedItem.pairs}</p>
-        <p className="mb-2">Quality: {selectedItem.prod_Quality}</p>
-        <p className="mb-2">Price: ${selectedItem.mrp}</p>
+        <p className="mb-2">{t("Pairs")}: {selectedItem.pairs}</p>
+        <p className="mb-2">{t("Quality")}: {t(selectedItem.prod_Quality)}</p>
+        <p className="mb-2">{t("Price")}: ${selectedItem.mrp}</p>
 
         <form onSubmit={handleAddToCart}>
           <input type="hidden" name="id" value={selectedItem.id} />
@@ -226,7 +228,7 @@ function ItemDetail() {
 
           <div className="d-flex flex-column">
             <div className="mb-2">
-              <label htmlFor="quantity">Quantity:</label>
+              <label htmlFor="quantity">{t("Quantity")}:</label>
               <div className="d-flex">
                 <button
                   type="button"
@@ -257,13 +259,13 @@ function ItemDetail() {
               className="btn btn-secondary col-12 mb-2"
               onClick={handleAddToCart}
             >
-              Add To Cart
+              {t("Add to Cart")}
             </button>
             <button
               className="btn btn-dark col-12"
               onClick={(e) => buyButton(e)}
             >
-              Buy It Now
+              {t("Buy It Now")}
             </button>
           </div>
         </form>
