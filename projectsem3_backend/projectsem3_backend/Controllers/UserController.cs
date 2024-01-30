@@ -81,5 +81,27 @@ namespace projectsem3_backend.Controllers
         {
             return await userRepo.DeleteUser(id);
         }
+
+        [HttpPut("verifyuser/{userid}")]
+        public async Task<CustomResult> VerifyUser(string userid)
+        {
+            return await userRepo.VerifyUser(userid);
+        }
+
+        [HttpPut("updateuser/{userid}")]
+        public async Task<CustomResult> UpdateUser(string userid, [FromForm] UserRegMst user)
+        {
+            if (userid != user.UserID)
+            {
+                return new CustomResult(400, "User id not match", null);
+            }
+
+            var updateuser = await userRepo.UpdateUser(user);
+            if (updateuser == null)
+            {
+                return new CustomResult(400, "Update user failed", null);
+            }
+            return new CustomResult(200, "Update user successfully", updateuser);
+        }
     }
 }

@@ -236,5 +236,87 @@ namespace projectsem3_backend.Service
                 return new CustomResult(500, e.Message, null);
             }
         }
+
+        public async Task<CustomResult> VerifyUser(string userid)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+                user.IsVerified = true;
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> UpdateUser(UserRegMst userMst)
+        {
+            try
+            {
+                var existingUser = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userMst.UserID);
+                if (existingUser == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+
+                // Kiểm tra trùng lặp username
+                var isUsernameExists = await db.UserRegMsts
+                    .Where(x => x.UserID != userMst.UserID)
+                    .AnyAsync(x => x.UserName.ToLower() == userMst.UserName.ToLower());
+
+                if (isUsernameExists)
+                {
+                    return new CustomResult(400, "Username already exists", null);
+                }
+
+                // Kiểm tra trùng lặp email
+                var isEmailExists = await db.UserRegMsts
+                    .Where(x => x.UserID != userMst.UserID)
+                    .AnyAsync(x => x.EmailID.ToLower() == userMst.EmailID.ToLower());
+
+                if (isEmailExists)
+                {
+                    return new CustomResult(400, "Email already exists", null);
+                }
+
+                // Kiểm tra trùng lặp số điện thoại
+                var isMobNoExists = await db.UserRegMsts
+                    .Where(x => x.UserID != userMst.UserID)
+                    .AnyAsync(x => x.MobNo.ToLower() == userMst.MobNo.ToLower());
+
+                if (isMobNoExists)
+                {
+                    return new CustomResult(400, "MobNo already exists", null);
+                }
+
+                // Cập nhật thông tin người dùng nếu không có lỗi trùng lặp
+                existingUser.UserName = userMst.UserName;
+                existingUser.Password = userMst.Password;
+                existingUser.UserLname = userMst.UserLname;
+                existingUser.UserFname = userMst.UserFname;
+                existingUser.EmailID = userMst.EmailID;
+                existingUser.MobNo = userMst.MobNo;
+                existingUser.Address = userMst.Address;
+                existingUser.City = userMst.City;
+                existingUser.State = userMst.State;
+
+                db.UserRegMsts.Update(existingUser);
+                await db.SaveChangesAsync();
+
+                return new CustomResult(200, "Success", existingUser);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, "Lỗi hệ thống: " + e.Message, null);
+            }
+        }
+
     }
 }

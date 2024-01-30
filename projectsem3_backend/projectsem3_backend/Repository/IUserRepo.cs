@@ -17,5 +17,10 @@ namespace projectsem3_backend.Repository
 
         //activate user thông qua isverified
         Task<CustomResult> UpdateStatusUser(string userid);
+
+        Task<CustomResult> VerifyUser(string userid);
+
+        //updateuser
+        Task<CustomResult> UpdateUser(UserRegMst userMst);
     }
 }
