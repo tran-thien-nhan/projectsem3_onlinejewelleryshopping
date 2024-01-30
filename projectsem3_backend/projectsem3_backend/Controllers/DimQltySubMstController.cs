@@ -18,37 +18,37 @@ namespace projectsem3_backend.Controllers
             }
 
         [HttpGet]
-        public async Task<IEnumerable<DimQltySubMst>> GetAllDimQltySubMsts()
+        public async Task<ActionResult<CustomResult>> GetAllDimQltySubMsts()
             {
             return await _dimQltySubMstRepo.GetAllDimQltySubMst();
             }
 
-        [HttpGet("getonedimqltysub/{id}")]
-        public async Task<CustomResult> GetDimQltySubMstById( string id )
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomResult>> GetDimQltySubMstById( string id )
             {
             return await _dimQltySubMstRepo.GetDimQltySubMstById(id);
             }
 
         [HttpPost]
-        public async Task<CustomResult> CreateDimQltySubMst( [FromBody] DimQltySubMst dimQltySubMst )
+        public async Task<ActionResult<CustomResult>> CreateDimQltySubMst( [FromBody] DimQltySubMst dimQltySubMst )
             {
             return await _dimQltySubMstRepo.CreateDimQltySubMst(dimQltySubMst);
             }
 
         [HttpPut]
-        public async Task<CustomResult> UpdateDimQltySubMst( [FromBody] DimQltySubMst dimQltySubMst )
+        public async Task<ActionResult<CustomResult>> UpdateDimQltySubMst( [FromBody] DimQltySubMst dimQltySubMst )
             {
             return await _dimQltySubMstRepo.UpdateDimQltySubMst(dimQltySubMst);
             }
 
         [HttpDelete("{id}")]
-        public async Task<CustomResult> DeleteDimQltySubMst( string id )
+        public async Task<ActionResult<CustomResult>> DeleteDimQltySubMst( string id )
             {
             return await _dimQltySubMstRepo.DeleteDimQltySubMst(id);
             }
 
         [HttpPut("updatevisibility/{id}")]
-        public async Task<CustomResult> UpdateVisibility( string id )
+        public async Task<ActionResult<CustomResult>> UpdateVisibility( string id )
             {
             return await _dimQltySubMstRepo.UpdateVisibility(id);
             }

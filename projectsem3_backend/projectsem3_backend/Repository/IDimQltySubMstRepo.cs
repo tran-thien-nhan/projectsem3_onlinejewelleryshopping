@@ -5,7 +5,7 @@ namespace projectsem3_backend.Repository
     {
     public interface IDimQltySubMstRepo
         {
-        Task<IEnumerable<DimQltySubMst>> GetAllDimQltySubMst();
+        Task<CustomResult> GetAllDimQltySubMst();
         Task<CustomResult> GetDimQltySubMstById( string id );
         Task<CustomResult> CreateDimQltySubMst( DimQltySubMst dimQltySubMst );
         Task<CustomResult> UpdateDimQltySubMst( DimQltySubMst dimQltySubMst );

@@ -67,6 +67,13 @@ builder.Services.AddScoped<IBrandMstRepo, BrandMstRepo>();
 builder.Services.AddScoped<IStoneQltyMstRepo, StoneQltyMstRepo>();
 builder.Services.AddScoped<IStoneMstRepo, StoneMstRepo>();
 
+//Hung
+builder.Services.AddScoped<IDimQltyMstRepo, DimQltyMstRepo>();
+builder.Services.AddScoped<IDimMstRepo, DimMstRepo>();
+builder.Services.AddScoped<IDimQltySubMstRepo, DimQltySubMstRepo>();
+builder.Services.AddScoped<IProdMstRepo, ProMstRepo>();
+/*builder.Services.AddScoped<IDimInfoMstRepo, DimInfoMstRepo>();*/
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
