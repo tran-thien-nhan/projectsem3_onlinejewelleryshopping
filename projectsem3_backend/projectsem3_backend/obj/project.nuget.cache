@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "GdULscsKzv1L9K7O8V+U69oVzgJzIy0weJZIB1Kx1XcSMVJJuFZI3MUlsh/kRNvlmBI6KZe8JFQ+RetGJXeY+w==",
+  "dgSpecHash": "9aPrmpdq88KSnufktEBZVZaWciDepUiSU0ZmdySLFUYK0TunhxptM8rgm2eXFRyl/nV7+bDjTpFkhHuIQpOweg==",
   "success": true,
   "projectFilePath": "C:\\Users\\judyh\\Desktop\\các projects\\projectsem3_onlinejewelleryshopping\\projectsem3_backend\\projectsem3_backend\\projectsem3_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\judyh\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\judyh\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\bouncycastle.netcore\\2.2.1\\bouncycastle.netcore.2.2.1.nupkg.sha512",
     "C:\\Users\\judyh\\.nuget\\packages\\dnsclient\\1.7.0\\dnsclient.1.7.0.nupkg.sha512",

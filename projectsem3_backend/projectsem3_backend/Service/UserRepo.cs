@@ -318,5 +318,46 @@ namespace projectsem3_backend.Service
             }
         }
 
+        public async Task<CustomResult> TestEncodePassword(string password)
+        {
+            try
+            {
+                var ressult = UserSecurity.HashPassword(password);
+                if (ressult == null)
+                {
+                    return new CustomResult(404, "Password not found", null);
+                }
+                else
+                {
+                    StaticPasswordTest.HashPassword = ressult;
+                    return new CustomResult(200, "Success", ressult);
+                }
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> TestDecodePassword(string password)
+        {
+            try
+            {
+                var hashpass = StaticPasswordTest.HashPassword;
+                bool result = UserSecurity.VerifyPassword(password, hashpass);
+                if (!result)
+                {
+                    return new CustomResult(404, "Password not found", false);
+                }
+                else
+                {
+                    return new CustomResult(200, "Success", true);
+                }
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
     }
 }

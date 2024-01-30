@@ -8,6 +8,7 @@ const AdminOrderDetail = () => {
   const { order_ID } = useParams();
   const [orderDetails, setOrderDetails] = useState([]);
   const [orderData, setOrderData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -33,6 +34,7 @@ const AdminOrderDetail = () => {
 
   const exportPDF = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         `https://localhost:7241/api/Order/exportpdforderdetails/${order_ID}`,
         { responseType: "blob" } // Important for receiving binary data
@@ -42,6 +44,8 @@ const AdminOrderDetail = () => {
       saveAs(blob, `Order_${order_ID}.pdf`);
     } catch (error) {
       console.error("Error exporting PDF:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -147,8 +151,18 @@ const AdminOrderDetail = () => {
         </table>
       </div>
       <button className="btn btn-warning my-2" onClick={exportPDF}>
-        <i class="fa fa-file-pdf mx-2" aria-hidden="true"></i>
-        Export This Order To PDF
+        {isLoading ? (
+          <span
+            className="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+        ) : (
+          <>
+            <i class="fa fa-file-pdf mx-2" aria-hidden="true"></i>
+            Export This Order To PDF
+          </>
+        )}
       </button>
     </div>
   );

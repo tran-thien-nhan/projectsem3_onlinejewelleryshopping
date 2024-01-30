@@ -103,5 +103,17 @@ namespace projectsem3_backend.Controllers
             }
             return new CustomResult(200, "Update user successfully", updateuser);
         }
+
+        [HttpGet("test/encodepassword/{password}")]
+        public async Task<CustomResult> EncodePassword(string password)
+        {
+            return await userRepo.TestEncodePassword(password);
+        }
+
+        [HttpGet("test/decodepassword/{password}")]
+        public async Task<CustomResult> DecodePassword(string password)
+        {
+            return await userRepo.TestDecodePassword(password);
+        }
     }
 }

@@ -14,6 +14,7 @@ const AdminAllOrders = () => {
   const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(4);
+  const [isLoading, setIsLoading] = useState(false);
 
   const isNewOrder = (order) => {
     const today = new Date();
@@ -27,6 +28,7 @@ const AdminAllOrders = () => {
 
   const handleGenerateReportOrder = async () => {
     try {
+      setIsLoading(true);
       const currentDate = new Date();
       const formattedDate = currentDate
         .toISOString()
@@ -40,6 +42,8 @@ const AdminAllOrders = () => {
       saveAs(blob, `Order_Report_${formattedDate}.xlsx`);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -289,8 +293,18 @@ const AdminAllOrders = () => {
           className="btn btn-danger mx-2"
           onClick={handleGenerateReportOrder}
         >
-          <i class="fa fa-file-excel mx-2" aria-hidden="true"></i> export order
-          report to excel
+          {isLoading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            <>
+              <i class="fa fa-file-excel mx-2" aria-hidden="true"></i> export
+              order report to excel
+            </>
+          )}
         </button>
       </div>
       <div className="pagination justify-content-center">

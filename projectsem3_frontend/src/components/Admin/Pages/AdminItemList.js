@@ -7,6 +7,7 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 
 const AdminItemList = () => {
   const { items, loading, error } = useData();
+  const [isLoading, setIsLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [mrpSortOrder, setMrpSortOrder] = useState("");
@@ -18,6 +19,7 @@ const AdminItemList = () => {
 
   const handleGenerateReportItems = async () => {
     try {
+      setIsLoading(true);
       const currentDate = new Date();
       const formattedDate = currentDate
         .toISOString()
@@ -31,6 +33,8 @@ const AdminItemList = () => {
       saveAs(blob, `Items_Report_${formattedDate}.xlsx`);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -209,8 +213,18 @@ const AdminItemList = () => {
           className="btn btn-danger mx-2"
           onClick={handleGenerateReportItems}
         >
-          <i class="fa fa-file-excel mx-2" aria-hidden="true"></i> export items
-          report to excel
+          {isLoading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            <>
+              <i class="fa fa-file-excel mx-2" aria-hidden="true"></i> export
+              items report to excel
+            </>
+          )}
         </button>
         <div className="btn btn-primary">
           <a

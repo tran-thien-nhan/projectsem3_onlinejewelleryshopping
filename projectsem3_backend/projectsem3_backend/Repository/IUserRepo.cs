@@ -22,5 +22,11 @@ namespace projectsem3_backend.Repository
 
         //updateuser
         Task<CustomResult> UpdateUser(UserRegMst userMst);
+
+        //encode password   
+        Task<CustomResult> TestEncodePassword(string password);
+
+        //decode password
+        Task<CustomResult> TestDecodePassword(string password);
     }
 }

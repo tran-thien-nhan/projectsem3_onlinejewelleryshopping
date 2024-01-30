@@ -5,44 +5,22 @@ namespace projectsem3_backend.Helper
 {
     public class UserSecurity
     {
-        private static string key = "IWantToBeWhoVeryBest";
-        public static string EncodePlanTet(string originPassword)
+        public static string HashPassword(string password)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
-            byte[] stringBytes = Encoding.UTF8.GetBytes(originPassword);
-            using (var hmac = new HMACSHA256(keyBytes))
-            {
-                //bam stringBytes cua pass thanh mang bytes
-                byte[] hashBytes = hmac.ComputeHash(stringBytes);
-                //Convert stringBytes cua pass trc khi  bam
-                //Convert hashBytes cua pass sau khi  bam
-                string encodeString = Convert.ToBase64String(stringBytes) + "." + Convert.ToBase64String(hashBytes);
-                return encodeString;
-            }
+            // Tạo salt ngẫu nhiên
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+
+            // Mã hóa password với salt
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+            return hashedPassword;
         }
 
-        public static string DecodePlanTet(string encodeString)
+        // Hàm kiểm tra mật khẩu có đúng hay không
+        public static bool VerifyPassword(string inputPassword, string hashedPassword)
         {
-            string[] parts = encodeString.Split(".");
-            if (parts.Length != 2)
-            {
-                throw new Exception("Invalid encoding string format");
-            }
-            byte[] decodingStringBytes = Convert.FromBase64String(parts[0]);
-            byte[] decodingHashBytes = Convert.FromBase64String(parts[1]);
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
-            using (var hmac = new HMACSHA256(keyBytes))
-            {
-                //mang byte[] decodingStringBytes chua bam thi bam
-                // de kiem tra voi chuoi decodingHasBytes (da bam)
-                bool hashMatch = hmac.ComputeHash(decodingStringBytes).SequenceEqual(decodingHashBytes);
-                if (!hashMatch)
-                {
-                    throw new Exception("Hash does not match string");
-                }
-                string decodedString = Encoding.UTF8.GetString(decodingStringBytes);
-                return decodedString;
-            }
+            // Sử dụng hàm kiểm tra của thư viện bcrypt
+            return BCrypt.Net.BCrypt.Verify(inputPassword, hashedPassword);
         }
     }
 }
