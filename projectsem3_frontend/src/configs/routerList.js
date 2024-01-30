@@ -28,8 +28,11 @@ import AdminCat from './../components/Admin/Pages/AdminCat';
 import AdminStone from './../components/Admin/Pages/AdminStone';
 
 //Hung's routes
-
-
+import AdminDimQlty from './../components/Admin/Pages/AdminDimQlty';
+import AdminDim from './../components/Admin/Pages/AdminDim';
+import AdminProd from './../components/Admin/Pages/AdminProd';
+// import AdminDimInfo from "../components/Admin/Pages/AdminDimInfo";
+import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
 
 
 //Minh's routes
@@ -171,6 +174,39 @@ const privateRouter = [
   //   name: "Orders List",
   //   visible: true,
   // },
+
+  //Hung
+  //Hung route's
+  {
+    path: "/dimQlty",
+    element: <AdminDimQlty/>,
+    name: "DimQlty List",
+    visible: true,
+  },
+  {
+    path: "/dim",
+    element: <AdminDim/>,
+    name: "Dim List",
+    visible: true,
+  },
+  {
+    path: "/prod",
+    element: <AdminProd/>,
+    name: "Prod List",
+    visible: true,
+  },
+  // {
+  //   path: "/dimInfo",
+  //   element: <AdminDimInfo/>,
+  //   name: "DimInfo List",
+  //   visible: true,
+  // },
+  {
+    path: "/dimQltySub",
+    element: <AdminDimSub/>,
+    name: "DimQltySub List",
+    visible: true,
+  },
 ];
 
 export { publicRouter, privateRouter };

@@ -22,7 +22,11 @@ export const DataProvider = ({ children }) => {
   // const [stoneQuantity, setStoneQuantity] = useState([]);
 
   //Hung's state
-
+  const [dimQlty, setDimQlty] = useState([]);
+  const [dimQltySub, setDimQltySub] = useState([]);
+  const [dim, setDim] = useState([]);
+  const [prod, setProd] = useState([]);
+  // const [dimInfo, setDimInfo] = useState([]);
 
 
 
@@ -239,7 +243,99 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   ////Hung's Fetch Data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://localhost:7241/api/DimQltyMst`
+        );
+        console.log(response.data.data);
+        setDimQlty(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, []);
+  //dim
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`https://localhost:7241/api/DimMst`);
+        console.log(response.data.data);
+        setDim(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //dimQltySub
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://localhost:7241/api/DimQltySubMst");
+        console.log(response.data.data);
+        setDimQltySub(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+    //prod
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          setLoading(true);
+          const response = await axios.get(`https://localhost:7241/api/ProdMst`);
+          console.log(response.data.data);
+          setProd(response.data.data);
+        } catch (error) {
+          console.error("list error:", error);
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchData();
+    }, []);
+    //info
+    // useEffect(() => {
+    //   const fetchData = async () => {
+    //     try {
+    //       setLoading(true);
+    //       const response = await axios.get(`https://localhost:7241/api/DimInfoMst`);
+    //       console.log(response.data.data);
+    //       setDimInfo(response.data.data);
+    //     } catch (error) {
+    //       console.error("list error:", error);
+    //       setError(error);
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
+
+    //   fetchData();
+    // }, []);
 
 
   //Minh's Fetch Data
@@ -265,7 +361,11 @@ export const DataProvider = ({ children }) => {
     stones,
 
     //Hung's Value
-
+    dimQlty,
+    dim,
+    prod,
+    dimQltySub,
+    // dimInfo,
 
     //Minh's Value
 
