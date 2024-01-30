@@ -15,17 +15,17 @@ namespace projectsem3_backend.Service
             _db = db;
             }
 
-        public async Task<IEnumerable<DimQltySubMst>> GetAllDimQltySubMst()
+        public async Task<CustomResult> GetAllDimQltySubMst()
             {
             try
                 {
                 var result = await _db.DimQltySubMsts.ToListAsync();
-                return result;
+                return new CustomResult(200, "Get all items success", result);
                 }
             catch (Exception ex)
                 {
-                // Handle exception and return appropriate CustomResult
-                return null;
+                // Log the exception
+                return new CustomResult(500, ex.Message, null);
                 }
             }
 
@@ -36,7 +36,7 @@ namespace projectsem3_backend.Service
                 var result = await _db.DimQltySubMsts.SingleOrDefaultAsync(i => i.DimSubType_ID == id);
                 if (result == null)
                     {
-                    return new CustomResult(401, "not found", null);
+                    return new CustomResult(404, "Item not found", null);
                     }
                 else
                     {
@@ -61,7 +61,7 @@ namespace projectsem3_backend.Service
                 _db.DimQltySubMsts.Add(dimQltySubMst);
                 var result = await _db.SaveChangesAsync();
 
-                return result > 0 ? new CustomResult(200, "Created Success", dimQltySubMst) : new CustomResult(201, "No changes were made in the database", null);
+                return result > 0 ? new CustomResult(201, "Created Success", dimQltySubMst) : new CustomResult(204, "No changes were made in the database", null);
                 }
             catch (Exception e)
                 {
@@ -81,7 +81,7 @@ namespace projectsem3_backend.Service
                 _db.DimQltySubMsts.Update(dimQltySubMst);
                 var result = await _db.SaveChangesAsync();
 
-                return result > 0 ? new CustomResult(200, "Update Success", dimQltySubMst) : new CustomResult(201, "No changes were made in the database", null);
+                return result > 0 ? new CustomResult(200, "Update Success", dimQltySubMst) : new CustomResult(204, "No changes were made in the database", null);
                 }
             catch (Exception e)
                 {
@@ -96,18 +96,18 @@ namespace projectsem3_backend.Service
                 var dimQltySubMst = await _db.DimQltySubMsts.SingleOrDefaultAsync(i => i.DimSubType_ID == id);
                 if (dimQltySubMst == null)
                     {
-                    return new CustomResult(201, "Not Found", null);
+                    return new CustomResult(404, "Item not found", null);
                     }
                 else
                     {
                     _db.DimQltySubMsts.Remove(dimQltySubMst);
                     var result = await _db.SaveChangesAsync();
-                    return result == 1 ? new CustomResult(200, "Delete Success", dimQltySubMst) : new CustomResult(201, "Delete Error", null);
+                    return result == 1 ? new CustomResult(200, "Delete Success", dimQltySubMst) : new CustomResult(204, "No changes were made in the database", null);
                     }
                 }
             catch (Exception e)
                 {
-                return new CustomResult(402, e.Message, null);
+                return new CustomResult(500, e.Message, null);
                 }
             }
 
@@ -118,19 +118,19 @@ namespace projectsem3_backend.Service
                 var dimQltySubMst = await _db.DimQltySubMsts.SingleOrDefaultAsync(i => i.DimSubType_ID == id);
                 if (dimQltySubMst == null)
                     {
-                    return new CustomResult(201, "Not Found", null);
+                    return new CustomResult(404, "Item not found", null);
                     }
                 else
                     {
                     dimQltySubMst.Visible = !dimQltySubMst.Visible;
                     _db.DimQltySubMsts.Update(dimQltySubMst);
                     var result = await _db.SaveChangesAsync();
-                    return result == 1 ? new CustomResult(200, "Update Success", dimQltySubMst) : new CustomResult(201, "No changes were made in the database", null);
+                    return result == 1 ? new CustomResult(200, "Update Success", dimQltySubMst) : new CustomResult(204, "No changes were made in the database", null);
                     }
                 }
             catch (Exception e)
                 {
-                return new CustomResult(402, e.Message, null);
+                return new CustomResult(500, e.Message, null);
                 }
             }
         }
