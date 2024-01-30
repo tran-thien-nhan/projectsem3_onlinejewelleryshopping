@@ -26,6 +26,7 @@ import AdminBrand from './../components/Admin/Pages/AdminBrand';
 import AdminGold from './../components/Admin/Pages/AdminGold';
 import AdminCat from './../components/Admin/Pages/AdminCat';
 import AdminStone from './../components/Admin/Pages/AdminStone';
+import UserUpdate from "../components/User/UserUpdate";
 
 //Hung's routes
 
@@ -86,6 +87,10 @@ const publicRouter = [
   {
     path: "/verifyemailsuccess/:token",
     element: <VerifyEmailSuccess />,
+  },
+  {
+    path: "/updateuser",
+    element: <UserUpdate />,
   },
 ];
 

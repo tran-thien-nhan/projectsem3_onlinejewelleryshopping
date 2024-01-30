@@ -156,12 +156,12 @@ const Login = () => {
                     Register
                   </a>
                 </div>
-                <div className="mb-3 col-8">
+                {/* <div className="mb-3 col-8">
                   Forgot password?
                   <a href="/register" className="mx-2">
                     Click Here
                   </a>
-                </div>
+                </div> */}
               </div>
               <button
                 onClick={handleLogin}

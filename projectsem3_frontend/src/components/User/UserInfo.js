@@ -14,6 +14,7 @@ const UserInfo = () => {
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">{sessionStorage.getItem("fname")} {sessionStorage.getItem("lname")}</h5>
+                    <p className="card-text">Username: {sessionStorage.getItem("userName")}</p>
                     <p className="card-text">Email: {sessionStorage.getItem("email")}</p>
                     <p className="card-text">Address: {sessionStorage.getItem("address")}</p>
                     <p className="card-text">City: {sessionStorage.getItem("city")}</p>
@@ -21,6 +22,7 @@ const UserInfo = () => {
                     <p className="card-text">Date of Birth: {formatDate(sessionStorage.getItem("dob"))}</p>
                 </div>
             </div>
+            <a href="/updateuser" className="btn btn-primary my-3">Update</a>
         </div>
     );
 };

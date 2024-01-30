@@ -28,7 +28,7 @@ const VerifyEmailSuccess = () => {
 
         if (useridstatus) {
           const response = await axios.put(
-            `https://localhost:7241/api/User/updatestatususer/${useridstatus}`
+            `https://localhost:7241/api/User/verifyuser/${useridstatus}`
           );
           console.log(response.data);
         }

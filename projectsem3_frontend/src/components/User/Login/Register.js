@@ -220,7 +220,7 @@ const Register = () => {
                   />
                 </div>
                 <div class="mb-3">
-                  Đã có tài khoản? <a href="/login">Đăng nhập</a>
+                  Had Account? <a href="/login">Login</a>
                 </div>
                 <button type="submit" class="btn btn-primary">
                   Submit
