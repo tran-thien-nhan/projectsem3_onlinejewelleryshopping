@@ -7,7 +7,7 @@ import { TailSpin } from "react-loader-spinner";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
     userID: "",
     username: "",
@@ -46,7 +46,7 @@ const Register = () => {
       .post("https://localhost:7241/api/User/register", formData)
       .then((res) => {
         if (res.data && res.data.status === 200) {
-          setLoading(false);
+          setIsLoading(true);
           Swal.fire(
             "Success",
             "sign up successful! Please Check Your Email",
@@ -57,13 +57,13 @@ const Register = () => {
             navigate("/login");
           }, 2000);
         } else {
-          setLoading(true);
+          setIsLoading(false);
           console.error("Invalid response or status code:", res.data);
           Swal.fire("Error", res.data.message, "error");
         }
       })
       .catch((err) => {
-        setLoading(true);
+        setIsLoading(false);
         console.error(err);
         Swal.fire("Error", err.message, "error");
       });
@@ -72,7 +72,7 @@ const Register = () => {
   return (
     <>
       <HeroSection />
-      {loading ? (
+      {isLoading ? (
         <div
           style={{
             display: "flex",
@@ -223,7 +223,15 @@ const Register = () => {
                   Had Account? <a href="/login">Login</a>
                 </div>
                 <button type="submit" class="btn btn-primary">
-                  Submit
+                  {isLoading ? (
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  ) : (
+                    <>Submit</>
+                  )}
                 </button>
               </form>
             </div>

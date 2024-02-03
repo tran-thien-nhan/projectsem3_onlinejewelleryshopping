@@ -28,5 +28,14 @@ namespace projectsem3_backend.Repository
 
         //decode password
         Task<CustomResult> TestDecodePassword(string password);
+
+        //send mail verify email user
+        Task<CustomResult> SendMailVerifyUserToResetPasswordAsync(string toEmail);
+
+        //reset password
+        Task<CustomResult> ResetPassword(string userid, string password);
+
+        //kiểm tra email
+        Task<bool> CheckEmail(string email);
     }
 }

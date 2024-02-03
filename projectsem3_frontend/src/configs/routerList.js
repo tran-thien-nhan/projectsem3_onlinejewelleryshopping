@@ -34,6 +34,8 @@ import AdminDim from './../components/Admin/Pages/AdminDim';
 import AdminProd from './../components/Admin/Pages/AdminProd';
 // import AdminDimInfo from "../components/Admin/Pages/AdminDimInfo";
 import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
+import EmailForgotPass from "../components/User/Login/EmailForgotPass";
+import ResetPassword from "../components/User/Login/ResetPassword";
 
 
 //Minh's routes
@@ -95,6 +97,14 @@ const publicRouter = [
     path: "/updateuser",
     element: <UserUpdate />,
   },
+  {
+    path: "/emailforgotpass",
+    element: <EmailForgotPass />,
+  },
+  {
+    path: "/resetpassword/:token",
+    element: <ResetPassword />,
+  },  
 ];
 
 const privateRouter = [

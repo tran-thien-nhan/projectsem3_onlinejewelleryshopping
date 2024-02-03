@@ -359,5 +359,69 @@ namespace projectsem3_backend.Service
                 return new CustomResult(500, e.Message, null);
             }
         }
+
+        public async Task<CustomResult> SendMailVerifyUserToResetPasswordAsync(string toEmail)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.SingleOrDefaultAsync(x => x.EmailID == toEmail);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+
+                var token = TokenService.GenerateJSONWebTokenExpiredDateForgotPassword(configuration, user.UserID);
+                var emailResult = await emailService.SendMailResetPasswordAsync(toEmail, token);
+                if (emailResult == 0)
+                {
+                    return new CustomResult(404, "Send mail failed", null);
+                }
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> ResetPassword(string userid, string password)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.SingleOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+
+                //user.Password = UserSecurity.HashPassword(password);
+                user.Password = password;
+                db.UserRegMsts.Update(user);
+                await db.SaveChangesAsync();
+
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<bool> CheckEmail(string email)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.EmailID == email);
+                if (user == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

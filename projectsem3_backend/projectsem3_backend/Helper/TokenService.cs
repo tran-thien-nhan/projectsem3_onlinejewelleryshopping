@@ -47,6 +47,30 @@ namespace projectsem3_backend.Helper
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public static string GenerateJSONWebTokenExpiredDateForgotPassword(IConfiguration configuration, string userid)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            // Thêm claim chứa expirationTime
+            var expirationTime = DateTime.Now.AddMinutes(1); // Thời gian hết hạn sau 1 phút
+            var claims = new[]
+            {
+                new Claim("userid", userid),
+                new Claim("exp", expirationTime.ToString("yyyyMMddHHmmss")) // Claim exp chứa thời gian hết hạn
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: configuration["Jwt:Issuer"], // Thêm issuer nếu cần
+                audience: configuration["Jwt.Audience"],
+                claims: claims,
+                expires: expirationTime, // Thiết lập thời gian hết hạn
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
         public static string ValidateAndExtractUserId(IConfiguration configuration, string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -88,6 +88,24 @@ namespace projectsem3_backend.Controllers
             return await userRepo.VerifyUser(userid);
         }
 
+        [HttpGet("sendmailverifyuser/{toemail}")]
+        public async Task<CustomResult> SendMailVerifyEmailUserToResetPasswordAsync(string toemail)
+        {
+            return await userRepo.SendMailVerifyUserToResetPasswordAsync(toemail);
+        }
+
+        [HttpGet("checkemail/{email}")]
+        public async Task<bool> CheckEmail(string email)
+        {
+            return await userRepo.CheckEmail(email);
+        }
+
+        [HttpPut("resetpassword/{userid}/{password}")]
+        public async Task<CustomResult> ResetPassword(string userid, string password)
+        {
+            return await userRepo.ResetPassword(userid, password);
+        }
+
         [HttpPut("updateuser/{userid}")]
         public async Task<CustomResult> UpdateUser(string userid, [FromForm] UserRegMst user)
         {

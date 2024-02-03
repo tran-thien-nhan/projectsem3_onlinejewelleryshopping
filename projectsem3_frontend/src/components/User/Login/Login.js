@@ -97,7 +97,14 @@ const Login = () => {
               Swal.close();
               navigate("/");
             }, 1000);
-          } else {
+          } else if (response.status === 404) {
+            Swal.fire("Error", "Login fail!", "error");
+            setTimeout(() => {
+              Swal.close();
+              navigate("/login");
+            }, 1000);
+          }
+          else {
             setRole("");
             // Login fail
             Swal.fire("Error", "Login fail!", "error");
@@ -113,7 +120,7 @@ const Login = () => {
     } catch (error) {
       // Handle other errors
       console.error("Error:", error);
-      Swal.fire("Error", "An error occurred. Please try again later.", "error");
+      Swal.fire("Error", "wrong username or password", "error");
     }
   };
 
@@ -156,12 +163,12 @@ const Login = () => {
                     Register
                   </a>
                 </div>
-                {/* <div className="mb-3 col-8">
+                <div className="mb-3 col-8">
                   Forgot password?
-                  <a href="/register" className="mx-2">
+                  <a href="/emailforgotpass" className="mx-2">
                     Click Here
                   </a>
-                </div> */}
+                </div>
               </div>
               <button
                 onClick={handleLogin}
