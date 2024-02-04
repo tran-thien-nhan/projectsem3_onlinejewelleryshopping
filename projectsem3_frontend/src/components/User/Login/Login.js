@@ -42,7 +42,7 @@ const Login = () => {
       return;
     } else {
       // Login failed
-      Swal.fire("Error", "Wrong username or password", "error");
+      // Swal.fire("Error", "Wrong username or password", "error");
 
       setTimeout(() => {
         Swal.close();

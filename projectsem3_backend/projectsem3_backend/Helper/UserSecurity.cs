@@ -7,10 +7,17 @@ namespace projectsem3_backend.Helper
     {
         public static string HashPassword(string password)
         {
-            // Tạo salt ngẫu nhiên
             string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
 
-            // Mã hóa password với salt
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+            return hashedPassword;
+        }
+
+        public static string DecryptPassword(string password)
+        {
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
 
             return hashedPassword;

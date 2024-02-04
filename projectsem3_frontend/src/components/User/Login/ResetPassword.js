@@ -63,6 +63,14 @@ const ResetPassword = () => {
       console.log("Vẫn trong thời gian quy định");
     }
 
+    // Kiểm tra mật khẩu theo yêu cầu: ít nhất một chữ cái viết hoa, một số, và một ký tự đặc biệt
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+        Swal.fire("Error", "Password must contain at least one uppercase letter, one number, and one special character.", "error");
+        return;
+    }
+
     if (password === confirmPassword) {
       try {
         setIsLoading(true);

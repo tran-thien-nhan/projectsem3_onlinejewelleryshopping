@@ -56,10 +56,10 @@ const UserUpdate = () => {
 
     formData.append("userid", userid);
     formData.append("userName", userName);
-    formData.append("email", email);
+    formData.append("emailID", email);
     formData.append("password", isPasswordChanged ? password : undefined);
-    formData.append("fname", fname);
-    formData.append("lname", lname);
+    formData.append("userFname", fname);
+    formData.append("userLname", lname);
     formData.append("address", address);
     formData.append("city", city);
     formData.append("state", state);
@@ -143,7 +143,7 @@ const UserUpdate = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{display:'none'}}>
           <label htmlFor="pwd">Password:</label>
           <input
             type="password"

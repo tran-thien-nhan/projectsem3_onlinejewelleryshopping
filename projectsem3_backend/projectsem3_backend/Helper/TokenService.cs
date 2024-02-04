@@ -53,18 +53,18 @@ namespace projectsem3_backend.Helper
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             // Thêm claim chứa expirationTime
-            var expirationTime = DateTime.Now.AddMinutes(1); // Thời gian hết hạn sau 1 phút
+            var expirationTime = DateTime.Now.AddMinutes(1); 
             var claims = new[]
             {
                 new Claim("userid", userid),
-                new Claim("exp", expirationTime.ToString("yyyyMMddHHmmss")) // Claim exp chứa thời gian hết hạn
+                new Claim("exp", expirationTime.ToString("yyyyMMddHHmmss")) 
             };
 
             var token = new JwtSecurityToken(
-                issuer: configuration["Jwt:Issuer"], // Thêm issuer nếu cần
+                issuer: configuration["Jwt:Issuer"],
                 audience: configuration["Jwt.Audience"],
                 claims: claims,
-                expires: expirationTime, // Thiết lập thời gian hết hạn
+                expires: expirationTime, 
                 signingCredentials: credentials
             );
 

@@ -28,21 +28,23 @@ namespace projectsem3_backend.Service
         [NonAction]
         private async Task<UserRegMst> AuthenticateUser(AdminLoginMst adminLogin)
         {
-            var currentUser = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower() && x.Password.ToLower() == adminLogin.Password.ToLower());
-            if (currentUser != null)
+            var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower());
+
+            if (user != null && UserSecurity.VerifyPassword(adminLogin.Password, user.Password))
             {
-                return currentUser;
+                return user;
             }
+
             return null;
         }
 
         [NonAction]
         private async Task<AdminLoginMst> AuthenticateAdmin(AdminLoginMst adminLogin)
         {
-            var currentAdmin = await db.AdminLoginMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower() && x.Password.ToLower() == adminLogin.Password.ToLower());
-            if (currentAdmin != null)
+            var admin = await db.AdminLoginMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower());
+            if (admin != null && UserSecurity.VerifyPassword(adminLogin.Password, admin.Password))
             {
-                return currentAdmin;
+                return admin;
             }
             return null;
         }
@@ -165,6 +167,7 @@ namespace projectsem3_backend.Service
                         return new CustomResult(404, "Send mail failed", null);
                     }
 
+                    userMst.Password = UserSecurity.HashPassword(userMst.Password);
                     userMst.CDate = DateTime.Now;
                     userMst.CreatedAt = DateTime.Now;
                     userMst.UpdatedAt = DateTime.Now;
@@ -260,45 +263,21 @@ namespace projectsem3_backend.Service
         {
             try
             {
+                // Kiểm tra xem có user khác sử dụng UserName này chưa
+                var isUserNameExists = await db.UserRegMsts.AnyAsync(x => x.UserName == userMst.UserName && x.UserID != userMst.UserID);
+                if (isUserNameExists)
+                {
+                    return new CustomResult(400, "UserName already exists", null);
+                }
+
                 var existingUser = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userMst.UserID);
                 if (existingUser == null)
                 {
                     return new CustomResult(404, "User not found", null);
                 }
 
-                // Kiểm tra trùng lặp username
-                var isUsernameExists = await db.UserRegMsts
-                    .Where(x => x.UserID != userMst.UserID)
-                    .AnyAsync(x => x.UserName.ToLower() == userMst.UserName.ToLower());
-
-                if (isUsernameExists)
-                {
-                    return new CustomResult(400, "Username already exists", null);
-                }
-
-                // Kiểm tra trùng lặp email
-                var isEmailExists = await db.UserRegMsts
-                    .Where(x => x.UserID != userMst.UserID)
-                    .AnyAsync(x => x.EmailID.ToLower() == userMst.EmailID.ToLower());
-
-                if (isEmailExists)
-                {
-                    return new CustomResult(400, "Email already exists", null);
-                }
-
-                // Kiểm tra trùng lặp số điện thoại
-                var isMobNoExists = await db.UserRegMsts
-                    .Where(x => x.UserID != userMst.UserID)
-                    .AnyAsync(x => x.MobNo.ToLower() == userMst.MobNo.ToLower());
-
-                if (isMobNoExists)
-                {
-                    return new CustomResult(400, "MobNo already exists", null);
-                }
-
-                // Cập nhật thông tin người dùng nếu không có lỗi trùng lặp
                 existingUser.UserName = userMst.UserName;
-                existingUser.Password = userMst.Password;
+                existingUser.Password = UserSecurity.HashPassword(userMst.Password);
                 existingUser.UserLname = userMst.UserLname;
                 existingUser.UserFname = userMst.UserFname;
                 existingUser.EmailID = userMst.EmailID;
@@ -317,6 +296,7 @@ namespace projectsem3_backend.Service
                 return new CustomResult(500, "Lỗi hệ thống: " + e.Message, null);
             }
         }
+
 
         public async Task<CustomResult> TestEncodePassword(string password)
         {
@@ -395,7 +375,7 @@ namespace projectsem3_backend.Service
                 }
 
                 //user.Password = UserSecurity.HashPassword(password);
-                user.Password = password;
+                user.Password = UserSecurity.HashPassword(password);
                 db.UserRegMsts.Update(user);
                 await db.SaveChangesAsync();
 
