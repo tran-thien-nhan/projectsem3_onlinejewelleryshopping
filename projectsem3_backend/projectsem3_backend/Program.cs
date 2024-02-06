@@ -66,6 +66,8 @@ builder.Services.AddScoped<IGoldKrtMstRepo, GoldKrtMstRepo>();
 builder.Services.AddScoped<IBrandMstRepo, BrandMstRepo>();
 builder.Services.AddScoped<IStoneQltyMstRepo, StoneQltyMstRepo>();
 builder.Services.AddScoped<IStoneMstRepo, StoneMstRepo>();
+builder.Services.AddScoped<ICertifyMstRepo, CertifyMstRepo>();
+
 
 //Hung
 builder.Services.AddScoped<IDimQltyMstRepo, DimQltyMstRepo>();

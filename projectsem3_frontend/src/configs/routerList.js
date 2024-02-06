@@ -27,6 +27,8 @@ import AdminGold from './../components/Admin/Pages/AdminGold';
 import AdminCat from './../components/Admin/Pages/AdminCat';
 import AdminStone from './../components/Admin/Pages/AdminStone';
 import UserUpdate from "../components/User/UserUpdate";
+import AdminCertify from "../components/Admin/Pages/AdminCertify";
+
 
 //Hung's routes
 import AdminDimQlty from './../components/Admin/Pages/AdminDimQlty';
@@ -104,7 +106,7 @@ const publicRouter = [
   {
     path: "/resetpassword/:token",
     element: <ResetPassword />,
-  },  
+  },
 ];
 
 const privateRouter = [
@@ -190,23 +192,30 @@ const privateRouter = [
   //   visible: true,
   // },
 
+  {
+    path: "/certify",
+    element: <AdminCertify />,
+    name: "Certification List",
+    visible: true,
+  },
+
   //Hung
   //Hung route's
   {
     path: "/dimQlty",
-    element: <AdminDimQlty/>,
+    element: <AdminDimQlty />,
     name: "DimQlty List",
     visible: true,
   },
   {
     path: "/dim",
-    element: <AdminDim/>,
+    element: <AdminDim />,
     name: "Dim List",
     visible: true,
   },
   {
     path: "/prod",
-    element: <AdminProd/>,
+    element: <AdminProd />,
     name: "Prod List",
     visible: true,
   },
@@ -218,7 +227,7 @@ const privateRouter = [
   // },
   {
     path: "/dimQltySub",
-    element: <AdminDimSub/>,
+    element: <AdminDimSub />,
     name: "DimQltySub List",
     visible: true,
   },
