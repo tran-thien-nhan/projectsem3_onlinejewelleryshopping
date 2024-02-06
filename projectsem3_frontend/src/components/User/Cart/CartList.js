@@ -74,6 +74,7 @@ const CartList = () => {
       Swal.fire("Success", "Clear cart successfully", "success");
       setTimeout(() => {
         Swal.close();
+        navigate("/");
       }, 1000);
     } catch (error) {
       console.error("clear cart error:", error);

@@ -214,6 +214,12 @@ namespace projectsem3_backend.Service
 
                 cart.Quantity = quantity;
 
+                if (cart.Quantity >= 10)
+                {
+                    cart.Quantity = 10;
+                    return new CustomResult(500, "Cannot add more !", null);
+                }
+
                 var result = await db.SaveChangesAsync();
 
                 if (result == 1)
@@ -256,6 +262,12 @@ namespace projectsem3_backend.Service
                 cart.UserRegMst = user;
 
                 cart.Quantity -= quantity;
+
+                if (cart.Quantity < 0)
+                {
+                    cart.Quantity = 0;
+                    return new CustomResult(500, "Cannot decrease more !", null);
+                }
 
                 var result = await db.SaveChangesAsync();
 

@@ -43,6 +43,18 @@ namespace projectsem3_backend.Controllers
             return await orderRepo.GetOrderByUserId(userId);
         }
 
+        [HttpGet("checkquantity/{userid}")]
+        public async Task<int> CheckQuantity(string userid)
+        {
+            return await orderRepo.CheckQuantity(userid);
+        }
+
+        [HttpPut("updatecartgetallquantity/{userid}")]
+        public async Task<CustomResult> UpdateCartGetAllQuantity(string userid)
+        {
+            return await orderRepo.UpdateCartGetAllQuantity(userid);
+        }
+
         [HttpPost("createorder")]
         public async Task<CustomResult> CreateOrder([FromBody] OrderMst order)
         {

@@ -28,5 +28,11 @@ namespace projectsem3_backend.Repository
 
         //get all order detail excel
         Task<List<OrderDetailMst>> GetAllOrderDetailExcel();
+
+        //kiểm tra quantity trong listcart
+        Task<int> CheckQuantity(string userid);
+
+        //get all quantity của item trong listcart
+        Task<CustomResult> UpdateCartGetAllQuantity(string userid);
     }
 }

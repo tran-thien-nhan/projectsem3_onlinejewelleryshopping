@@ -11,6 +11,7 @@ const Checkout = () => {
   const [billingDetails, setBillingDetails] = useState({
     order_Address: "",
     order_Note: "",
+    order_MobNo: "", // Add order_MobNo state
   });
   const [isLogin, setIsLogin] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
@@ -19,14 +20,12 @@ const Checkout = () => {
 
   useEffect(() => {
     setLoading(true);
-    var userId = sessionStorage.getItem("userID");
-    if (userId === null) {
+    const userId = sessionStorage.getItem("userID");
+    if (!userId) {
       setIsLogin(false);
-      Swal.fire("Error", "Please login to continue", "error");
-      setTimeout(() => {
-        Swal.close();
+      Swal.fire("Error", "Please login to continue", "error").then(() => {
         navigate("/login");
-      }, 1000);
+      });
     } else {
       setIsLogin(true);
       setUserID(userId);
@@ -56,7 +55,7 @@ const Checkout = () => {
   }, [cartList]);
 
   function handleChangeInput(e) {
-    let { name, value } = e.target;
+    const { name, value } = e.target;
 
     setBillingDetails({
       ...billingDetails,
@@ -66,6 +65,12 @@ const Checkout = () => {
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+
+    // if (billingDetails.order_MobNo.length < 10) { // Check if length is less than 10
+    //   Swal.fire("Error", "Please enter valid phone number", "error");
+    //   return;
+    // }
+
     setLoading(true);
     try {
       const order = {
@@ -75,7 +80,8 @@ const Checkout = () => {
         order_Note: billingDetails.order_Note || "blank",
         order_Address:
           billingDetails.order_Address || sessionStorage.getItem("address"),
-        order_MobNo: billingDetails.order_MobNo || sessionStorage.getItem("mobno"),
+        order_MobNo:
+          billingDetails.order_MobNo || sessionStorage.getItem("mobNo"),
         orderDate: new Date().toISOString(),
         orderDetailMsts: cartList.map((item) => ({
           style_Code: item.itemMst.style_Code,
@@ -88,28 +94,54 @@ const Checkout = () => {
 
       console.log(order);
 
-      const response = await axios.post(
-        "https://localhost:7241/api/Order/createorder",
-        order
+      const responseCheck = await axios.get(
+        `https://localhost:7241/api/Order/checkquantity/${userID}`,
+        { data: order }
       );
 
-      if (response.status === 200) {
-        if (response.data && response.data.data) {
-          setOrderInfo(response.data.data);
-          Swal.fire("Success", "Order placed successfully!", "success");
-          setTimeout(() => {
-            Swal.close();
-            navigate("/thankyou");
-          }, 1000);
-        } else {
-          Swal.fire(
-            "Error",
-            response.data.status + ": " + response.data.message,
-            "error"
+      console.log(responseCheck);
+
+      if (responseCheck.data === 1) {
+        const result = await Swal.fire({
+          title: "Warning",
+          text: "Not enough quantity available for some items, do you want to buy all ?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Agree",
+          cancelButtonText: "Cancel",
+        });
+
+        if (result.isConfirmed) {
+          const response = await axios.put(
+            `https://localhost:7241/api/Order/updatecartgetallquantity/${userID}`,
+            order
           );
+          // Swal.fire("Success!", "Agree to place order!", "success");
+          window.location.reload();
         }
-      } else {
-        Swal.fire("Error", response.data.message, "error");
+      }
+      if (responseCheck.data === 0) {
+        const response = await axios.post(
+          "https://localhost:7241/api/Order/createorder",
+          order
+        );
+
+        if (response.status === 200) {
+          if (response.data && response.data.data) {
+            setOrderInfo(response.data.data);
+            Swal.fire("Success", "Order placed successfully!", "success");
+            setTimeout(() => {
+              Swal.close();
+              navigate("/thankyou");
+            }, 2000);
+          } else {
+            Swal.fire("Error", response.data.message, "error");
+          }
+        } else {
+          Swal.fire("Error", response.data.message, "error");
+        }
       }
     } catch (error) {
       console.error("Place order error:", error);
@@ -139,7 +171,7 @@ const Checkout = () => {
               <h2 className="h3 mb-3 text-black">Send To Others</h2>
               <div className="p-3 p-lg-5 border bg-white">
                 <div className="form-group row">
-                <div className="col-md-12">
+                  <div className="col-md-12">
                     <label htmlFor="address" className="text-black">
                       Mob No <span className="text-danger">*</span>
                     </label>
@@ -242,13 +274,16 @@ const Checkout = () => {
                       </tbody>
                     </table>
 
-                    <div className="form-group">
+                    <div className="form-group d-flex">
                       <button
                         className="btn btn-black btn-lg py-3 btn-block"
-                        onClick={(e) => handlePlaceOrder(e)}
+                        onClick={handlePlaceOrder}
                       >
                         Place Order
                       </button>
+                      <a href="/cart" className="btn btn-primary btn-lg py-3 mx-2">
+                        Back To Cart
+                      </a>
                     </div>
                   </div>
                 </div>

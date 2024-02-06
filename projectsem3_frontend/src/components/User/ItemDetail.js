@@ -104,6 +104,12 @@ function ItemDetail() {
     }
   };
 
+  const handleIncreaseQuantity = () => {
+    if (quantity <= 9) {
+      setQuantity(quantity + 1);
+    }
+  };
+
   const handleExpandImage = () => {
     setIsImageExpanded(!isImageExpanded);
     setIsOverlayActive(!isImageExpanded); // Toggle state for the overlay
@@ -242,13 +248,13 @@ function ItemDetail() {
                   id="quantity"
                   value={quantity}
                   onChange={handleQuantityChange}
-                  style={{ width: "50px" }}
+                  style={{ width: "60px" }}
                   className="form-control mx-2"
                 />
                 <button
                   type="button"
                   className="btn btn-dark"
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={handleIncreaseQuantity}
                 >
                   +
                 </button>

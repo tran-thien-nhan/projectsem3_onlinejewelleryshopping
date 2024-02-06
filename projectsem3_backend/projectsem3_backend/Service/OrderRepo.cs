@@ -26,6 +26,90 @@ namespace projectsem3_backend.Service
             this.db = db;
             this.emailService = emailService;
         }
+        public async Task<int> CheckQuantity(string userId)
+        {
+            try
+            {
+                // Lấy listCart của user dựa vào userId
+                var listCart = await db.CartLists
+                    .Include(c => c.ItemMst)
+                    .Where(c => c.UserID == userId)
+                    .ToListAsync();
+                var result = 0;
+                foreach (var cartItem in listCart)
+                {
+                    var itemInDB = await db.ItemMsts
+                        .SingleOrDefaultAsync(i => i.Style_Code == cartItem.Style_Code);
+
+                    if (itemInDB == null)
+                    {
+                        return -1;
+                    }
+
+                    // Nếu số lượng item trong cart nhiều hơn số lượng hiện có trong DB
+                    if (cartItem.Quantity > itemInDB.Quantity)
+                    {
+                        result++;
+                    }
+                }
+
+                if (result > 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                return -2;
+            }
+        }
+
+        public async Task<CustomResult> UpdateCartGetAllQuantity(string userId)
+        {
+            try
+            {
+                // Lấy listCart của user dựa vào userId
+                var listCart = await db.CartLists
+                    .Include(c => c.ItemMst)
+                    .Where(c => c.UserID == userId)
+                    .ToListAsync();
+
+                foreach (var cartItem in listCart)
+                {
+                    var itemInDB = await db.ItemMsts
+                        .SingleOrDefaultAsync(i => i.Style_Code == cartItem.Style_Code);
+
+                    if (itemInDB == null)
+                    {
+                        return new CustomResult(400, "Item not found", null);
+                    }
+
+                    // Nếu số lượng item trong cart nhiều hơn số lượng hiện có trong DB
+                    if (cartItem.Quantity > itemInDB.Quantity)
+                    {
+                        cartItem.Quantity = itemInDB.Quantity;
+                        db.CartLists.Update(cartItem);
+                    }
+                    else
+                    {
+                        cartItem.Quantity = cartItem.Quantity;
+                        db.CartLists.Update(cartItem);
+                    }
+                }
+
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Update cart successfully!", null);
+            }
+            catch (Exception ex)
+            {
+                return new CustomResult(500, ex.Message, null);
+            }
+        }
+
 
         public async Task<CustomResult> CreateOrder(OrderMst order)
         {
@@ -44,6 +128,26 @@ namespace projectsem3_backend.Service
                     {
                         transaction.Rollback();
                         return new CustomResult(404, "Cart empty", null);
+                    }
+
+                    // Kiểm tra số lượng hiện có của item trong cart và trong database
+                    foreach (var cartItem in listCart)
+                    {
+                        var itemInDB = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == cartItem.Style_Code);
+
+                        // Nếu số lượng item trong cart nhiều hơn số lượng hiện có trong DB
+                        if (cartItem.Quantity > itemInDB.Quantity)
+                        {
+                            transaction.Rollback();
+                            return new CustomResult(400, "Not enough quantity available for some items", null);
+                        }
+
+                        // Nếu số lượng item trong cart <= 10, hiển thị thông báo tạm hết hàng
+                        //if (itemInDB.Quantity <= 10)
+                        //{
+                        //    transaction.Rollback();
+                        //    return new CustomResult(400, "Some items are running out of stock", null);
+                        //}
                     }
 
                     // Lấy listCart và gán OrderDetail của order
@@ -119,7 +223,6 @@ namespace projectsem3_backend.Service
                 }
             }
         }
-
 
         //ko sd
         public async Task<CustomResult> DeleteOrder(string id)
