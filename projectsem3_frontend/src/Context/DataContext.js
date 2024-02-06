@@ -20,6 +20,7 @@ export const DataProvider = ({ children }) => {
   const [golds, setGold] = useState([]);
   const [stones, setStone] = useState([]);
   // const [stoneQuantity, setStoneQuantity] = useState([]);
+  const [certifies, setCertify] = useState([]);
 
   //Hung's state
   const [dimQlty, setDimQlty] = useState([]);
@@ -242,6 +243,25 @@ export const DataProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  //Get Certify Data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://localhost:7241/api/CertifyMst");
+        // console.log(response.data.data);
+        setCertify(response.data.data);
+      } catch (error) {
+        //console.error("List Certify error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   ////Hung's Fetch Data
   useEffect(() => {
     const fetchData = async () => {
@@ -296,46 +316,46 @@ export const DataProvider = ({ children }) => {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
 
-    //prod
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const response = await axios.get(`https://localhost:7241/api/ProdMst`);
-          console.log(response.data.data);
-          setProd(response.data.data);
-        } catch (error) {
-          console.error("list error:", error);
-          setError(error);
-        } finally {
-          setLoading(false);
-        }
-      };
+  //prod
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`https://localhost:7241/api/ProdMst`);
+        console.log(response.data.data);
+        setProd(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchData();
-    }, []);
-    //info
-    // useEffect(() => {
-    //   const fetchData = async () => {
-    //     try {
-    //       setLoading(true);
-    //       const response = await axios.get(`https://localhost:7241/api/DimInfoMst`);
-    //       console.log(response.data.data);
-    //       setDimInfo(response.data.data);
-    //     } catch (error) {
-    //       console.error("list error:", error);
-    //       setError(error);
-    //     } finally {
-    //       setLoading(false);
-    //     }
-    //   };
+    fetchData();
+  }, []);
+  //info
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await axios.get(`https://localhost:7241/api/DimInfoMst`);
+  //       console.log(response.data.data);
+  //       setDimInfo(response.data.data);
+  //     } catch (error) {
+  //       console.error("list error:", error);
+  //       setError(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    //   fetchData();
-    // }, []);
+  //   fetchData();
+  // }, []);
 
 
   //Minh's Fetch Data
@@ -359,6 +379,7 @@ export const DataProvider = ({ children }) => {
     categories,
     golds,
     stones,
+    certifies,
 
     //Hung's Value
     dimQlty,
