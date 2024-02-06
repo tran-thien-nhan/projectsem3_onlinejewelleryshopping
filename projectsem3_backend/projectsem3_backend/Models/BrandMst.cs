@@ -9,6 +9,8 @@ namespace projectsem3_backend.Models
 
         public string? Brand_Type { get; set; }
 
+        public int? Brand_Year { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

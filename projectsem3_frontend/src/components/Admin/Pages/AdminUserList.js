@@ -7,17 +7,20 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 const AdminUserList = () => {
   const { userList, loading, error } = useData();
   const [statusFilter, setStatusFilter] = useState("all");
+  const [activateFilter, setActivateFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState(""); // Thêm state cho ô tìm kiếm
 
   const handleStatusFilterChange = (filter) => {
     setStatusFilter(filter);
   };
 
-  const handleUpdateStatus = async (userID) => {
+  const handleActivateFilterChange = (filter) => {
+    setActivateFilter(filter);
+  };
+
+  const handleActivate = async (userID) => {
     try {
-      await axios.put(
-        `https://localhost:7241/api/User/updatestatususer/${userID}`
-      );
+      await axios.put(`https://localhost:7241/api/User/activeuser/${userID}`);
       // Update the visibility of the item in the state or fetch the updated data again
       await window.location.reload();
     } catch (error) {
@@ -36,6 +39,15 @@ const AdminUserList = () => {
       }
     })
     .filter((user) => {
+      if (activateFilter === "all") {
+        return true;
+      } else if (activateFilter === "active") {
+        return user.activate === true;
+      } else {
+        return user.activate === false;
+      }
+    })
+    .filter((user) => {
       // Áp dụng bộ lọc từ ô tìm kiếm
       const searchTermLower = searchTerm.toLowerCase();
       return (
@@ -50,13 +62,14 @@ const AdminUserList = () => {
   const handleReset = () => {
     setStatusFilter("all");
     setSearchTerm("");
+    setActivateFilter("all");
   };
 
   return (
     <div className="container-fluid">
       <div className="mb-3">
         <label htmlFor="statusFilter" className="form-label">
-          Filter by Visibility
+          Filter by Verified Status
         </label>
         <select
           className="form-select"
@@ -67,6 +80,22 @@ const AdminUserList = () => {
           <option value="all">All</option>
           <option value="verified">verified</option>
           <option value="not verified">not verified</option>
+        </select>
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor="activateFilter" className="form-label">
+          Filter by Activated Status
+        </label>
+        <select
+          className="form-select"
+          id="activateFilter"
+          onChange={(e) => handleActivateFilterChange(e.target.value)}
+          value={activateFilter}
+        >
+          <option value="all">All</option>
+          <option value="active">activate</option>
+          <option value="deactive">deactivate</option>
         </select>
       </div>
 
@@ -94,6 +123,7 @@ const AdminUserList = () => {
               <th>City</th>
               <th>Joined Date</th>
               <th>Verified</th>
+              <th>Activate</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -122,13 +152,14 @@ const AdminUserList = () => {
                   <td>{user.mobNo}</td>
                   <td>{user.city}</td>
                   <td>{new Date(user.createdAt).toLocaleString()}</td>
+                  <td>{user.isVerified ? "Verified" : "Not Verified"}</td>
                   <td>
                     {" "}
                     <button
                       className="btn btn-primary"
-                      onClick={() => handleUpdateStatus(user.userID)}
+                      onClick={() => handleActivate(user.userID)}
                     >
-                      {user.isVerified ? <FaTimes /> : <FaCheck />}
+                      {user.activate ? <FaTimes /> : <FaCheck />}
                     </button>
                   </td>
                   <td>

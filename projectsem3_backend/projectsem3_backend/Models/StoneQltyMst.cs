@@ -8,6 +8,8 @@ namespace projectsem3_backend.Models
      
         public string? StoneQlty { get; set; }
 
+        public int? Stone_Year { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

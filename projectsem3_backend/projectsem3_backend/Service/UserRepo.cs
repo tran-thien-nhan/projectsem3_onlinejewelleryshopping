@@ -172,6 +172,7 @@ namespace projectsem3_backend.Service
                     userMst.CreatedAt = DateTime.Now;
                     userMst.UpdatedAt = DateTime.Now;
                     userMst.IsVerified = false;
+                    userMst.Activate = true;
 
                     // Thêm mới người dùng vào DbContext
                     await db.UserRegMsts.AddAsync(userMst);
@@ -401,6 +402,47 @@ namespace projectsem3_backend.Service
             catch (Exception e)
             {
                 return false;
+            }
+        }
+
+        public async Task<CustomResult> UpdatePassword(string userid, string password)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.SingleOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+
+                user.Password = UserSecurity.HashPassword(password);
+                db.UserRegMsts.Update(user);
+                await db.SaveChangesAsync();
+
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> ActiveUser(string userid)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+                user.Activate = !user.Activate;
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
             }
         }
     }

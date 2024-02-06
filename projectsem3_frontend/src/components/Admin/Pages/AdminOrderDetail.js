@@ -123,6 +123,10 @@ const AdminOrderDetail = () => {
               <td>{orderData.order_Address}</td>
             </tr>
             <tr>
+              <td>Mobile Number:</td>
+              <td>{orderData.order_MobNo}</td>
+            </tr>
+            <tr>
               <td>Order Note:</td>
               <td>{orderData.order_Note}</td>
             </tr>

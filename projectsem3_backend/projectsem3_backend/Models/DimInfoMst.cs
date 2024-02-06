@@ -17,6 +17,8 @@ namespace projectsem3_backend.Models
 
         public string? DimImg { get; set; }
 
+        public int? DimYear { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

@@ -37,5 +37,11 @@ namespace projectsem3_backend.Repository
 
         //kiểm tra email
         Task<bool> CheckEmail(string email);
+
+        //update password
+        Task<CustomResult> UpdatePassword(string userid, string password);
+
+        //active user
+        Task<CustomResult> ActiveUser(string userid);
     }
 }

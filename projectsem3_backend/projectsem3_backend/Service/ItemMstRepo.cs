@@ -95,6 +95,7 @@ namespace projectsem3_backend.Service
                     newItem.ProdMst = product;
                     newItem.GoldKrtMst = goldType;
                     newItem.JewelTypeMst = jewellery;
+                    newItem.MRP = newItem.Gold_Wt + newItem.Wstg_Per + newItem.Wstg + newItem.Tot_Gross_Wt + newItem.Gold_Rate + newItem.Gold_Amt + newItem.Gold_Making + newItem.Stone_Making + newItem.Other_Making + newItem.Tot_Making;
 
                     await db.ItemMsts.AddAsync(newItem);
                     var result = await db.SaveChangesAsync();

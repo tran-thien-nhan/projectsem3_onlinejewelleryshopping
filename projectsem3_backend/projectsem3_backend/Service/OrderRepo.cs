@@ -350,7 +350,7 @@ namespace projectsem3_backend.Service
                         table.AddCell("Order ID:").AddCell(order.Order_ID.ToString());
                         table.AddCell("Order Date:").AddCell(order.OrderDate.ToString());
                         table.AddCell("Address:").AddCell(order.Order_Address);
-                        table.AddCell("Phone:").AddCell(user.MobNo);
+                        table.AddCell("Phone:").AddCell(order.order_MobNo);
                         table.AddCell("Note:").AddCell(order.Order_Note);
                         table.AddCell("Email:").AddCell(user.EmailID);
                         document.Add(table);

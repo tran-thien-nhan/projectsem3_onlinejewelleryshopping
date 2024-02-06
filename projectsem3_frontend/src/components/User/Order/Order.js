@@ -24,6 +24,7 @@ const Order = () => {
                     <th class="product-quantity">{t("Status")}</th>
                     <th class="product-total">{t("Notes")}</th>
                     <th class="product-total">{t("Address")}</th>
+                    <th class="product-total">{t("Mobile Number")}</th>
                     <th class="product-total">{t("Order Date")}</th>
                     <th class="product-remove">{t("Detail")}</th>
                   </tr>
@@ -49,6 +50,7 @@ const Order = () => {
                       </td>
                       <td>{t(order.order_Note) || "nothing"}</td>
                       <td>{order.order_Address}</td>
+                      <td>{order.order_MobNo}</td>
                       <td>{order.orderDate}</td>
                       <td>
                         <Link

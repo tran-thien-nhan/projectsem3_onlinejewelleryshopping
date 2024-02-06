@@ -15,6 +15,8 @@ namespace projectsem3_backend.Models
 
         public string? Order_Address { get; set; }
 
+        public string? order_MobNo { get; set; }
+
         public string? Order_Note { get; set; }
         public int? OrderStatus { get; set; }
 

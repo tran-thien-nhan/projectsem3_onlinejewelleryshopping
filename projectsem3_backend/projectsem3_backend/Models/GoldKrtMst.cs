@@ -8,6 +8,8 @@ namespace projectsem3_backend.Models
      
         public string? Gold_Crt { get; set; }
 
+        public int? Gold_Year { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

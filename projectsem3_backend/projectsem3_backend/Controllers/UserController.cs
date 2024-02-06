@@ -133,5 +133,17 @@ namespace projectsem3_backend.Controllers
         {
             return await userRepo.TestDecodePassword(password);
         }
+
+        [HttpPut("updatepassword/{userid}/{password}")]
+        public async Task<CustomResult> UpdatePassword(string userid, string password)
+        {
+            return await userRepo.UpdatePassword(userid, password);
+        }
+
+        [HttpPut("activeuser/{userid}")]
+        public async Task<CustomResult> ActiveUser(string userid)
+        {
+            return await userRepo.ActiveUser(userid);
+        }
     }
 }

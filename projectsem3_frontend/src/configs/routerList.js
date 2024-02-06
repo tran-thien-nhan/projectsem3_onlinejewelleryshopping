@@ -38,6 +38,7 @@ import AdminProd from './../components/Admin/Pages/AdminProd';
 import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
 import EmailForgotPass from "../components/User/Login/EmailForgotPass";
 import ResetPassword from "../components/User/Login/ResetPassword";
+import UserUpdatePass from "../components/User/UserUpdatePass";
 
 
 //Minh's routes
@@ -106,6 +107,10 @@ const publicRouter = [
   {
     path: "/resetpassword/:token",
     element: <ResetPassword />,
+  },
+  {
+    path: "/updateuserpass",
+    element: <UserUpdatePass />,
   },
 ];
 

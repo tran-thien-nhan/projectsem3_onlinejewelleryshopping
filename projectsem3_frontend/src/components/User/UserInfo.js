@@ -38,9 +38,14 @@ const UserInfo = () => {
           </p>
         </div>
       </div>
-      <a href="/updateuser" className="btn btn-primary my-3">
-        {t("Update")}
-      </a>
+      <div className="d-flex">
+        <a href="/updateuser" className="btn btn-primary my-3 mx-2">
+          {t("Update")}
+        </a>
+        <a href="/updateuserpass" className="btn btn-primary my-3">
+          Update Password
+        </a>
+      </div>
     </div>
   );
 };

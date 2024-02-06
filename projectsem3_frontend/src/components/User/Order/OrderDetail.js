@@ -39,6 +39,7 @@ const OrderDetail = () => {
                     <th className="product-name">Order ID</th>
                     <th className="product-price">Status</th>
                     <th className="product-address">Address</th>
+                    <th className="product-quantity">Phone Number</th>
                     <th className="product-quantity">Notes</th>
                     <th className="product-total">Order Date</th>
                   </tr>
@@ -66,6 +67,7 @@ const OrderDetail = () => {
                             )}
                           </td>
                           <td>{order.order_Address}</td>
+                          <td>{order.order_MobNo}</td>
                           <td>{order.order_Note || "nothing"}</td>
                           <td>{order.orderDate}</td>
                         </tr>

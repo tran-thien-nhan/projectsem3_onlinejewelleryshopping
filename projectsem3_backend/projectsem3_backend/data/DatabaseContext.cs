@@ -42,14 +42,14 @@ namespace projectsem3_backend.data
                     new AdminLoginMst
                     {
                         UserName = "admin1",
-                        Password = "123",
+                        Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     },
                     new AdminLoginMst
                     {
                         UserName = "admin2",
-                        Password = "123",
+                        Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     }
@@ -124,8 +124,9 @@ namespace projectsem3_backend.data
                         EmailID = "user1@gmail.com",
                         DOB = DateTime.Now,
                         CDate = DateTime.Now,
-                        Password = "123",
+                        Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
                         IsVerified = true,
+                        Activate = true,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     },
@@ -143,7 +144,8 @@ namespace projectsem3_backend.data
                         DOB = DateTime.Now,
                         CDate = DateTime.Now,
                         IsVerified = true,
-                        Password = "123",
+                        Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
+                        Activate = true,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     },
@@ -161,7 +163,8 @@ namespace projectsem3_backend.data
                         DOB = DateTime.Now,
                         CDate = DateTime.Now,
                         IsVerified = true,
-                        Password = "123",
+                        Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
+                        Activate = true,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     }
@@ -280,6 +283,7 @@ namespace projectsem3_backend.data
                     {
                         StoneQlty_ID = "1",
                         StoneQlty = "Ruby",
+                        Stone_Year = 1913,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         Visible = true
@@ -288,6 +292,7 @@ namespace projectsem3_backend.data
                     {
                         StoneQlty_ID = "2",
                         StoneQlty = "Meena",
+                        Stone_Year = 1913,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         Visible = true
@@ -296,6 +301,7 @@ namespace projectsem3_backend.data
                     {
                         StoneQlty_ID = "3",
                         StoneQlty = "Sapphire",
+                        Stone_Year = 1913,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         Visible = true
@@ -572,6 +578,7 @@ namespace projectsem3_backend.data
                             DimCrt = "1",
                             DimPrice = "1000",
                             DimImg = "",
+                            DimYear = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -584,6 +591,7 @@ namespace projectsem3_backend.data
                             DimCrt = "2",
                             DimPrice = "2000",
                             DimImg = "",
+                            DimYear = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -596,6 +604,7 @@ namespace projectsem3_backend.data
                             DimCrt = "3",
                             DimPrice = "1500",
                             DimImg = "",
+                            DimYear = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -614,6 +623,7 @@ namespace projectsem3_backend.data
                         {
                             Brand_ID = "1",
                             Brand_Type = "Asmi",
+                            Brand_Year = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -622,6 +632,7 @@ namespace projectsem3_backend.data
                         {
                             Brand_ID = "2",
                             Brand_Type = "D’damas",
+                            Brand_Year = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -630,6 +641,7 @@ namespace projectsem3_backend.data
                         {
                             Brand_ID = "3",
                             Brand_Type = "ABC Jewelers",
+                            Brand_Year = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -716,6 +728,7 @@ namespace projectsem3_backend.data
                         {
                             GoldType_ID = "1",
                             Gold_Crt = "18K",
+                            Gold_Year = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -724,6 +737,7 @@ namespace projectsem3_backend.data
                         {
                             GoldType_ID = "2",
                             Gold_Crt = "22K",
+                            Gold_Year = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true
@@ -732,6 +746,7 @@ namespace projectsem3_backend.data
                         {
                             GoldType_ID = "3",
                             Gold_Crt = "24K",
+                            Gold_Year = 1913,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             Visible = true

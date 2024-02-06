@@ -18,7 +18,7 @@ const Login = () => {
       Swal.fire("Error", "Please enter both username and password", "error");
       setTimeout(() => {
         Swal.close();
-      }, 1000);
+      }, 2000);
       return;
     } else if (username.length < 3 || password.length < 3) {
       Swal.fire(
@@ -28,7 +28,7 @@ const Login = () => {
       );
       setTimeout(() => {
         Swal.close();
-      }, 1000);
+      }, 2000);
       return;
     } else if (username.length > 20 || password.length > 20) {
       Swal.fire(
@@ -38,7 +38,7 @@ const Login = () => {
       );
       setTimeout(() => {
         Swal.close();
-      }, 1000);
+      }, 2000);
       return;
     } else {
       // Login failed
@@ -47,7 +47,7 @@ const Login = () => {
       setTimeout(() => {
         Swal.close();
         navigate("/login");
-      }, 1000);
+      }, 2000);
     }
 
     try {
@@ -61,9 +61,18 @@ const Login = () => {
           Swal.fire("Error", "Please verify your email first", "error");
           setTimeout(() => {
             Swal.close();
-          }, 1000);
+          }, 2000);
           return;
         }
+
+        if (acc.activate === false) {
+          Swal.fire("Error", "Your account is de-activated", "error");
+          setTimeout(() => {
+            Swal.close();
+          }, 2000);
+          return;
+        }
+
         if (acc != null) {
           sessionStorage.setItem("userID", acc.userID);
           sessionStorage.setItem("email", acc.emailID);
@@ -77,6 +86,7 @@ const Login = () => {
           sessionStorage.setItem("dob", acc.dob);
           sessionStorage.setItem("userName", acc.userName);
           sessionStorage.setItem("isVerified", acc.isVerified);
+          sessionStorage.setItem("activate", acc.activate);
 
           const role = response.data.role;
           if (role === "admin") {
@@ -87,7 +97,7 @@ const Login = () => {
             setTimeout(() => {
               Swal.close();
               navigate("/movingtoadmin");
-            }, 1000);
+            }, 2000);
           } else if (role === "user") {
             setRole(role);
             sessionStorage.setItem("role", role);
@@ -96,13 +106,13 @@ const Login = () => {
             setTimeout(() => {
               Swal.close();
               navigate("/");
-            }, 1000);
+            }, 2000);
           } else if (response.status === 404) {
             Swal.fire("Error", "Login fail!", "error");
             setTimeout(() => {
               Swal.close();
               navigate("/login");
-            }, 1000);
+            }, 2000);
           }
           else {
             setRole("");
@@ -111,7 +121,7 @@ const Login = () => {
             setTimeout(() => {
               Swal.close();
               navigate("/login");
-            }, 1000);
+            }, 2000);
           }
 
           await new Promise((resolve) => setTimeout(resolve, 2000));

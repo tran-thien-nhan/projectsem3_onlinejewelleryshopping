@@ -75,6 +75,7 @@ const Checkout = () => {
         order_Note: billingDetails.order_Note || "blank",
         order_Address:
           billingDetails.order_Address || sessionStorage.getItem("address"),
+        order_MobNo: billingDetails.order_MobNo || sessionStorage.getItem("mobno"),
         orderDate: new Date().toISOString(),
         orderDetailMsts: cartList.map((item) => ({
           style_Code: item.itemMst.style_Code,
@@ -137,7 +138,22 @@ const Checkout = () => {
             <div className="col-md-6 mb-5 mb-md-0">
               <h2 className="h3 mb-3 text-black">Send To Others</h2>
               <div className="p-3 p-lg-5 border bg-white">
-                <div className="form-group row"></div>
+                <div className="form-group row">
+                <div className="col-md-12">
+                    <label htmlFor="address" className="text-black">
+                      Mob No <span className="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="mobno"
+                      name="order_MobNo"
+                      placeholder="phone number"
+                      value={billingDetails.order_MobNo}
+                      onChange={handleChangeInput}
+                    />
+                  </div>
+                </div>
 
                 <div className="form-group row mb-2">
                   <div className="col-md-12">
