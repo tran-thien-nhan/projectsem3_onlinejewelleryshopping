@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { TailSpin } from "react-loader-spinner";
+import { Radio, TailSpin } from "react-loader-spinner";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -71,8 +71,32 @@ const Checkout = () => {
     //   return;
     // }
 
+    let paymentOption = "cash"; // Default
+
     setLoading(true);
     try {
+      const cashChecked = document.getElementById("cash").checked; // Kiểm tra xem radio button 'cash' đã được chọn chưa
+      const orderPayment = cashChecked ? 1 : 2; // Thiết lập giá trị cho orderPayment tùy thuộc vào phương thức thanh toán
+
+      const creditCardNo = cashChecked
+        ? null
+        : document.getElementById("creditCardNo").value; // Lấy giá trị của số thẻ tín dụng nếu thanh toán bằng credit card
+      const cvv = cashChecked ? null : document.getElementById("cvv").value; // Lấy giá trị của mã CVV nếu thanh toán bằng credit card
+
+      // Kiểm tra định dạng số thẻ tín dụng
+      const creditCardRegex = /^[0-9]{16}$/;
+      if (!creditCardRegex.test(creditCardNo)) {
+        Swal.fire("Error", "Credit Card Number must be 16 digits", "error");
+        return;
+      }
+
+      // Kiểm tra định dạng CVV
+      const cvvRegex = /^[0-9]{3,4}$/;
+      if (!cvvRegex.test(cvv)) {
+        Swal.fire("Error", "CVV must be 3 or 4 digits", "error");
+        return;
+      }
+      
       const order = {
         userID: userID,
         totalPrice: subTotal,
@@ -83,6 +107,9 @@ const Checkout = () => {
         order_MobNo:
           billingDetails.order_MobNo || sessionStorage.getItem("mobNo"),
         orderDate: new Date().toISOString(),
+        orderPayment: orderPayment,
+        creditCardNo: creditCardNo,
+        cvv: cvv,
         orderDetailMsts: cartList.map((item) => ({
           style_Code: item.itemMst.style_Code,
           product_Name: item.itemMst.product_Name,
@@ -102,6 +129,7 @@ const Checkout = () => {
       console.log(responseCheck);
 
       if (responseCheck.data === 1) {
+        setLoading(false);
         const result = await Swal.fire({
           title: "Warning",
           text: "Not enough quantity available for some items, do you want to buy all ?",
@@ -274,6 +302,83 @@ const Checkout = () => {
                       </tbody>
                     </table>
 
+                    <div className="mx-4 mb-3 text-dark">
+                      <h5>Payment Methods:</h5>
+                    </div>
+
+                    <div className="border p-3 mb-3">
+                      <h3 className="h6 mb-0">
+                        <a
+                          className="d-block"
+                          data-bs-toggle="collapse"
+                          href="#collapsebank"
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="collapsebank"
+                        >
+                          Cash Payment
+                        </a>
+                      </h3>
+
+                      <div className="collapse" id="collapsebank">
+                        <div className="py-2">
+                          <input type="radio" name="payment" id="cash" />
+                          <label htmlFor="cash" className="mx-2">
+                            Pay By Cash
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border p-3 mb-3">
+                      <h3 className="h6 mb-0">
+                        <a
+                          className="d-block"
+                          data-bs-toggle="collapse"
+                          href="#collapsecheque"
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="collapsecheque"
+                        >
+                          Credit Card
+                        </a>
+                      </h3>
+
+                      <div className="collapse" id="collapsecheque">
+                        <div className="py-2">
+                          <form action="#">
+                            <div className="form-group">
+                              <label
+                                htmlFor="creditCardNo"
+                                className="text-black"
+                              >
+                                Card Number
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="creditCardNo"
+                                name="creditCardNo"
+                                placeholder="Enter Cart Number"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="cvv" className="text-black">
+                                CVV
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="cvv"
+                                name="cvv"
+                                placeholder="Enter CVV"
+                              />
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="form-group d-flex">
                       <button
                         className="btn btn-black btn-lg py-3 btn-block"
@@ -281,7 +386,10 @@ const Checkout = () => {
                       >
                         Place Order
                       </button>
-                      <a href="/cart" className="btn btn-primary btn-lg py-3 mx-2">
+                      <a
+                        href="/cart"
+                        className="btn btn-primary btn-lg py-3 mx-2"
+                      >
                         Back To Cart
                       </a>
                     </div>

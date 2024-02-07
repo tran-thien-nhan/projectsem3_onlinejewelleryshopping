@@ -107,19 +107,25 @@ const CartList = () => {
   const handleIncrease = async (index, e) => {
     e.preventDefault();
     const updatedCartList = [...cartList];
-    updatedCartList[index].quantity++;
-    updatedCartList[index].total =
-      updatedCartList[index].itemMst.mrp * updatedCartList[index].quantity;
-    setCartList(updatedCartList);
-
-    try {
-      await axios.put(
-        `https://localhost:7241/api/Cart/updatequantity/${updatedCartList[index].id}/${updatedCartList[index].quantity}`
-      );
-    } catch (error) {
-      console.error("Update quantity error:", error);
+    if (updatedCartList[index].quantity < 10) {
+      updatedCartList[index].quantity++;
+      updatedCartList[index].total =
+        updatedCartList[index].itemMst.mrp * updatedCartList[index].quantity;
+      setCartList(updatedCartList);
+  
+      try {
+        await axios.put(
+          `https://localhost:7241/api/Cart/updatequantity/${updatedCartList[index].id}/${updatedCartList[index].quantity}`
+        );
+      } catch (error) {
+        console.error("Update quantity error:", error);
+      }
+    } else {
+      console.log("Quantity cannot exceed 10");
+      Swal.fire("Error", "Quantity cannot exceed 10", "error");
     }
   };
+  
 
   useEffect(() => {
     let total = 0;

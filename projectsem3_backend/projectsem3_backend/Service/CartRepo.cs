@@ -214,12 +214,6 @@ namespace projectsem3_backend.Service
 
                 cart.Quantity = quantity;
 
-                if (cart.Quantity >= 10)
-                {
-                    cart.Quantity = 10;
-                    return new CustomResult(500, "Cannot add more !", null);
-                }
-
                 var result = await db.SaveChangesAsync();
 
                 if (result == 1)

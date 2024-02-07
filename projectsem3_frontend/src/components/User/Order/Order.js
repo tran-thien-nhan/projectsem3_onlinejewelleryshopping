@@ -26,6 +26,7 @@ const Order = () => {
                     <th class="product-total">{t("Address")}</th>
                     <th class="product-total">{t("Mobile Number")}</th>
                     <th class="product-total">{t("Order Date")}</th>
+                    <th class="product-total">{t("Order Payment")}</th>
                     <th class="product-remove">{t("Detail")}</th>
                   </tr>
                 </thead>
@@ -52,6 +53,13 @@ const Order = () => {
                       <td>{order.order_Address}</td>
                       <td>{order.order_MobNo}</td>
                       <td>{order.orderDate}</td>
+                      <td>
+                        {order.orderPayment === 1
+                          ? "by cash"
+                          : order.orderPayment === 2
+                          ? "by credit card"
+                          : ""}
+                      </td>
                       <td>
                         <Link
                           to={`/order/${order.order_ID}`}

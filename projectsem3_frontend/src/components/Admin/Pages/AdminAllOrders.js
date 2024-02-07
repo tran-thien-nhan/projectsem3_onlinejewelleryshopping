@@ -214,6 +214,7 @@ const AdminAllOrders = () => {
                 </a>
               </th>
               <th scope="col">Total Amount</th>
+              <th scope="col">Payment Methods</th>
               <th scope="col">Order Status</th>
               <th scope="col">Action</th>
             </tr>
@@ -242,6 +243,14 @@ const AdminAllOrders = () => {
                   </td>
                   <td>{new Date(order.orderDate).toLocaleString()}</td>
                   <td>${order.totalPrice}</td>
+                  <td>
+                    {order.orderPayment === 1
+                      ? "by cash"
+                      : order.orderPayment === 2
+                      ? "by credit card"
+                      : ""}
+                  </td>
+
                   <td>
                     {order.orderStatus === 1 && (
                       <span className="badge bg-primary">Pending</span>

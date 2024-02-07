@@ -123,6 +123,31 @@ const AdminOrderDetail = () => {
               <td>{orderData.order_Address}</td>
             </tr>
             <tr>
+              <td>Payment Methods:</td>
+              <td>
+                {orderData.orderPayment === 1
+                  ? "by cash"
+                  : orderData.orderPayment === 2
+                  ? "by credit card"
+                  : ""}
+              </td>
+            </tr>
+            {
+              // If payment method is credit card, show the last 4 digits of the card
+              orderData.orderPayment === 2 && (
+                <>
+                  <tr>
+                    <td>Credit Card No:</td>
+                    <td>{orderData.creditCardNo}</td>
+                  </tr>
+                  <tr>
+                    <td>CVV:</td>
+                    <td>{orderData.cvv}</td>
+                  </tr>
+                </>
+              )
+            }
+            <tr>
               <td>Mobile Number:</td>
               <td>{orderData.order_MobNo}</td>
             </tr>
@@ -154,20 +179,23 @@ const AdminOrderDetail = () => {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-warning my-2" onClick={exportPDF}>
-        {isLoading ? (
-          <span
-            className="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-        ) : (
-          <>
-            <i class="fa fa-file-pdf mx-2" aria-hidden="true"></i>
-            Export This Order To PDF
-          </>
-        )}
-      </button>
+      <div className="d-flex mb-5">
+        <button className="btn btn-warning my-2" onClick={exportPDF}>
+          {isLoading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            <>
+              <i class="fa fa-file-pdf mx-2" aria-hidden="true"></i>
+              Export This Order To PDF
+            </>
+          )}
+        </button>
+        <a href="/allorders" className="btn btn-primary my-2 mx-2">Back</a>
+      </div>
     </div>
   );
 };

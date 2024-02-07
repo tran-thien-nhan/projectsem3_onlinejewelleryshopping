@@ -20,6 +20,12 @@ namespace projectsem3_backend.Models
         public string? Order_Note { get; set; }
         public int? OrderStatus { get; set; }
 
+        public int? orderPayment { get; set; }
+
+        public string? creditCardNo { get; set; }
+
+        public string? cvv { get; set; }
+
         public DateTime? OrderDate { get; set; }
 
         public bool? Visible { get; set; }

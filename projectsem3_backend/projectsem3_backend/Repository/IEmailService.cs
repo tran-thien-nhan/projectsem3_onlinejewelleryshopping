@@ -5,7 +5,7 @@ namespace projectsem3_backend.Repository
 {
     public interface IEmailService
     {
-        Task SendEmailConfirmationAsync(string toEmail, string orderId, List<OrderDetailMst> orderDetails);
+        Task SendEmailConfirmationAsync(string toEmail, string orderId, List<OrderDetailMst> orderDetails, string orderpayment);
 
         Task<int> SendMailVerifyUserAsync(string toEmail, string token);
 

@@ -73,5 +73,11 @@ namespace projectsem3_backend.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("checkquantity")]
+        public async Task<CustomResult> CheckQuantity()
+        {
+            return await itemMstRepo.CheckQuantity();
+        }
     }
 }

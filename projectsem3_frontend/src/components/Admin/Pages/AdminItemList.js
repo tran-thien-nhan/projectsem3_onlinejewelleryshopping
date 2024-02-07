@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { useData } from "../../../Context/DataContext";
 import { saveAs } from "file-saver";
 import axios from "axios";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { use } from "i18next";
 
 const AdminItemList = () => {
   const { items, loading, error } = useData();
@@ -12,9 +13,26 @@ const AdminItemList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [mrpSortOrder, setMrpSortOrder] = useState("");
   const [visibilityFilter, setVisibilityFilter] = useState("all");
+  const [quantityFilter, setQuantityFilter] = useState("all");
+
+  const handlecheckQuantity = async () => {
+    try {
+      const response = await axios.get(
+        `https://localhost:7241/api/ItemMst/checkquantity`
+      );
+      window.location.reload();
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleVisibilityFilterChange = (filter) => {
     setVisibilityFilter(filter);
+  };
+
+  const handleQuantityFilterChange = (filter) => {
+    setQuantityFilter(filter);
   };
 
   const handleGenerateReportItems = async () => {
@@ -77,7 +95,14 @@ const AdminItemList = () => {
       (visibilityFilter === "show" && item.visible) ||
       (visibilityFilter === "hide" && !item.visible);
 
-    return matchesSearchTerm && matchesVisibilityFilter;
+    const matchesQuantityFilter =
+      quantityFilter === "all" ||
+      (quantityFilter === "lte10" && item.quantity <= 10) ||
+      (quantityFilter === "gt10" && item.quantity > 10);
+
+    return (
+      matchesSearchTerm && matchesVisibilityFilter && matchesQuantityFilter
+    );
   });
 
   const handleReset = () => {
@@ -85,6 +110,7 @@ const AdminItemList = () => {
     setSortOrder("");
     setMrpSortOrder("");
     setVisibilityFilter("all");
+    setQuantityFilter("all");
   };
 
   const handleUpdateVisibility = async (styleCode) => {
@@ -126,6 +152,21 @@ const AdminItemList = () => {
           <option value="all">All</option>
           <option value="show">Show</option>
           <option value="hide">Hide</option>
+        </select>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="quantityFilter" className="form-label">
+          Filter by Quantity
+        </label>
+        <select
+          className="form-select"
+          id="quantityFilter"
+          onChange={(e) => handleQuantityFilterChange(e.target.value)}
+          value={quantityFilter}
+        >
+          <option value="all">All</option>
+          <option value="lte10">Out Of Stock</option>
+          <option value="gt10">Available</option>
         </select>
       </div>
 
@@ -186,7 +227,20 @@ const AdminItemList = () => {
                   </td>
                   <td>{item.product_Name}</td>
                   <td>{item.mrp}</td>
-                  <td>{item.quantity}</td>
+                  <td>
+                    {
+                      <span
+                        className={
+                          item.quantity <= 10
+                            ? "badge bg-danger text-white"
+                            : "badge bg-success text-white"
+                        }
+                        style={{ width: "60px", fontSize: "1.2rem" }}
+                      >
+                        {item.quantity}
+                      </span>
+                    }
+                  </td>
                   <td>
                     <button
                       className="btn btn-primary"
@@ -225,6 +279,13 @@ const AdminItemList = () => {
               items report to excel
             </>
           )}
+        </button>
+        <button
+          className="btn btn-danger mx-2"
+          style={{ backgroundColor: "cyan", color: "black" }}
+          onClick={handlecheckQuantity}
+        >
+          Check Quantity
         </button>
         <div className="btn btn-primary">
           <a

@@ -141,13 +141,6 @@ namespace projectsem3_backend.Service
                             transaction.Rollback();
                             return new CustomResult(400, "Not enough quantity available for some items", null);
                         }
-
-                        // Nếu số lượng item trong cart <= 10, hiển thị thông báo tạm hết hàng
-                        //if (itemInDB.Quantity <= 10)
-                        //{
-                        //    transaction.Rollback();
-                        //    return new CustomResult(400, "Some items are running out of stock", null);
-                        //}
                     }
 
                     // Lấy listCart và gán OrderDetail của order
@@ -201,9 +194,22 @@ namespace projectsem3_backend.Service
                     var user1 = await db.UserRegMsts.SingleOrDefaultAsync(u => u.UserID == userid);
                     var userEmail = user1.EmailID;
                     var orderDetailList = await db.OrderDetailMsts.Include(o => o.ItemMst).Include(o => o.OrderMst).Where(o => o.Order_ID == order.Order_ID).ToListAsync();
-
+                    var orderPayment = order.orderPayment;
+                    var payment = "";
+                    if (orderPayment == 1)
+                    {
+                        payment = "by cash";
+                    }
+                    else if (orderPayment == 2)
+                    {
+                        payment = "by credit card";
+                    }
+                    else
+                    {
+                        payment = "unknown";
+                    }
                     // Gửi email xác nhận đơn hàng
-                    await emailService.SendEmailConfirmationAsync(userEmail, order.Order_ID, orderDetailList);
+                    await emailService.SendEmailConfirmationAsync(userEmail, order.Order_ID, orderDetailList, payment);
 
                     transaction.Commit(); // Dừng transaction
 
@@ -425,6 +431,8 @@ namespace projectsem3_backend.Service
 
         public async Task<MemoryStream> ExportPDFOrderDetails(string orderId)
         {
+            string paymentMethod = "";
+
             using (var memoryStream = new MemoryStream())
             {
                 using (var writer = new PdfWriter(memoryStream))
@@ -437,6 +445,22 @@ namespace projectsem3_backend.Service
                         {
                             throw new Exception("Không tìm thấy đơn hàng có ID = " + orderId);
                         }
+
+                        // Kiểm tra giá trị của orderPayment
+                        if (order.orderPayment == 1)
+                        {
+                            paymentMethod = "by cash";
+                        }
+                        else if (order.orderPayment == 2)
+                        {
+                            paymentMethod = "by credit card";
+                        }
+                        else
+                        {
+                            // Xử lý trường hợp giá trị orderPayment không hợp lệ
+                            paymentMethod = "Unknown";
+                        }
+
                         var user = await db.UserRegMsts.SingleOrDefaultAsync(u => u.UserID == order.UserID);
 
                         // Create document structure
@@ -456,6 +480,7 @@ namespace projectsem3_backend.Service
                         table.AddCell("Phone:").AddCell(order.order_MobNo);
                         table.AddCell("Note:").AddCell(order.Order_Note);
                         table.AddCell("Email:").AddCell(user.EmailID);
+                        table.AddCell("Payment Method:").AddCell(paymentMethod);
                         document.Add(table);
 
                         // Add order details table

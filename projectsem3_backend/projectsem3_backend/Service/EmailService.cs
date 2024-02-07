@@ -11,7 +11,7 @@ namespace projectsem3_backend.Service
 {
     public class EmailService : IEmailService
     {
-        public async Task SendEmailConfirmationAsync(string toEmail, string orderId, List<OrderDetailMst> orderDetails)
+        public async Task SendEmailConfirmationAsync(string toEmail, string orderId, List<OrderDetailMst> orderDetails, string orderpayment)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
@@ -35,6 +35,7 @@ namespace projectsem3_backend.Service
             template.AppendLine("<h2>Order Confirmation</h2>");
             template.AppendLine("<p>Thank you for your order. Below is the summary of your order:</p>");
             template.AppendLine($"<p>Order ID: {orderId}</p>");
+            template.AppendLine($"<p>Order Payment method: {orderpayment}</p>");
             template.AppendLine("<table border='1'>");
             template.AppendLine("<tr>");
             template.AppendLine("<th style='width: 40%;'>Product</th>");

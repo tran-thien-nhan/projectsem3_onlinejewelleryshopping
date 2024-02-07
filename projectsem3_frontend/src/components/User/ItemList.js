@@ -30,7 +30,7 @@ function ItemList() {
               <div className="row">
                 {Array.isArray(items) && items.length > 0 ? (
                   items
-                    .filter((item) => item.visible)
+                    .filter((item) => item.visible && item.quantity > 10)
                     .map((item) => (
                       <div key={item.prod_ID} className="col-md-3 mb-3">
                         <Link

@@ -249,7 +249,16 @@ namespace projectsem3_backend.Service
                 {
                     try
                     {
-                        item.Visible = !item.Visible;
+                        if (item.Quantity <= 10)
+                        {
+                            item.Visible = false;
+                        }
+                        else
+                        {
+                            item.Visible = !item.Visible;
+                        }
+
+                        //item.Visible = !item.Visible;
 
                         db.ItemMsts.Update(item);
 
@@ -282,6 +291,79 @@ namespace projectsem3_backend.Service
         {
             var itemList = await db.ItemMsts.ToListAsync();
             return itemList;
+        }
+
+        public async Task<CustomResult> CheckQuantity()
+        {
+            try
+            {
+                var itemList = await db.ItemMsts.ToListAsync();
+                var count = 0;
+                foreach (var item in itemList)
+                {
+                    await UpdateVisibilityBelow10(item.Style_Code);
+                    count++;
+                }
+
+                if (count == 0)
+                {
+                    return new CustomResult(204, "No item has quantity <= 10", null);
+                }
+                return new CustomResult(200, "Check Success", null);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(402, e.Message, null);
+            }
+        }
+
+        private async Task<CustomResult> UpdateVisibilityBelow10(string id)
+        {
+            try
+            {
+                var item = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == id);
+                if (item == null)
+                {
+                    return new CustomResult(201, "Not Found", null);
+                }
+                else
+                {
+                    try
+                    {
+                        if (item.Quantity <= 10)
+                        {
+                            item.Visible = false;
+                        }
+                        else if (item.Quantity > 10)
+                        {
+                            item.Visible = true;
+                        }
+
+                        db.ItemMsts.Update(item);
+
+                        var result = await db.SaveChangesAsync();
+                        if (result == 1)
+                        {
+                            return new CustomResult(200, "Update Success", item);
+                        }
+                        return new CustomResult(201, "No changes were made in the database", null);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Check for specific DbUpdateException for unique constraint violation (e.g., duplicate key)
+                        if (ex.InnerException is SqlException sqlException && sqlException.Number == 2627)
+                        {
+                            return new CustomResult(409, "Duplicate entry. Another product with the same key already exists.", null);
+                        }
+
+                        return new CustomResult(500, ex.Message, null);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(402, e.Message, null);
+            }
         }
     }
 }
