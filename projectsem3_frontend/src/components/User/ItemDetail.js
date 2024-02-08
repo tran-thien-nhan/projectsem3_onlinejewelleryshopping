@@ -104,11 +104,11 @@ function ItemDetail() {
     }
   };
 
-  // const handleIncreaseQuantity = () => {
-  //   if (quantity <= 9) {
-  //     setQuantity(quantity + 1);
-  //   }
-  // };
+  const handleIncreaseQuantity = () => {
+    if (quantity <= 9) {
+      setQuantity(quantity + 1);
+    }
+  };
 
   const handleExpandImage = () => {
     setIsImageExpanded(!isImageExpanded);
@@ -254,7 +254,14 @@ function ItemDetail() {
                 <button
                   type="button"
                   className="btn btn-dark"
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() => {
+                    if (quantity >= 10) {
+                      setQuantity(10);
+                    }
+                    else{
+                      setQuantity(quantity + 1);
+                    }
+                  }}
                 >
                   +
                 </button>

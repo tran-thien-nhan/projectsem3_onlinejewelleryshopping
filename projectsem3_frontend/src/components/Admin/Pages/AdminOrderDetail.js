@@ -115,6 +115,10 @@ const AdminOrderDetail = () => {
               </td>
             </tr>
             <tr>
+              <td>Order Info:</td>
+              <td>{orderData.orderInfo}</td>
+            </tr>
+            <tr>
               <td>Total Price:</td>
               <td>${orderData.totalPrice.toLocaleString()}</td>
             </tr>
@@ -129,6 +133,8 @@ const AdminOrderDetail = () => {
                   ? "by cash"
                   : orderData.orderPayment === 2
                   ? "by credit card"
+                  : orderData.orderPayment === 3
+                  ? "by Momo"
                   : ""}
               </td>
             </tr>
@@ -145,7 +151,7 @@ const AdminOrderDetail = () => {
                     <td>{orderData.cvv}</td>
                   </tr>
                 </>
-              )
+              ) 
             }
             <tr>
               <td>Mobile Number:</td>

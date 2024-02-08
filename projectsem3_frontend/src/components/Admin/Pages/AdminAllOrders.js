@@ -15,6 +15,11 @@ const AdminAllOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(4);
   const [isLoading, setIsLoading] = useState(false);
+  const [filterOrderPayment, setFilterOrderPayment] = useState("");
+
+  const handleFilterOrderPaymentChange = (e) => {
+    setFilterOrderPayment(e.target.value);
+  };
 
   const isNewOrder = (order) => {
     const today = new Date();
@@ -86,6 +91,8 @@ const AdminAllOrders = () => {
     setSearchUserID("");
     setStartDate("");
     setEndDate("");
+    setFilterOrderPayment("");
+    setCurrentPage(1);
   };
 
   const handleUpdateOrderStatus = async (orderId, status) => {
@@ -115,6 +122,11 @@ const AdminAllOrders = () => {
     .filter(
       (order) =>
         endDate === "" || new Date(order.orderDate) <= new Date(endDate)
+    )
+    .filter((order) =>
+      filterOrderPayment === ""
+        ? true
+        : order.orderPayment.toString() === filterOrderPayment
     );
 
   const indexOfLastOrder = currentPage * ordersPerPage;
@@ -197,6 +209,22 @@ const AdminAllOrders = () => {
               onChange={handleEndDateChange}
             />
           </div>
+          <div className="mb-3">
+            <label htmlFor="filterOrderPayment" className="form-label">
+              Filter by Payment Method
+            </label>
+            <select
+              className="form-select"
+              id="filterOrderPayment"
+              value={filterOrderPayment}
+              onChange={handleFilterOrderPaymentChange}
+            >
+              <option value="">All</option>
+              <option value="1">Cash</option>
+              <option value="2">Credit Card</option>
+              <option value="3">Momo</option>
+            </select>
+          </div>
         </div>
       </div>
       <div className="site-blocks-table">
@@ -248,6 +276,8 @@ const AdminAllOrders = () => {
                       ? "by cash"
                       : order.orderPayment === 2
                       ? "by credit card"
+                      : order.orderPayment === 3
+                      ? "by momo"
                       : ""}
                   </td>
 

@@ -58,6 +58,8 @@ const Order = () => {
                           ? "by cash"
                           : order.orderPayment === 2
                           ? "by credit card"
+                          : order.orderPayment === 3
+                          ? "by momo"
                           : ""}
                       </td>
                       <td>

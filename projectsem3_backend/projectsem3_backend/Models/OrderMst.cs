@@ -26,6 +26,10 @@ namespace projectsem3_backend.Models
 
         public string? cvv { get; set; }
 
+        public string? orderInfo { get; set; }
+
+        public string? paymenturl { get; set; }
+
         public DateTime? OrderDate { get; set; }
 
         public bool? Visible { get; set; }

@@ -113,11 +113,20 @@ namespace projectsem3_backend.Service
 
         public async Task<CustomResult> CreateOrder(OrderMst order)
         {
+            string paymentMethod = "";
+
             using (var transaction = db.Database.BeginTransaction())
             {
                 try
                 {
-                    order.Order_ID = Guid.NewGuid().ToString();
+                    if (order.Order_ID == null)
+                    {
+                        order.Order_ID = Guid.NewGuid().ToString();
+                    }
+                    else
+                    {
+                        order.Order_ID = order.Order_ID;
+                    }
 
                     // Lấy listCart của user dựa vào userId
                     var listCart = await db.CartLists.Include(c => c.ItemMst).Where(c => c.UserID == order.UserID).ToListAsync();
@@ -143,6 +152,46 @@ namespace projectsem3_backend.Service
                         }
                     }
 
+                    //if (order.orderPayment == 3)
+                    //{
+                    //    var resultpay = await momoService.CreatePaymentAsync(order);
+                    //    if (resultpay.ErrorCode == 29)
+                    //    {
+                    //        transaction.Rollback();
+                    //        return new CustomResult(500, resultpay.LocalMessage, null);
+                    //    }
+                    //    else if (resultpay != null)
+                    //    {
+                    //        order.paymenturl = resultpay.PayUrl;
+                    //    }
+                    //    else
+                    //    {
+                    //        transaction.Rollback();
+                    //        return new CustomResult(500, "Create order failed!", null);
+                    //    }
+                    //}
+
+                    if (order.order_MobNo.Length < 10)
+                    {
+                        transaction.Rollback();
+                        return new CustomResult(400, "Invalid phone number", null);
+                    }
+
+                    if(order.orderPayment == null)
+                    {
+                        transaction.Rollback();
+                        return new CustomResult(400, "Invalid payment method", null);
+                    }
+
+                    if (order.orderPayment == 2)
+                    {
+                        if (order.creditCardNo.Length < 16 || order.cvv.Length < 3)
+                        {
+                            transaction.Rollback();
+                            return new CustomResult(400, "Invalid credit card information", null);
+                        }
+                    }
+
                     // Lấy listCart và gán OrderDetail của order
                     foreach (var item in listCart)
                     {
@@ -161,11 +210,32 @@ namespace projectsem3_backend.Service
                     // Kiểm tra sự tồn tại của user
                     var user = await db.UserRegMsts.SingleOrDefaultAsync(u => u.UserID == order.UserID);
 
+                    // Kiểm tra giá trị của orderPayment
+                    if (order.orderPayment == 1)
+                    {
+                        paymentMethod = "cash";
+                    }
+                    else if (order.orderPayment == 2)
+                    {
+                        paymentMethod = "credit card";
+                    }
+                    else if (order.orderPayment == 3)
+                    {
+                        paymentMethod = "Momo";
+                    }
+                    else
+                    {
+                        // Xử lý trường hợp giá trị orderPayment không hợp lệ
+                        paymentMethod = "Unknown";
+                    }
+
                     // Gán thông tin order
                     order.UserRegMst = user;
                     order.OrderStatus = 1;
                     order.TotalPrice = listCart.Sum(c => c.MRP * c.Quantity);
                     order.OrderDate = DateTime.Now;
+                    order.paymenturl = order.paymenturl;
+                    order.orderInfo = $"Order placed successfully at {order.OrderDate} via {paymentMethod}";
 
                     // Tạo order
                     db.OrderMsts.Add(order);
@@ -203,6 +273,10 @@ namespace projectsem3_backend.Service
                     else if (orderPayment == 2)
                     {
                         payment = "by credit card";
+                    }
+                    else if (orderPayment == 3)
+                    {
+                        payment = "by Momo";
                     }
                     else
                     {
@@ -454,6 +528,10 @@ namespace projectsem3_backend.Service
                         else if (order.orderPayment == 2)
                         {
                             paymentMethod = "by credit card";
+                        }
+                        else if (order.orderPayment == 3)
+                        {
+                            paymentMethod = "by Momo";
                         }
                         else
                         {

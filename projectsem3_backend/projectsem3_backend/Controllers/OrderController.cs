@@ -9,6 +9,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using projectsem3_backend.Service;
 using OfficeOpenXml;
+using projectsem3_backend.Models.Momo;
 
 namespace projectsem3_backend.Controllers
 {
@@ -18,11 +19,13 @@ namespace projectsem3_backend.Controllers
     {
         private readonly IOrderRepo orderRepo;
         private readonly IExcelHandler excelHandler;
+        private readonly IMomoService momoService;
 
-        public OrderController(IOrderRepo orderRepo, IExcelHandler excelHandler)
+        public OrderController(IOrderRepo orderRepo, IExcelHandler excelHandler, IMomoService momoService)
         {
             this.orderRepo = orderRepo;
             this.excelHandler = excelHandler;
+            this.momoService = momoService;
         }
 
         [HttpGet("getall")]
@@ -53,6 +56,13 @@ namespace projectsem3_backend.Controllers
         public async Task<CustomResult> UpdateCartGetAllQuantity(string userid)
         {
             return await orderRepo.UpdateCartGetAllQuantity(userid);
+        }
+
+        [HttpPost("createmomopayment")]
+        public async Task<CustomResult> CreateMomoPayment([FromBody] OrderMst model)
+        {
+            var response = await momoService.CreatePaymentAsync(model);
+            return new CustomResult(200, "success", response);
         }
 
         [HttpPost("createorder")]

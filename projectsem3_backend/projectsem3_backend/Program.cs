@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using projectsem3_backend.data;
+using projectsem3_backend.Models.Momo;
 using projectsem3_backend.Repository;
 using projectsem3_backend.Service;
 using System.Text;
@@ -57,6 +58,8 @@ builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IExcelHandler, ExcelHandler>();
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IMomoService, MomoRepo>();
 
 builder.Services.AddTransient<EmailService>(); //<-- thêm đúng dòng này
 
