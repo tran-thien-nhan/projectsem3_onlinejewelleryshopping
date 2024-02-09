@@ -257,6 +257,7 @@ function ItemDetail() {
                   onClick={() => {
                     if (quantity >= 10) {
                       setQuantity(10);
+                      Swal.fire("Error", "Maximum quantity is 10", "error");
                     }
                     else{
                       setQuantity(quantity + 1);

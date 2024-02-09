@@ -30,6 +30,8 @@ namespace projectsem3_backend.Models
 
         public string? paymenturl { get; set; }
 
+        public string? cancelreason { get; set; }
+
         public DateTime? OrderDate { get; set; }
 
         public bool? Visible { get; set; }

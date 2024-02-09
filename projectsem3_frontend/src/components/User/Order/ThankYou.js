@@ -23,7 +23,7 @@ const Thankyou = () => {
 
     if (orderData.orderPayment !== 3) {
       console.error("Invalid payment method specified.");
-      //return; // Exit early if payment method is not 3
+      return; // Exit early if payment method is not 3
     }
     else{
       const userID = orderData.userID;

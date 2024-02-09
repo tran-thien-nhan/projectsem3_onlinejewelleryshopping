@@ -10,5 +10,7 @@ namespace projectsem3_backend.Repository
         Task<int> SendMailVerifyUserAsync(string toEmail, string token);
 
         Task<int> SendMailResetPasswordAsync(string toEmail, string token);
+
+        Task<int> SendMailCancelOrderAsync(string toEmail, string orderId, string cancelreason);
     }
 }

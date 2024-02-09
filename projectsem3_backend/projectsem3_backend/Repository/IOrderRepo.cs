@@ -34,5 +34,8 @@ namespace projectsem3_backend.Repository
 
         //get all quantity của item trong listcart
         Task<CustomResult> UpdateCartGetAllQuantity(string userid);
+
+        //cancel order
+        Task<CustomResult> CancelOrder(string orderId, string cancelreason);
     }
 }

@@ -9,6 +9,16 @@ import { useTranslation } from "react-i18next";
 const Order = () => {
   const { t, i18n } = useTranslation();
   const { orderListSort } = useData();
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 5;
+
+  // Calculate the index of the first and last order on the current page
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = orderListSort.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div class="untree_co-section before-footer-section">
@@ -31,8 +41,8 @@ const Order = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orderListSort.map((order) => (
-                    <tr>
+                  {currentOrders.map((order) => (
+                    <tr key={order.order_ID}>
                       <td>{order.order_ID}</td>
                       <td>${order.totalPrice}</td>
                       <td>
@@ -76,6 +86,21 @@ const Order = () => {
               </table>
             </div>
           </form>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <nav>
+              <ul class="pagination justify-content-center">
+                {Array.from({ length: Math.ceil(orderListSort.length / ordersPerPage) }).map((_, index) => (
+                  <li key={index} class={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
+                    <button class="page-link" onClick={() => paginate(index + 1)}>
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </div>

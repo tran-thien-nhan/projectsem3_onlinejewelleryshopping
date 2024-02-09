@@ -12,6 +12,11 @@ const CartList = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [isLogin, setIsLogin] = useState(false);
 
+  const checkCartQuantity = () => {
+    const exceedItems = cartList.filter((item) => item.quantity > 10 || item.quantity < 1);
+    return exceedItems.length > 0;
+  };
+
   useEffect(() => {
     var userId = sessionStorage.getItem("userID");
 
@@ -112,7 +117,7 @@ const CartList = () => {
       updatedCartList[index].total =
         updatedCartList[index].itemMst.mrp * updatedCartList[index].quantity;
       setCartList(updatedCartList);
-  
+
       try {
         await axios.put(
           `https://localhost:7241/api/Cart/updatequantity/${updatedCartList[index].id}/${updatedCartList[index].quantity}`
@@ -125,7 +130,6 @@ const CartList = () => {
       Swal.fire("Error", "Quantity cannot exceed 10", "error");
     }
   };
-  
 
   useEffect(() => {
     let total = 0;
@@ -273,14 +277,19 @@ const CartList = () => {
                     </div>
 
                     <div className="row">
-                      <div className="col-md-12">
+                      {checkCartQuantity() ? (
+                        <div className="alert alert-warning" role="alert">
+                          Warning: There is 1 or more item with a quantity
+                          exceeding 10 or less than 1
+                        </div>
+                      ) : (
                         <a
                           className="btn btn-black btn-lg py-3 btn-block"
                           href="/checkout"
                         >
                           Proceed To Checkout
                         </a>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>

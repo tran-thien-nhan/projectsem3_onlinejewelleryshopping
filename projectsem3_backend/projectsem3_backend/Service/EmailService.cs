@@ -174,5 +174,55 @@ namespace projectsem3_backend.Service
                 return 0; // Gửi email không thành công
             }
         }
+
+        public async Task<int> SendMailCancelOrderAsync(string toEmail, string orderId, string cancelreason)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.To.Add(new MailboxAddress("", toEmail));
+                message.Subject = "Cancel Order";
+
+                var builder = new BodyBuilder();
+
+                // Template
+                var htmlBody = $@"
+                <html>
+                    <head>
+                    </head>
+                    <body>
+                        <h2>Order Cancel</h2>
+                        <p>Order ID: {orderId}</p>
+                        <p>Reason: {cancelreason}</p>
+                    </body>
+                </html>";
+
+                builder.HtmlBody = htmlBody;
+                message.Body = builder.ToMessageBody();
+                try
+                {
+                    using (var client = new SmtpClient())
+                    {
+                        await client.ConnectAsync("smtp.gmail.com", 587, false);
+                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.SendAsync(message);
+                        await client.DisconnectAsync(true);
+                    }
+
+                    return 1; // Gửi email thành công
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error sending email: {ex.Message}");
+                    return 0; // Gửi email không thành công
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+                return 0; // Gửi email không thành công
+            }
+        }
     }
 }

@@ -315,7 +315,7 @@ const AdminAllOrders = () => {
                       <option value={1}>Pending</option>
                       <option value={2}>Shipping</option>
                       <option value={3}>Completed</option>
-                      <option value={4}>Cancel</option>
+                      {/* <option value={4}>Cancel</option> */}
                     </select>
                   </td>
                 </tr>

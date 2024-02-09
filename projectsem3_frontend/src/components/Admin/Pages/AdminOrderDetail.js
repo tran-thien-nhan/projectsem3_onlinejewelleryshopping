@@ -178,6 +178,15 @@ const AdminOrderDetail = () => {
                 )}
               </td>
             </tr>
+            {
+              // If order is cancelled, show the reason
+              orderData.orderStatus === 4 && (
+                <tr>
+                  <td>Cancel Reason:</td>
+                  <td>{orderData.cancelreason}</td>
+                </tr>
+              )
+            }
             <tr>
               <td>Order Date:</td>
               <td>{new Date(orderData.orderDate).toLocaleString()}</td>

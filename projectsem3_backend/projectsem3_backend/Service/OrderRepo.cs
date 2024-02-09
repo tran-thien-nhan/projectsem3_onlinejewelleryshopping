@@ -152,25 +152,6 @@ namespace projectsem3_backend.Service
                         }
                     }
 
-                    //if (order.orderPayment == 3)
-                    //{
-                    //    var resultpay = await momoService.CreatePaymentAsync(order);
-                    //    if (resultpay.ErrorCode == 29)
-                    //    {
-                    //        transaction.Rollback();
-                    //        return new CustomResult(500, resultpay.LocalMessage, null);
-                    //    }
-                    //    else if (resultpay != null)
-                    //    {
-                    //        order.paymenturl = resultpay.PayUrl;
-                    //    }
-                    //    else
-                    //    {
-                    //        transaction.Rollback();
-                    //        return new CustomResult(500, "Create order failed!", null);
-                    //    }
-                    //}
-
                     if (order.order_MobNo.Length < 10)
                     {
                         transaction.Rollback();
@@ -611,7 +592,7 @@ namespace projectsem3_backend.Service
         {
             try
             {
-                var order = await db.OrderMsts.ToListAsync();
+                var order = await db.OrderMsts.Where(o => o.OrderStatus != 4).ToListAsync();
                 if (order == null)
                 {
                     return new CustomResult(404, "Order not found!", null);
@@ -625,6 +606,72 @@ namespace projectsem3_backend.Service
             catch (Exception ex)
             {
                 return new CustomResult(500, ex.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> CancelOrder(string orderId, string cancelreason)
+        {
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    var order = await db.OrderMsts.Include(o => o.OrderDetailMsts).SingleOrDefaultAsync(o => o.Order_ID == orderId);
+                    if (order == null)
+                    {
+                        transaction.Rollback();
+                        return new CustomResult(404, "Order not found!", null);
+                    }
+
+                    // Kiểm tra xem order có thể hủy hay không
+                    if (order.OrderStatus != 1)
+                    {
+                        transaction.Rollback();
+                        return new CustomResult(400, "Order cannot be cancelled!", null);
+                    }
+                    else
+                    {
+                        order.OrderStatus = 4;
+                        order.cancelreason = cancelreason;
+                    }
+
+                    // Trả lại số lượng item trong order về lại cho ItemMst
+                    foreach (var detail in order.OrderDetailMsts)
+                    {
+                        var item = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == detail.Style_Code);
+                        if (item != null)
+                        {
+                            item.Quantity += detail.Quantity;
+                            db.ItemMsts.Update(item);
+                        }
+                    }
+
+                    // Xóa order
+                    //db.OrderMsts.Remove(order);
+                    var user = await db.UserRegMsts.SingleOrDefaultAsync(u => u.UserID == order.UserID);
+                    var userEmail = user.EmailID;
+
+                    // Lưu vào db
+                    var result = await db.SaveChangesAsync();
+
+                    await emailService.SendMailCancelOrderAsync(userEmail, orderId, cancelreason);
+
+                    transaction.Commit(); // Dừng transaction
+
+                    if (result != 1)
+                    {
+                        return new CustomResult(200, "Cancel order successfully!", order);
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        return new CustomResult(500, "Cancel order failed!", null);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return new CustomResult(500, ex.Message, null);
+                }
             }
         }
     }

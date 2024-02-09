@@ -171,8 +171,9 @@ const Checkout = () => {
               setLoading(true);
               if (modelmomo.data && modelmomo.data.data) {
                 console.log(modelmomo.data.data);
-                if (modelmomo.data.data.result.errorCode !== 0) {
-                  Swal.fire("Error", modelmomo.data.data.result.localMessage, "error");
+                if (modelmomo.data.data.errorMessages !== null) {
+                  console.log(modelmomo.data.data.errorMessages);
+                  Swal.fire("Error", modelmomo.data.data.errorMessages, "error");
                 }
                 else{
                   var orderid = modelmomo.data.data.result.orderId;
@@ -216,7 +217,7 @@ const Checkout = () => {
             sessionStorage.removeItem("order");
             setTimeout(() => {
               Swal.close();
-              navigate("/thankyou");
+              navigate("/thankyou1");
             }, 2000);
           } else {
             Swal.fire("Error", response.data.message, "error");

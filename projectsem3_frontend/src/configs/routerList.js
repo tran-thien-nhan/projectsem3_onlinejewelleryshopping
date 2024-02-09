@@ -39,6 +39,8 @@ import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
 import EmailForgotPass from "../components/User/Login/EmailForgotPass";
 import ResetPassword from "../components/User/Login/ResetPassword";
 import UserUpdatePass from "../components/User/UserUpdatePass";
+import ThankYou1 from "../components/User/Order/ThankYou1";
+import MomoProcessing from "../components/User/Order/MomoProcessing";
 
 
 //Minh's routes
@@ -81,6 +83,10 @@ const publicRouter = [
     element: <Thankyou />,
   },
   {
+    path: "/thankyou1",
+    element: <ThankYou1 />,
+  },
+  {
     path: "/order",
     element: <Order />,
   },
@@ -111,6 +117,10 @@ const publicRouter = [
   {
     path: "/updateuserpass",
     element: <UserUpdatePass />,
+  },
+  {
+    path: "/momoprocessing",
+    element: <MomoProcessing />,
   },
 ];
 

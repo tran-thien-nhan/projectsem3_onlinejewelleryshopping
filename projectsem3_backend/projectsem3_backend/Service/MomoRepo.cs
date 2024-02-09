@@ -34,6 +34,37 @@ namespace projectsem3_backend.Service
             {
                 try
                 {
+                    if (model == null)
+                    {
+                        transaction.Rollback();
+                        return new MomoCustomResponse()
+                        {
+                            Result = null,
+                            OrderId = null,
+                            ErrorMessages = "Dữ liệu không hợp lệ"
+                        };
+                    }
+                    //else if(model.TotalPrice * 24000 > 30000000)
+                    //{
+                    //    transaction.Rollback();
+                    //    return new MomoCustomResponse()
+                    //    {
+                    //        Result = null,
+                    //        OrderId = model.Order_ID,
+                    //        ErrorMessages = "The payment amount must not exceed $1250"
+                    //    };
+                    //}
+                    //else if(model.TotalPrice * 24000 < 1000)
+                    //{
+                    //    transaction.Rollback();
+                    //    return new MomoCustomResponse()
+                    //    {
+                    //        Result = null,
+                    //        OrderId = model.Order_ID,
+                    //        ErrorMessages = "The payment amount must be greater than 10$"
+                    //    };
+                    //}
+
                     model.Order_ID = Guid.NewGuid().ToString();                   
 
                     if(model.orderPayment != 3)
@@ -51,7 +82,9 @@ namespace projectsem3_backend.Service
                         paymentMethod = "Momo";
                     }
 
-                    model.orderInfo = "Thanh toán đơn hàng " + model.Order_ID + " bằng " + paymentMethod;
+                    var vnTotalPrice = model.TotalPrice * 24000;    
+
+                    model.orderInfo = "Thanh toán đơn hàng bằng " + paymentMethod;
 
                     var rawData = $"partnerCode={_options.Value.PartnerCode}&accessKey={_options.Value.AccessKey}&requestId={model.Order_ID}&amount={model.TotalPrice}&orderId={model.Order_ID}&orderInfo={model.orderInfo}&returnUrl={_options.Value.ReturnUrl}&notifyUrl={_options.Value.NotifyUrl}&extraData=";
                     var signature = ComputeHmacSha256(rawData, _options.Value.SecretKey);

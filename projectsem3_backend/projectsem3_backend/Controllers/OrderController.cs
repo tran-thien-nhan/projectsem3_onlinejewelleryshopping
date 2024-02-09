@@ -165,5 +165,11 @@ namespace projectsem3_backend.Controllers
         {
             return await orderRepo.GetTotalMoney();
         }
+
+        [HttpPut("cancelorder/{orderId}/{cancelreason}")]
+        public async Task<CustomResult> CancelOrder(string orderId, string cancelreason)
+        {
+            return await orderRepo.CancelOrder(orderId, cancelreason);
+        }
     }
 }

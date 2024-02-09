@@ -280,13 +280,13 @@ const AdminItemList = () => {
             </>
           )}
         </button>
-        <button
+        {/* <button
           className="btn btn-danger mx-2"
           style={{ backgroundColor: "cyan", color: "black" }}
           onClick={handlecheckQuantity}
         >
           Check Quantity
-        </button>
+        </button> */}
         <div className="btn btn-primary">
           <a
             href="/createitem"
