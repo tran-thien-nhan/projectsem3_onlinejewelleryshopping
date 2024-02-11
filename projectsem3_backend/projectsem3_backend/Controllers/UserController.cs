@@ -145,5 +145,11 @@ namespace projectsem3_backend.Controllers
         {
             return await userRepo.ActiveUser(userid);
         }
+
+        [HttpGet("checkpassword/{userid}/{password}")]
+        public async Task<bool> CheckPassword(string userid, string password)
+        {
+            return await userRepo.CheckPassword(userid, password);
+        }
     }
 }

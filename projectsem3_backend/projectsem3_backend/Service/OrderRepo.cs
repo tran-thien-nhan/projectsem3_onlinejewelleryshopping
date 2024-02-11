@@ -674,5 +674,28 @@ namespace projectsem3_backend.Service
                 }
             }
         }
+
+        public async Task<CustomResult> SendMailOTP(string email)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.SingleOrDefaultAsync(u => u.EmailID == email);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found!", null);
+                }
+                else
+                {
+                    var otp = new Random().Next(100000, 999999).ToString();
+                    await emailService.SendMailOTPAsync(email, otp);
+
+                    return new CustomResult(200, "Send mail OTP successfully!", otp);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new CustomResult(500, ex.Message, null);
+            }
+        }
     }
 }

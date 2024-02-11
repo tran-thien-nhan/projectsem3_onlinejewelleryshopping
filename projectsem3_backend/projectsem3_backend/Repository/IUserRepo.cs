@@ -43,5 +43,8 @@ namespace projectsem3_backend.Repository
 
         //active user
         Task<CustomResult> ActiveUser(string userid);
+
+        //check password
+        Task<bool> CheckPassword(string userid, string password);
     }
 }

@@ -37,5 +37,8 @@ namespace projectsem3_backend.Repository
 
         //cancel order
         Task<CustomResult> CancelOrder(string orderId, string cancelreason);
+
+        //send mail otp with random a number with 6 digits
+        Task<CustomResult> SendMailOTP(string email);
     }
 }

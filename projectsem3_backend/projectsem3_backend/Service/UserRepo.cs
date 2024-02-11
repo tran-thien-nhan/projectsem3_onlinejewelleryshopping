@@ -445,5 +445,27 @@ namespace projectsem3_backend.Service
                 return new CustomResult(500, e.Message, null);
             }
         }
+
+        public async Task<bool> CheckPassword(string userid, string password)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
+                {
+                    return false;
+                }
+                var result = UserSecurity.VerifyPassword(password, user.Password);
+                if (!result)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

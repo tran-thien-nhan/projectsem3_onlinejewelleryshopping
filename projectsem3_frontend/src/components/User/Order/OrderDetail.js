@@ -14,8 +14,9 @@ const OrderDetail = () => {
   const [foundOrder, setFoundOrder] = useState({});
   const [openForm, setOpenForm] = useState(false);
   const [cancelReason, setCancelReason] = useState("");
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(); 
   const [isLoading, setIsLoading] = useState(false);
+  const [iscancel, setIsCancel] = useState(false);
 
   const handleClickOutside = (event) => {
     if (openForm && !event.target.closest("form")) {
@@ -73,7 +74,7 @@ const OrderDetail = () => {
 
   const handleSubmitCancelForm = async (e) => {
     e.preventDefault();
-    const cancelReason = e.target.elements.exampleFormControlTextarea1.value;
+    const cancelReason = e.target.elements.cancelForm.value;
     if (cancelReason === "") {
       setCancelReason("blank");
     } else {
@@ -86,11 +87,16 @@ const OrderDetail = () => {
         { cancelReason: cancelReason }
       );
 
+      if(orderListByUserId.find((order) => order.order_ID === order_ID).orderStatus === 4){
+        setIsCancel(true);
+      }
+
       if (!response.data.success) {
         console.log("Order cancelled successfully");
         // Handle success, e.g. display success message, navigate, etc.
         await window.location.reload();
       } else {
+        setIsCancel(true);
         console.error("Error cancelling order:", response.data.message);
         // Handle error, e.g. display error message
         Swal.fire("Error", response.data.message, "error");
@@ -122,7 +128,7 @@ const OrderDetail = () => {
                       {t("Order Payment Method")}
                     </th>
                     <th className="product-quantity">{t("Notes")}</th>
-                    {cancelReason === "" && (
+                    {!iscancel && (
                       <th className="product-quantity">{t("Cancel Reason")}</th>
                     )}
                     <th className="product-total">{t("Order Date")}</th>
@@ -168,7 +174,7 @@ const OrderDetail = () => {
                               : ""}
                           </td>
                           <td>{t(order.order_Note) || t("nothing")}</td>
-                          {cancelReason === "" && <td>{order.cancelreason}</td>}
+                          {!iscancel && <td>{order.cancelreason || t("blank")}</td>}
                           <td>{order.orderDate}</td>
                         </tr>
                       );
@@ -230,12 +236,12 @@ const OrderDetail = () => {
             {openForm && (
               <form onSubmit={handleSubmitCancelForm} className="my-2">
                 <div className="form-group">
-                  <label htmlFor="exampleFormControlTextarea1">
+                  <label htmlFor="cancelForm">
                     {t("Reason for cancellation")}
                   </label>
                   <textarea
                     className="form-control"
-                    id="exampleFormControlTextarea1"
+                    id="cancelForm"
                     rows="3"
                   ></textarea>
                 </div>

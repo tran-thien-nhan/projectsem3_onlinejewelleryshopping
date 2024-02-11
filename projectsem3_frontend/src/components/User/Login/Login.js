@@ -10,6 +10,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -51,6 +52,7 @@ const Login = () => {
     }
 
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://localhost:7241/api/User/checklogin/${username}/${password}`
       );
@@ -58,6 +60,7 @@ const Login = () => {
       console.log(response);
       if (response.status === 200) {
         if (acc.isVerified === false) {
+          setLoading(false);
           Swal.fire("Error", "Please verify your email first", "error");
           setTimeout(() => {
             Swal.close();
@@ -66,6 +69,7 @@ const Login = () => {
         }
 
         if (acc.activate === false) {
+          setLoading(false);
           Swal.fire("Error", "Your account is de-activated", "error");
           setTimeout(() => {
             Swal.close();
@@ -108,13 +112,14 @@ const Login = () => {
               navigate("/");
             }, 2000);
           } else if (response.status === 404) {
+            setLoading(false);
             Swal.fire("Error", "Login fail!", "error");
             setTimeout(() => {
               Swal.close();
               navigate("/login");
             }, 2000);
-          }
-          else {
+          } else {
+            setLoading(false);
             setRole("");
             // Login fail
             Swal.fire("Error", "Login fail!", "error");
@@ -128,6 +133,7 @@ const Login = () => {
         }
       }
     } catch (error) {
+      setLoading(false);
       // Handle other errors
       console.error("Error:", error);
       Swal.fire("Error", "wrong username or password", "error");
@@ -185,7 +191,15 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary"
               >
-                Submit
+                {loading ? (
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                ) : (
+                  <>Login</>
+                )}
               </button>
             </form>
           </div>

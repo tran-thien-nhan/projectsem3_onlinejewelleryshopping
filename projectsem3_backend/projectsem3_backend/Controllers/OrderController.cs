@@ -171,5 +171,11 @@ namespace projectsem3_backend.Controllers
         {
             return await orderRepo.CancelOrder(orderId, cancelreason);
         }
+
+        [HttpGet("sendmailotp/{email}")]
+        public async Task<CustomResult> SendMailOTP(string email)
+        {
+            return await orderRepo.SendMailOTP(email);
+        }
     }
 }
