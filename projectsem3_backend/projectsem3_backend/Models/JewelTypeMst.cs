@@ -5,7 +5,7 @@ namespace projectsem3_backend.Models
     public class JewelTypeMst
     {
         [Key]
-        public string ID { get; set; }
+        public string Jewellery_ID { get; set; }
 
         [Required]
         public string? Jewellery_Type { get; set; }

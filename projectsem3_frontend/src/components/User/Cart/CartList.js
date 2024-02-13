@@ -211,7 +211,7 @@ const CartList = () => {
                               </div>
                             </div>
                           </td>
-                          <td>${item.itemMst.mrp * item.quantity}</td>
+                          <td>${(item.itemMst.mrp * item.quantity).toFixed(2)}</td>
                           <td>
                             <button
                               className="btn btn-black btn-sm"
@@ -264,7 +264,7 @@ const CartList = () => {
                         <span className="text-black">Subtotal</span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">${subTotal}</strong>
+                        <strong className="text-black">${subTotal.toFixed(2)}</strong>
                       </div>
                     </div>
                     <div className="row mb-5">
@@ -272,7 +272,7 @@ const CartList = () => {
                         <span className="text-black">Total</span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">${subTotal}</strong>
+                        <strong className="text-black">${subTotal.toFixed(2)}</strong>
                       </div>
                     </div>
 

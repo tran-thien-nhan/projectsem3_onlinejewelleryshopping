@@ -28,6 +28,7 @@ export const DataProvider = ({ children }) => {
   const [dimQltySub, setDimQltySub] = useState([]);
   const [dim, setDim] = useState([]);
   const [prod, setProd] = useState([]);
+  const [jewelry, setJewelry] = useState([]);
   // const [dimInfo, setDimInfo] = useState([]);
 
 
@@ -49,7 +50,7 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get("https://localhost:7241/api/ItemMst");
-        //console.log(response.data.data);
+        console.log(response.data.data);
         setItems(response.data.data);
       } catch (error) {
         //console.error("list error:", error);
@@ -271,7 +272,7 @@ export const DataProvider = ({ children }) => {
         const response = await axios.get(
           `https://localhost:7241/api/DimQltyMst`
         );
-        console.log(response.data.data);
+        ///console.log(response.data.data);
         setDimQlty(response.data.data);
       } catch (error) {
         console.error("list error:", error);
@@ -289,7 +290,7 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get(`https://localhost:7241/api/DimMst`);
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setDim(response.data.data);
       } catch (error) {
         console.error("list error:", error);
@@ -308,7 +309,7 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get("https://localhost:7241/api/DimQltySubMst");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setDimQltySub(response.data.data);
       } catch (error) {
         console.error("list error:", error);
@@ -327,7 +328,7 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get(`https://localhost:7241/api/ProdMst`);
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setProd(response.data.data);
       } catch (error) {
         console.error("list error:", error);
@@ -357,6 +358,25 @@ export const DataProvider = ({ children }) => {
 
   //   fetchData();
   // }, []);
+
+  //jewel
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`https://localhost:7241/api/JewelTypeMst`);
+        console.log(response.data.data);
+        setJewelry(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
 
   //Minh's Fetch Data
@@ -388,6 +408,7 @@ export const DataProvider = ({ children }) => {
     prod,
     dimQltySub,
     // dimInfo,
+    jewelry,
 
     //Minh's Value
 

@@ -800,13 +800,13 @@ namespace projectsem3_backend.data
             //19
             modelBuilder.Entity<JewelTypeMst>(j =>
             {
-                j.HasKey(j => j.ID);
+                j.HasKey(j => j.Jewellery_ID);
                 j.HasMany(j => j.ItemMsts).WithOne(j => j.JewelTypeMst).HasForeignKey(j => j.Jewellery_ID);
                 j.HasData(new JewelTypeMst[]
                 {
                         new JewelTypeMst
                         {
-                            ID = "1",
+                            Jewellery_ID = "1",
                             Jewellery_Type = "Ring",
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
@@ -814,7 +814,7 @@ namespace projectsem3_backend.data
                         },
                         new JewelTypeMst
                         {
-                            ID = "2",
+                            Jewellery_ID = "2",
                             Jewellery_Type = "Earring",
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
@@ -822,7 +822,7 @@ namespace projectsem3_backend.data
                         },
                         new JewelTypeMst
                         {
-                            ID = "3",
+                            Jewellery_ID = "3",
                             Jewellery_Type = "Necklace",
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
@@ -830,7 +830,7 @@ namespace projectsem3_backend.data
                         },
                         new JewelTypeMst
                         {
-                            ID = "4",
+                            Jewellery_ID = "4",
                             Jewellery_Type = "Bracelet",
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,

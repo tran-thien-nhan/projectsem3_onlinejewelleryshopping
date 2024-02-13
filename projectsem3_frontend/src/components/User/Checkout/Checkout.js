@@ -391,7 +391,7 @@ const Checkout = () => {
                             {item.itemMst.product_Name}{" "}
                             <strong className="mx-2">x</strong> {item.quantity}
                           </td>
-                          <td>${item.itemMst.mrp * item.quantity}</td>
+                          <td>${(item.itemMst.mrp * item.quantity).toFixed(2)}</td>
                         </tr>
                       ))}
                       <tr>
@@ -401,7 +401,7 @@ const Checkout = () => {
                           <strong>Order Total</strong>
                         </td>
                         <td className="text-black font-weight-bold">
-                          <strong>${subTotal}</strong>
+                          <strong>${subTotal.toFixed(2)}</strong>
                         </td>
                       </tr>
                     </tbody>

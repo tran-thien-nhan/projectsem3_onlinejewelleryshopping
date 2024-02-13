@@ -196,6 +196,7 @@ const AdminItemList = () => {
                 </a>
               </th>
               <th>Visible</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -226,7 +227,7 @@ const AdminItemList = () => {
                     />
                   </td>
                   <td>{item.product_Name}</td>
-                  <td>{item.mrp}</td>
+                  <td>${item.mrp}</td>
                   <td>
                     {
                       <span
@@ -248,6 +249,10 @@ const AdminItemList = () => {
                     >
                       {item.visible ? <FaTimes /> : <FaCheck />}
                     </button>
+                  </td>
+                  <td>
+                    {/* <a href={`/edititem/${item.style_Code}`}>Edit</a> */}
+                    <a href="#" className="btn btn-danger">Edit</a>
                   </td>
                 </tr>
               ))

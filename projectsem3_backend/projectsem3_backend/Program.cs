@@ -78,6 +78,7 @@ builder.Services.AddScoped<IDimMstRepo, DimMstRepo>();
 builder.Services.AddScoped<IDimQltySubMstRepo, DimQltySubMstRepo>();
 builder.Services.AddScoped<IProdMstRepo, ProMstRepo>();
 /*builder.Services.AddScoped<IDimInfoMstRepo, DimInfoMstRepo>();*/
+builder.Services.AddScoped<IJewelRepo, JewelRepo>();
 
 var app = builder.Build();
 
