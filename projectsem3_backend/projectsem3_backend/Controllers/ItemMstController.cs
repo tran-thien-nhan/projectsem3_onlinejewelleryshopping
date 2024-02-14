@@ -38,7 +38,7 @@ namespace projectsem3_backend.Controllers
         }
 
         [HttpPut]
-        public async Task<CustomResult> UpdateItemMst([FromForm] ItemMst itemMst, IFormFile file)
+        public async Task<CustomResult> UpdateItemMst([FromForm] ItemMst itemMst, IFormFile? file)
         {
             return await itemMstRepo.UpdateItemMst(itemMst, file);
         }

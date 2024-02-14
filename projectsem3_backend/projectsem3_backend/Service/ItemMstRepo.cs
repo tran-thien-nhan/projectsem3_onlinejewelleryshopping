@@ -76,6 +76,14 @@ namespace projectsem3_backend.Service
                         newItem.ImagePath = FileUpload.SaveImages("itemMstImage", file);
                     }
 
+                    //xử lý trùng hình ảnh
+                    //var checkImage = await db.ItemMsts.SingleOrDefaultAsync(i => i.ImagePath == newItem.ImagePath);
+                    //if (checkImage != null)
+                    //{
+                    //    FileUpload.DeleteImage(newItem.ImagePath);
+                    //    return new CustomResult(409, "Image already exists", null);
+                    //}
+
                     // Thiết lập thời gian tạo và cập nhật
                     newItem.CreatedAt = DateTime.Now;
                     newItem.UpdatedAt = DateTime.Now;
@@ -159,6 +167,20 @@ namespace projectsem3_backend.Service
                     item.ImagePath = FileUpload.SaveImages("itemMstImage", file);
                 }
 
+                //xử lý nếu không có hình ảnh mới
+                if (file == null || itemMst.ImagePath == null)
+                {
+                    item.ImagePath = item.ImagePath;
+                }
+
+                ////xử lý trùng hình ảnh
+                //var checkImage = await db.ItemMsts.SingleOrDefaultAsync(i => i.ImagePath == item.ImagePath);
+                //if (checkImage != null)
+                //{
+                //    FileUpload.DeleteImage(item.ImagePath);
+                //    return new CustomResult(409, "Image already exists", null);
+                //}
+
                 // Kiểm tra sự tồn tại
                 var brand = await db.BrandMsts.SingleOrDefaultAsync(b => b.Brand_ID == item.Brand_ID);
                 var category = await db.CatMsts.SingleOrDefaultAsync(c => c.Cat_ID == item.Cat_ID);
@@ -168,7 +190,7 @@ namespace projectsem3_backend.Service
                 var jewellery = await db.JewelTypeMsts.SingleOrDefaultAsync(j => j.Jewellery_ID == item.Jewellery_ID);
 
                 //cập nhật thông tin
-                item.Style_Code = itemMst.Style_Code;
+                //item.Style_Code = itemMst.Style_Code;
                 item.Product_Name = itemMst.Product_Name;
                 item.Prod_Quality = itemMst.Prod_Quality;
                 item.Pairs = itemMst.Pairs;
@@ -194,12 +216,12 @@ namespace projectsem3_backend.Service
 
                 // Tính toán
                 item.Gold_Rate = itemMst.Gold_Rate / 100;
-                item.Net_Gold = itemMst.Gold_Wt * itemMst.Gold_Rate;
-                item.Wstg_Per = itemMst.Wstg_Per / 100;
+                item.Net_Gold = item.Gold_Wt * item.Gold_Rate;
+                item.Wstg_Per = item.Wstg * item.Gold_Rate;
                 //total gross weight
-                item.Tot_Gross_Wt = itemMst.Gold_Wt + itemMst.Wstg_Per + itemMst.Wstg;
+                item.Tot_Gross_Wt = item.Gold_Wt + item.Wstg_Per + item.Wstg;
                 //amount of gold in item
-                item.Gold_Amt = itemMst.Tot_Gross_Wt * itemMst.Gold_Rate;
+                item.Gold_Amt = item.Tot_Gross_Wt * item.Gold_Rate;
                 //gold making charges
                 item.Gold_Making = itemMst.Gold_Making;
                 //stone making charges
@@ -207,9 +229,9 @@ namespace projectsem3_backend.Service
                 //other making charges
                 item.Other_Making = itemMst.Other_Making;
                 //total making charges
-                item.Tot_Making = itemMst.Gold_Making + itemMst.Stone_Making + itemMst.Other_Making;
+                item.Tot_Making = item.Gold_Making + item.Stone_Making + item.Other_Making;
                 //mrp of item (including stone making, gold making and other making)
-                item.MRP = itemMst.Gold_Wt + itemMst.Wstg_Per + itemMst.Wstg + itemMst.Tot_Gross_Wt + itemMst.Gold_Rate + itemMst.Gold_Amt + itemMst.Gold_Making + itemMst.Stone_Making + itemMst.Other_Making + itemMst.Tot_Making;
+                item.MRP = item.Gold_Wt + item.Wstg_Per + item.Wstg + item.Tot_Gross_Wt + item.Gold_Rate + item.Gold_Amt + item.Gold_Making + item.Stone_Making + item.Other_Making + item.Tot_Making;
 
                 //cập nhật item
                 db.ItemMsts.Update(item);

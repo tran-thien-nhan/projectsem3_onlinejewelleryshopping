@@ -41,6 +41,7 @@ import ResetPassword from "../components/User/Login/ResetPassword";
 import UserUpdatePass from "../components/User/UserUpdatePass";
 import ThankYou1 from "../components/User/Order/ThankYou1";
 import MomoProcessing from "../components/User/Order/MomoProcessing";
+import AdminUpdateItem from "../components/Admin/Pages/AdminUpdateItem";
 
 
 //Minh's routes
@@ -160,6 +161,12 @@ const privateRouter = [
     path: "/createitem",
     element: <AdminCreateItem />,
     name: "Create Item",
+    visible: false,
+  },
+  {
+    path: "/edititem/:style_Code",
+    element: <AdminUpdateItem />,
+    name: "update item",
     visible: false,
   },
   {

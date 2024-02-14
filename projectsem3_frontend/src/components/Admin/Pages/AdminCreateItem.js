@@ -213,7 +213,7 @@ const AdminCreateItem = () => {
         </div>
         <div class="mb-3 mt-3">
           <label for="Gold Weight" class="form-label">
-            Gold Rate (g):
+            Gold Rate:
           </label>
           <input
             type="number"

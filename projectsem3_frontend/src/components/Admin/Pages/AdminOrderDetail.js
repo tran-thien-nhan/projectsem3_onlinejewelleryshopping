@@ -11,6 +11,7 @@ const AdminOrderDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log("Order ID:", order_ID);
     const fetchOrderDetails = async () => {
       try {
         const response = await fetch(

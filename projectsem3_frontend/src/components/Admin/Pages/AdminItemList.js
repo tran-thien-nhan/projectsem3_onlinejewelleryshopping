@@ -4,7 +4,6 @@ import { useData } from "../../../Context/DataContext";
 import { saveAs } from "file-saver";
 import axios from "axios";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { use } from "i18next";
 
 const AdminItemList = () => {
   const { items, loading, error } = useData();
@@ -14,6 +13,7 @@ const AdminItemList = () => {
   const [mrpSortOrder, setMrpSortOrder] = useState("");
   const [visibilityFilter, setVisibilityFilter] = useState("all");
   const [quantityFilter, setQuantityFilter] = useState("all");
+  const [createItemLoading, setCreateItemLoading] = useState(false);
 
   const handlecheckQuantity = async () => {
     try {
@@ -251,8 +251,12 @@ const AdminItemList = () => {
                     </button>
                   </td>
                   <td>
-                    {/* <a href={`/edititem/${item.style_Code}`}>Edit</a> */}
-                    <a href="#" className="btn btn-danger">Edit</a>
+                    <a
+                      href={`/edititem/${item.style_Code}`}
+                      className="btn btn-danger"
+                    >
+                      Edit
+                    </a>
                   </td>
                 </tr>
               ))
@@ -285,20 +289,22 @@ const AdminItemList = () => {
             </>
           )}
         </button>
-        {/* <button
-          className="btn btn-danger mx-2"
-          style={{ backgroundColor: "cyan", color: "black" }}
-          onClick={handlecheckQuantity}
-        >
-          Check Quantity
-        </button> */}
         <div className="btn btn-primary">
           <a
             href="/createitem"
             style={{ textDecoration: "none" }}
             className="text-white"
+            onClick={() => setCreateItemLoading(true)}
           >
-            Create New Item
+            {createItemLoading ? (
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            ) : (
+              <>Create New Item</>
+            )}
           </a>
         </div>
       </div>

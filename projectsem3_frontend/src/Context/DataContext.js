@@ -50,7 +50,7 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get("https://localhost:7241/api/ItemMst");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setItems(response.data.data);
       } catch (error) {
         //console.error("list error:", error);
@@ -365,7 +365,7 @@ export const DataProvider = ({ children }) => {
       try {
         setLoading(true);
         const response = await axios.get(`https://localhost:7241/api/JewelTypeMst`);
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setJewelry(response.data.data);
       } catch (error) {
         console.error("list error:", error);
