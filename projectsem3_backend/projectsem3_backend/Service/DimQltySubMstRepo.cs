@@ -58,6 +58,9 @@ namespace projectsem3_backend.Service
                     return new CustomResult(400, "Invalid input. DimQltySubMst is null.", null);
                     }
 
+                // Tạo một DimSubType_ID mới
+                dimQltySubMst.DimSubType_ID = Guid.NewGuid().ToString();
+
                 _db.DimQltySubMsts.Add(dimQltySubMst);
                 var result = await _db.SaveChangesAsync();
 

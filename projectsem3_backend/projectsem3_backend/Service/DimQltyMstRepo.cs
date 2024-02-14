@@ -66,8 +66,8 @@ namespace projectsem3_backend.Service
                 {
                 try
                     {
-                    // Không cần phải gán giá trị cho DimQlty_ID vì nó sẽ được tự động tăng
-                    // dimQltyMst.DimQlty_ID = 0; // Loại bỏ dòng này
+                    // Tạo một Style_Code mới
+                    dimQltyMst.DimQlty_ID = Guid.NewGuid().ToString();
 
                     // Thiết lập thời gian tạo và cập nhật
                     dimQltyMst.CreatedAt = DateTime.Now;
@@ -94,6 +94,7 @@ namespace projectsem3_backend.Service
                 return new CustomResult(500, e.Message, null);
                 }
             }
+
 
         public async Task<CustomResult> UpdateDimQltyMst( DimQltyMst dimQltyMst )
             {

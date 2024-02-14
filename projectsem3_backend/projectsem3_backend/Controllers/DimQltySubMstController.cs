@@ -35,9 +35,10 @@ namespace projectsem3_backend.Controllers
             return await _dimQltySubMstRepo.CreateDimQltySubMst(dimQltySubMst);
             }
 
-        [HttpPut]
-        public async Task<ActionResult<CustomResult>> UpdateDimQltySubMst( [FromBody] DimQltySubMst dimQltySubMst )
+        [HttpPut("{id}")]
+        public async Task<ActionResult<CustomResult>> UpdateDimQltySubMst( string id, [FromBody] DimQltySubMst dimQltySubMst )
             {
+            dimQltySubMst.DimSubType_ID = id;
             return await _dimQltySubMstRepo.UpdateDimQltySubMst(dimQltySubMst);
             }
 
