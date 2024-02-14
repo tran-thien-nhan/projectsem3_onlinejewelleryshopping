@@ -32,10 +32,20 @@ import AdminCertify from "../components/Admin/Pages/AdminCertify";
 
 //Hung's routes
 import AdminDimQlty from './../components/Admin/Pages/AdminDimQlty';
+import AdminEditDimQlty from "../components/Admin/Pages/AdminEditDimQlty";
+import AdminCreateDimQlty from './../components/Admin/Pages/AdminCreateDimQlty';
 import AdminDim from './../components/Admin/Pages/AdminDim';
 import AdminProd from './../components/Admin/Pages/AdminProd';
+import AdminCreateProd from './../components/Admin/Pages/AdminCreateProd';
+import AdminEditProd from "../components/Admin/Pages/AdminEditProd";
+import AdminJewelType from './../components/Admin/Pages/AdminJewelType';
+import AdminCreateJewelType from './../components/Admin/Pages/AdminCreateJewelType';
+import AdminEditJewelType from './../components/Admin/Pages/AdminEditJewelType';
 // import AdminDimInfo from "../components/Admin/Pages/AdminDimInfo";
 import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
+import AdminCreateDimSub from './../components/Admin/Pages/AdminCreateDimSub';
+import AdminEditDimSub from './../components/Admin/Pages/AdminEditDimSub';
+
 import EmailForgotPass from "../components/User/Login/EmailForgotPass";
 import ResetPassword from "../components/User/Login/ResetPassword";
 import UserUpdatePass from "../components/User/UserUpdatePass";
@@ -230,29 +240,106 @@ const privateRouter = [
     visible: true,
   },
   {
-    path: "/dim",
-    element: <AdminDim />,
-    name: "Dim List",
-    visible: true,
+    path: "/createDimQlty",
+    element: <AdminCreateDimQlty />,
+    name: "CreateDimQlty",
+    visible: false,
   },
+  {
+    path: "/editDimQlty/:id", 
+    element: <AdminEditDimQlty />,
+    name: "editDimQlty",
+    visible: false,
+},
+
+{
+  path: "/dim",
+  element: <AdminDim />,
+  name: "Dim List",
+  visible: true,
+},
+// {
+//   path: "/createDim",
+//   element: <AdminCreateDim />,
+//   name: "CreateDimQlty",
+//   visible: false,
+// },
+// {
+//   path: "/editDim/:id", 
+//   element: <AdminEditDim />,
+//   name: "editDim",
+//   visible: false,
+// },
+
   {
     path: "/prod",
     element: <AdminProd />,
     name: "Prod List",
     visible: true,
   },
-  // {
-  //   path: "/dimInfo",
-  //   element: <AdminDimInfo/>,
-  //   name: "DimInfo List",
-  //   visible: true,
-  // },
+  {
+    path: "/createProd", 
+    element: <AdminCreateProd />,
+    name: "CreateProd ",
+    visible: false,
+  },
+  {
+    path: "/editProd/:id", 
+    element: <AdminEditProd />,
+    name: "editDimSub",
+    visible: false,
+},
+
   {
     path: "/dimQltySub",
     element: <AdminDimSub />,
     name: "DimQltySub List",
     visible: true,
   },
+  {
+    path: "/createDimQltySub",
+    element: <AdminCreateDimSub />,
+    name: "CreateDimSub",
+    visible: false,
+  },
+  {
+    path: "/editDimQltySub/:id", 
+    element: <AdminEditDimSub />,
+    name: "editDimSub",
+    visible: false,
+},
+
+  // {
+  //   path: "/dimInfo",
+  //   element: <AdminDimInfo/>,
+  //   name: "DimInfo List",
+  //   visible: true,
+  // },
+  // {
+  //   path: "/createDimInfo",
+  //   element: <AdminCreateDimInfo />,
+  //   name: "Create DimInfo",
+  //   visible: false,
+  // },
+  
+  {
+    path: "/jewelType",
+    element: <AdminJewelType />,
+    name: "JewelType List",
+    visible: true,
+  },
+  {
+    path: "/createJewelType",
+    element: <AdminCreateJewelType />,
+    name: "Create JewelType",
+    visible: false,
+  },
+  {
+    path: "/editJewelType/:id", 
+    element: <AdminEditJewelType />,
+    name: "edit JewelType",
+    visible: false,
+}
 ];
 
 export { publicRouter, privateRouter };

@@ -377,7 +377,7 @@ export const DataProvider = ({ children }) => {
 
     fetchData();
   }, []);
-
+  
 
   //Minh's Fetch Data
 
@@ -409,6 +409,7 @@ export const DataProvider = ({ children }) => {
     dimQltySub,
     // dimInfo,
     jewelry,
+
 
     //Minh's Value
 

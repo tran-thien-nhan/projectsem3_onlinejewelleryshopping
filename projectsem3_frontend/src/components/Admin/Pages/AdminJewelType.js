@@ -5,8 +5,8 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const AdminProd = () => {
-    const { prod, loading, error } = useData();
+const AdminJewelType = () => {
+    const { jewelry, loading, error } = useData();
     const [searchTerm, setSearchTerm] = useState("");
     const [visibilityFilter, setVisibilityFilter] = useState("all");
 
@@ -23,30 +23,27 @@ const AdminProd = () => {
         setVisibilityFilter("all");
     };
 
-    const handleUpdateVisibility = async (prodID) => {
+    const handleUpdateVisibility = async (jewellery_ID) => {
         try {
-            // Gọi API để cập nhật trạng thái của sản phẩm
             await axios.put(
-                `https://localhost:7241/api/ProdMst/updatevisibility/${prodID}`
+                `https://localhost:7241/api/JewelTypeMst/updatevisibility/${jewellery_ID}`
             );
-            // Cập nhật trạng thái của sản phẩm trong state hoặc tải dữ liệu mới
+            // Update the visibility of the item in the state or fetch the updated data again
             await window.location.reload();
         } catch (error) {
-            console.error("Update product visibility error:", error);
+            console.log(error);
         }
     };
-    
 
-    const filteredProd = [...prod].filter(
-        (prodItem) => {
+    const filteredJewelType = [...jewelry].filter(
+        (jewelTypeItem) => {
             const matchesSearchTerm =
-                prodItem.prod_ID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                prodItem.prod_Type.toLowerCase().includes(searchTerm.toLowerCase());
+                jewelTypeItem.jewellery_Type.toLowerCase().includes(searchTerm.toLowerCase());
 
             const matchesVisibilityFilter =
                 visibilityFilter === "all" ||
-                (visibilityFilter === "show" && prodItem.visible) ||
-                (visibilityFilter === "hide" && !prodItem.visible);
+                (visibilityFilter === "show" && jewelTypeItem.visible) ||
+                (visibilityFilter === "hide" && !jewelTypeItem.visible);
 
             return matchesSearchTerm && matchesVisibilityFilter;
         }
@@ -55,8 +52,8 @@ const AdminProd = () => {
     return (
         <div className='container-fluid'>
             <div className='mb-3'>
-                <label htmlFor="searchTerm">
-                    Search by ID or Name
+                <label htmlFor="">
+                    Search by Jewel Type
                 </label>
                 <input
                     type="text"
@@ -85,38 +82,43 @@ const AdminProd = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Product Type</th>
+                            <th>Jewel Type</th>
                             <th>Visibility</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {loading ? (
-                            <tr>
-                                <td colSpan="4" style={{ textAlign: "center" }}>
-                                    <TailSpin color="red" radius={8} />
-                                </td>
-                            </tr>
-                        ) : Array.isArray(filteredProd) && filteredProd.length > 0 ? (
-                            filteredProd.map((prodItem) => (
-                                <tr key={prodItem.prod_ID}>
-                                    <td>{prodItem.prod_Type}</td>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100vh",
+                                }}
+                            >
+                                <TailSpin color="red" radius={8} />{" "}
+                            </div>
+                        ) : Array.isArray(filteredJewelType) && filteredJewelType.length > 0 ? (
+                            filteredJewelType.map((jewelTypeItem) => (
+                                <tr key={jewelTypeItem.jewellery_ID}>
+                                    <td>{jewelTypeItem.jewellery_Type}</td>
                                     <td>
                                         <button
                                             className="btn btn-primary"
-                                            onClick={() => handleUpdateVisibility(prodItem.prod_ID)}
+                                            onClick={() => handleUpdateVisibility(jewelTypeItem.jewellery_ID)}
                                         >
-                                            {prodItem.visible ? <FaTimes /> : <FaCheck />}
+                                            {jewelTypeItem.visible ? <FaTimes /> : <FaCheck />}
                                         </button>
                                     </td>
                                     <td>
-                                    <Link to={`/editProd/${prodItem.prod_ID}`} className='btn btn-secondary'>Edit</Link>
+                                        <Link to={`/editJewelType/${jewelTypeItem.jewellery_ID}`} className='btn btn-secondary'>Edit</Link>
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="4">No Product Found.</td>
+                                <td colSpan="3">No Jewel Type Founded.</td>
                             </tr>
                         )}
                     </tbody>
@@ -127,12 +129,11 @@ const AdminProd = () => {
                     Reset
                 </button>
             </div>
-            <div className='mb-3'>
-                {/* Nút để chuyển hướng sang trang tạo mới */}
-                <Link to='/createProd' className='btn btn-primary'>Create Prod</Link>
+            <div className="mb-3">
+                <Link to='/createJewelType' className='btn btn-primary'>Create Jewel Type</Link>
             </div>
         </div>
     );
 };
 
-export default AdminProd;
+export default AdminJewelType;
