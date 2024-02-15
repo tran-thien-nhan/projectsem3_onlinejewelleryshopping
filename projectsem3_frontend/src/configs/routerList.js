@@ -196,38 +196,38 @@ const privateRouter = [
   {
     path: "/brands",
     element: <AdminBrand />,
-    name: "Brands List",
+    name: "Brands Management",
     visible: true,
   },
   {
     path: "/gold_krt",
     element: <AdminGold />,
-    name: "Gold Krt List",
+    name: "Gold Krt Management",
     visible: true,
   },
   {
     path: "/cat",
     element: <AdminCat />,
-    name: "Category List",
+    name: "Category Management",
     visible: true,
   },
   {
     path: "/stones",
     element: <AdminStone />,
-    name: "Stone Information List",
+    name: "Stone Info Management",
     visible: true,
   },
   // {
   //   path: "/stone_quality",
   //   element: <AdminAllOrders />,
-  //   name: "Orders List",
+  //   name: "Orders Management",
   //   visible: true,
   // },
 
   {
     path: "/certify",
     element: <AdminCertify />,
-    name: "Certification List",
+    name: "Certification Management",
     visible: true,
   },
 
@@ -236,7 +236,7 @@ const privateRouter = [
   {
     path: "/dimQlty",
     element: <AdminDimQlty />,
-    name: "DimQlty List",
+    name: "DimQlty Management",
     visible: true,
   },
   {
@@ -255,7 +255,7 @@ const privateRouter = [
 {
   path: "/dim",
   element: <AdminDim />,
-  name: "Dim List",
+  name: "Dim Management",
   visible: true,
 },
 // {
@@ -274,7 +274,7 @@ const privateRouter = [
   {
     path: "/prod",
     element: <AdminProd />,
-    name: "Prod List",
+    name: "Prod Management",
     visible: true,
   },
   {
@@ -293,7 +293,7 @@ const privateRouter = [
   {
     path: "/dimQltySub",
     element: <AdminDimSub />,
-    name: "DimQltySub List",
+    name: "DimQltySub Management",
     visible: true,
   },
   {
@@ -312,7 +312,7 @@ const privateRouter = [
   // {
   //   path: "/dimInfo",
   //   element: <AdminDimInfo/>,
-  //   name: "DimInfo List",
+  //   name: "DimInfo Management",
   //   visible: true,
   // },
   // {
@@ -325,7 +325,7 @@ const privateRouter = [
   {
     path: "/jewelType",
     element: <AdminJewelType />,
-    name: "JewelType List",
+    name: "JewelType Management",
     visible: true,
   },
   {
