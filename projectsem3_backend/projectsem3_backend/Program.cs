@@ -60,6 +60,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IExcelHandler, ExcelHandler>();
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 builder.Services.AddScoped<IMomoService, MomoRepo>();
+builder.Services.AddScoped<IAdminRepo, AdminRepo>();
 
 builder.Services.AddTransient<EmailService>(); //<-- thêm đúng dòng này
 

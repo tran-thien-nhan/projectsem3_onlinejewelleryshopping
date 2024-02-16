@@ -13,6 +13,7 @@ export const DataProvider = ({ children }) => {
   const [userList, setUserList] = useState([]);
   const [orderList, setOrderList] = useState([]);
   const [allOrderList, setAllOrderList] = useState([]);
+  const [adminList, setAdminList] = useState([]);
 
 
   //Phi's state
@@ -165,7 +166,27 @@ export const DataProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://localhost:7241/api/Admin`
+        );
+        //console.log(response.data.data);
+        setAdminList(response.data.data);
+      } catch (error) {
+        //console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
 
   //Phi's Fetch API
@@ -412,6 +433,7 @@ export const DataProvider = ({ children }) => {
     allOrderList,
     totalMoney,
     userList,
+    adminList,
 
     //Phi's Value
     brands,

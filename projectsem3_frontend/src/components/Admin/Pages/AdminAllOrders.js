@@ -3,6 +3,20 @@ import { useData } from "../../../Context/DataContext";
 import { TailSpin } from "react-loader-spinner";
 import { saveAs } from "file-saver";
 import axios from "axios";
+import PageHeading from "../PageHeading";
+import { Card } from "react-bootstrap";
+import CardEarning from "../CardEarning";
+import CardEarning1 from "../CardEarning1";
+import CardEarning2 from "../CardEarning2";
+import CardEarning3 from "../CardEarning3";
+import CardEarning4 from "../CardEarning4";
+import CardEarning5 from "../CardEarning5";
+import CardEarning6 from "../CardEarning6";
+import CardEarning7 from "../CardEarning7";
+import CardEarning8 from "../CardEarning8";
+import CardEarning9 from "../CardEarning9";
+import CardEarning10 from "../CardEarning10";
+import CardEarning11 from "../CardEarning11";
 
 const AdminAllOrders = () => {
   const { allOrderList, loading, error } = useData();
@@ -139,7 +153,26 @@ const AdminAllOrders = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid row">
+      <PageHeading text="All Orders" />
+      <div className="d-flex flex-wrap">
+        <CardEarning className="flex-fill" />
+        <CardEarning6 className="flex-fill" />
+        <CardEarning7 className="flex-fill" />
+        <CardEarning2 className="flex-fill" />
+      </div>
+      <div className="d-flex flex-wrap">
+        <CardEarning10 className="flex-fill" />
+        <CardEarning3 className="flex-fill" />
+        <CardEarning4 className="flex-fill" />
+        <CardEarning1 className="flex-fill" />
+      </div>
+      <div className="d-flex flex-wrap">
+        <CardEarning5 className="flex-fill" />
+        <CardEarning8 className="flex-fill" />
+        <CardEarning11 className="flex-fill" />
+        <CardEarning9 className="flex-fill" />
+      </div>
       <div className="container-fluid d-flex">
         <div className="col-6 mx-2">
           <div className="mb-3">

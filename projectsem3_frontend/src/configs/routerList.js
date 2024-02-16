@@ -160,7 +160,7 @@ const privateRouter = [
     path: "/admin",
     element: <AdminIndex />,
     name: "Dashboard",
-    visible: true,
+    visible: false,
   },
   {
     path: "/items",
