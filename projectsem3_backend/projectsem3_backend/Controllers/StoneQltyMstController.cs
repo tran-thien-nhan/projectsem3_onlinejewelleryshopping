@@ -18,10 +18,10 @@ namespace projectsem3_backend.Controllers
          }
 
 
-        [HttpGet("getonestoneqlty/{id}")]
-        public async Task<CustomResult> GetStoneQltyMst(string id)
+        [HttpGet]
+        public async Task<CustomResult> GetStoneQltyMst()
         {
-            return await stoneQltyMstRepo.GetStoneQltyMst(id);
+            return await stoneQltyMstRepo.GetAllStoneQltyMst();
         }
         
          [HttpPost]
@@ -35,7 +35,18 @@ namespace projectsem3_backend.Controllers
          {
              return await stoneQltyMstRepo.UpdateStoneQltyMst(stoneQltyMst);
          }
-        
+
+        [HttpDelete("{id}")]
+        public async Task<CustomResult> DeleteStoneQltyMst(string id)
+        {
+            return await stoneQltyMstRepo.DeleteStoneQltyMst(id);
+        }
+
+        [HttpPut("updatevisibility/{id}")]
+        public async Task<CustomResult> UpdateStoneQltyVisibility(string id)
+        {
+            return await stoneQltyMstRepo.UpdateStoneQltyVisibility(id);
+        }
        
     }
 }
