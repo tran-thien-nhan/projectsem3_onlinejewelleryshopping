@@ -20,7 +20,7 @@ export const DataProvider = ({ children }) => {
   const [categories, setCategory] = useState([]);
   const [golds, setGold] = useState([]);
   const [stones, setStone] = useState([]);
-  // const [stoneQuantity, setStoneQuantity] = useState([]);
+  const [stoneQualities, setStoneQualities] = useState([]);
   const [certifies, setCertify] = useState([]);
 
   //Hung's state
@@ -245,6 +245,24 @@ export const DataProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  //Get Stone Quality Data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://localhost:7241/api/StoneQltyMst");
+        //console.log(response.data.data);
+        setStoneQualities(response.data.data);
+      } catch (error) {
+        //console.error("List Stone Quantity error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   //Get Certify Data
   useEffect(() => {
     const fetchData = async () => {
@@ -401,6 +419,7 @@ export const DataProvider = ({ children }) => {
     golds,
     stones,
     certifies,
+    stoneQualities,
 
     //Hung's Value
     dimQlty,

@@ -49,16 +49,16 @@ namespace projectsem3_backend.Service
                 {
                     return new CustomResult(404, "Brand Not Found", null);
                 }
-                db.BrandMsts.Remove(brandMst);
-                var result = await db.SaveChangesAsync();
-                if (result == 1)
-                {
-                    return new CustomResult(200, "Delete Brand Success", brandMst);
-                }
                 else
                 {
-                    return new CustomResult(201, "Delete Brand Error", null);
+                    db.BrandMsts.Remove(brandMst);
+                    var result = await db.SaveChangesAsync();
+                    if (result == 1)
+                    {
+                        return new CustomResult(200, "Delete Brand Success", brandMst);
+                    }
                 }
+                    return new CustomResult(201, "Delete Brand Error", null);
             }
             catch (Exception ex)
             {
@@ -120,7 +120,9 @@ namespace projectsem3_backend.Service
 
                 //cập nhật thông tin
                 brand.Brand_ID = brandMst.Brand_ID;
-                brand.Brand_ID = brandMst.Brand_ID;
+                brand.Brand_Year = brandMst.Brand_Year;
+                brand.Brand_Type = brandMst.Brand_Type;
+                brand.Visible = brandMst.Visible;
 
                 //cập nhật thời gian cập nhật
                 brand.UpdatedAt = DateTime.Now;

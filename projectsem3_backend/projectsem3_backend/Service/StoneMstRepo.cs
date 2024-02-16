@@ -27,9 +27,15 @@ namespace projectsem3_backend.Service
 
                 // Kiểm tra sự tồn tại
                 var stoneQlty = await db.StoneQltyMsts.SingleOrDefaultAsync(s => s.StoneQlty_ID == stoneMst.StoneQlty_ID);
-
+                var item = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == stoneMst.Style_Code);
                 //gán
                 stoneMst.StoneQltyMst = stoneQlty;
+                stoneMst.ItemMst = item;
+                stoneMst.Visible = false;
+
+                //Tính toán
+                stoneMst.Stone_Rate = stoneMst.Stone_Rate / 100;
+                stoneMst.Stone_Gm = stoneMst.Stone_Gm * stoneMst.Stone_Pcs * stoneMst.Stone_Rate; 
 
                 await db.StoneMsts.AddAsync(stoneMst);
                 var result = await db.SaveChangesAsync();
@@ -129,8 +135,7 @@ namespace projectsem3_backend.Service
                 }
 
                 //cập nhật thông tin
-                stone.Style_Code = stoneMst.Style_Code;
-                stone.StoneQltyMst = stoneMst.StoneQltyMst;
+
 
                 //cập nhật thời gian cập nhật
                 stone.UpdatedAt = DateTime.Now;
@@ -144,9 +149,20 @@ namespace projectsem3_backend.Service
 
                 // Kiểm tra sự tồn tại
                 var stoneQlty = await db.StoneQltyMsts.SingleOrDefaultAsync(s => s.StoneQlty_ID == stoneMst.StoneQlty_ID);
+                var item = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == stoneMst.Style_Code);
 
                 //gán
                 stone.StoneQltyMst = stoneQlty;
+                stone.ItemMst = item;
+
+                //cap nhat thong tin
+                //stone.Style_Code = stoneMst.Style_Code;
+                stone.Stone_Crt = stoneMst.Stone_Crt;
+                stone.Stone_Gm = stoneMst.Stone_Gm;
+                stone.Stone_Pcs = stoneMst.Stone_Pcs;
+                stone.Stone_Rate = stoneMst.Stone_Rate / 100;
+                stone.Stone_Amt = stone.Stone_Gm * stone.Stone_Pcs * stone.Stone_Rate;
+                stone.Visible = stoneMst.Visible;
 
                 //cập nhật item
                 db.StoneMsts.Update(stone);
