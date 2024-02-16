@@ -125,8 +125,9 @@ namespace projectsem3_backend.Service
 
                 //cập nhật thông tin
                 category.Cat_ID = catMst.Cat_ID;
-                category.Cat_ID = catMst.Cat_ID;
-
+                category.Cat_Name = catMst.Cat_Name;
+                category.Visible = catMst.Visible;
+                
                 //cập nhật thời gian cập nhật
                 category.UpdatedAt = DateTime.Now;
 

@@ -1,31 +1,49 @@
 import React, { useState } from 'react'
 import { TailSpin } from 'react-loader-spinner';
-import { useData } from '../../../Context/DataContext';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { useData } from '../../../../Context/DataContext';
 import axios from 'axios';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
-const AdminCertify = () => {
-    const { certifies, loading, error } = useData();
-    const [searchTerm, setSearchTerm] = useState("");
+const AdminGold = () => {
+    const { golds, loading, error } = useData();
     const [visibilityFilter, setVisibilityFilter] = useState("all");
-
-    const handleVisibilityFilterChange = (filter) => {
-        setVisibilityFilter(filter);
-    };
+    const [searchTerm, setSearchTerm] = useState("");
+    const [createGoldLoading, setCreateGoldLoading] = useState(false);
 
     const handleSearchTermChange = (e) => {
         setSearchTerm(e.target.value);
     };
 
-    const handleReset = () => {
-        setSearchTerm("");
-        setVisibilityFilter("all");
+    const handleVisibilityFilterChange = (filter) => {
+        setVisibilityFilter(filter);
     };
 
-    const handleUpdateVisibility = async (certify_ID) => {
+    const filteredGolds = [...golds].filter(
+        (gold) => {
+            const matchesSearchTerm =
+                gold.goldType_ID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                gold.gold_Crt.toLowerCase().includes(searchTerm.toLowerCase());
+
+            const matchesVisibilityFilter =
+                visibilityFilter === "all" ||
+                (visibilityFilter === "show" && gold.visible) ||
+                (visibilityFilter === "hide" && !gold.visible);
+            return (
+                matchesSearchTerm && matchesVisibilityFilter
+            );
+        }
+
+    );
+
+    const handleReset = () => {
+        setVisibilityFilter("all");
+        setSearchTerm("");
+    };
+
+    const handleUpdateVisibility = async (goldType_ID) => {
         try {
             await axios.put(
-                `https://localhost:7241/api/CertifyMst/updatevisibility/${certify_ID}`
+                `https://localhost:7241/api/GoldKrtMst/updatevisibility/${goldType_ID}`
             );
             // Update the visibility of the item in the state or fetch the updated data again
             await window.location.reload();
@@ -33,25 +51,6 @@ const AdminCertify = () => {
             console.log(error);
         }
     };
-
-    const filteredCertify = [...certifies].filter(
-        (certify) => {
-            const matchesSearchTerm =
-                certify.certify_ID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                certify.certify_Type.toLowerCase().includes(searchTerm.toLowerCase())
-
-            const matchesVisibilityFilter =
-                visibilityFilter === "all" ||
-                (visibilityFilter === "show" && certify.visible) ||
-                (visibilityFilter === "hide" && !certify.visible);
-
-            return matchesSearchTerm && matchesVisibilityFilter;
-        }
-    );
-
-
-
-
 
     return (
         <div className='container-fluid'>
@@ -61,10 +60,10 @@ const AdminCertify = () => {
                 </label>
                 <input
                     type="text"
-                    className="form-control"
-                    id="searchTerm"
-                    value={searchTerm}
+                    id='searchTerm'
                     onChange={handleSearchTermChange}
+                    className="form-control"
+                    value={searchTerm}
                 />
             </div>
             <div className="mb-3">
@@ -86,9 +85,10 @@ const AdminCertify = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Certification ID</th>
-                            <th>Certification Type</th>
-                            <th>Visibility</th>
+                            <th>Gold ID</th>
+                            <th>Gold Crt</th>
+                            <th>Gold Year</th>
+                            <th>Hide</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -104,32 +104,33 @@ const AdminCertify = () => {
                             >
                                 <TailSpin color="red" radius={8} />{" "}
                             </div>
-                        ) : Array.isArray(filteredCertify) && filteredCertify.length > 0 ? (
-                            filteredCertify.map((certify) => (
-                                <tr key={certify.certify_ID}>
-                                    <td>{certify.certify_ID}</td>
-                                    <td>{certify.certify_Type}</td>
+                        ) : Array.isArray(filteredGolds) && filteredGolds.length > 0 ? (
+                            filteredGolds.map((gold) => (
+                                <tr key={gold.goldType_ID}>
+                                    <td>{gold.goldType_ID}</td>
+                                    <td>{gold.gold_Crt}</td>
+                                    <td>{gold.gold_Year}</td>
                                     <td>
                                         <button
                                             className="btn btn-primary"
-                                            onClick={() => handleUpdateVisibility(certify.certify_ID)}
+                                            onClick={() => handleUpdateVisibility(gold.goldType_ID)}
                                         >
-                                            {certify.visible ? <FaTimes /> : <FaCheck />}
+                                            {gold.visible ? <FaTimes /> : <FaCheck />}
                                         </button>
                                     </td>
                                     <td>
-                                        {/* <a href={`/admin/cat/${cat.cat_ID}`}>
-                                            <button className="btn btn-primary">Edit</button>
+                                        <a
+                                            href={`/edit-gold/${gold.goldType_ID}`}
+                                            className="btn btn-danger"
+                                        >
+                                            Edit
                                         </a>
-                                        <a href={`/admin/cat/${cat.cat_ID}`}>
-                                            <button className="btn btn-primary">Edit</button>
-                                        </a> */}
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="4">No Certification Founded.</td>
+                                <td colSpan="4">No Gold founded in the list.</td>
                             </tr>
                         )}
                     </tbody>
@@ -139,12 +140,27 @@ const AdminCertify = () => {
                 <button className="btn btn-secondary" onClick={handleReset}>
                     Reset
                 </button>
+                <div className="btn btn-primary">
+                    <a
+                        href="/create-gold"
+                        style={{ textDecoration: "none" }}
+                        className="text-white"
+                        onClick={() => setCreateGoldLoading(true)}
+                    >
+                        {createGoldLoading ? (
+                            <span
+                                className="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                        ) : (
+                            <>Create New Gold</>
+                        )}
+                    </a>
+                </div>
             </div>
-
-
         </div>
     );
 };
 
-export default AdminCertify
-
+export default AdminGold

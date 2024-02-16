@@ -123,7 +123,10 @@ namespace projectsem3_backend.Service
 
                 //cập nhật thông tin
                 gold.GoldType_ID = goldKrtMst.GoldType_ID;
-                gold.GoldType_ID = goldKrtMst.GoldType_ID;
+                gold.Gold_Crt = goldKrtMst.Gold_Crt;
+                gold.Gold_Year = goldKrtMst.Gold_Year;
+                gold.Visible = goldKrtMst.Visible;
+
 
                 //cập nhật thời gian cập nhật
                 gold.UpdatedAt = DateTime.Now;
@@ -168,7 +171,7 @@ namespace projectsem3_backend.Service
                         var result = await db.SaveChangesAsync();
                         if (result == 1)
                         {
-                            return new CustomResult(200, "Update gold Success", gold);
+                            return new CustomResult(200, "Update gold Visibility Success", gold);
                         }
                         return new CustomResult(201, "No changes were made in the database", null);
                     }

@@ -22,13 +22,21 @@ import AdminUserDetail from "../components/Admin/Pages/AdminUserDetail";
 import VerifyEmailSuccess from "../Pages/VerifyEmailSuccess";
 
 //Phi's routes
-import AdminBrand from './../components/Admin/Pages/AdminBrand';
-import AdminGold from './../components/Admin/Pages/AdminGold';
-import AdminCat from './../components/Admin/Pages/AdminCat';
-import AdminStone from './../components/Admin/Pages/AdminStone';
+//Read
+import AdminBrand from './../components/Admin/Pages/Brand/AdminBrand';
+import AdminGold from './../components/Admin/Pages/Gold/AdminGold';
+import AdminCat from './../components/Admin/Pages/Categories/AdminCat';
+import AdminStone from './../components/Admin/Pages/Stone/AdminStone';
 import UserUpdate from "../components/User/UserUpdate";
-import AdminCertify from "../components/Admin/Pages/AdminCertify";
+import AdminCertify from "../components/Admin/Pages/Certification/AdminCertify";
+import AdminStoneQuality from "../components/Admin/Pages/StoneQuality/AdminStoneQuality";
 
+//Create
+import AdminCreateBrand from "../components/Admin/Pages/Brand/AdminCreateBrand";
+import AdminCreateGold from "../components/Admin/Pages/Gold/AdminCreateGold";
+import AdminCreateCat from "../components/Admin/Pages/Categories/AdminCreateCat";
+import AdminCreateCertify from "../components/Admin/Pages/Certification/AdminCreateCertify";
+import AdminCreateStoneQuality from "../components/Admin/Pages/StoneQuality/AdminCreateStoneQuality";
 
 //Hung's routes
 import AdminDimQlty from './../components/Admin/Pages/AdminDimQlty';
@@ -52,6 +60,11 @@ import UserUpdatePass from "../components/User/UserUpdatePass";
 import ThankYou1 from "../components/User/Order/ThankYou1";
 import MomoProcessing from "../components/User/Order/MomoProcessing";
 import AdminUpdateItem from "../components/Admin/Pages/AdminUpdateItem";
+
+
+
+
+
 
 
 //Minh's routes
@@ -200,10 +213,22 @@ const privateRouter = [
     visible: true,
   },
   {
+    path: "/create-brand",
+    element: <AdminCreateBrand />,
+    name: "Create New Brand",
+    visible: false,
+  },
+  {
     path: "/gold_krt",
     element: <AdminGold />,
     name: "Gold Krt Management",
     visible: true,
+  },
+  {
+    path: "/create-gold",
+    element: <AdminCreateGold />,
+    name: "Create New Gold Krt",
+    visible: false,
   },
   {
     path: "/cat",
@@ -212,23 +237,41 @@ const privateRouter = [
     visible: true,
   },
   {
+    path: "/create-cat",
+    element: <AdminCreateCat />,
+    name: "Create New Category",
+    visible: false,
+  },
+  {
     path: "/stones",
     element: <AdminStone />,
     name: "Stone Info Management",
     visible: true,
   },
-  // {
-  //   path: "/stone_quality",
-  //   element: <AdminAllOrders />,
-  //   name: "Orders Management",
-  //   visible: true,
-  // },
+  {
+    path: "/stone-quality",
+    element: <AdminStoneQuality />,
+    name: "Stone Quality Management",
+    visible: true,
+  },
+  {
+    path: "/create-stone-quality",
+    element: <AdminCreateStoneQuality />,
+    name: "Create New Stone Quality",
+    visible: false,
+  },
 
   {
     path: "/certify",
     element: <AdminCertify />,
     name: "Certification Management",
     visible: true,
+  },
+  {
+    path: "/create-certify",
+    element: <AdminCreateCertify />,
+    name: "Create New Certification",
+    visible: false,
   },
 
   //Hung

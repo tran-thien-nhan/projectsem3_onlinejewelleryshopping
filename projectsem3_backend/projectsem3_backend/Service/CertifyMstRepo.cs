@@ -124,6 +124,7 @@ namespace projectsem3_backend.Service
                 //cập nhật thông tin
                 certify.Certify_ID = certifyMst.Certify_ID;
                 certify.Certify_Type = certifyMst.Certify_Type;
+                certify.Visible = certifyMst.Visible;
 
                 //cập nhật thời gian cập nhật
                 certify.UpdatedAt = DateTime.Now;

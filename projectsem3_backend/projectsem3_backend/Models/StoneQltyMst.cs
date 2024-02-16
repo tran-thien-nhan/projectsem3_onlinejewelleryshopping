@@ -3,7 +3,8 @@
 namespace projectsem3_backend.Models
 {
     public class StoneQltyMst
-    {        
+    {
+        [Key]
         public string StoneQlty_ID { get; set; }
      
         public string? StoneQlty { get; set; }
