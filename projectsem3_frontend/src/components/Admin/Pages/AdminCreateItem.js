@@ -102,7 +102,8 @@ const AdminCreateItem = () => {
     axios
       .post("https://localhost:7241/api/ItemMst", formData)
       .then((res) => {
-        if (res.status === 200) {
+        console.log(res.data);
+        if (res.data.status === 200) {
           //setItems((prevs) => [...prevs, res.data.data]);
           setItem([]);
           Swal.fire({
@@ -114,9 +115,22 @@ const AdminCreateItem = () => {
             Swal.close(); // Close the SweetAlert2 message
             navigate("/items");
           }, 1000);
+        } else if (res.data.status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: res.data.message,
+          });
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.error(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An error occurred while adding the item",
+        });
+      });
   }
 
   return (

@@ -124,6 +124,13 @@ const AdminUpdateItem = () => {
     }));
   };
 
+  function processImageName(imagePath) {
+    const part = imagePath.split("/").slice(-1)[0].split("_");
+    const name = part[part.length - 2] + part[part.length - 1];
+    return name;
+  }
+  //console.log(processImageName(item.imagePath));
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -148,6 +155,39 @@ const AdminUpdateItem = () => {
     formData.append("jewellery_ID", item.jewellery_ID);
     //formData.append("file", file);
 
+    //xử lý nếu trùng tên với 1 trong các sản phẩm đã có
+    if (
+      items.some(
+        (i) =>
+          file !== null &&
+          i.product_Name === item.product_Name &&
+          i.style_Code !== item.style_Code
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Product Name already exists!",
+      });
+      return;
+    }
+
+    //xử lý nếu trùng hình ảnh với 1 trong các sản phẩm đã có
+    if (
+      items.some(
+        (i) =>
+          processImageName(i.imagePath) === processImageName(item.imagePath) &&
+          i.style_Code !== item.style_Code
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Image already exists!",
+      });
+      return;
+    }
+
     if (file === null) {
       setFile(oldImage);
       formData.append("file", item.imagePath);
@@ -158,7 +198,8 @@ const AdminUpdateItem = () => {
     axios
       .put("https://localhost:7241/api/ItemMst", formData)
       .then((res) => {
-        if (res.status === 200) {
+        console.log(res.data);
+        if (res.data.status === 200) {
           setItem({
             style_Code: "",
             product_Name: "",
@@ -189,10 +230,31 @@ const AdminUpdateItem = () => {
           setTimeout(() => {
             Swal.close();
             navigate("/items");
+            window.location.reload();
           }, 1000);
+        } else if (res.data.status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: res.data.message,
+          });
+        }
+        else{
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error updating item!",
+          });
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.error("Error updating item:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error updating item!",
+        });
+      });
   }
 
   return (

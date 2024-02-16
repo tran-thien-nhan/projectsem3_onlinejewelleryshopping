@@ -31,5 +31,23 @@
                 File.Delete(filePath);
             }
         }
+
+        public static string ProcessImageName(string imagePath)
+        {
+            if (imagePath == null)
+            {
+                return null;
+            }
+
+            int lastUnderscoreIndex = imagePath.LastIndexOf('_');
+            if (lastUnderscoreIndex == -1 || lastUnderscoreIndex == imagePath.Length - 1)
+            {
+                // Không tìm thấy dấu '_' hoặc '_' ở cuối chuỗi, trả về chuỗi ban đầu
+                return imagePath;
+            }
+
+            string name = imagePath.Substring(lastUnderscoreIndex + 1);
+            return name;
+        }
     }
 }

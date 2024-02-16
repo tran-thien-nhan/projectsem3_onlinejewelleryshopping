@@ -1,4 +1,5 @@
 ﻿using iText.Commons.Actions.Contexts;
+using iText.IO.Image;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -75,14 +76,6 @@ namespace projectsem3_backend.Service
                     {
                         newItem.ImagePath = FileUpload.SaveImages("itemMstImage", file);
                     }
-
-                    //xử lý trùng hình ảnh
-                    //var checkImage = await db.ItemMsts.SingleOrDefaultAsync(i => i.ImagePath == newItem.ImagePath);
-                    //if (checkImage != null)
-                    //{
-                    //    FileUpload.DeleteImage(newItem.ImagePath);
-                    //    return new CustomResult(409, "Image already exists", null);
-                    //}
 
                     // Thiết lập thời gian tạo và cập nhật
                     newItem.CreatedAt = DateTime.Now;
@@ -166,20 +159,35 @@ namespace projectsem3_backend.Service
                 {
                     item.ImagePath = FileUpload.SaveImages("itemMstImage", file);
                 }
+                // kiểm tra trùng hình ảnh với các sản phẩm khác
+
+                if (file != null)
+                {
+                    string imageName = FileUpload.ProcessImageName(item.ImagePath);
+                    var items = await db.ItemMsts.ToListAsync(); // Lấy danh sách tất cả các mục từ cơ sở dữ liệu
+
+                    var existingItemWithSameImage = items.FirstOrDefault(i => FileUpload.ProcessImageName(i.ImagePath) == imageName && i.Style_Code != itemMst.Style_Code);
+                    if (existingItemWithSameImage != null)
+                    {
+                        FileUpload.DeleteImage(item.ImagePath); // Xóa hình ảnh đã tải lên
+                        return new CustomResult(409, "Duplicate entry. Another product with the same image already exists.", null);
+                    }
+                }
+
 
                 //xử lý nếu không có hình ảnh mới
-                if (file == null || itemMst.ImagePath == null)
+                if (file == null)
                 {
                     item.ImagePath = item.ImagePath;
                 }
 
-                ////xử lý trùng hình ảnh
-                //var checkImage = await db.ItemMsts.SingleOrDefaultAsync(i => i.ImagePath == item.ImagePath);
-                //if (checkImage != null)
-                //{
-                //    FileUpload.DeleteImage(item.ImagePath);
-                //    return new CustomResult(409, "Image already exists", null);
-                //}
+                // Kiểm tra xem có trùng tên sản phẩm hay không
+                var existingItemWithSameName = await db.ItemMsts.FirstOrDefaultAsync(i => i.Product_Name == itemMst.Product_Name && i.Style_Code != itemMst.Style_Code);
+                if (existingItemWithSameName != null)
+                {
+                    //FileUpload.DeleteImage(item.ImagePath); // Xóa hình ảnh đã tải lên
+                    return new CustomResult(409, "Duplicate entry. Another product with the same name already exists.", null);
+                }
 
                 // Kiểm tra sự tồn tại
                 var brand = await db.BrandMsts.SingleOrDefaultAsync(b => b.Brand_ID == item.Brand_ID);
