@@ -4,9 +4,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import HeroSection from "../Layout/HeroSection";
 import { useData } from "../../../Context/DataContext";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation(); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
@@ -16,15 +18,15 @@ const Login = () => {
     event.preventDefault();
 
     if (!username || !password) {
-      Swal.fire("Error", "Please enter both username and password", "error");
+      Swal.fire(t("Error"), t("Please enter both username and password"), "error");
       setTimeout(() => {
         Swal.close();
       }, 2000);
       return;
     } else if (username.length < 3 || password.length < 3) {
       Swal.fire(
-        "Error",
-        "Username and password must be at least 3 characters",
+        t("Error"),
+        t("Username and password must be at least 3 characters"),
         "error"
       );
       setTimeout(() => {
@@ -33,8 +35,8 @@ const Login = () => {
       return;
     } else if (username.length > 20 || password.length > 20) {
       Swal.fire(
-        "Error",
-        "Username and password must be at most 20 characters",
+        t("Error"),
+        t("Username and password must be at most 20 characters"),
         "error"
       );
       setTimeout(() => {
@@ -61,7 +63,7 @@ const Login = () => {
       if (response.status === 200) {
         if (acc.isVerified === false) {
           setLoading(false);
-          Swal.fire("Error", "Please verify your email first", "error");
+          Swal.fire(t("Error"), t("Please verify your email first"), "error");
           setTimeout(() => {
             Swal.close();
           }, 2000);
@@ -70,7 +72,7 @@ const Login = () => {
 
         if (acc.activate === false) {
           setLoading(false);
-          Swal.fire("Error", "Your account is de-activated", "error");
+          Swal.fire(t("Error"), t("Your account is de-activated"), "error");
           setTimeout(() => {
             Swal.close();
           }, 2000);
@@ -97,7 +99,7 @@ const Login = () => {
             setRole(role);
             sessionStorage.setItem("role", role);
             // Login successful
-            Swal.fire("Success", "Login successful!", "success");
+            Swal.fire(t("Success"), t("Login successfully"), "success");
             setTimeout(() => {
               Swal.close();
               navigate("/movingtoadmin");
@@ -106,14 +108,14 @@ const Login = () => {
             setRole(role);
             sessionStorage.setItem("role", role);
             // Login successful
-            Swal.fire("Success", "Login successful!", "success");
+            Swal.fire(t("Success"), t("Login successfully"), "success");
             setTimeout(() => {
               Swal.close();
               navigate("/");
             }, 2000);
           } else if (response.status === 404) {
             setLoading(false);
-            Swal.fire("Error", "Login fail!", "error");
+            Swal.fire(t("Error"), t("Login fail"), "error");
             setTimeout(() => {
               Swal.close();
               navigate("/login");
@@ -122,7 +124,7 @@ const Login = () => {
             setLoading(false);
             setRole("");
             // Login fail
-            Swal.fire("Error", "Login fail!", "error");
+            Swal.fire(t("Error"), t("Login fail"), "error");
             setTimeout(() => {
               Swal.close();
               navigate("/login");
@@ -136,7 +138,7 @@ const Login = () => {
       setLoading(false);
       // Handle other errors
       console.error("Error:", error);
-      Swal.fire("Error", "wrong username or password", "error");
+      Swal.fire(t("Error"), t("wrong username or password"), "error");
     }
   };
 
@@ -146,27 +148,27 @@ const Login = () => {
       <div className="container my-4">
         <div className="row justify-content-center">
           <div className="col-md-6">
-            <h2>LOGIN</h2>
+            <h2>{t("LOGIN")}</h2>
             <form onSubmit={handleLogin}>
               <div className="mb-3 mt-3">
-                <label htmlFor="username">username:</label>
+                <label htmlFor="username">{t("Username")}:</label>
                 <input
                   type="text"
                   className="form-control"
                   id="username"
-                  placeholder="Enter username"
+                  placeholder={t("Enter username")}
                   name="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="pwd">Password:</label>
+                <label htmlFor="pwd">{t("Password")}:</label>
                 <input
                   type="password"
                   className="form-control"
                   id="pwd"
-                  placeholder="Enter password"
+                  placeholder={t("Enter password")}
                   name="pswd"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -174,15 +176,15 @@ const Login = () => {
               </div>
               <div className="d-flex">
                 <div className="mb-3 col-8">
-                  Not a member yet?
+                  {t("Not a member yet?")}
                   <a href="/register" className="mx-2">
-                    Register
+                    {t("Register")}
                   </a>
                 </div>
                 <div className="mb-3 col-8">
-                  Forgot password?
+                  {t("Forgot password?")}
                   <a href="/emailforgotpass" className="mx-2">
-                    Click Here
+                    {t("Click Here")}
                   </a>
                 </div>
               </div>
@@ -198,7 +200,7 @@ const Login = () => {
                     aria-hidden="true"
                   ></span>
                 ) : (
-                  <>Login</>
+                  <>{t("Login")}</>
                 )}
               </button>
             </form>

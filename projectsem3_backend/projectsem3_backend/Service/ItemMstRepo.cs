@@ -76,6 +76,26 @@ namespace projectsem3_backend.Service
                     {
                         newItem.ImagePath = FileUpload.SaveImages("itemMstImage", file);
                     }
+                    // kiểm tra trùng hình ảnh với các sản phẩm khác
+                    if (file != null)
+                    {
+                        string imageName = FileUpload.ProcessImageName(newItem.ImagePath);
+                        var items = await db.ItemMsts.ToListAsync(); // Lấy danh sách tất cả các mục từ cơ sở dữ liệu
+
+                        var existingItemWithSameImage = items.FirstOrDefault(i => FileUpload.ProcessImageName(i.ImagePath) == imageName);
+                        if (existingItemWithSameImage != null)
+                        {
+                            FileUpload.DeleteImage(newItem.ImagePath); // Xóa hình ảnh đã tải lên
+                            return new CustomResult(409, "Another product with the same image already exists.", null);
+                        }
+                    }
+
+                    // Kiểm tra xem có trùng tên sản phẩm hay không
+                    var existingItemWithSameName = await db.ItemMsts.FirstOrDefaultAsync(i => i.Product_Name == newItem.Product_Name);
+                    if (existingItemWithSameName != null)
+                    {
+                        return new CustomResult(409, "Another product with the same name already exists.", null);
+                    }
 
                     // Thiết lập thời gian tạo và cập nhật
                     newItem.CreatedAt = DateTime.Now;
@@ -170,7 +190,7 @@ namespace projectsem3_backend.Service
                     if (existingItemWithSameImage != null)
                     {
                         FileUpload.DeleteImage(item.ImagePath); // Xóa hình ảnh đã tải lên
-                        return new CustomResult(409, "Duplicate entry. Another product with the same image already exists.", null);
+                        return new CustomResult(409, "Another product with the same image already exists.", null);
                     }
                 }
 
@@ -186,7 +206,7 @@ namespace projectsem3_backend.Service
                 if (existingItemWithSameName != null)
                 {
                     //FileUpload.DeleteImage(item.ImagePath); // Xóa hình ảnh đã tải lên
-                    return new CustomResult(409, "Duplicate entry. Another product with the same name already exists.", null);
+                    return new CustomResult(409, "Another product with the same name already exists.", null);
                 }
 
                 // Kiểm tra sự tồn tại
@@ -279,7 +299,24 @@ namespace projectsem3_backend.Service
                 }
                 else
                 {
+                    // Kiểm tra xem có bất kỳ đơn hàng nào sử dụng mặt hàng này không
+                    var ordersWithItem = await db.OrderDetailMsts.AnyAsync(od => od.Style_Code == id);
+                    if (ordersWithItem)
+                    {
+                        return new CustomResult(409, "Cannot delete item. There are orders that use this item.", null);
+                    }
+
+                    // Xóa các hàng từ bảng CartLists có cùng Style_Code trước khi xóa mặt hàng từ ItemMsts
+                    var cartItems = await db.CartLists.Where(cl => cl.Style_Code == id).ToListAsync();
+                    if (cartItems.Count > 0)
+                    { 
+                        return new CustomResult(409, "Cannot delete item. There are items in the cart that use this item.", null);
+                    }
+
+                    // Xóa mặt hàng từ ItemMsts
                     db.ItemMsts.Remove(item);
+
+                    // Lưu các thay đổi vào cơ sở dữ liệu
                     var result = await db.SaveChangesAsync();
                     if (result == 1)
                     {
@@ -293,6 +330,7 @@ namespace projectsem3_backend.Service
                 return new CustomResult(402, ex.Message, null);
             }
         }
+
 
         public async Task<CustomResult> UpdateVisibility(string id)
         {

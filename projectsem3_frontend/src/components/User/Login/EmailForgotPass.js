@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const EmailForgotPass = () => {
+  const { t, i18n } = useTranslation();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,19 +16,19 @@ const EmailForgotPass = () => {
     e.preventDefault();
 
     if (!email) {
-      Swal.fire("Error", "Please enter your email", "error");
+      Swal.fire(t("Error"), "Please enter your email", "error");
       return;
     } else if (email.length < 3) {
-      Swal.fire("Error", "Email must be at least 3 characters", "error");
+      Swal.fire(t("Error"), t("Email must be at least 3 characters"), "error");
       return;
     } else if (email.length > 50) {
-      Swal.fire("Error", "Email must be at most 50 characters", "error");
+      Swal.fire(t("Error"), t("Email must be at most 50 characters"), "error");
       return;
     } else if (!email.includes("@")) {
-      Swal.fire("Error", "Invalid email format", "error");
+      Swal.fire(t("Error"), t("Invalid email format"), "error");
       return;
     } else if (!email.includes(".")) {
-      Swal.fire("Error", "Invalid email format", "error");
+      Swal.fire(t("Error"), t("Invalid email format"), "error");
       return;
     }
 
@@ -42,20 +44,20 @@ const EmailForgotPass = () => {
             `https://localhost:7241/api/User/sendmailverifyuser/${email}`
           );
           Swal.fire(
-            "Success",
-            "Email sent. Please check your email to reset your password.",
+            t("Success"),
+            t("Email sent. Please check your email to reset your password."),
             "success"
           );
           setEmail(""); 
         } catch (sendMailError) {
-          Swal.fire("Error", "Failed to send email", "error");
+          Swal.fire(t("Error"), t("Failed to send email"), "error");
         }
       } else {
-        Swal.fire("Error", "Email not found", "error");
+        Swal.fire(t("Error"), t("Email not found"), "error");
       }
     } catch (error) {
       // Handle the error here
-      Swal.fire("Error", error.message, "error");
+      Swal.fire(t("Error"), error.message, "error");
     } finally {
       setIsLoading(false);
     }
@@ -67,15 +69,15 @@ const EmailForgotPass = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title">Forgot Password</h5>
+              <h5 className="card-title">{t("Forgot Password")}</h5>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="email">Email:</label>
+                  <label htmlFor="email">{t("Email")}:</label>
                   <input
                     type="email"
                     className="form-control"
                     id="email"
-                    placeholder="Enter email to reset password"
+                    placeholder={t("Enter email to reset password")}
                     value={email}
                     onChange={handleEmailChange}
                   />
@@ -89,11 +91,11 @@ const EmailForgotPass = () => {
                         aria-hidden="true"
                       ></span>
                     ) : (
-                      <>Submit</>
+                      <>{t("Submit")}</>
                     )}
                   </button>
                   <a href="/login" className="btn btn-secondary mt-2 mx-2">
-                    Back to Login
+                    {t("Back to Login")}
                   </a>
                 </div>
               </form>

@@ -43,7 +43,7 @@ const UserInfo = () => {
           {t("Update")}
         </a>
         <a href="/updateuserpass" className="btn btn-primary my-3">
-          Update Password
+          {t("Update Password")}
         </a>
       </div>
     </div>

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const UserUpdate = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [userid, setUserid] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -82,7 +84,7 @@ const UserUpdate = () => {
           sessionStorage.setItem(key, updatedUser[key]);
         });
         // Hiện thông báo thành công
-        Swal.fire("Success", "User updated successfully!", "success");
+        Swal.fire(t("Success"), t("User updated successfully!"), "success");
         // Chuyển hướng về trang quản lý user
         setTimeout(() => {
           Swal.close();
@@ -90,11 +92,14 @@ const UserUpdate = () => {
         }, 1000);
       } else {
         const errorData = response.data;
-        if (errorData.statusCode === 400 && errorData.message.includes("already exists")) {
-          const field = errorData.message.split(" ")[0]; 
-          Swal.fire("Error", `${field} already exists!`, "error");
+        if (
+          errorData.statusCode === 400 &&
+          errorData.message.includes("already exists")
+        ) {
+          const field = errorData.message.split(" ")[0];
+          Swal.fire(t("Error"), `${field} ${t("already exists!")}`, "error");
         } else {
-          Swal.fire("Error", "Error updating user!", "error");
+          Swal.fire(t("Error"), t("Error updating user"), "error");
         }
       }
     } catch (error) {
@@ -105,7 +110,7 @@ const UserUpdate = () => {
 
   return (
     <div className="container my-4">
-      <h2>Update User</h2>
+      <h2>{t("Update User")}</h2>
       <form id="updateUserForm" onSubmit={handleUpdateUser}>
         <div className="mb-3 mt-3" style={{ display: "none" }}>
           <input
@@ -119,19 +124,19 @@ const UserUpdate = () => {
           />
         </div>
         <div className="mb-3 mt-3">
-          <label htmlFor="userName">Username:</label>
+          <label htmlFor="userName">{t("Username")}:</label>
           <input
             type="text"
             className="form-control"
             id="userName"
-            placeholder="Enter userName"
+            placeholder={t("Enter Username")}
             name="userName"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className="mb-3 mt-3">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">{t("Email")}:</label>
           <input
             type="email"
             className="form-control"
@@ -143,7 +148,7 @@ const UserUpdate = () => {
           />
         </div>
 
-        <div className="mb-3" style={{display:'none'}}>
+        <div className="mb-3" style={{ display: "none" }}>
           <label htmlFor="pwd">Password:</label>
           <input
             type="password"
@@ -157,7 +162,7 @@ const UserUpdate = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="fname">First Name:</label>
+          <label htmlFor="fname">{t("First Name")}:</label>
           <input
             type="text"
             className="form-control"
@@ -170,7 +175,7 @@ const UserUpdate = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="lname">Last Name:</label>
+          <label htmlFor="lname">{t("Last Name")}:</label>
           <input
             type="text"
             className="form-control"
@@ -183,7 +188,7 @@ const UserUpdate = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="address">Address:</label>
+          <label htmlFor="address">{t("Address")}:</label>
           <textarea
             className="form-control"
             id="address"
@@ -195,7 +200,7 @@ const UserUpdate = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="city">City:</label>
+          <label htmlFor="city">{t("City")}:</label>
           <input
             type="text"
             className="form-control"
@@ -208,7 +213,7 @@ const UserUpdate = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="state">State:</label>
+          <label htmlFor="state">{t("State")}:</label>
           <input
             type="text"
             className="form-control"
@@ -221,7 +226,7 @@ const UserUpdate = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="mobNo">Mobile Number:</label>
+          <label htmlFor="mobNo">{t("Mobile Number")}:</label>
           <input
             type="text"
             className="form-control"
@@ -233,7 +238,7 @@ const UserUpdate = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          Submit
+          {t("Update User")}
         </button>
       </form>
     </div>

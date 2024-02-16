@@ -114,6 +114,7 @@ const AdminCreateItem = () => {
           setTimeout(() => {
             Swal.close(); // Close the SweetAlert2 message
             navigate("/items");
+            window.location.reload();
           }, 1000);
         } else if (res.data.status === 409) {
           Swal.fire({

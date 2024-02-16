@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 const Thankyou = () => {
+  const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -111,11 +113,11 @@ const Thankyou = () => {
                 />
               </svg>
             </span>
-            <h2 className="display-3 text-black">Thank you!</h2>
-            <p className="lead mb-5">Your order was successfully completed.</p>
+            <h2 className="display-3 text-black">{t("Thank you!")}</h2>
+            <p className="lead mb-5">{t("Your order was successfully completed.")}</p>
             <p>
               <a href="/" className="btn btn-sm btn-outline-black">
-                Back to shop
+                {t("Back to shop")}
               </a>
             </p>
           </div>

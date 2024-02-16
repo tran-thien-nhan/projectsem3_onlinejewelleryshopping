@@ -4,8 +4,10 @@ import { jwtDecode } from "jwt-decode";
 import { useLocation, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { use } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const ResetPassword = () => {
+  const { t, i18n } = useTranslation();
   const [password, setPassword] = useState("");
   const [resetSuccess, setResetSuccess] = useState(false);
   const [resetLinkExpired, setResetLinkExpired] = useState(false);
@@ -17,7 +19,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if(resetLinkExpired) {
-      Swal.fire("Error", "Link has expired. Please request a new reset link.", "error");
+      Swal.fire(t("Error"), t("Link has expired. Please request a new reset link."), "error");
     }
   }, [resetLinkExpired]);
 
@@ -40,8 +42,8 @@ const ResetPassword = () => {
 
     if (resetSuccess === true && Date.now() > expirationTime) {
       Swal.fire(
-        "Error",
-        "Link has expired. Please request a new reset link.",
+        t("Error"),
+        t("Link has expired. Please request a new reset link."),
         "error"
       );
       return;
@@ -82,19 +84,19 @@ const ResetPassword = () => {
         // Kiểm tra trạng thái của response
         if (response.status === 200) {
           setResetSuccess(true);
-          Swal.fire("Success", "Password reset successful", "success");
+          Swal.fire(t("Success"), t("Password reset successful"), "success");
           console.log(resetSuccess);
         } else if (resetSuccess === true) {
-          Swal.fire("Error", "Failed to reset password", "error");
+          Swal.fire(t("Error"), t("Failed to reset password"), "error");
         }
       } catch (error) {
         console.error(error);
-        Swal.fire("Error", "An error occurred", "error");
+        Swal.fire(t("Error"), t("An error occurred"), "error");
       } finally {
         setIsLoading(false);
       }
     } else {
-      Swal.fire("Error", "Passwords do not match", "error");
+      Swal.fire(t("Error"), t("Passwords do not match"), "error");
     }
   };
 
@@ -104,12 +106,12 @@ const ResetPassword = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h2 className="mt-4">Reset Password</h2>
+              <h2 className="mt-4">{t("Reset Password")}</h2>
               <div className="form-group">
                 <input
                   type="password"
                   className="form-control my-4"
-                  placeholder="New Password"
+                  placeholder={t("New Password")}
                   value={password}
                   onChange={handlePasswordChange}
                 />
@@ -118,7 +120,7 @@ const ResetPassword = () => {
                 <input
                   type="password"
                   className="form-control my-4"
-                  placeholder="Confirm Password"
+                  placeholder={t("Confirm Password")}
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
                 />
@@ -131,7 +133,7 @@ const ResetPassword = () => {
                     aria-hidden="true"
                   ></span>
                 ) : (
-                  <>Reset Password</>
+                  <>{t("Reset Password")}</>
                 )}
               </button>
             </div>

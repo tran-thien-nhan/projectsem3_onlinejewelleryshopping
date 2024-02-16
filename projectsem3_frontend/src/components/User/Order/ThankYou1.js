@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ThankYou1 = () => {
+  const { t, i18n } = useTranslation();
   return (
     <div className="container">
       <div className="row">
@@ -24,11 +26,11 @@ const ThankYou1 = () => {
               />
             </svg>
           </span>
-          <h2 className="display-3 text-black">Thank you!</h2>
-          <p className="lead mb-5">Your order was successfully completed.</p>
+          <h2 className="display-3 text-black">{t("Thank you!")}</h2>
+          <p className="lead mb-5">{t("Your order was successfully completed.")}</p>
           <p>
             <a href="/" className="btn btn-sm btn-outline-black">
-              Back to shop
+              {t("Back to shop")}
             </a>
           </p>
         </div>

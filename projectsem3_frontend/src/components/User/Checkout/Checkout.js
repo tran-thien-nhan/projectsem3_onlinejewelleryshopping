@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [orderInfo, setOrderInfo] = useState({});
   const [billingDetails, setBillingDetails] = useState({
@@ -105,18 +107,18 @@ const Checkout = () => {
     e.preventDefault();
 
     if (!otp) {
-      Swal.fire("Error", "Please enter OTP", "error");
+      Swal.fire(t("Error"), t("Please enter OTP"), "error");
       return;
     }
 
     if (otp !== newotp) {
-      Swal.fire("Error", "Wrong Or Invalid OTP", "error");
+      Swal.fire(t("Error"), t("Wrong Or Invalid OTP"), "error");
       return;
     }
     //expire otp
     else if (Date.now() - otpSentTime > 60000) { // 60000 milliseconds = 1 minute
       setNewOtp("");
-      Swal.fire("Error", "OTP has expired", "error");
+      Swal.fire(t("Error"), t("OTP has expired"), "error");
       return;
     }
     
@@ -183,14 +185,14 @@ const Checkout = () => {
       if (responseCheck.data === 1) {
         setLoading(false);
         const result = await Swal.fire({
-          title: "Warning",
-          text: "Not enough quantity available for some items, do you want to buy all?",
+          title: t("Warning"),
+          text: t("Not enough quantity available for some items, do you want to buy all?"),
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Agree",
-          cancelButtonText: "Cancel",
+          confirmButtonText: t("Agree"),
+          cancelButtonText: t("Cancel"),
         });
 
         if (result.isConfirmed) {
@@ -205,14 +207,14 @@ const Checkout = () => {
       if (orderPayment === 3) {
         setLoading(false);
         const response = await Swal.fire({
-          title: "Momo Payment",
-          text: "Do you want to proceed with Momo payment?",
+          title: t("Momo Payment"),
+          text: t("Do you want to proceed with Momo payment?"),
           icon: "info",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes",
-          cancelButtonText: "No",
+          confirmButtonText: t("Yes"),
+          cancelButtonText: t("No"),
         });
 
         if (response.isConfirmed) {
@@ -273,7 +275,7 @@ const Checkout = () => {
           if (response.data && response.data.data) {
             console.log(response.data.data);
             setOrderInfo(response.data.data);
-            Swal.fire("Success", "Order placed successfully!", "success");
+            Swal.fire(t("Success"), t("Order placed successfully!"), "success");
             sessionStorage.removeItem("order");
             setTimeout(() => {
               Swal.close();
@@ -299,7 +301,7 @@ const Checkout = () => {
       <form>
         <div className="row">
           <div className="col-md-6 mb-5 mb-md-0">
-            <h2 className="h3 mb-3 text-black">Send To Others</h2>
+            <h2 className="h3 mb-3 text-black">{t("Send To Others")}</h2>
             <div className="p-3 p-lg-5 border bg-white">
               <input
                 type="hidden"
@@ -309,14 +311,14 @@ const Checkout = () => {
               <div className="form-group row">
                 <div className="col-md-12">
                   <label htmlFor="mobno" className="text-black">
-                    Mob No <span className="text-danger">*</span>
+                    {t("Mob No")} <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     id="mobno"
                     name="order_MobNo"
-                    placeholder="phone number"
+                    placeholder={t("phone number")}
                     value={billingDetails.order_MobNo}
                     onChange={handleChangeInput}
                   />
@@ -326,14 +328,14 @@ const Checkout = () => {
               <div className="form-group row mb-2">
                 <div className="col-md-12">
                   <label htmlFor="address" className="text-black">
-                    Address <span className="text-danger">*</span>
+                    {t("Address")} <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     id="address"
                     name="order_Address"
-                    placeholder="Address"
+                    placeholder={t("Address")}
                     value={billingDetails.order_Address}
                     onChange={handleChangeInput}
                   />
@@ -342,7 +344,7 @@ const Checkout = () => {
 
               <div className="form-group">
                 <label htmlFor="OrderNotes" className="text-black">
-                  Order Notes
+                  {t("Order Notes")}
                 </label>
                 <textarea
                   name="order_Note"
@@ -350,7 +352,7 @@ const Checkout = () => {
                   cols="30"
                   rows="5"
                   className="form-control"
-                  placeholder="Write your notes here..."
+                  placeholder={t("Write your notes here...")}
                   value={billingDetails.order_Note}
                   onChange={handleChangeInput}
                 ></textarea>
@@ -360,15 +362,15 @@ const Checkout = () => {
           <div className="col-md-6">
             <div className="row mb-5">
               <div className="col-md-12">
-                <h2 className="h3 mb-3 text-black">Your Order</h2>
+                <h2 className="h3 mb-3 text-black">{t("Your Order")}</h2>
                 <div className="p-3 p-lg-5 border bg-white">
                   <table className="table site-block-order-table mb-5">
                     <thead>
                       <tr>
-                        <th>Image</th>
-                        <th>MRP</th>
-                        <th>Product</th>
-                        <th>Total</th>
+                        <th>{t("Image")}</th>
+                        <th>{t("MRP")}</th>
+                        <th>{t("Product")}</th>
+                        <th>{t("Total")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -398,7 +400,7 @@ const Checkout = () => {
                         <td></td>
                         <td></td>
                         <td className="text-black font-weight-bold">
-                          <strong>Order Total</strong>
+                          <strong>{t("Order Total")}</strong>
                         </td>
                         <td className="text-black font-weight-bold">
                           <strong>${subTotal.toFixed(2)}</strong>
@@ -409,7 +411,7 @@ const Checkout = () => {
 
                   {/* Payment Methods */}
                   <div className="mx-4 mb-3 text-dark">
-                    <h5>Payment Methods:</h5>
+                    <h5>{t("Payment Methods")}:</h5>
                   </div>
 
                   <div className="border p-3 mb-3">
@@ -422,7 +424,7 @@ const Checkout = () => {
                         aria-expanded="false"
                         aria-controls="collapseCash"
                       >
-                        Cash Payment
+                        {t("Cash Payment")}
                       </a>
                     </h3>
 
@@ -437,7 +439,7 @@ const Checkout = () => {
                           onChange={() => setPaymentMethod(1)}
                         />
                         <label htmlFor="cash" className="mx-2">
-                          Pay By Cash
+                          {t("Pay By Cash")}
                         </label>
                       </div>
                     </div>
@@ -453,7 +455,7 @@ const Checkout = () => {
                         aria-expanded="false"
                         aria-controls="collapseMomo"
                       >
-                        Momo Payment
+                        {t("Momo Payment")}
                       </a>
                     </h3>
 
@@ -468,7 +470,7 @@ const Checkout = () => {
                           onChange={() => setPaymentMethod(3)}
                         />
                         <label htmlFor="momo" className="mx-2">
-                          Pay By Momo
+                          {t("Pay By Momo")}
                         </label>
                       </div>
                     </div>
@@ -484,7 +486,7 @@ const Checkout = () => {
                         aria-expanded="false"
                         aria-controls="collapseCreditCard"
                       >
-                        Credit Card
+                        {t("Credit Card")}
                       </a>
                     </h3>
 
@@ -496,27 +498,27 @@ const Checkout = () => {
                               htmlFor="creditCardNo"
                               className="text-black"
                             >
-                              Card Number
+                              {t("Card Number")}
                             </label>
                             <input
                               type="text"
                               className="form-control"
                               id="creditCardNo"
                               name="creditCardNo"
-                              placeholder="Enter Card Number"
+                              placeholder={t("Enter Card Number")}
                               onChange={() => setPaymentMethod(2)}
                             />
                           </div>
                           <div className="form-group">
                             <label htmlFor="cvv" className="text-black">
-                              CVV
+                              {t("CVV")}
                             </label>
                             <input
                               type="text"
                               className="form-control"
                               id="cvv"
                               name="cvv"
-                              placeholder="Enter CVV"
+                              placeholder={t("Enter CVV")}
                               maxLength={4}
                               onChange={() => setPaymentMethod(2)}
                             />
@@ -538,20 +540,20 @@ const Checkout = () => {
                           aria-hidden="true"
                         ></span>
                       ) : (
-                        <>Place Order</>
+                        <>{t("Place Order")}</>
                       )}
                     </button>
                     <a
                       href="/cart"
                       className="btn btn-primary btn-lg py-3 mx-2"
                     >
-                      Back To Cart
+                      {t("Back To Cart")}
                     </a>
                   </div>
                   {openForm && (
                     <div className="border p-3 mb-3 mt-3">
-                      <h3 className="h6 mb-0">Enter OTP:</h3>
-                      <p>an OTP with 6 digit-number was sent to your email, please use it to verify in the form below before ordering</p>
+                      <h3 className="h6 mb-0">{t("Enter OTP")}:</h3>
+                      <p>{t("an OTP with 6 digit-number was sent to your email, please use it to verify in the form below before ordering")}</p>
                       <div>
                         <div className="py-2">
                           <input
@@ -560,7 +562,7 @@ const Checkout = () => {
                             name="otp"
                             id="otp"
                             value={otp}
-                            placeholder="Enter OTP here..."
+                            placeholder={t("Enter OTP here...")}
                             maxLength={6}
                             onChange={(e) => setOtp(e.target.value)}
                           />
@@ -569,11 +571,11 @@ const Checkout = () => {
                               className="btn btn-danger mt-2 col-4"
                               onClick={handlePlaceOrder}
                             >
-                              Submit
+                              {t("Submit")}
                             </button>
                             <div className="col-4"></div>
                             <a href="#" onClick={handleSendOTP} className="mt-3 col-4">
-                              Send another OTP
+                              {t("Send another OTP")}
                             </a>
                           </div>
                         </div>

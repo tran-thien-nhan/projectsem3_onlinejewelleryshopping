@@ -4,6 +4,7 @@ import HeroSection from "../Layout/HeroSection";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const CartList = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const CartList = () => {
   const [cartList, setCartList] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [isLogin, setIsLogin] = useState(false);
+  const { t, i18n } = useTranslation();
 
   const checkCartQuantity = () => {
     const exceedItems = cartList.filter((item) => item.quantity > 10 || item.quantity < 1);
@@ -55,13 +57,13 @@ const CartList = () => {
       if (response.status === 200) {
         const updatedCartList = cartList.filter((item) => item.id !== id);
         setCartList(updatedCartList);
-        Swal.fire("Success", "Remove cart successfully", "success");
+        Swal.fire(t("Success"), t("Remove cart successfully"), "success");
 
         setTimeout(() => {
           Swal.close();
         }, 1000);
       } else {
-        Swal.fire("Error", "Remove cart fail", "error");
+        Swal.fire(t("Error"), t("Remove cart fail"), "error");
         setTimeout(() => {
           Swal.close();
         }, 1000);
@@ -76,14 +78,14 @@ const CartList = () => {
     try {
       await axios.delete(`https://localhost:7241/api/Cart/clearcart/${userID}`);
       setCartList([]);
-      Swal.fire("Success", "Clear cart successfully", "success");
+      Swal.fire(t("Success"), t("Clear cart successfully"), "success");
       setTimeout(() => {
         Swal.close();
         navigate("/");
       }, 1000);
     } catch (error) {
       console.error("clear cart error:", error);
-      Swal.fire("Error", "Clear cart fail", "error");
+      Swal.fire(t("Error"), t("Clear cart fail"), "error");
       setTimeout(() => {
         Swal.close();
       }, 1000);
@@ -127,7 +129,7 @@ const CartList = () => {
       }
     } else {
       console.log("Quantity cannot exceed 10");
-      Swal.fire("Error", "Quantity cannot exceed 10", "error");
+      Swal.fire(t("Error"), t("Quantity cannot exceed 10"), "error");
     }
   };
 
@@ -151,12 +153,12 @@ const CartList = () => {
                   <table className="table">
                     <thead>
                       <tr>
-                        <th className="product-thumbnail">Image</th>
-                        <th className="product-name">Product</th>
-                        <th className="product-price">Price</th>
-                        <th className="product-quantity">Quantity</th>
-                        <th className="product-total">Total</th>
-                        <th className="product-remove">Remove</th>
+                        <th className="product-thumbnail">{t("Image")}</th>
+                        <th className="product-name">{t("Product")}</th>
+                        <th className="product-price">{t("Price")}</th>
+                        <th className="product-quantity">{t("Quantity")}</th>
+                        <th className="product-total">{t("Total")}</th>
+                        <th className="product-remove">{t("Remove")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -236,7 +238,7 @@ const CartList = () => {
                       className="btn btn-black btn-sm btn-block"
                       onClick={(e) => handleClearCart(e)}
                     >
-                      Clear Cart
+                      {t("Clear Cart")}
                     </button>
                   </div>
                   <div className="col-md-6">
@@ -244,7 +246,7 @@ const CartList = () => {
                       href="/"
                       className="btn btn-outline-black btn-sm btn-block"
                     >
-                      Continue Shopping
+                      {t("Continue Shopping")}
                     </a>
                   </div>
                 </div>
@@ -255,13 +257,13 @@ const CartList = () => {
                     <div className="row">
                       <div className="col-md-12 text-right border-bottom mb-5">
                         <h3 className="text-black h4 text-uppercase">
-                          Cart Totals
+                          {t("Cart Totals")}
                         </h3>
                       </div>
                     </div>
                     <div className="row mb-3">
                       <div className="col-md-6">
-                        <span className="text-black">Subtotal</span>
+                        <span className="text-black">{t("Subtotal")}</span>
                       </div>
                       <div className="col-md-6 text-right">
                         <strong className="text-black">${subTotal.toFixed(2)}</strong>
@@ -269,7 +271,7 @@ const CartList = () => {
                     </div>
                     <div className="row mb-5">
                       <div className="col-md-6">
-                        <span className="text-black">Total</span>
+                        <span className="text-black">{t("Total")}</span>
                       </div>
                       <div className="col-md-6 text-right">
                         <strong className="text-black">${subTotal.toFixed(2)}</strong>
@@ -279,15 +281,14 @@ const CartList = () => {
                     <div className="row">
                       {checkCartQuantity() ? (
                         <div className="alert alert-warning" role="alert">
-                          Warning: There is 1 or more item with a quantity
-                          exceeding 10 or less than 1
+                          {t("Warning: There is 1 or more item with a quantity exceeding 10 or less than 1")}
                         </div>
                       ) : (
                         <a
                           className="btn btn-black btn-lg py-3 btn-block"
                           href="/checkout"
                         >
-                          Proceed To Checkout
+                          {t("Proceed To Checkout")}
                         </a>
                       )}
                     </div>

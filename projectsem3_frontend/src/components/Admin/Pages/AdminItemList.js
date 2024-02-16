@@ -4,6 +4,7 @@ import { useData } from "../../../Context/DataContext";
 import { saveAs } from "file-saver";
 import axios from "axios";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AdminItemList = () => {
   const { items, loading, error } = useData();
@@ -122,6 +123,45 @@ const AdminItemList = () => {
       await window.location.reload();
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleDelete = async (styleCode) => {
+    try {
+      //confirm button
+      const confirm = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+      if (confirm.isConfirmed) {
+        const res = await axios.delete(
+          `https://localhost:7241/api/ItemMst/${styleCode}`
+        );
+        console.log(res.data);
+        if (res.data.status === 200) {
+          Swal.fire("Success", res.data.message, "success");
+          setTimeout(() => {
+            Swal.close(); // Close the SweetAlert2 message
+            window.location.reload();
+          }, 1000);
+        } else if (res.data.status === 409) {
+          Swal.fire("Error", res.data.message, "error");
+        } else if (res.data.status === 402) {
+          Swal.fire("Error", "Cannot Delete This Item", "error");
+        }
+      }
+      else if(!confirm.isConfirmed){
+        Swal.fire("Cancelled", "Your Item is safe :)", "success");
+      }
+      // await window.location.reload();
+    } catch (error) {
+      console.log(error);
+      Swal.fire("Error", error.message, "error");
     }
   };
 
@@ -251,12 +291,20 @@ const AdminItemList = () => {
                     </button>
                   </td>
                   <td>
-                    <a
-                      href={`/edititem/${item.style_Code}`}
-                      className="btn btn-danger"
-                    >
-                      Edit
-                    </a>
+                    <div className="d-flex">
+                      <a
+                        href={`/edititem/${item.style_Code}`}
+                        className="btn btn-danger"
+                      >
+                        Edit
+                      </a>
+                      <button
+                        className="btn btn-danger mx-2"
+                        onClick={() => handleDelete(item.style_Code)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))

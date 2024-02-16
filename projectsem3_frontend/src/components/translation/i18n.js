@@ -6,9 +6,6 @@ import Backend from 'i18next-http-backend';
 // Import translations
 import translationsVN from "../locales/vi/vi.json";
 import translationsEN from "../locales/en/en.json"; 
-import translationsJAP from "../locales/jap/jap.json";
-import translationsIND from "../locales/ind/ind.json";
-import translationsKOR from "../locales/kor/kor.json";
 
 // the translations
 const resources = {
@@ -17,15 +14,6 @@ const resources = {
   },
   vi: {
     translation: translationsVN,
-  },
-  jap: {
-    translation: translationsJAP,
-  },
-  ind: {
-    translation: translationsIND,
-  },
-  kor: {
-    translation: translationsKOR,
   }
 };
 

@@ -3,9 +3,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { use } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const UserUpdatePass = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [userid, setUserid] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +36,7 @@ const UserUpdatePass = () => {
     );
     if (checkpassresponse.data === false) {
       setLoading(false);
-      Swal.fire("Error", "Old password is incorrect", "error");
+      Swal.fire(t("Error"), t("Old password is incorrect"), "error");
       setTimeout(() => {
         Swal.close();
       }, 1000);
@@ -43,8 +45,8 @@ const UserUpdatePass = () => {
 
     if (!newPassword || !confirmNewPassword) {
       Swal.fire(
-        "Error",
-        "Please enter both new password and confirm new password",
+        t("Error"),
+        t("Please enter both new password and confirm new password"),
         "error"
       );
       setTimeout(() => {
@@ -53,8 +55,8 @@ const UserUpdatePass = () => {
       return;
     } else if (newPassword.length < 3 || confirmNewPassword.length < 3) {
       Swal.fire(
-        "Error",
-        "New password and confirm new password must be at least 3 characters",
+        t("Error"),
+        t("New password and confirm new password must be at least 3 characters"),
         "error"
       );
       setTimeout(() => {
@@ -63,8 +65,8 @@ const UserUpdatePass = () => {
       return;
     } else if (newPassword.length > 20 || confirmNewPassword.length > 20) {
       Swal.fire(
-        "Error",
-        "New password and confirm new password must be at most 20 characters",
+        t("Error"),
+        t("New password and confirm new password must be at most 20 characters"),
         "error"
       );
       setTimeout(() => {
@@ -73,8 +75,8 @@ const UserUpdatePass = () => {
       return;
     } else if (newPassword !== confirmNewPassword) {
       Swal.fire(
-        "Error",
-        "New password and confirm new password must be the same",
+        t("Error"),
+        t("New password and confirm new password must be the same"),
         "error"
       );
       setTimeout(() => {
@@ -93,7 +95,7 @@ const UserUpdatePass = () => {
       );
 
       // Handle success response
-      Swal.fire("Success", "Update Password Successfully !", "success");
+      Swal.fire(t("Success"), t("Update Password Successfully !"), "success");
       setTimeout(() => {
         Swal.close();
         navigate("/info");
@@ -107,7 +109,7 @@ const UserUpdatePass = () => {
 
   return (
     <div className="container my-4">
-      <h2>Update Password</h2>
+      <h2>{t("Update Password")}</h2>
       <form id="updateUserForm" onSubmit={handleUpdateUserPass}>
         <div className="mb-3 mt-3" style={{ display: "none" }}>
           <input
@@ -126,43 +128,43 @@ const UserUpdatePass = () => {
             type="password"
             className="form-control"
             id="currentPassword"
-            placeholder="Enter current password"
+            placeholder={t("Enter current password")}
             name="currentPassword"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="currentPassword">Old Password:</label>
+          <label htmlFor="currentPassword">{t("Old Password")}:</label>
           <input
             type="password"
             className="form-control"
             id="oldPassword"
-            placeholder="Enter current password"
+            placeholder={t("Enter current password")}
             name="oldPassword"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="newPassword">New Password:</label>
+          <label htmlFor="newPassword">{t("New Password")}:</label>
           <input
             type="password"
             className="form-control"
             id="newPassword"
-            placeholder="Enter new password"
+            placeholder={t("Enter new password")}
             name="newPassword"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="confirmNewPassword">Confirm New Password:</label>
+          <label htmlFor="confirmNewPassword">{t("Confirm New Password")}:</label>
           <input
             type="password"
             className="form-control"
             id="confirmNewPassword"
-            placeholder="Confirm new password"
+            placeholder={t("Confirm New Password")}
             name="confirmNewPassword"
             value={confirmNewPassword}
             onChange={(e) => setConfirmNewPassword(e.target.value)}
@@ -176,7 +178,7 @@ const UserUpdatePass = () => {
               aria-hidden="true"
             ></span>
           ) : (
-            <>Change Password</>
+            <>{t("Change Password")}</>
           )}
         </button>
       </form>

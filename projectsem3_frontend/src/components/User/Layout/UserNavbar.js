@@ -155,9 +155,6 @@ const UserNavbar = () => {
                   <option value="">{t("Language")}</option>
                   <option value="en">{t("English")}</option>
                   <option value="vi">{t("Vietnamese")}</option>
-                  <option value="jap">{t("Japanese")}</option>
-                  <option value="ind">{t("Hindi")}</option>
-                  <option value="kor">{t("Korean")}</option>
                 </select>
               </li>
             </ul>
