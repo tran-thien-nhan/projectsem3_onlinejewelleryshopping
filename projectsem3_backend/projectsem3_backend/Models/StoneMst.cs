@@ -6,6 +6,7 @@ namespace projectsem3_backend.Models
 
     public class StoneMst
     {
+        public string Stone_ID { get; set; }
 
         public string? Style_Code { get; set; }
 

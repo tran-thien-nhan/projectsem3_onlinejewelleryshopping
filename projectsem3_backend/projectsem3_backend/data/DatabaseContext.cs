@@ -228,13 +228,14 @@ namespace projectsem3_backend.data
             //7
             modelBuilder.Entity<StoneMst>(s =>
             {
-                s.HasKey(s => new { s.Style_Code, s.StoneQlty_ID });
+                s.HasKey(s => s.Stone_ID);
                 s.HasOne(s => s.ItemMst).WithMany(s => s.StoneMsts).HasForeignKey(s => s.Style_Code);
                 s.HasOne(s => s.StoneQltyMst).WithMany(s => s.StoneMsts).HasForeignKey(s => s.StoneQlty_ID);
                 s.HasData(new StoneMst[]
                 {
                     new StoneMst
                     {
+                        Stone_ID = "1",
                         Style_Code = "1",
                         StoneQlty_ID = "1",
                         Stone_Gm = 1,
@@ -247,6 +248,7 @@ namespace projectsem3_backend.data
                     },
                     new StoneMst
                     {
+                        Stone_ID = "2",
                         Style_Code = "2",
                         StoneQlty_ID = "2",
                         Stone_Gm = 2,
@@ -259,6 +261,7 @@ namespace projectsem3_backend.data
                     },
                     new StoneMst
                     {
+                        Stone_ID = "3",
                         Style_Code = "3",
                         StoneQlty_ID = "3",
                         Stone_Gm = 3,
