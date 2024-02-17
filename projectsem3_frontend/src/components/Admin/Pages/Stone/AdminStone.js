@@ -3,9 +3,10 @@ import { TailSpin } from 'react-loader-spinner';
 import { useData } from '../../../../Context/DataContext';
 import axios from 'axios';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AdminStone = () => {
-    const { stones, loading, error } = useData();
+    const { stoneQualities, stones, loading, error } = useData();
     const [searchTerm, setSearchTerm] = useState("");
     const [visibilityFilter, setVisibilityFilter] = useState("all");
     const [createStoneLoading, setCreateStoneLoading] = useState(false);
@@ -21,7 +22,7 @@ const AdminStone = () => {
     const filteredStones = [...stones].filter(
         (stone) => {
             const matchesSearchTerm =
-                stone.style_Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                stone.stone_ID.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 stone.stoneQlty_ID.toLowerCase().includes(searchTerm.toLowerCase());
 
             const matchesVisibilityFilter =
@@ -36,17 +37,57 @@ const AdminStone = () => {
 
     const handleReset = () => {
         setSearchTerm("");
+        setVisibilityFilter("all");
     };
 
-    const handleUpdateVisibility = async (style_Code) => {
+    const handleUpdateVisibility = async (stone_ID) => {
         try {
             await axios.put(
-                `https://localhost:7241/api/StoneMst/updatevisibility/${style_Code}`
+                `https://localhost:7241/api/StoneMst/updatevisibility/${stone_ID}`
             );
             // Update the visibility of the item in the state or fetch the updated data again
             await window.location.reload();
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const handleDelete = async (stone_ID) => {
+        try {
+            //confirm button
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+            if (confirm.isConfirmed) {
+                const res = await axios.delete(
+                    `https://localhost:7241/api/StoneMst/${stone_ID}`
+                );
+                console.log(res.data);
+                if (res.data.status === 200) {
+                    Swal.fire("Success", res.data.message, "success");
+                    setTimeout(() => {
+                        Swal.close(); // Close the SweetAlert2 message
+                        window.location.reload();
+                    }, 1500);
+                } else if (res.data.status === 409) {
+                    Swal.fire("Error", res.data.message, "error");
+                } else if (res.data.status === 402) {
+                    Swal.fire("Error", "Cannot Delete This Stone", "error");
+                }
+            }
+            else if (!confirm.isConfirmed) {
+                Swal.fire("Cancelled", "Your Stone is safe :)", "success");
+            }
+            // await window.location.reload();
+        } catch (error) {
+            console.log(error);
+            Swal.fire("Error", error.message, "error");
         }
     };
 
@@ -83,7 +124,7 @@ const AdminStone = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Stone ID</th>
+                            {/* <th>Stone ID</th> */}
                             <th>Stone Quality</th>
                             <th>Mass (Gram)</th>
                             <th>Total stone per Item</th>
@@ -108,9 +149,14 @@ const AdminStone = () => {
                             </div>
                         ) : Array.isArray(filteredStones) && filteredStones.length > 0 ? (
                             filteredStones.map((stone) => (
-                                <tr key={stone.style_Code}>
-                                    <td>{stone.style_Code}</td>
-                                    <td>{stone.stoneQlty_ID}</td>
+                                <tr key={stone.stone_ID}>
+                                    {/* <td>{stone.stone_ID}</td> */}
+                                    <td>{stoneQualities.map((stoneQuality) => (
+                                        stoneQuality.stoneQlty_ID === stone.stoneQlty_ID ? stoneQuality.stoneQlty : null
+                                    ))
+                                    }
+
+                                    </td>
                                     <td>{stone.stone_Gm}</td>
                                     <td>{stone.stone_Pcs}</td>
                                     <td>{stone.stone_Crt}</td>
@@ -119,18 +165,24 @@ const AdminStone = () => {
                                     <td>
                                         <button
                                             className="btn btn-primary"
-                                            onClick={() => handleUpdateVisibility(stone.style_Code)}
+                                            onClick={() => handleUpdateVisibility(stone.stone_ID)}
                                         >
                                             {stone.visible ? <FaTimes /> : <FaCheck />}
                                         </button>
                                     </td>
                                     <td>
                                         <a
-                                            href={`/edit-stone/${stone.style_Code}`}
+                                            href={`/edit-stone/${stone.stone_ID}`}
                                             className="btn btn-danger"
                                         >
                                             Edit
                                         </a>
+                                        <button
+                                            className="btn btn-danger mx-2"
+                                            onClick={() => handleDelete(stone.stone_ID)}
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))
@@ -169,4 +221,4 @@ const AdminStone = () => {
     );
 };
 
-export default AdminStone
+export default AdminStone;

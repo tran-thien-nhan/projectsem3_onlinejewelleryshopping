@@ -285,7 +285,7 @@ const privateRouter = [
     visible: false,
   },
   {
-    path: "/edit-stone/:style_Code",
+    path: "/edit-stone/:stone_ID",
     element: <AdminEditStone />,
     name: "Edit Stone",
     visible: false,
@@ -407,25 +407,25 @@ const privateRouter = [
     visible: false,
   },
 
-{
-  path: "/dimInfo",
-  element: <AdminDimInfo/>,
-  name: "DimInfo Management",
-  visible: true,
-},
-{
-  path: "/createDimInfo",
-  element: <AdminCreateDimInfo />,
-  name: "Create DimInfo",
-  visible: false,
-},
-{
-  path: "/editDimInfo/:id",
-  element: <AdminEditDimInfo />,
-  name: "Create DimInfo",
-  visible: false,
-},
-  
+  {
+    path: "/dimInfo",
+    element: <AdminDimInfo />,
+    name: "DimInfo Management",
+    visible: true,
+  },
+  {
+    path: "/createDimInfo",
+    element: <AdminCreateDimInfo />,
+    name: "Create DimInfo",
+    visible: false,
+  },
+  {
+    path: "/editDimInfo/:id",
+    element: <AdminEditDimInfo />,
+    name: "Create DimInfo",
+    visible: false,
+  },
+
   {
     path: "/jewelType",
     element: <AdminJewelType />,
