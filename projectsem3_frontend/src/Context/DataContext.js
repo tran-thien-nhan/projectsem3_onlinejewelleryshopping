@@ -30,7 +30,7 @@ export const DataProvider = ({ children }) => {
   const [dim, setDim] = useState([]);
   const [prod, setProd] = useState([]);
   const [jewelry, setJewelry] = useState([]);
-  // const [dimInfo, setDimInfo] = useState([]);
+  const [dimInfo, setDimInfo] = useState([]);
 
 
 
@@ -380,23 +380,23 @@ export const DataProvider = ({ children }) => {
     fetchData();
   }, []);
   //info
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const response = await axios.get(`https://localhost:7241/api/DimInfoMst`);
-  //       console.log(response.data.data);
-  //       setDimInfo(response.data.data);
-  //     } catch (error) {
-  //       console.error("list error:", error);
-  //       setError(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`https://localhost:7241/api/DimInfoMst`);
+        console.log(response.data.data);
+        setDimInfo(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   //jewel
   useEffect(() => {
@@ -448,7 +448,7 @@ export const DataProvider = ({ children }) => {
     dim,
     prod,
     dimQltySub,
-    // dimInfo,
+    dimInfo,
     jewelry,
 
 
