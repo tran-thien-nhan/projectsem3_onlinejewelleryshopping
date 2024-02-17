@@ -3,6 +3,7 @@ import { useData } from '../../../../Context/DataContext';
 import axios from 'axios';
 import { TailSpin } from 'react-loader-spinner';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AdminStoneQuality = () => {
     const { stoneQualities, loading, error } = useData();
@@ -51,6 +52,45 @@ const AdminStoneQuality = () => {
         }
     };
 
+    const handleDelete = async (stoneQlty_ID) => {
+        try {
+            //confirm button
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+            if (confirm.isConfirmed) {
+                const res = await axios.delete(
+                    `https://localhost:7241/api/StoneQltyMst/${stoneQlty_ID}`
+                );
+                console.log(res.data);
+                if (res.data.status === 200) {
+                    Swal.fire("Success", res.data.message, "success");
+                    setTimeout(() => {
+                        Swal.close(); // Close the SweetAlert2 message
+                        window.location.reload();
+                    }, 1000);
+                } else if (res.data.status === 409) {
+                    Swal.fire("Error", res.data.message, "error");
+                } else if (res.data.status === 402) {
+                    Swal.fire("Error", "Cannot Delete This Stone Quality", "error");
+                }
+            }
+            else if (!confirm.isConfirmed) {
+                Swal.fire("Cancelled", "Your Stone Quality is safe :)", "success");
+            }
+            // await window.location.reload();
+        } catch (error) {
+            console.log(error);
+            Swal.fire("Error", error.message, "error");
+        }
+    };
+
     return (
         <div className='container-fluid'>
             <label for="">
@@ -82,7 +122,7 @@ const AdminStoneQuality = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Stone Quality ID</th>
+                            {/* <th>Stone Quality ID</th> */}
                             <th>Stone Quality Name</th>
                             <th>Stone Quality Year</th>
                             <th>Hide</th>
@@ -104,7 +144,7 @@ const AdminStoneQuality = () => {
                         ) : Array.isArray(filteredStoneQualities) && filteredStoneQualities.length > 0 ? (
                             filteredStoneQualities.map((stoneQlty) => (
                                 <tr key={stoneQlty.stoneQlty_ID}>
-                                    <td>{stoneQlty.stoneQlty_ID}</td>
+                                    {/* <td>{stoneQlty.stoneQlty_ID}</td> */}
                                     <td>{stoneQlty.stoneQlty}</td>
                                     <td>{stoneQlty.stone_Year}</td>
                                     <td>
@@ -122,6 +162,12 @@ const AdminStoneQuality = () => {
                                         >
                                             Edit
                                         </a>
+                                        <button
+                                            className="btn btn-danger mx-2"
+                                            onClick={() => handleDelete(stoneQlty.stoneQlty_ID)}
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))

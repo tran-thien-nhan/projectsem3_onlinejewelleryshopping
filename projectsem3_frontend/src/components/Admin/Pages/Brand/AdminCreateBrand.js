@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useData } from '../../../../Context/DataContext';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { FaSwatchbook } from 'react-icons/fa';
 
 const AdminCreateBrand = () => {
     const navigate = useNavigate();
@@ -66,8 +67,9 @@ const AdminCreateBrand = () => {
                     });
                     setTimeout(() => {
                         Swal.close();
-                        navigate("/brands");
-                    }, 1000);
+                        navigate("/certify");
+                        window.location.reload();
+                    }, 1500);
                 }
             })
             .catch((error) => {
@@ -80,6 +82,7 @@ const AdminCreateBrand = () => {
                 setTimeout(() => {
                     Swal.close();
                     navigate("/brands");
+                    window.location.reload();
                 }, 1000);
             });
     }

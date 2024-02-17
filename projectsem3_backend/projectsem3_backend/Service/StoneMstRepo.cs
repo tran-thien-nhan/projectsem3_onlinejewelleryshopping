@@ -179,16 +179,11 @@ namespace projectsem3_backend.Service
             }
             catch (Exception ex)
             {
-                /*
                 // Check for specific DbUpdateException for unique constraint violation (e.g., duplicate key)
                 if (ex.InnerException is SqlException sqlException && sqlException.Number == 2627)
                 {
-                    FileUpload.DeleteImage(itemMst.ImagePath);
-                    return new CustomResult(409, "Duplicate entry. Another product with the same key already exists.", null);
+                    return new CustomResult(409, "Duplicate entry. Another stone with the same key already exists.", null);
                 }
-
-                FileUpload.DeleteImage(itemMst.ImagePath);
-                */
                 return new CustomResult(500, ex.Message, null);
             }
         }

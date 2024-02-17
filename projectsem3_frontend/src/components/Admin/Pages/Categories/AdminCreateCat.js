@@ -54,7 +54,10 @@ const AdminCreateCat = () => {
                         title: "Success",
                         text: "Categories Created Successfully",
                     });
-                    navigate('/cat');
+                    setTimeout(() => {
+                        navigate("/cat");
+                        window.location.reload();
+                    }, 1500);
                 }
             })
             .catch((error) => {
@@ -67,6 +70,7 @@ const AdminCreateCat = () => {
                 setTimeout(() => {
                     Swal.close();
                     navigate("/cat");
+                    window.location.reload();
                 }, 1500);
             });
     }

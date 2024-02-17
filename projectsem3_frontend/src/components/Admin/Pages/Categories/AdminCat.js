@@ -3,6 +3,7 @@ import { TailSpin } from 'react-loader-spinner';
 import { useData } from '../../../../Context/DataContext';
 import axios from 'axios';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AdminCat = () => {
     const { categories, loading, error } = useData();
@@ -16,6 +17,45 @@ const AdminCat = () => {
 
     const handleVisibilityFilterChange = (filter) => {
         setVisibilityFilter(filter);
+    };
+
+    const handleDelete = async (cat_ID) => {
+        try {
+            //confirm button
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+            if (confirm.isConfirmed) {
+                const res = await axios.delete(
+                    `https://localhost:7241/api/CatMst/${cat_ID}`
+                );
+                console.log(res.data);
+                if (res.data.status === 200) {
+                    Swal.fire("Success", res.data.message, "success");
+                    setTimeout(() => {
+                        Swal.close(); // Close the SweetAlert2 message
+                        window.location.reload();
+                    }, 1000);
+                } else if (res.data.status === 409) {
+                    Swal.fire("Error", res.data.message, "error");
+                } else if (res.data.status === 402) {
+                    Swal.fire("Error", "Cannot Delete This Item", "error");
+                }
+            }
+            else if (!confirm.isConfirmed) {
+                Swal.fire("Cancelled", "Your Category is safe :)", "success");
+            }
+            // await window.location.reload();
+        } catch (error) {
+            console.log(error);
+            Swal.fire("Error", error.message, "error");
+        }
     };
 
     const filteredCats = [...categories].filter(
@@ -84,7 +124,7 @@ const AdminCat = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Category ID</th>
+                            {/* <th>Category ID</th> */}
                             <th>Category Name</th>
                             <th>Hide</th>
                             <th>Action</th>
@@ -105,7 +145,7 @@ const AdminCat = () => {
                         ) : Array.isArray(filteredCats) && filteredCats.length > 0 ? (
                             filteredCats.map((cat) => (
                                 <tr key={cat.cat_ID}>
-                                    <td>{cat.cat_ID}</td>
+                                    {/* <td>{cat.cat_ID}</td> */}
                                     <td>{cat.cat_Name}</td>
                                     <td>
                                         <button
@@ -122,6 +162,12 @@ const AdminCat = () => {
                                         >
                                             Edit
                                         </a>
+                                        <button
+                                            className="btn btn-danger mx-2"
+                                            onClick={() => handleDelete(cat.cat_ID)}
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))
@@ -156,7 +202,7 @@ const AdminCat = () => {
                     </a>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

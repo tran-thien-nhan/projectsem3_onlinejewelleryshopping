@@ -3,6 +3,7 @@ import { TailSpin } from 'react-loader-spinner';
 import { useData } from '../../../../Context/DataContext';
 import axios from 'axios';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AdminGold = () => {
     const { golds, loading, error } = useData();
@@ -52,6 +53,45 @@ const AdminGold = () => {
         }
     };
 
+    const handleDelete = async (goldType_ID) => {
+        try {
+            //confirm button
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+            if (confirm.isConfirmed) {
+                const res = await axios.delete(
+                    `https://localhost:7241/api/GoldKrtMst/${goldType_ID}`
+                );
+                console.log(res.data);
+                if (res.data.status === 200) {
+                    Swal.fire("Success", res.data.message, "success");
+                    setTimeout(() => {
+                        Swal.close(); // Close the SweetAlert2 message
+                        window.location.reload();
+                    }, 1000);
+                } else if (res.data.status === 409) {
+                    Swal.fire("Error", res.data.message, "error");
+                } else if (res.data.status === 402) {
+                    Swal.fire("Error", "Cannot Delete This Gold", "error");
+                }
+            }
+            else if (!confirm.isConfirmed) {
+                Swal.fire("Cancelled", "Your Gold is safe :)", "success");
+            }
+            // await window.location.reload();
+        } catch (error) {
+            console.log(error);
+            Swal.fire("Error", error.message, "error");
+        }
+    };
+
     return (
         <div className='container-fluid'>
             <div className='mb-3'>
@@ -85,7 +125,7 @@ const AdminGold = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Gold ID</th>
+                            {/* <th>Gold ID</th> */}
                             <th>Gold Crt</th>
                             <th>Gold Year</th>
                             <th>Hide</th>
@@ -107,7 +147,7 @@ const AdminGold = () => {
                         ) : Array.isArray(filteredGolds) && filteredGolds.length > 0 ? (
                             filteredGolds.map((gold) => (
                                 <tr key={gold.goldType_ID}>
-                                    <td>{gold.goldType_ID}</td>
+                                    {/* <td>{gold.goldType_ID}</td> */}
                                     <td>{gold.gold_Crt}</td>
                                     <td>{gold.gold_Year}</td>
                                     <td>
@@ -125,6 +165,12 @@ const AdminGold = () => {
                                         >
                                             Edit
                                         </a>
+                                        <button
+                                            className="btn btn-danger mx-2"
+                                            onClick={() => handleDelete(gold.goldType_ID)}
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))

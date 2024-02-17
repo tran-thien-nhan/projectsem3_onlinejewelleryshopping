@@ -23,6 +23,12 @@ namespace projectsem3_backend.Controllers
         {
             return await stoneQltyMstRepo.GetAllStoneQltyMst();
         }
+
+        [HttpGet("{id}")]
+        public async Task<CustomResult> GetStoneQltyMst(string id)
+        {
+            return await stoneQltyMstRepo.GetStoneQltyMst(id);
+        }
         
          [HttpPost]
          public async Task<CustomResult> CreateStoneQltyMst([FromForm] StoneQltyMst stoneQltyMst)

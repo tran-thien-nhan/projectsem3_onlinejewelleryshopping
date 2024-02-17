@@ -63,7 +63,11 @@ const AdminCreateGold = () => {
                         title: "Success",
                         text: "Gold Created Successfully",
                     });
-                    navigate('/gold_krt');
+                    setTimeout(() => {
+                        Swal.close();
+                        navigate("/gold_krt");
+                        window.location.reload();
+                    }, 1500);
                 }
             })
             .catch((error) => {

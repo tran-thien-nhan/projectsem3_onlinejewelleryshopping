@@ -3,6 +3,7 @@ import { TailSpin } from 'react-loader-spinner';
 import { useData } from '../../../../Context/DataContext';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AdminCertify = () => {
     const { certifies, loading, error } = useData();
@@ -50,6 +51,44 @@ const AdminCertify = () => {
         }
     };
 
+    const handleDelete = async (certify_ID) => {
+        try {
+            //confirm button
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+            if (confirm.isConfirmed) {
+                const res = await axios.delete(
+                    `https://localhost:7241/api/ItemMst/${certify_ID}`
+                );
+                console.log(res.data);
+                if (res.data.status === 200) {
+                    Swal.fire("Success", res.data.message, "success");
+                    setTimeout(() => {
+                        Swal.close(); // Close the SweetAlert2 message
+                        window.location.reload();
+                    }, 1000);
+                } else if (res.data.status === 409) {
+                    Swal.fire("Error", res.data.message, "error");
+                } else if (res.data.status === 402) {
+                    Swal.fire("Error", "Cannot Delete This Certification", "error");
+                }
+            }
+            else if (!confirm.isConfirmed) {
+                Swal.fire("Cancelled", "Your Item is safe :)", "success");
+            }
+            // await window.location.reload();
+        } catch (error) {
+            console.log(error);
+            Swal.fire("Error", error.message, "error");
+        }
+    };
 
     return (
         <div className='container-fluid'>
@@ -84,7 +123,7 @@ const AdminCertify = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Certification ID</th>
+                            {/* <th>Certification ID</th> */}
                             <th>Certification Type</th>
                             <th>Hide</th>
                             <th>Action</th>
@@ -105,7 +144,7 @@ const AdminCertify = () => {
                         ) : Array.isArray(filteredCertify) && filteredCertify.length > 0 ? (
                             filteredCertify.map((certify) => (
                                 <tr key={certify.certify_ID}>
-                                    <td>{certify.certify_ID}</td>
+                                    {/* <td>{certify.certify_ID}</td> */}
                                     <td>{certify.certify_Type}</td>
                                     <td>
                                         <button

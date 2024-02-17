@@ -60,6 +60,13 @@ import UserUpdatePass from "../components/User/UserUpdatePass";
 import ThankYou1 from "../components/User/Order/ThankYou1";
 import MomoProcessing from "../components/User/Order/MomoProcessing";
 import AdminUpdateItem from "../components/Admin/Pages/AdminUpdateItem";
+import AdminEditCat from "../components/Admin/Pages/Categories/AdminEditCat";
+import AdminEditCertify from "../components/Admin/Pages/Certification/AdminEditCertify";
+import AdminEditGold from "../components/Admin/Pages/Gold/AdminEditGold";
+import AdminEditBrand from "../components/Admin/Pages/Brand/AdminEditBrand";
+import AdminEditStoneQuality from "../components/Admin/Pages/StoneQuality/AdminEditStoneQuality";
+import AdminCreateStone from "../components/Admin/Pages/Stone/AdminCreateStone";
+import AdminEditStone from "../components/Admin/Pages/Stone/AdminEditStone";
 
 
 
@@ -219,6 +226,13 @@ const privateRouter = [
     visible: false,
   },
   {
+    path: "/edit-brand/:brand_ID",
+    element: <AdminEditBrand />,
+    name: "Edit Brand",
+    visible: false,
+  },
+
+  {
     path: "/gold_krt",
     element: <AdminGold />,
     name: "Gold Krt Management",
@@ -230,6 +244,13 @@ const privateRouter = [
     name: "Create New Gold Krt",
     visible: false,
   },
+  {
+    path: "/edit-gold/:goldType_ID",
+    element: <AdminEditGold />,
+    name: "Edit Category",
+    visible: false,
+  },
+
   {
     path: "/cat",
     element: <AdminCat />,
@@ -243,11 +264,31 @@ const privateRouter = [
     visible: false,
   },
   {
+    path: "/edit-cat/:cat_ID",
+    element: <AdminEditCat />,
+    name: "Edit Category",
+    visible: false,
+  },
+
+  {
     path: "/stones",
     element: <AdminStone />,
     name: "Stone Info Management",
     visible: true,
   },
+  {
+    path: "/create-stone",
+    element: <AdminCreateStone />,
+    name: "Create New Stone",
+    visible: false,
+  },
+  {
+    path: "/edit-stone/:style_Code",
+    element: <AdminEditStone />,
+    name: "Edit Stone",
+    visible: false,
+  },
+
   {
     path: "/stone-quality",
     element: <AdminStoneQuality />,
@@ -258,6 +299,12 @@ const privateRouter = [
     path: "/create-stone-quality",
     element: <AdminCreateStoneQuality />,
     name: "Create New Stone Quality",
+    visible: false,
+  },
+  {
+    path: "/edit-stone-quality/:stoneQlty_ID",
+    element: <AdminEditStoneQuality />,
+    name: "Edit Category",
     visible: false,
   },
 
@@ -271,6 +318,12 @@ const privateRouter = [
     path: "/create-certify",
     element: <AdminCreateCertify />,
     name: "Create New Certification",
+    visible: false,
+  },
+  {
+    path: "/edit-certify/:certify_ID",
+    element: <AdminEditCertify />,
+    name: "Edit Certification",
     visible: false,
   },
 
@@ -289,30 +342,30 @@ const privateRouter = [
     visible: false,
   },
   {
-    path: "/editDimQlty/:id", 
+    path: "/editDimQlty/:id",
     element: <AdminEditDimQlty />,
     name: "editDimQlty",
     visible: false,
-},
+  },
 
-{
-  path: "/dim",
-  element: <AdminDim />,
-  name: "Dim Management",
-  visible: true,
-},
-// {
-//   path: "/createDim",
-//   element: <AdminCreateDim />,
-//   name: "CreateDimQlty",
-//   visible: false,
-// },
-// {
-//   path: "/editDim/:id", 
-//   element: <AdminEditDim />,
-//   name: "editDim",
-//   visible: false,
-// },
+  {
+    path: "/dim",
+    element: <AdminDim />,
+    name: "Dim Management",
+    visible: true,
+  },
+  // {
+  //   path: "/createDim",
+  //   element: <AdminCreateDim />,
+  //   name: "CreateDimQlty",
+  //   visible: false,
+  // },
+  // {
+  //   path: "/editDim/:id", 
+  //   element: <AdminEditDim />,
+  //   name: "editDim",
+  //   visible: false,
+  // },
 
   {
     path: "/prod",
@@ -321,17 +374,17 @@ const privateRouter = [
     visible: true,
   },
   {
-    path: "/createProd", 
+    path: "/createProd",
     element: <AdminCreateProd />,
     name: "CreateProd ",
     visible: false,
   },
   {
-    path: "/editProd/:id", 
+    path: "/editProd/:id",
     element: <AdminEditProd />,
     name: "editDimSub",
     visible: false,
-},
+  },
 
   {
     path: "/dimQltySub",
@@ -346,11 +399,11 @@ const privateRouter = [
     visible: false,
   },
   {
-    path: "/editDimQltySub/:id", 
+    path: "/editDimQltySub/:id",
     element: <AdminEditDimSub />,
     name: "editDimSub",
     visible: false,
-},
+  },
 
   // {
   //   path: "/dimInfo",
@@ -364,7 +417,7 @@ const privateRouter = [
   //   name: "Create DimInfo",
   //   visible: false,
   // },
-  
+
   {
     path: "/jewelType",
     element: <AdminJewelType />,
@@ -378,11 +431,11 @@ const privateRouter = [
     visible: false,
   },
   {
-    path: "/editJewelType/:id", 
+    path: "/editJewelType/:id",
     element: <AdminEditJewelType />,
     name: "edit JewelType",
     visible: false,
-}
+  }
 ];
 
 export { publicRouter, privateRouter };

@@ -50,7 +50,10 @@ const AdminCreateCertify = () => {
                         title: "Success",
                         text: "Certification Created Successfully",
                     });
-                    navigate('/certify');
+                    setTimeout(() => {
+                        navigate("/certify");
+                        window.location.reload();
+                    }, 1500);
                 }
             }).catch((err) => {
                 console.log(error);

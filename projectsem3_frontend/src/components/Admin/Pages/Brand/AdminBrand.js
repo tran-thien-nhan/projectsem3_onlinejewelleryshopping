@@ -3,6 +3,7 @@ import { TailSpin } from 'react-loader-spinner';
 import { useData } from '../../../../Context/DataContext';
 import axios from 'axios';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AdminBrand = () => {
     const { brands, loading, error } = useData();
@@ -19,6 +20,45 @@ const AdminBrand = () => {
 
     const handleVisibilityFilterChange = (filter) => {
         setVisibilityFilter(filter);
+    };
+
+    const handleDelete = async (brand_ID) => {
+        try {
+            //confirm button
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+            if (confirm.isConfirmed) {
+                const res = await axios.delete(
+                    `https://localhost:7241/api/BrandMst/${brand_ID}`
+                );
+                console.log(res.data);
+                if (res.data.status === 200) {
+                    Swal.fire("Success", res.data.message, "success");
+                    setTimeout(() => {
+                        Swal.close(); // Close the SweetAlert2 message
+                        window.location.reload();
+                    }, 1000);
+                } else if (res.data.status === 409) {
+                    Swal.fire("Error", res.data.message, "error");
+                } else if (res.data.status === 402) {
+                    Swal.fire("Error", "Cannot Delete This Item", "error");
+                }
+            }
+            else if (!confirm.isConfirmed) {
+                Swal.fire("Cancelled", "Your Brand is safe :)", "success");
+            }
+            // await window.location.reload();
+        } catch (error) {
+            console.log(error);
+            Swal.fire("Error", error.message, "error");
+        }
     };
 
     const filteredBrands = [...brands].filter(
@@ -89,8 +129,9 @@ const AdminBrand = () => {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Brand ID</th>
+                            {/* <th>Brand ID</th> */}
                             <th>Brand Type</th>
+                            <th>Brand Year</th>
                             <th>Hide</th>
                             <th>Action</th>
                         </tr>
@@ -110,8 +151,9 @@ const AdminBrand = () => {
                         ) : Array.isArray(filteredBrands) && filteredBrands.length > 0 ? (
                             filteredBrands.map((brand) => (
                                 <tr key={brand.brand_ID}>
-                                    <td>{brand.brand_ID}</td>
+                                    {/* <td>{brand.brand_ID}</td> */}
                                     <td>{brand.brand_Type}</td>
+                                    <td>{brand.brand_Year}</td>
                                     <td>
                                         <button
                                             className="btn btn-primary"
@@ -127,6 +169,12 @@ const AdminBrand = () => {
                                         >
                                             Edit
                                         </a>
+                                        <button
+                                            className="btn btn-danger mx-2"
+                                            onClick={() => handleDelete(brand.brand_ID)}
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))

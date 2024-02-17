@@ -61,7 +61,11 @@ const AdminCreateStoneQuality = () => {
                         title: "Success",
                         text: "Stone Quality Created Successfully",
                     });
-                    navigate('/stone-quality');
+                    setTimeout(() => {
+                        Swal.close();
+                        navigate("/stone-quality");
+                        window.location.reload();
+                    }, 1500);
                 }
             })
             .catch((error) => {
