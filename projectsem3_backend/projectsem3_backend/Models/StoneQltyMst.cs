@@ -17,5 +17,6 @@ namespace projectsem3_backend.Models
         public bool? Visible { get; set; }
 
         public ICollection<StoneMst>? StoneMsts { get; set; }
+        public ICollection<ItemMst>? ItemMsts { get; set; }
     }
 }

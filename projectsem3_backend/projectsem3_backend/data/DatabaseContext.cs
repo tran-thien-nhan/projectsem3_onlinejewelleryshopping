@@ -229,14 +229,12 @@ namespace projectsem3_backend.data
             modelBuilder.Entity<StoneMst>(s =>
             {
                 s.HasKey(s => s.Stone_ID);
-                s.HasOne(s => s.ItemMst).WithMany(s => s.StoneMsts).HasForeignKey(s => s.Style_Code);
                 s.HasOne(s => s.StoneQltyMst).WithMany(s => s.StoneMsts).HasForeignKey(s => s.StoneQlty_ID);
                 s.HasData(new StoneMst[]
                 {
                     new StoneMst
                     {
                         Stone_ID = "1",
-                        Style_Code = "1",
                         StoneQlty_ID = "1",
                         Stone_Gm = 1,
                         Stone_Pcs = 1,
@@ -249,7 +247,6 @@ namespace projectsem3_backend.data
                     new StoneMst
                     {
                         Stone_ID = "2",
-                        Style_Code = "2",
                         StoneQlty_ID = "2",
                         Stone_Gm = 2,
                         Stone_Pcs = 2,
@@ -262,7 +259,6 @@ namespace projectsem3_backend.data
                     new StoneMst
                     {
                         Stone_ID = "3",
-                        Style_Code = "3",
                         StoneQlty_ID = "3",
                         Stone_Gm = 3,
                         Stone_Pcs = 3,
@@ -280,6 +276,7 @@ namespace projectsem3_backend.data
             {
                 sq.HasKey(st => st.StoneQlty_ID);
                 sq.HasMany(st => st.StoneMsts).WithOne(st => st.StoneQltyMst).HasForeignKey(st => st.StoneQlty_ID);
+                sq.HasMany(st => st.ItemMsts).WithOne(st => st.StoneQltyMst).HasForeignKey(st => st.StoneQlty_ID);
                 sq.HasData(new StoneQltyMst[]
                 {
                     new StoneQltyMst
@@ -316,7 +313,6 @@ namespace projectsem3_backend.data
             modelBuilder.Entity<ItemMst>(it =>
             {
                 it.HasKey(it => it.Style_Code);
-                it.HasMany(it => it.StoneMsts).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
                 it.HasMany(it => it.OrderDetailMsts).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
                 it.HasMany(it => it.CartLists).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
                 it.HasMany(it => it.DimMsts).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
@@ -326,6 +322,7 @@ namespace projectsem3_backend.data
                 it.HasOne(it => it.ProdMst).WithMany(it => it.ItemMsts).HasForeignKey(it => it.Prod_ID);
                 it.HasOne(it => it.GoldKrtMst).WithMany(it => it.ItemMsts).HasForeignKey(it => it.GoldType_ID);
                 it.HasOne(it => it.JewelTypeMst).WithMany(it => it.ItemMsts).HasForeignKey(it => it.Jewellery_ID);
+                it.HasOne(it => it.StoneQltyMst).WithMany(it => it.ItemMsts).HasForeignKey(it => it.StoneQlty_ID);
                 it.HasData(new ItemMst[]
                 {
                     new ItemMst
@@ -341,6 +338,7 @@ namespace projectsem3_backend.data
                         Prod_ID = "1",
                         GoldType_ID = "1",
                         Jewellery_ID = "1",
+                        StoneQlty_ID = "1",
                         Gold_Wt = 1,
                         Stone_Wt = 1,
                         Net_Gold = 1,
@@ -372,6 +370,7 @@ namespace projectsem3_backend.data
                         Prod_ID = "2",
                         GoldType_ID = "2",
                         Jewellery_ID = "2",
+                        StoneQlty_ID = "2",
                         Gold_Wt = 2,
                         Stone_Wt = 2,
                         Net_Gold = 2,
@@ -403,6 +402,7 @@ namespace projectsem3_backend.data
                         Prod_ID = "3",
                         GoldType_ID = "3",
                         Jewellery_ID = "3",
+                        StoneQlty_ID = "3",
                         Gold_Wt = 3,
                         Stone_Wt = 3,
                         Net_Gold = 3,

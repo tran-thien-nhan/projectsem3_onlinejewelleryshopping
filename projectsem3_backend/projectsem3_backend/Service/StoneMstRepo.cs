@@ -20,17 +20,17 @@ namespace projectsem3_backend.Service
         {
             try
             {
-                stoneMst.Style_Code = Guid.NewGuid().ToString();
+                stoneMst.Stone_ID = Guid.NewGuid().ToString();
                 // Thiết lập thời gian tạo và cập nhật
                 stoneMst.CreatedAt = DateTime.Now;
                 stoneMst.UpdatedAt = DateTime.Now;
 
                 // Kiểm tra sự tồn tại
                 var stoneQlty = await db.StoneQltyMsts.SingleOrDefaultAsync(s => s.StoneQlty_ID == stoneMst.StoneQlty_ID);
-                var item = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == stoneMst.Style_Code);
+                
                 //gán
                 stoneMst.StoneQltyMst = stoneQlty;
-                stoneMst.ItemMst = item;
+                
                 stoneMst.Visible = false;
 
                 //Tính toán
@@ -58,7 +58,7 @@ namespace projectsem3_backend.Service
         {
             try
             {
-                var stone = await db.StoneMsts.SingleOrDefaultAsync(i => i.Style_Code == id);
+                var stone = await db.StoneMsts.SingleOrDefaultAsync(i => i.Stone_ID == id);
                 if (stone == null)
                 {
                     return new CustomResult(201, "Not Found Stone", null);
@@ -108,7 +108,7 @@ namespace projectsem3_backend.Service
         {
             try
             {
-                var result = await db.StoneMsts.SingleOrDefaultAsync(i => i.Style_Code == id);
+                var result = await db.StoneMsts.SingleOrDefaultAsync(i => i.Stone_ID == id);
                 if (result == null)
                 {
                     return new CustomResult(401, "not found stone", null);
@@ -128,7 +128,7 @@ namespace projectsem3_backend.Service
         {
             try
             {
-                var stone = await db.StoneMsts.SingleOrDefaultAsync(i => i.Style_Code == stoneMst.Style_Code);
+                var stone = await db.StoneMsts.SingleOrDefaultAsync(i => i.Stone_ID == stoneMst.Stone_ID);
                 if (stone == null)
                 {
                     return new CustomResult(201, "Not Found", null);
@@ -149,11 +149,11 @@ namespace projectsem3_backend.Service
 
                 // Kiểm tra sự tồn tại
                 var stoneQlty = await db.StoneQltyMsts.SingleOrDefaultAsync(s => s.StoneQlty_ID == stoneMst.StoneQlty_ID);
-                var item = await db.ItemMsts.SingleOrDefaultAsync(i => i.Style_Code == stoneMst.Style_Code);
+                
 
                 //gán
                 stone.StoneQltyMst = stoneQlty;
-                stone.ItemMst = item;
+                
 
                 //cap nhat thong tin
                 //stone.Style_Code = stoneMst.Style_Code;
@@ -192,7 +192,7 @@ namespace projectsem3_backend.Service
         {
             try
             {
-                var stone = await db.StoneMsts.SingleOrDefaultAsync(i => i.Style_Code == id);
+                var stone = await db.StoneMsts.SingleOrDefaultAsync(i => i.Stone_ID == id);
                 if (stone == null)
                 {
                     return new CustomResult(201, "Not Found Stone", null);

@@ -35,6 +35,8 @@ namespace projectsem3_backend.Models
          
         public string? GoldType_ID { get; set; }
 
+        public string? StoneQlty_ID { get; set; }
+
  
         public string? Jewellery_ID { get; set; }
 
@@ -114,6 +116,8 @@ namespace projectsem3_backend.Models
         public ICollection<DimMst>? DimMsts { get; set; }        
         public ICollection<OrderDetailMst>? OrderDetailMsts { get; set; }
         public ICollection<CartList>? CartLists { get; set; }
+
+        public StoneQltyMst? StoneQltyMst { get; set; }
     }
 
 }

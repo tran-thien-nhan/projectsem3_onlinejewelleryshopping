@@ -8,8 +8,6 @@ namespace projectsem3_backend.Models
     {
         public string Stone_ID { get; set; }
 
-        public string? Style_Code { get; set; }
-
 
         public string? StoneQlty_ID { get; set;}
 
@@ -39,7 +37,6 @@ namespace projectsem3_backend.Models
         public bool? Visible { get; set; }
 
         // Navigation properties
-        public ItemMst? ItemMst { get; set; }
 
         public StoneQltyMst? StoneQltyMst { get; set; }
     }

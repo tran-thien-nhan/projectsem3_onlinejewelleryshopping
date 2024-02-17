@@ -18,6 +18,7 @@ const AdminUpdateItem = () => {
     prod,
     golds,
     jewelry,
+    stoneQualities,
   } = useData();
   const [item, setItem] = useState({
     style_Code: "",
@@ -38,6 +39,7 @@ const AdminUpdateItem = () => {
     prod_ID: "",
     goldType_ID: "",
     jewellery_ID: "",
+    stoneQlty_ID: "",
     imagePath: "",
   });
   const [file, setFile] = useState(null);
@@ -124,6 +126,14 @@ const AdminUpdateItem = () => {
     }));
   };
 
+  const handleStoneQualityChange = (e) => {
+    const { value } = e.target;
+    setItem((prevItem) => ({
+      ...prevItem,
+      stoneQlty_ID: value,
+    }));
+  };
+
   function processImageName(imagePath) {
     const part = imagePath.split("/").slice(-1)[0].split("_");
     const name = part[part.length - 2] + part[part.length - 1];
@@ -153,6 +163,7 @@ const AdminUpdateItem = () => {
     formData.append("prod_ID", item.prod_ID);
     formData.append("goldType_ID", item.goldType_ID);
     formData.append("jewellery_ID", item.jewellery_ID);
+    formData.append("stoneQlty_ID", item.stoneQlty_ID);
     //formData.append("file", file);
 
     //xử lý nếu trùng tên với 1 trong các sản phẩm đã có
@@ -219,6 +230,7 @@ const AdminUpdateItem = () => {
             prod_ID: "",
             goldType_ID: "",
             jewellery_ID: "",
+            stoneQlty_ID: "",
             imagePath: "",
           });
           //console.log(file);
@@ -238,8 +250,7 @@ const AdminUpdateItem = () => {
             title: "Error",
             text: res.data.message,
           });
-        }
-        else{
+        } else {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -537,6 +548,24 @@ const AdminUpdateItem = () => {
             {jewelry.map((jewel) => (
               <option key={jewel.jewellery_ID} value={jewel.jewellery_ID}>
                 {jewel.jewellery_Type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="Certify" class="form-label">
+            Stone Qualty:
+          </label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={handleStoneQualityChange}
+            value={item && item.stoneQlty_ID}
+          >
+            <option selected>Select Stone Quality</option>
+            {stoneQualities.map((sq) => (
+              <option key={sq.stoneQlty_ID} value={sq.stoneQlty_ID}>
+                {sq.stoneQlty}
               </option>
             ))}
           </select>

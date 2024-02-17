@@ -15,7 +15,8 @@ const AdminCreateItem = () => {
     certifies,
     prod,
     golds,
-    jewelry
+    jewelry,
+    stoneQualities,
   } = useData();
   const [item, setItem] = useState([]);
   const [file, setFile] = useState(null);
@@ -75,6 +76,10 @@ const AdminCreateItem = () => {
     setItem({ ...item, jewellery_ID: e.target.value });
   };
 
+  const handleStoneQualityChange = (e) => {
+    setItem({ ...item, stoneQlty_ID: e.target.value });
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -97,6 +102,7 @@ const AdminCreateItem = () => {
     formData.append("prod_ID", item.prod_ID);
     formData.append("goldType_ID", item.goldType_ID);
     formData.append("jewellery_ID", item.jewellery_ID);
+    formData.append("stoneQlty_ID", item.stoneQlty_ID);
     formData.append("file", file);
 
     axios
@@ -318,7 +324,7 @@ const AdminCreateItem = () => {
             class="form-select"
             aria-label="Default select example"
             onChange={handleBrandChange}
-            value={item.brand_ID || ''}
+            value={item.brand_ID || ""}
           >
             <option selected>Select Brand</option>
             {brands.map((brand) => (
@@ -334,7 +340,7 @@ const AdminCreateItem = () => {
             class="form-select"
             aria-label="Default select example"
             onChange={handleCategoryChange}
-            value={item.cat_ID || ''}
+            value={item.cat_ID || ""}
           >
             <option selected>Select Category</option>
             {categories.map((cat) => (
@@ -350,7 +356,7 @@ const AdminCreateItem = () => {
             class="form-select"
             aria-label="Default select example"
             onChange={handleCertifyChange}
-            value={item.certify_ID || ''}
+            value={item.certify_ID || ""}
           >
             <option selected>Select Certification</option>
             {certifies.map((cer) => (
@@ -366,7 +372,7 @@ const AdminCreateItem = () => {
             class="form-select"
             aria-label="Default select example"
             onChange={handleProdChange}
-            value={item.prod_ID || ''}
+            value={item.prod_ID || ""}
           >
             <option selected>Select Product Type</option>
             {prod.map((pro) => (
@@ -382,7 +388,7 @@ const AdminCreateItem = () => {
             class="form-select"
             aria-label="Default select example"
             onChange={handleGoldTypeChange}
-            value={item.goldType_ID || ''}
+            value={item.goldType_ID || ""}
           >
             <option selected>Select Gold Type</option>
             {golds.map((gold) => (
@@ -398,11 +404,27 @@ const AdminCreateItem = () => {
             class="form-select"
             aria-label="Default select example"
             onChange={handleJewelryTypeChange}
-            value={item.jewellery_ID || ''}
+            value={item.jewellery_ID || ""}
           >
             <option selected>Select Jewelry Type</option>
             {jewelry.map((jewel) => (
               <option value={jewel.jewellery_ID}>{jewel.jewellery_Type}</option>
+            ))}
+          </select>
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="Certify" class="form-label">
+            Stone Quality:
+          </label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={handleStoneQualityChange}
+            value={item.stoneQlty_ID || ""}
+          >
+            <option selected>Select Stone Quality</option>
+            {stoneQualities.map((sq) => (
+              <option value={sq.stoneQlty_ID}>{sq.stoneQlty}</option>
             ))}
           </select>
         </div>

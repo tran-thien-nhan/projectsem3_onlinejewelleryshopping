@@ -108,6 +108,7 @@ namespace projectsem3_backend.Service
                     var product = await db.ProdMsts.SingleOrDefaultAsync(p => p.Prod_ID == newItem.Prod_ID);
                     var goldType = await db.GoldKrtMsts.SingleOrDefaultAsync(g => g.GoldType_ID == newItem.GoldType_ID);
                     var jewellery = await db.JewelTypeMsts.SingleOrDefaultAsync(j => j.Jewellery_ID == newItem.Jewellery_ID);
+                    var stoneQlty = await db.StoneQltyMsts.SingleOrDefaultAsync(s => s.StoneQlty_ID == newItem.StoneQlty_ID);
 
                     //gán
                     newItem.BrandMst = brand;
@@ -116,6 +117,7 @@ namespace projectsem3_backend.Service
                     newItem.ProdMst = product;
                     newItem.GoldKrtMst = goldType;
                     newItem.JewelTypeMst = jewellery;
+                    newItem.StoneQltyMst = stoneQlty;
                     newItem.Visible = false;
 
                     // Tính toán
@@ -216,6 +218,7 @@ namespace projectsem3_backend.Service
                 var product = await db.ProdMsts.SingleOrDefaultAsync(p => p.Prod_ID == item.Prod_ID);
                 var goldType = await db.GoldKrtMsts.SingleOrDefaultAsync(g => g.GoldType_ID == item.GoldType_ID);
                 var jewellery = await db.JewelTypeMsts.SingleOrDefaultAsync(j => j.Jewellery_ID == item.Jewellery_ID);
+                var stoneQlty = await db.StoneQltyMsts.SingleOrDefaultAsync(s => s.StoneQlty_ID == item.StoneQlty_ID);
 
                 //cập nhật thông tin
                 //item.Style_Code = itemMst.Style_Code;
@@ -228,6 +231,7 @@ namespace projectsem3_backend.Service
                 item.Prod_ID = itemMst.Prod_ID;
                 item.GoldType_ID = itemMst.GoldType_ID;
                 item.Jewellery_ID = itemMst.Jewellery_ID;
+                item.StoneQlty_ID = itemMst.StoneQlty_ID;
                 item.Quantity = itemMst.Quantity;
                 item.Gold_Wt = itemMst.Gold_Wt;
                 item.Stone_Wt = itemMst.Stone_Wt;
@@ -241,6 +245,7 @@ namespace projectsem3_backend.Service
                 item.ProdMst = product;
                 item.GoldKrtMst = goldType;
                 item.JewelTypeMst = jewellery;
+                item.StoneQltyMst = stoneQlty;
 
                 // Tính toán
                 item.Gold_Rate = itemMst.Gold_Rate / 100;
