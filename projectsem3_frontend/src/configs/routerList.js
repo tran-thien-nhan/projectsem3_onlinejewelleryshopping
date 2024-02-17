@@ -49,7 +49,9 @@ import AdminEditProd from "../components/Admin/Pages/AdminEditProd";
 import AdminJewelType from './../components/Admin/Pages/AdminJewelType';
 import AdminCreateJewelType from './../components/Admin/Pages/AdminCreateJewelType';
 import AdminEditJewelType from './../components/Admin/Pages/AdminEditJewelType';
-// import AdminDimInfo from "../components/Admin/Pages/AdminDimInfo";
+import AdminDimInfo from "../components/Admin/Pages/AdminDimInfo";
+import AdminCreateDimInfo from './../components/Admin/Pages/AdminCreateDimInfo';
+import AdminEditDimInfo from './../components/Admin/Pages/AdminEditDimInfo';
 import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
 import AdminCreateDimSub from './../components/Admin/Pages/AdminCreateDimSub';
 import AdminEditDimSub from './../components/Admin/Pages/AdminEditDimSub';
@@ -352,18 +354,24 @@ const privateRouter = [
     visible: false,
 },
 
-  // {
-  //   path: "/dimInfo",
-  //   element: <AdminDimInfo/>,
-  //   name: "DimInfo Management",
-  //   visible: true,
-  // },
-  // {
-  //   path: "/createDimInfo",
-  //   element: <AdminCreateDimInfo />,
-  //   name: "Create DimInfo",
-  //   visible: false,
-  // },
+{
+  path: "/dimInfo",
+  element: <AdminDimInfo/>,
+  name: "DimInfo Management",
+  visible: true,
+},
+{
+  path: "/createDimInfo",
+  element: <AdminCreateDimInfo />,
+  name: "Create DimInfo",
+  visible: false,
+},
+{
+  path: "/editDimInfo/:id",
+  element: <AdminEditDimInfo />,
+  name: "Create DimInfo",
+  visible: false,
+},
   
   {
     path: "/jewelType",
