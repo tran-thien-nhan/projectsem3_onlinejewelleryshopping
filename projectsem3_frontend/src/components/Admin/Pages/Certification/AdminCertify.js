@@ -65,7 +65,7 @@ const AdminCertify = () => {
             });
             if (confirm.isConfirmed) {
                 const res = await axios.delete(
-                    `https://localhost:7241/api/ItemMst/${certify_ID}`
+                    `https://localhost:7241/api/CertifyMst/${certify_ID}`
                 );
                 console.log(res.data);
                 if (res.data.status === 200) {
@@ -73,7 +73,7 @@ const AdminCertify = () => {
                     setTimeout(() => {
                         Swal.close(); // Close the SweetAlert2 message
                         window.location.reload();
-                    }, 1000);
+                    }, 1500);
                 } else if (res.data.status === 409) {
                     Swal.fire("Error", res.data.message, "error");
                 } else if (res.data.status === 402) {
@@ -81,7 +81,7 @@ const AdminCertify = () => {
                 }
             }
             else if (!confirm.isConfirmed) {
-                Swal.fire("Cancelled", "Your Item is safe :)", "success");
+                Swal.fire("Cancelled", "Your Certification is safe :)", "success");
             }
             // await window.location.reload();
         } catch (error) {
@@ -161,6 +161,12 @@ const AdminCertify = () => {
                                         >
                                             Edit
                                         </a>
+                                        <button
+                                            className="btn btn-danger mx-2"
+                                            onClick={() => handleDelete(certify.certify_ID)}
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))

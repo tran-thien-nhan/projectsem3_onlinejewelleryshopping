@@ -35,7 +35,7 @@ namespace projectsem3_backend.Service
 
                 //Tính toán
                 stoneMst.Stone_Rate = stoneMst.Stone_Rate / 100;
-                stoneMst.Stone_Gm = stoneMst.Stone_Gm * stoneMst.Stone_Pcs * stoneMst.Stone_Rate; 
+                stoneMst.Stone_Amt = stoneMst.Stone_Gm * stoneMst.Stone_Pcs * stoneMst.Stone_Rate; 
 
                 await db.StoneMsts.AddAsync(stoneMst);
                 var result = await db.SaveChangesAsync();

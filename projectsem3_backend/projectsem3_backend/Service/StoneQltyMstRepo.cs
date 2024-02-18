@@ -118,7 +118,7 @@ namespace projectsem3_backend.Service
                 var stoneQlty = await db.StoneQltyMsts.SingleOrDefaultAsync(i => i.StoneQlty_ID == stoneQltyMst.StoneQlty_ID);
                 if (stoneQlty == null)
                 {
-                    return new CustomResult(201, "Not Found", null);
+                    return new CustomResult(400, "Not Found", null);
                 }
 
                 //cập nhật thời gian cập nhật
