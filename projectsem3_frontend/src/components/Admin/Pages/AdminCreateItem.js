@@ -90,7 +90,7 @@ const AdminCreateItem = () => {
     formData.append("quantity", item.quantity);
     formData.append("prod_Quality", item.prod_Quality);
     formData.append("gold_Wt", item.gold_Wt);
-    formData.append("gold_Rate", item.gold_Rate);
+    formData.append("gold_Rate", item.gold_Rate * 100);
     formData.append("stone_Wt", item.stone_Wt);
     formData.append("wstg", item.wstg);
     formData.append("gold_Making", item.gold_Making);

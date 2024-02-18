@@ -67,8 +67,8 @@ const AdminUpdateItem = () => {
   function handleChangeInput(e) {
     const { name, value } = e.target;
     if (name === "gold_Rate") {
-      if (value < 1) {
-        value *= 100;
+      if (value < 0) {
+        return;
       }
     }
     setItem((prevItem) => ({
@@ -362,7 +362,7 @@ const AdminUpdateItem = () => {
         </div>
         <div class="mb-3 mt-3">
           <label for="Gold Weight" class="form-label">
-            Gold Rate:
+            Gold Rate: (%)
           </label>
           <input
             type="number"
@@ -370,6 +370,7 @@ const AdminUpdateItem = () => {
             id="gold_Rate"
             placeholder="Enter gold rate"
             name="gold_Rate"
+            //value={item && item.gold_Rate * 100 >= 100 ? item.gold_Rate / 100 : item.gold_Rate}
             value={item && item.gold_Rate}
             onChange={handleChangeInput}
           />

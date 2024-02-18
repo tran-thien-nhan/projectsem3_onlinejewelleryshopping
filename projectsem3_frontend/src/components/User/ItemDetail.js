@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 function ItemDetail() {
   const navigate = useNavigate();
   const { styleCode } = useParams();
-  const { items, loading, error } = useData();
+  const { items, brands, categories, certifies, prod, golds, jewelry, loading, error } = useData();
   const [quantity, setQuantity] = useState(1);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
@@ -23,7 +23,18 @@ function ItemDetail() {
     return <p className="alert alert-danger">Có lỗi xảy ra: {error.message}</p>;
   }
 
+  //join bảng brand
+  //const selectedItem = items.find((item) => item.style_Code === styleCode);
   const selectedItem = items.find((item) => item.style_Code === styleCode);
+  //hiển thị thông tin sản phẩm
+  const brand = brands.find(
+    (brand) => brand.brand_ID === selectedItem.brand_ID
+  );
+  const cat = categories.find((cat) => cat.cat_ID === selectedItem.cat_ID);
+  const pro = prod.find((pro) => pro.prod_ID === selectedItem.prod_ID);
+  const cer = certifies.find((cer) => cer.certify_ID === selectedItem.certify_ID);
+  const gold = golds.find((gold) => gold.gold_ID === selectedItem.gold_ID);
+  const jew = jewelry.find((j) => j.jewellry_ID === selectedItem.jewellry_ID);
 
   if (!selectedItem) {
     return <p>Không tìm thấy item.</p>;
@@ -47,7 +58,11 @@ function ItemDetail() {
       );
 
       if (response.status === 200) {
-        Swal.fire(t("Success"), t("Item added to cart successfully"), "success");
+        Swal.fire(
+          t("Success"),
+          t("Item added to cart successfully"),
+          "success"
+        );
 
         setTimeout(() => {
           Swal.close();
@@ -141,7 +156,11 @@ function ItemDetail() {
       );
 
       if (response.status === 200) {
-        Swal.fire(t("Success"), t("Item added to cart successfully"), "success");
+        Swal.fire(
+          t("Success"),
+          t("Item added to cart successfully"),
+          "success"
+        );
 
         setTimeout(() => {
           Swal.close();
@@ -209,9 +228,18 @@ function ItemDetail() {
       </div>
       <div className="col-md-6">
         <h2>{selectedItem.product_Name}</h2>
-        <p className="mb-2">{t("Pairs")}: {selectedItem.pairs}</p>
-        <p className="mb-2">{t("Quality")}: {t(selectedItem.prod_Quality)}</p>
-        <p className="mb-2">{t("Price")}: ${selectedItem.mrp}</p>
+        <p className="mb-2">
+          {t("Pairs")}: {selectedItem.pairs}
+        </p>
+        <p className="mb-2">
+          {t("Quality")}: {t(selectedItem.prod_Quality)}
+        </p>
+        <p className="mb-2">
+          {t("Price")}: ${selectedItem.mrp}
+        </p>
+        <p className="mb-2">
+          {t("Brand")}: {brand.brand_Type}
+        </p>
 
         <form onSubmit={handleAddToCart}>
           <input type="hidden" name="id" value={selectedItem.id} />
@@ -258,8 +286,7 @@ function ItemDetail() {
                     if (quantity >= 10) {
                       setQuantity(10);
                       Swal.fire("Error", "Maximum quantity is 10", "error");
-                    }
-                    else{
+                    } else {
                       setQuantity(quantity + 1);
                     }
                   }}
