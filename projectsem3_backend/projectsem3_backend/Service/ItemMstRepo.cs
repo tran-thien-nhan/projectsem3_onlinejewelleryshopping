@@ -24,7 +24,15 @@ namespace projectsem3_backend.Service
         {
             try
             {
-                var result = await db.ItemMsts.ToListAsync();
+                var result = await db.ItemMsts.
+                                Include(i => i.BrandMst).   
+                                Include(i => i.CatMst).
+                                Include(i => i.CertifyMst).
+                                Include(i => i.ProdMst).
+                                Include(i => i.GoldKrtMst).
+                                Include(i => i.JewelTypeMst).
+                                Include(i => i.StoneQltyMst).
+                                ToListAsync();
                 if (result == null)
                 {
                     return new CustomResult(401, "Something went wrong", null);

@@ -9,7 +9,18 @@ import { useTranslation } from "react-i18next";
 function ItemDetail() {
   const navigate = useNavigate();
   const { styleCode } = useParams();
-  const { items, brands, categories, certifies, prod, golds, jewelry, loading, error } = useData();
+  const {
+    items,
+    brands,
+    categories,
+    certifies,
+    prod,
+    golds,
+    jewelry,
+    stoneQualities,
+    loading,
+    error,
+  } = useData();
   const [quantity, setQuantity] = useState(1);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
@@ -23,18 +34,11 @@ function ItemDetail() {
     return <p className="alert alert-danger">Có lỗi xảy ra: {error.message}</p>;
   }
 
-  //join bảng brand
-  //const selectedItem = items.find((item) => item.style_Code === styleCode);
   const selectedItem = items.find((item) => item.style_Code === styleCode);
-  //hiển thị thông tin sản phẩm
-  const brand = brands.find(
-    (brand) => brand.brand_ID === selectedItem.brand_ID
-  );
-  const cat = categories.find((cat) => cat.cat_ID === selectedItem.cat_ID);
-  const pro = prod.find((pro) => pro.prod_ID === selectedItem.prod_ID);
-  const cer = certifies.find((cer) => cer.certify_ID === selectedItem.certify_ID);
-  const gold = golds.find((gold) => gold.gold_ID === selectedItem.gold_ID);
-  const jew = jewelry.find((j) => j.jewellry_ID === selectedItem.jewellry_ID);
+  // sp liên quan
+  const relatedItems = items
+    .filter((item) => item.style_Code !== styleCode)
+    .slice(0, 4);
 
   if (!selectedItem) {
     return <p>Không tìm thấy item.</p>;
@@ -226,20 +230,8 @@ function ItemDetail() {
           onClick={handleExpandImage}
         />
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 my-5">
         <h2>{selectedItem.product_Name}</h2>
-        <p className="mb-2">
-          {t("Pairs")}: {selectedItem.pairs}
-        </p>
-        <p className="mb-2">
-          {t("Quality")}: {t(selectedItem.prod_Quality)}
-        </p>
-        <p className="mb-2">
-          {t("Price")}: ${selectedItem.mrp}
-        </p>
-        <p className="mb-2">
-          {t("Brand")}: {brand.brand_Type}
-        </p>
 
         <form onSubmit={handleAddToCart}>
           <input type="hidden" name="id" value={selectedItem.id} />
@@ -259,6 +251,20 @@ function ItemDetail() {
             value={selectedItem.product_Name}
           />
           <input type="hidden" name="mrp" value={selectedItem.mrp} />
+          <h4 style={{ marginTop: "10px" }}>
+            {t("Price")}:{" "}
+            <span style={{ color: "red", fontWeight: "bold" }}>
+              ${selectedItem.mrp}
+            </span>
+          </h4>
+
+          <div>
+            {selectedItem.quantity > 10 && selectedItem.visible === true ? (
+              <h5 style={{ color: "green",fontWeight:"bold", fontStyle:"italic" }}>({t("In Stock")})</h5>
+            ) : (
+              <h5 style={{ color: "red",fontWeight:"bold", fontStyle:"italic" }}>({t("Out of Stock")})</h5>
+            )}
+          </div>
 
           <div className="d-flex flex-column">
             <div className="mb-2">
@@ -310,6 +316,143 @@ function ItemDetail() {
             </button>
           </div>
         </form>
+      </div>
+
+      <div
+        className="accordion mt-4"
+        style={{ cursor: "pointer" }}
+        data-bs-toggle="collapse"
+        data-bs-target="#demo1"
+      >
+        <div className="card">
+          <div className="card-header">
+            <h5 className="card-title">
+              <a
+                href="#demo1"
+                className="card-link"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="demo"
+                style={{ textDecoration: "none" }}
+              >
+                {t("Introduction")}:
+              </a>
+            </h5>
+          </div>
+          <div id="demo1" className="collapse">
+            <div className="card-body">
+              <p>
+                {t("The product")} {selectedItem.product_Name}{" "} {t("with one part of")}{" "}
+                {t("making of")} {t("stones of")}{" "}
+                {selectedItem.stoneQltyMst.stoneQlty}, {t("the type of stone")}{" "}
+                {t("found in the year")} {selectedItem.stoneQltyMst.stone_Year}.{" "}
+                {t("The product")} {t("has")} {selectedItem.pairs} {t("Pairs")}{" "}
+                {t("and is certified by")}{" "}
+                {selectedItem.certifyMst.certify_Type}. {t("The product")}{" "}
+                {t("belongs to the")} {t("type of")}{" "}
+                {t(selectedItem.jewelTypeMst.jewellery_Type)} {t("and")}{" "}
+                {t("has")} {t("quality")} {t(selectedItem.prod_Quality)}.{" "}
+                {t("Additionally")}, {t("the product")} {t("has")}{" "}
+                {t("the brand")} {selectedItem.brandMst.brand_Type} {t("and")}{" "}
+                {""}
+                {t("belongs to the")} {t("category")}{" "}
+                {t(selectedItem.catMst.cat_Name)}.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="accordion"
+        style={{ cursor: "pointer" }}
+        data-bs-toggle="collapse"
+        data-bs-target="#demo2"
+      >
+        <div className="card">
+          <div className="card-header">
+            <h5 className="card-title">
+              <a
+                href="#demo2"
+                className="card-link"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="demo"
+                style={{ textDecoration: "none" }}
+              >
+                {t("Information")}:
+              </a>
+            </h5>
+          </div>
+          <div id="demo2" className="collapse">
+            <div className="card-body">
+              <table className="table">
+                <tbody>
+                  <tr>
+                    <td>{t("Pairs")}</td>
+                    <td>{selectedItem.pairs}</td>
+                  </tr>
+                  <tr>
+                    <td>{t("Quality")}</td>
+                    <td>{t(selectedItem.prod_Quality)}</td>
+                  </tr>
+                  <tr>
+                    <td>{t("Product Type")}</td>
+                    <td>{t(selectedItem.prodMst.prod_Type)}</td>
+                  </tr>
+                  <tr>
+                    <td>{t("Brand")}</td>
+                    <td>{selectedItem.brandMst.brand_Type}</td>
+                  </tr>
+                  <tr>
+                    <td>{t("Certificate")}</td>
+                    <td>{selectedItem.certifyMst.certify_Type}</td>
+                  </tr>
+                  <tr>
+                    <td>{t("Jewelry Type")}</td>
+                    <td>{t(selectedItem.jewelTypeMst.jewellery_Type)}</td>
+                  </tr>
+                  <tr>
+                    <td>{t("Stone Quality")}</td>
+                    <td>{t(selectedItem.stoneQltyMst.stoneQlty)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 className="mt-4">{t("Related Products")}:</h3>
+      <div className="row">
+        {relatedItems.map((item) => (
+          <div className="col-md-3" key={item.id}>
+            <div className="card custom-card" style={{ height: "100%" }}>
+              <img
+                src={item.imagePath}
+                alt={item.product_Name}
+                className="card-img-top img-fluid"
+                style={{ objectFit: "cover", height: "300px" }}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{item.product_Name}</h5>
+                <p className="card-text">
+                  {t("Price")}: ${item.mrp}
+                </p>
+                <a
+                  className="btn btn-secondary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open(`/item/${item.style_Code}`, "_blank");
+                  }}
+                  target="_blank"
+                >
+                  {t("View Details")}
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
