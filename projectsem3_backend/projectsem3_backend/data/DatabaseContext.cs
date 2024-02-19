@@ -59,13 +59,13 @@ namespace projectsem3_backend.data
             //2
             modelBuilder.Entity<Inquiry>(i =>
             {
-                i.HasKey(i => i.ID);
+                i.HasKey(i => i.Inquiry_ID);
                 i.HasOne(i => i.UserRegMst).WithMany(i => i.Inquiries).HasForeignKey(i => i.UserID);
                 i.HasData(new Inquiry[]
                 {
                     new Inquiry
                     {
-                        ID = "1",
+                        Inquiry_ID = "1",
                         UserID = "1",
                         City = "HCM",
                         Comment = "Test 1",
@@ -77,7 +77,7 @@ namespace projectsem3_backend.data
                     },
                     new Inquiry
                     {
-                        ID = "2",
+                        Inquiry_ID = "2",
                         UserID = "2",
                         City = "HCM",
                         Comment = "Test 2",
@@ -89,7 +89,7 @@ namespace projectsem3_backend.data
                     },
                     new Inquiry
                     {
-                        ID = "3",
+                        Inquiry_ID = "3",
                         UserID = "3",
                         City = "HCM",
                         Comment = "Test 3",
