@@ -55,6 +55,8 @@ import AdminEditDimInfo from './../components/Admin/Pages/AdminEditDimInfo';
 import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
 import AdminCreateDimSub from './../components/Admin/Pages/AdminCreateDimSub';
 import AdminEditDimSub from './../components/Admin/Pages/AdminEditDimSub';
+import Contact from "../components/User/Contact";
+import AdminInquiryList from "../components/Admin/Pages/AdminInquiryList";
 
 import EmailForgotPass from "../components/User/Login/EmailForgotPass";
 import ResetPassword from "../components/User/Login/ResetPassword";
@@ -154,6 +156,10 @@ const publicRouter = [
   {
     path: "/momoprocessing",
     element: <MomoProcessing />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
   },
 ];
 
@@ -443,6 +449,12 @@ const privateRouter = [
     element: <AdminEditJewelType />,
     name: "edit JewelType",
     visible: false,
+  },
+  {
+    path: "/inquiryList", 
+    element: <AdminInquiryList />,
+    name: "inquiry Management",
+    visible: true,
   }
 ];
 

@@ -31,7 +31,7 @@ export const DataProvider = ({ children }) => {
   const [prod, setProd] = useState([]);
   const [jewelry, setJewelry] = useState([]);
   const [dimInfo, setDimInfo] = useState([]);
-
+  const [inquiry, setInquiry] = useState([]);
 
 
   //Minh's state
@@ -416,6 +416,24 @@ export const DataProvider = ({ children }) => {
 
     fetchData();
   }, []);
+     //inquiry
+     useEffect(() => {
+      const fetchData = async () => {
+        try {
+          setLoading(true);
+          const response = await axios.get(`https://localhost:7241/api/Inquiry`);
+          // console.log(response.data.data);
+          setInquiry(response.data.data);
+        } catch (error) {
+          console.error("list error:", error);
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchData();
+    }, []);
   
 
   //Minh's Fetch Data
@@ -450,7 +468,7 @@ export const DataProvider = ({ children }) => {
     dimQltySub,
     dimInfo,
     jewelry,
-
+    inquiry,
 
     //Minh's Value
 
