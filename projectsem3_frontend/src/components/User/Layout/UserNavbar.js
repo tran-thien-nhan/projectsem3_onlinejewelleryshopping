@@ -15,7 +15,7 @@ const UserNavbar = () => {
 
   useEffect(() => {
     // Khi component được tạo, đặt ngôn ngữ theo giá trị đã lưu
-    const storedLanguage = localStorage.getItem('language');
+    const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {
       setSelectedLanguage(storedLanguage);
       i18n.changeLanguage(storedLanguage);
@@ -28,7 +28,7 @@ const UserNavbar = () => {
   const changeLanguage = (lng) => {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
-    localStorage.setItem('language', lng);
+    localStorage.setItem("language", lng);
   };
 
   const handleLogout = async () => {
@@ -76,7 +76,10 @@ const UserNavbar = () => {
                 </a>
               </li>
               <li className="nav-item dropdown">
-                <button
+                <a className="nav-link" href="/">
+                  {t("Shop")}
+                </a>
+                {/* <button
                   type="button"
                   className="nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
@@ -84,10 +87,13 @@ const UserNavbar = () => {
                 >
                   {t("Shop")}
                 </button>
-                <NavbarDropdownItem />
+                <NavbarDropdownItem /> */}
               </li>
               <li className="nav-item dropdown">
-                <button
+                <a className="nav-link" href="/">
+                  {t("Services")}
+                </a>
+                {/* <button
                   type="button"
                   className="nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
@@ -95,7 +101,7 @@ const UserNavbar = () => {
                 >
                   {t("Services")}
                 </button>
-                <NavbarDropdownItem />
+                <NavbarDropdownItem /> */}
               </li>
             </ul>
 

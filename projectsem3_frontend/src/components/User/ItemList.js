@@ -4,11 +4,13 @@ import { useData } from "../../Context/DataContext";
 import "../../asset/css/userstyle.css";
 import HeroSection from "./Layout/HeroSection";
 import { TailSpin } from "react-loader-spinner";
+import HeroSection1 from "./Layout/HeroSection1";
 
 function ItemList() {
   const { items, loading, error } = useData();
+  const limititems = items.slice(0, 4);
   return (
-    <div className="container-fluid my-2">
+    <div className="container my-2">
       {loading ? (
         <div
           style={{
@@ -27,9 +29,10 @@ function ItemList() {
           ) : (
             <>
               <HeroSection />
+              <HeroSection1 />
               <div className="row">
-                {Array.isArray(items) && items.length > 0 ? (
-                  items
+                {Array.isArray(limititems) && limititems.length > 0 ? (
+                  limititems
                     .filter((item) => item.visible && item.quantity > 10)
                     .map((item) => (
                       <div key={item.prod_ID} className="col-md-3 mb-3">
@@ -50,7 +53,9 @@ function ItemList() {
                               width={300}
                             />
                             <div className="card-body">
-                              <h5 className="card-title">{item.product_Name}</h5>
+                              <h5 className="card-title">
+                                {item.product_Name}
+                              </h5>
                             </div>
                           </div>
                         </Link>
@@ -64,6 +69,14 @@ function ItemList() {
           )}
         </>
       )}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          src="https://cdn.pnj.io/images/promo/201/xuan-thantai-v2-1200X450-CTA.png"
+          alt="Hình ảnh 4"
+          className="img-fluid"
+          style={{ width: "100%", height: "auto" }}
+        />
+      </div>
     </div>
   );
 }

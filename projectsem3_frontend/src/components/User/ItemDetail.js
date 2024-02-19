@@ -208,7 +208,7 @@ function ItemDetail() {
   };
 
   return (
-    <div className="container row my-4 mx-2">
+    <div className="container-fluid row my-4 mx-2">
       <div className="col-md-6">
         <div
           className={`expanded-image-overlay ${
@@ -326,7 +326,7 @@ function ItemDetail() {
       >
         <div className="card">
           <div className="card-header">
-            <h5 className="card-title">
+            <h5 className="card-title text-center">
               <a
                 href="#demo1"
                 className="card-link"
@@ -335,18 +335,26 @@ function ItemDetail() {
                 aria-controls="demo"
                 style={{ textDecoration: "none" }}
               >
-                {t("Introduction")}:
+                {t("Introduction")}
               </a>
             </h5>
           </div>
           <div id="demo1" className="collapse">
             <div className="card-body">
               <p>
-                {t("The product")} {selectedItem.product_Name}{" "} {t("with one part of")}{" "}
-                {t("making of")} {t("stones of")}{" "}
-                {selectedItem.stoneQltyMst.stoneQlty}, {t("the type of stone")}{" "}
-                {t("found in the year")} {selectedItem.stoneQltyMst.stone_Year}.{" "}
-                {t("The product")} {t("has")} {selectedItem.pairs} {t("Pairs")}{" "}
+                {t("The product")} {selectedItem.product_Name}{" "} 
+                {
+                  selectedItem.stoneQltyMst.stoneQlty !== "None" && (
+                    <>
+                      {t("with one part of")}{" "}
+                      {t("making of")} {t("stones of")}{" "}
+                      {selectedItem.stoneQltyMst.stoneQlty}, {t("the type of stone")}{" "}
+                      {t("found in the year")} {selectedItem.stoneQltyMst.stone_Year}.{" "}
+                    </>
+                  )
+                }
+                
+                ,{t("The product")} {t("has")} {selectedItem.pairs} {t("Pairs")}{" "}
                 {t("and is certified by")}{" "}
                 {selectedItem.certifyMst.certify_Type}. {t("The product")}{" "}
                 {t("belongs to the")} {t("type of")}{" "}
@@ -371,7 +379,7 @@ function ItemDetail() {
       >
         <div className="card">
           <div className="card-header">
-            <h5 className="card-title">
+            <h5 className="card-title text-center">
               <a
                 href="#demo2"
                 className="card-link"
@@ -380,7 +388,7 @@ function ItemDetail() {
                 aria-controls="demo"
                 style={{ textDecoration: "none" }}
               >
-                {t("Information")}:
+                {t("Information")}
               </a>
             </h5>
           </div>
@@ -412,10 +420,14 @@ function ItemDetail() {
                     <td>{t("Jewelry Type")}</td>
                     <td>{t(selectedItem.jewelTypeMst.jewellery_Type)}</td>
                   </tr>
-                  <tr>
-                    <td>{t("Stone Quality")}</td>
-                    <td>{t(selectedItem.stoneQltyMst.stoneQlty)}</td>
-                  </tr>
+                  {
+                    selectedItem.stoneQltyMst.stoneQlty !== "None" && (
+                      <tr>
+                        <td>{t("Stone Quality")}</td>
+                        <td>{t(selectedItem.stoneQltyMst.stoneQlty)}</td>
+                      </tr>
+                    )
+                  }
                 </tbody>
               </table>
             </div>
