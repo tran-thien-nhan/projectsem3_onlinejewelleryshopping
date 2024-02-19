@@ -76,7 +76,7 @@ const UserNavbar = () => {
                 </a>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link" href="/">
+                <a className="nav-link" href="/shop">
                   {t("Shop")}
                 </a>
                 {/* <button

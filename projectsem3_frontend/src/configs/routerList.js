@@ -23,10 +23,10 @@ import VerifyEmailSuccess from "../Pages/VerifyEmailSuccess";
 
 //Phi's routes
 //Read
-import AdminBrand from './../components/Admin/Pages/Brand/AdminBrand';
-import AdminGold from './../components/Admin/Pages/Gold/AdminGold';
-import AdminCat from './../components/Admin/Pages/Categories/AdminCat';
-import AdminStone from './../components/Admin/Pages/Stone/AdminStone';
+import AdminBrand from "./../components/Admin/Pages/Brand/AdminBrand";
+import AdminGold from "./../components/Admin/Pages/Gold/AdminGold";
+import AdminCat from "./../components/Admin/Pages/Categories/AdminCat";
+import AdminStone from "./../components/Admin/Pages/Stone/AdminStone";
 import UserUpdate from "../components/User/UserUpdate";
 import AdminCertify from "../components/Admin/Pages/Certification/AdminCertify";
 import AdminStoneQuality from "../components/Admin/Pages/StoneQuality/AdminStoneQuality";
@@ -39,22 +39,22 @@ import AdminCreateCertify from "../components/Admin/Pages/Certification/AdminCre
 import AdminCreateStoneQuality from "../components/Admin/Pages/StoneQuality/AdminCreateStoneQuality";
 
 //Hung's routes
-import AdminDimQlty from './../components/Admin/Pages/AdminDimQlty';
+import AdminDimQlty from "./../components/Admin/Pages/AdminDimQlty";
 import AdminEditDimQlty from "../components/Admin/Pages/AdminEditDimQlty";
-import AdminCreateDimQlty from './../components/Admin/Pages/AdminCreateDimQlty';
-import AdminDim from './../components/Admin/Pages/AdminDim';
-import AdminProd from './../components/Admin/Pages/AdminProd';
-import AdminCreateProd from './../components/Admin/Pages/AdminCreateProd';
+import AdminCreateDimQlty from "./../components/Admin/Pages/AdminCreateDimQlty";
+import AdminDim from "./../components/Admin/Pages/AdminDim";
+import AdminProd from "./../components/Admin/Pages/AdminProd";
+import AdminCreateProd from "./../components/Admin/Pages/AdminCreateProd";
 import AdminEditProd from "../components/Admin/Pages/AdminEditProd";
-import AdminJewelType from './../components/Admin/Pages/AdminJewelType';
-import AdminCreateJewelType from './../components/Admin/Pages/AdminCreateJewelType';
-import AdminEditJewelType from './../components/Admin/Pages/AdminEditJewelType';
+import AdminJewelType from "./../components/Admin/Pages/AdminJewelType";
+import AdminCreateJewelType from "./../components/Admin/Pages/AdminCreateJewelType";
+import AdminEditJewelType from "./../components/Admin/Pages/AdminEditJewelType";
 import AdminDimInfo from "../components/Admin/Pages/AdminDimInfo";
-import AdminCreateDimInfo from './../components/Admin/Pages/AdminCreateDimInfo';
-import AdminEditDimInfo from './../components/Admin/Pages/AdminEditDimInfo';
-import AdminDimSub from './../components/Admin/Pages/AdminDimSub';
-import AdminCreateDimSub from './../components/Admin/Pages/AdminCreateDimSub';
-import AdminEditDimSub from './../components/Admin/Pages/AdminEditDimSub';
+import AdminCreateDimInfo from "./../components/Admin/Pages/AdminCreateDimInfo";
+import AdminEditDimInfo from "./../components/Admin/Pages/AdminEditDimInfo";
+import AdminDimSub from "./../components/Admin/Pages/AdminDimSub";
+import AdminCreateDimSub from "./../components/Admin/Pages/AdminCreateDimSub";
+import AdminEditDimSub from "./../components/Admin/Pages/AdminEditDimSub";
 import Contact from "../components/User/Contact";
 import AdminInquiryList from "../components/Admin/Pages/AdminInquiryList";
 
@@ -71,18 +71,9 @@ import AdminEditBrand from "../components/Admin/Pages/Brand/AdminEditBrand";
 import AdminEditStoneQuality from "../components/Admin/Pages/StoneQuality/AdminEditStoneQuality";
 import AdminCreateStone from "../components/Admin/Pages/Stone/AdminCreateStone";
 import AdminEditStone from "../components/Admin/Pages/Stone/AdminEditStone";
-
-
-
-
-
-
+import ItemShop from "../components/User/ItemShop";
 
 //Minh's routes
-
-
-
-
 
 const publicRouter = [
   {
@@ -92,6 +83,10 @@ const publicRouter = [
   {
     path: "/item/:styleCode",
     element: <ItemDetail />,
+  },
+  {
+    path: "/shop",
+    element: <ItemShop />,
   },
   {
     path: "/login",
@@ -369,7 +364,7 @@ const privateRouter = [
   //   visible: false,
   // },
   // {
-  //   path: "/editDim/:id", 
+  //   path: "/editDim/:id",
   //   element: <AdminEditDim />,
   //   name: "editDim",
   //   visible: false,
@@ -451,11 +446,11 @@ const privateRouter = [
     visible: false,
   },
   {
-    path: "/inquiryList", 
+    path: "/inquiryList",
     element: <AdminInquiryList />,
     name: "inquiry Management",
     visible: true,
-  }
+  },
 ];
 
 export { publicRouter, privateRouter };

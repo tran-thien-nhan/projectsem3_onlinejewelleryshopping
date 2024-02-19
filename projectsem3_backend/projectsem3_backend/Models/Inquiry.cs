@@ -6,7 +6,7 @@ namespace projectsem3_backend.Models
     public class Inquiry
     {
         [Key]
-        public string Inquiry_ID { get; set; }
+        public string ID { get; set; }
 
         public string? UserID { get; set; }
 

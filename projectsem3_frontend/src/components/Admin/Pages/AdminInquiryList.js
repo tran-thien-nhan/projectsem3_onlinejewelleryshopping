@@ -71,7 +71,7 @@ const AdminInquiry = () => {
                             </tr>
                         ) : filteredInquiries.length > 0 ? (
                             filteredInquiries.map((inquiryItem) => (
-                                <tr key={inquiryItem.inquiry_ID}>
+                                <tr key={inquiryItem.ID}>
                                     <td>{inquiryItem.name}</td>
                                     <td>{inquiryItem.city}</td>
                                     <td>{inquiryItem.contact}</td>
