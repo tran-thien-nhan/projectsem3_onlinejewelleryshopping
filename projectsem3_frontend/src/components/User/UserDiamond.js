@@ -76,7 +76,7 @@ const UserDiamond = () => {
                     color: "white",
                   }}
                 >
-                  {t("Product")} {t(dim.dimType)} {t("with")} {t("shape")}{" "}
+                  {t("Product")} {t("Diamond")} {t(dim.dimType)} {t("with")} {t("shape")}{" "}
                   {t(dim.dimSubType)} {t("and")} {dim.dimCrt} carats{" "}
                   {t("was discovered in")} {dim.dimYear}
                 </h5>
@@ -104,10 +104,9 @@ const UserDiamond = () => {
       <hr />
 
       <h5 style={{ textAlign: "center", marginTop: "1rem" }}>
-        Các Sản Phẩm Có Chất Lượng Kim Cương Liên Quan
+        {t("Related Diamond Quality Products")}
       </h5>
 
-      {/* hiển thị sản phẩm từ itemListWithDim */}
       <div
         className="row my-2"
         style={{ justifyContent: "center", alignItems: "center" }}
@@ -153,6 +152,18 @@ const UserDiamond = () => {
             </Link>
           </div>
         ))}
+      </div>
+      <div
+        className="container my-4 d-flex justify-content-center align-items-center"
+        style={{
+          margin: "auto",
+        }}
+      >
+        <img
+          src="https://trangkimluxury.vn/upload_images/images/2023/03/16/giac-cat-kim-cuong-1.jpg"
+          alt="banner"
+          style={{ width: "50%", height: "auto" }}
+        />
       </div>
     </div>
   );

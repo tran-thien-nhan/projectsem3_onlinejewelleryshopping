@@ -76,6 +76,7 @@ import AdminList from "../components/Admin/Pages/AdminList";
 import AdminEditInfo from "../components/Admin/Pages/AdminEditInfo";
 import AdminCreateInfo from "../components/Admin/Pages/AdminCreateInfo";
 import UserDiamond from "../components/User/UserDiamond";
+import UserAbout from "../components/User/UserAbout";
 
 //Minh's routes
 
@@ -163,6 +164,10 @@ const publicRouter = [
   {
     path: "/udiamond",
     element: <UserDiamond />,
+  },
+  {
+    path: "/aboutus",
+    element: <UserAbout />,
   }
 ];
 
