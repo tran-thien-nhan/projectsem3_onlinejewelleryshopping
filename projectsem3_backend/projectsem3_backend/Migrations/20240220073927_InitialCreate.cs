@@ -370,8 +370,9 @@ namespace projectsem3_backend.Migrations
                 name: "DimMsts",
                 columns: table => new
                 {
-                    Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DimQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DimMst_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Style_Code = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DimQlty_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DimSubType_ID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DimID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Dim_Crt = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
@@ -386,7 +387,7 @@ namespace projectsem3_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DimMsts", x => new { x.Style_Code, x.DimQlty_ID });
+                    table.PrimaryKey("PK_DimMsts", x => x.DimMst_ID);
                     table.ForeignKey(
                         name: "FK_DimMsts_DimInfoMsts_DimID",
                         column: x => x.DimID,
@@ -396,8 +397,7 @@ namespace projectsem3_backend.Migrations
                         name: "FK_DimMsts_DimQltyMsts_DimQlty_ID",
                         column: x => x.DimQlty_ID,
                         principalTable: "DimQltyMsts",
-                        principalColumn: "DimQlty_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DimQlty_ID");
                     table.ForeignKey(
                         name: "FK_DimMsts_DimQltySubMsts_DimSubType_ID",
                         column: x => x.DimSubType_ID,
@@ -407,8 +407,7 @@ namespace projectsem3_backend.Migrations
                         name: "FK_DimMsts_ItemMsts_Style_Code",
                         column: x => x.Style_Code,
                         principalTable: "ItemMsts",
-                        principalColumn: "Style_Code",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Style_Code");
                 });
 
             migrationBuilder.CreateTable(
@@ -474,8 +473,8 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "UserName", "AdminEmail", "CreatedAt", "Password", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { "admin1", null, new DateTime(2024, 2, 17, 22, 49, 41, 153, DateTimeKind.Local).AddTicks(2212), "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", new DateTime(2024, 2, 17, 22, 49, 41, 153, DateTimeKind.Local).AddTicks(2227) },
-                    { "admin2", null, new DateTime(2024, 2, 17, 22, 49, 41, 153, DateTimeKind.Local).AddTicks(2230), "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", new DateTime(2024, 2, 17, 22, 49, 41, 153, DateTimeKind.Local).AddTicks(2231) }
+                    { "admin1", null, new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1514), "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1528) },
+                    { "admin2", null, new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1530), "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1531) }
                 });
 
             migrationBuilder.InsertData(
@@ -483,9 +482,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Brand_ID", "Brand_Type", "Brand_Year", "CreatedAt", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "Asmi", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(3990), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(4000), true },
-                    { "2", "D’damas", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(4006), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(4007), true },
-                    { "3", "ABC Jewelers", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(4009), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(4010), true }
+                    { "1", "Asmi", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6939), new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6944), true },
+                    { "2", "D’damas", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6947), new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6948), true },
+                    { "3", "ABC Jewelers", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6951), new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6952), true }
                 });
 
             migrationBuilder.InsertData(
@@ -493,9 +492,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Cat_ID", "Cat_Name", "CreatedAt", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "Silver Jewelry", new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(5037), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(5039), true },
-                    { "2", "Gold Jewelry", new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(5042), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(5043), true },
-                    { "3", "Diamond Jewelry", new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(5044), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(5045), true }
+                    { "1", "Silver Jewelry", new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7685), new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7688), true },
+                    { "2", "Gold Jewelry", new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7692), new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7693), true },
+                    { "3", "Diamond Jewelry", new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7694), new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7695), true }
                 });
 
             migrationBuilder.InsertData(
@@ -503,9 +502,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Certify_ID", "Certify_Type", "CreatedAt", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "BIS Hallmark", new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(9676), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(9680), true },
-                    { "2", "IGI", new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(9682), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(9683), true },
-                    { "3", "GIA", new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(9684), new DateTime(2024, 2, 17, 22, 49, 41, 183, DateTimeKind.Local).AddTicks(9685), true }
+                    { "1", "BIS Hallmark", new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2881), new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2885), true },
+                    { "2", "IGI", new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2887), new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2888), true },
+                    { "3", "GIA", new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2889), new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2890), true }
                 });
 
             migrationBuilder.InsertData(
@@ -513,9 +512,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "DimID", "CreatedAt", "DimCrt", "DimImg", "DimPrice", "DimSubType", "DimType", "DimYear", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 182, DateTimeKind.Local).AddTicks(5609), "1", "", "1000", "Premium", "Diamond", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 182, DateTimeKind.Local).AddTicks(5615), true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 182, DateTimeKind.Local).AddTicks(5620), "2", "", "2000", "Standard", "Diamond", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 182, DateTimeKind.Local).AddTicks(5621), true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 182, DateTimeKind.Local).AddTicks(5624), "3", "", "1500", "Economy", "Diamond", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 182, DateTimeKind.Local).AddTicks(5625), true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9913), "1", "", "1000", "Premium", "Diamond", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9918), true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9923), "2", "", "2000", "Standard", "Diamond", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9923), true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9927), "3", "", "1500", "Economy", "Diamond", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9927), true }
                 });
 
             migrationBuilder.InsertData(
@@ -523,11 +522,11 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "DimQlty_ID", "CreatedAt", "DimQlty", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(200), "AD", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(206), true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(209), "VS", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(210), true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(213), "SI", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(214), true },
-                    { "4", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(216), "FD", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(217), true },
-                    { "5", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(219), "WS", new DateTime(2024, 2, 17, 22, 49, 41, 179, DateTimeKind.Local).AddTicks(220), true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2483), "AD", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2487), true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2489), "VS", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2490), true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2491), "SI", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2492), true },
+                    { "4", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2493), "FD", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2494), true },
+                    { "5", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2495), "WS", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2496), true }
                 });
 
             migrationBuilder.InsertData(
@@ -535,9 +534,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "DimSubType_ID", "CreatedAt", "DimQlty", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 180, DateTimeKind.Local).AddTicks(530), "Premium", new DateTime(2024, 2, 17, 22, 49, 41, 180, DateTimeKind.Local).AddTicks(536), true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 180, DateTimeKind.Local).AddTicks(539), "Standard", new DateTime(2024, 2, 17, 22, 49, 41, 180, DateTimeKind.Local).AddTicks(541), true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 180, DateTimeKind.Local).AddTicks(543), "Economy", new DateTime(2024, 2, 17, 22, 49, 41, 180, DateTimeKind.Local).AddTicks(544), true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7169), "Premium", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7173), true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7176), "Standard", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7177), true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7179), "Economy", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7180), true }
                 });
 
             migrationBuilder.InsertData(
@@ -545,9 +544,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "GoldType_ID", "CreatedAt", "Gold_Crt", "Gold_Year", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(4406), "18K", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(4410), true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(4413), "22K", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(4413), true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(4415), "24K", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(4416), true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9239), "18K", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9244), true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9246), "22K", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9247), true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9249), "24K", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9249), true }
                 });
 
             migrationBuilder.InsertData(
@@ -555,10 +554,10 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Jewellery_ID", "CreatedAt", "Jewellery_Type", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9328), "Ring", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9331), true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9333), "Earring", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9333), true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9335), "Necklace", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9336), true },
-                    { "4", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9337), "Bracelet", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(9338), true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3051), "Ring", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3053), true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3056), "Earring", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3056), true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3058), "Necklace", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3059), true },
+                    { "4", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3060), "Bracelet", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3061), true }
                 });
 
             migrationBuilder.InsertData(
@@ -566,10 +565,10 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Prod_ID", "CreatedAt", "Prod_Type", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8765), "Gold Ring", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8769), true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8774), "Diamond Earring", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8775), true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8776), "Silver Necklace", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8777), true },
-                    { "4", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8778), "Silver Ring", new DateTime(2024, 2, 17, 22, 49, 41, 184, DateTimeKind.Local).AddTicks(8779), true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2557), "Gold Ring", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2561), true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2563), "Diamond Earring", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2564), true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2566), "Silver Necklace", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2566), true },
+                    { "4", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2568), "Silver Ring", new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2568), true }
                 });
 
             migrationBuilder.InsertData(
@@ -577,9 +576,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "StoneQlty_ID", "CreatedAt", "StoneQlty", "Stone_Year", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 161, DateTimeKind.Local).AddTicks(4312), "Ruby", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 161, DateTimeKind.Local).AddTicks(4326), true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 161, DateTimeKind.Local).AddTicks(4328), "Meena", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 161, DateTimeKind.Local).AddTicks(4329), true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 161, DateTimeKind.Local).AddTicks(4331), "Sapphire", 1913, new DateTime(2024, 2, 17, 22, 49, 41, 161, DateTimeKind.Local).AddTicks(4332), true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6576), "Ruby", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6580), true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6583), "Meena", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6584), true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6586), "Sapphire", 1913, new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6586), true }
                 });
 
             migrationBuilder.InsertData(
@@ -587,9 +586,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "UserID", "Activate", "Address", "CDate", "City", "CreatedAt", "DOB", "EmailID", "IsVerified", "MobNo", "Password", "State", "UpdatedAt", "UserFname", "UserLname", "UserName" },
                 values: new object[,]
                 {
-                    { "1", true, "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(69), "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(72), new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(63), "user1@gmail.com", true, "0123456789", "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(73), "User", "1", "user1" },
-                    { "2", true, "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(77), "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(79), new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(76), "user2@gmail.com", true, "0123456789", "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(80), "User", "2", "user2" },
-                    { "3", true, "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(83), "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(85), new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(82), "user3@gmail.com", true, "0123456789", "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", "HCM", new DateTime(2024, 2, 17, 22, 49, 41, 155, DateTimeKind.Local).AddTicks(86), "User", "3", "user3" }
+                    { "1", true, "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2362), "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2364), new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2356), "user1@gmail.com", true, "0123456789", "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2365), "User", "1", "user1" },
+                    { "2", true, "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2369), "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2370), new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2368), "user2@gmail.com", true, "0123456789", "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2371), "User", "2", "user2" },
+                    { "3", true, "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2374), "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2375), new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2373), "user3@gmail.com", true, "0123456789", "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu", "HCM", new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2375), "User", "3", "user3" }
                 });
 
             migrationBuilder.InsertData(
@@ -597,9 +596,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "ID", "Cdate", "City", "Comment", "Contact", "EmailID", "Name", "UserID", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 153, DateTimeKind.Local).AddTicks(8074), "HCM", "Test 1", "0123456789", "user1@gmail.com", "User 1", "1", true },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 153, DateTimeKind.Local).AddTicks(8084), "HCM", "Test 2", "0987654321", "user2@gmail.com", "User 2", "2", true },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 153, DateTimeKind.Local).AddTicks(8087), "HCM", "Test 3", "0135792468", "user3@gmail.com", "User 3", "3", true }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(5472), "HCM", "Test 1", "0123456789", "user1@gmail.com", "User 1", "1", true },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(5479), "HCM", "Test 2", "0987654321", "user2@gmail.com", "User 2", "2", true },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(5481), "HCM", "Test 3", "0135792468", "user3@gmail.com", "User 3", "3", true }
                 });
 
             migrationBuilder.InsertData(
@@ -607,9 +606,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Style_Code", "Brand_ID", "Cat_ID", "Certify_ID", "CreatedAt", "GoldType_ID", "Gold_Amt", "Gold_Making", "Gold_Rate", "Gold_Wt", "ImagePath", "Jewellery_ID", "MRP", "Net_Gold", "Other_Making", "Pairs", "Prod_ID", "Prod_Quality", "Product_Name", "Quantity", "StoneQlty_ID", "Stone_Making", "Stone_Wt", "Tot_Gross_Wt", "Tot_Making", "UpdatedAt", "Visible", "Wstg", "Wstg_Per" },
                 values: new object[,]
                 {
-                    { "1", "1", "1", "1", new DateTime(2024, 2, 17, 22, 49, 41, 172, DateTimeKind.Local).AddTicks(7293), "1", 1000m, 1000m, 1000m, 1m, "https://sjc.com.vn/upload/35-nutg0004_1475050374.jpg", "1", 1000m, 1m, 1000m, 1, "1", "Premium", "Product 1", 100, "1", 1000m, 1m, 1m, 1000m, new DateTime(2024, 2, 17, 22, 49, 41, 172, DateTimeKind.Local).AddTicks(7320), true, 1m, 1m },
-                    { "2", "2", "2", "2", new DateTime(2024, 2, 17, 22, 49, 41, 172, DateTimeKind.Local).AddTicks(7359), "2", 2000m, 2000m, 2000m, 2m, "https://sjc.com.vn/upload/28-ltdc0096_1475054675.jpg", "2", 2000m, 2m, 2000m, 2, "2", "Standard", "Product 2", 100, "2", 2000m, 2m, 2m, 2000m, new DateTime(2024, 2, 17, 22, 49, 41, 172, DateTimeKind.Local).AddTicks(7361), true, 2m, 2m },
-                    { "3", "3", "3", "3", new DateTime(2024, 2, 17, 22, 49, 41, 172, DateTimeKind.Local).AddTicks(7374), "3", 1500m, 1500m, 1500m, 3m, "", "3", 1500m, 3m, 1500m, 3, "3", "Economy", "Product 3", 100, "3", 1500m, 3m, 3m, 1500m, new DateTime(2024, 2, 17, 22, 49, 41, 172, DateTimeKind.Local).AddTicks(7376), true, 3m, 3m }
+                    { "1", "1", "1", "1", new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8377), "1", 1000m, 1000m, 1000m, 1m, "https://sjc.com.vn/upload/35-nutg0004_1475050374.jpg", "1", 1000m, 1m, 1000m, 1, "1", "Premium", "Product 1", 100, "1", 1000m, 1m, 1m, 1000m, new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8381), true, 1m, 1m },
+                    { "2", "2", "2", "2", new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8393), "2", 2000m, 2000m, 2000m, 2m, "https://sjc.com.vn/upload/28-ltdc0096_1475054675.jpg", "2", 2000m, 2m, 2000m, 2, "2", "Standard", "Product 2", 100, "2", 2000m, 2m, 2m, 2000m, new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8393), true, 2m, 2m },
+                    { "3", "3", "3", "3", new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8402), "3", 1500m, 1500m, 1500m, 3m, "", "3", 1500m, 3m, 1500m, 3, "3", "Economy", "Product 3", 100, "3", 1500m, 3m, 3m, 1500m, new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8402), true, 3m, 3m }
                 });
 
             migrationBuilder.InsertData(
@@ -617,9 +616,9 @@ namespace projectsem3_backend.Migrations
                 columns: new[] { "Stone_ID", "CreatedAt", "ItemMstStyle_Code", "StoneQlty_ID", "Stone_Amt", "Stone_Crt", "Stone_Gm", "Stone_Pcs", "Stone_Rate", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2024, 2, 17, 22, 49, 41, 160, DateTimeKind.Local).AddTicks(1089), null, "1", 1000m, 1m, 1m, 1m, 1000m, new DateTime(2024, 2, 17, 22, 49, 41, 160, DateTimeKind.Local).AddTicks(1106), null },
-                    { "2", new DateTime(2024, 2, 17, 22, 49, 41, 160, DateTimeKind.Local).AddTicks(1116), null, "2", 2000m, 2m, 2m, 2m, 2000m, new DateTime(2024, 2, 17, 22, 49, 41, 160, DateTimeKind.Local).AddTicks(1116), null },
-                    { "3", new DateTime(2024, 2, 17, 22, 49, 41, 160, DateTimeKind.Local).AddTicks(1119), null, "3", 1500m, 3m, 3m, 3m, 1500m, new DateTime(2024, 2, 17, 22, 49, 41, 160, DateTimeKind.Local).AddTicks(1120), null }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(67), null, "1", 1000m, 1m, 1m, 1m, 1000m, new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(74), null },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(78), null, "2", 2000m, 2m, 2m, 2m, 2000m, new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(79), null },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(82), null, "3", 1500m, 3m, 3m, 3m, 1500m, new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(83), null }
                 });
 
             migrationBuilder.InsertData(
@@ -634,12 +633,12 @@ namespace projectsem3_backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "DimMsts",
-                columns: new[] { "DimQlty_ID", "Style_Code", "CreatedAt", "DimID", "DimSubType_ID", "Dim_Amt", "Dim_Crt", "Dim_Gm", "Dim_Pcs", "Dim_Rate", "Dim_Size", "UpdatedAt", "Visible" },
+                columns: new[] { "DimMst_ID", "CreatedAt", "DimID", "DimQlty_ID", "DimSubType_ID", "Dim_Amt", "Dim_Crt", "Dim_Gm", "Dim_Pcs", "Dim_Rate", "Dim_Size", "Style_Code", "UpdatedAt", "Visible" },
                 values: new object[,]
                 {
-                    { "1", "1", new DateTime(2024, 2, 17, 22, 49, 41, 178, DateTimeKind.Local).AddTicks(5823), "1", "1", 1000m, 1m, 1m, 1m, 1000m, 1m, new DateTime(2024, 2, 17, 22, 49, 41, 178, DateTimeKind.Local).AddTicks(5841), null },
-                    { "2", "2", new DateTime(2024, 2, 17, 22, 49, 41, 178, DateTimeKind.Local).AddTicks(5848), "2", "2", 2000m, 2m, 2m, 2m, 2000m, 2m, new DateTime(2024, 2, 17, 22, 49, 41, 178, DateTimeKind.Local).AddTicks(5849), null },
-                    { "3", "3", new DateTime(2024, 2, 17, 22, 49, 41, 178, DateTimeKind.Local).AddTicks(5854), "3", "3", 1500m, 3m, 3m, 3m, 1500m, 3m, new DateTime(2024, 2, 17, 22, 49, 41, 178, DateTimeKind.Local).AddTicks(5855), null }
+                    { "1", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(216), "1", "1", "1", 1000m, 1m, 1m, 1m, 1000m, 1m, "1", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(221), null },
+                    { "2", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(227), "2", "2", "2", 2000m, 2m, 2m, 2m, 2000m, 2m, "2", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(227), null },
+                    { "3", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(232), "3", "3", "3", 1500m, 3m, 3m, 3m, 1500m, 3m, "3", new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(232), null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -668,6 +667,13 @@ namespace projectsem3_backend.Migrations
                 name: "IX_DimMsts_DimSubType_ID",
                 table: "DimMsts",
                 column: "DimSubType_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DimMsts_Style_Code",
+                table: "DimMsts",
+                column: "Style_Code",
+                unique: true,
+                filter: "[Style_Code] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inquiries_UserID",

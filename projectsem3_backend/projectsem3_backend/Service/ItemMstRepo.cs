@@ -474,5 +474,34 @@ namespace projectsem3_backend.Service
                 return new CustomResult(402, e.Message, null);
             }
         }
+
+        public async Task<CustomResult> GetAllItemWithDim()
+        {
+            try
+            {
+                var dim = await db.DimMsts.ToListAsync();
+                var item = await db.ItemMsts
+                    .Include(i => i.DimMsts)
+                    .Where(i => i.DimMsts.Style_Code == i.Style_Code)
+                    .ToListAsync();
+
+                if (item == null)
+                {
+                    return new CustomResult(401, "Something went wrong", null);
+                }
+                else if (item.Count == 0) // Sửa lại điều kiện kiểm tra độ dài của danh sách
+                {
+                    return new CustomResult(204, "List is empty", item); // Thay đổi mã trạng thái 201 thành 204 nếu danh sách trống rỗng
+                }
+                else
+                {
+                    return new CustomResult(200, "Get list success", item);
+                }
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(402, e.Message, null);
+            }
+        }
     }
 }

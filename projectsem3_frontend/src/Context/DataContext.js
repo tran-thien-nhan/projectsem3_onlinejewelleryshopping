@@ -14,7 +14,7 @@ export const DataProvider = ({ children }) => {
   const [orderList, setOrderList] = useState([]);
   const [allOrderList, setAllOrderList] = useState([]);
   const [adminList, setAdminList] = useState([]);
-
+  const [itemListWithDim, setItemListWithDim] = useState([]);
 
   //Phi's state
   const [brands, setBrands] = useState([]);
@@ -33,11 +33,7 @@ export const DataProvider = ({ children }) => {
   const [dimInfo, setDimInfo] = useState([]);
   const [inquiry, setInquiry] = useState([]);
 
-
   //Minh's state
-
-
-
 
   //State Chung
   const [loading, setLoading] = useState(false);
@@ -146,7 +142,7 @@ export const DataProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [])
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -172,9 +168,7 @@ export const DataProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `https://localhost:7241/api/Admin`
-        );
+        const response = await axios.get(`https://localhost:7241/api/Admin`);
         //console.log(response.data.data);
         setAdminList(response.data.data);
       } catch (error) {
@@ -188,6 +182,24 @@ export const DataProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://localhost:7241/api/ItemMst/getallitemwithdim`
+        );
+        //console.log(response.data.data);
+        setItemListWithDim(response.data.data);
+      } catch (error) {
+        //console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   //Phi's Fetch API
   //Get Brand
@@ -233,7 +245,9 @@ export const DataProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://localhost:7241/api/GoldKrtMst");
+        const response = await axios.get(
+          "https://localhost:7241/api/GoldKrtMst"
+        );
         //console.log(response.data.data);
         setGold(response.data.data);
       } catch (error) {
@@ -271,7 +285,9 @@ export const DataProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://localhost:7241/api/StoneQltyMst");
+        const response = await axios.get(
+          "https://localhost:7241/api/StoneQltyMst"
+        );
         //console.log(response.data.data);
         setStoneQualities(response.data.data);
       } catch (error) {
@@ -289,7 +305,9 @@ export const DataProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://localhost:7241/api/CertifyMst");
+        const response = await axios.get(
+          "https://localhost:7241/api/CertifyMst"
+        );
         // console.log(response.data.data);
         setCertify(response.data.data);
       } catch (error) {
@@ -347,7 +365,9 @@ export const DataProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://localhost:7241/api/DimQltySubMst");
+        const response = await axios.get(
+          "https://localhost:7241/api/DimQltySubMst"
+        );
         //console.log(response.data.data);
         setDimQltySub(response.data.data);
       } catch (error) {
@@ -384,7 +404,9 @@ export const DataProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`https://localhost:7241/api/DimInfoMst`);
+        const response = await axios.get(
+          `https://localhost:7241/api/DimInfoMst`
+        );
         //console.log(response.data.data);
         setDimInfo(response.data.data);
       } catch (error) {
@@ -403,7 +425,9 @@ export const DataProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`https://localhost:7241/api/JewelTypeMst`);
+        const response = await axios.get(
+          `https://localhost:7241/api/JewelTypeMst`
+        );
         //console.log(response.data.data);
         setJewelry(response.data.data);
       } catch (error) {
@@ -416,30 +440,26 @@ export const DataProvider = ({ children }) => {
 
     fetchData();
   }, []);
-     //inquiry
-     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const response = await axios.get(`https://localhost:7241/api/Inquiry`);
-          // console.log(response.data.data);
-          setInquiry(response.data.data);
-        } catch (error) {
-          console.error("list error:", error);
-          setError(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      fetchData();
-    }, []);
-  
+  //inquiry
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`https://localhost:7241/api/Inquiry`);
+        // console.log(response.data.data);
+        setInquiry(response.data.data);
+      } catch (error) {
+        console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   //Minh's Fetch Data
-
-
-
 
   const value = {
     //Nhan's value
@@ -452,6 +472,7 @@ export const DataProvider = ({ children }) => {
     totalMoney,
     userList,
     adminList,
+    itemListWithDim,
 
     //Phi's Value
     brands,
@@ -472,14 +493,11 @@ export const DataProvider = ({ children }) => {
 
     //Minh's Value
 
-
-
     //Values Chung
     loading,
     error,
     isLogin,
     userID,
-
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

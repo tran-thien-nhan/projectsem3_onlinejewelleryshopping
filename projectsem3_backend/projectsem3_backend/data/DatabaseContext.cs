@@ -315,7 +315,7 @@ namespace projectsem3_backend.data
                 it.HasKey(it => it.Style_Code);
                 it.HasMany(it => it.OrderDetailMsts).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
                 it.HasMany(it => it.CartLists).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
-                it.HasMany(it => it.DimMsts).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
+                it.HasOne(it => it.DimMsts).WithOne(it => it.ItemMst).HasForeignKey<DimMst>(it => it.Style_Code);
                 it.HasOne(it => it.BrandMst).WithMany(it => it.ItemMsts).HasForeignKey(it => it.Brand_ID);
                 it.HasOne(it => it.CatMst).WithMany(it => it.ItemMsts).HasForeignKey(it => it.Cat_ID);
                 it.HasOne(it => it.CertifyMst).WithMany(it => it.ItemMsts).HasForeignKey(it => it.Certify_ID);
@@ -427,8 +427,8 @@ namespace projectsem3_backend.data
             //10
             modelBuilder.Entity<DimMst>(d =>
             {
-                d.HasKey(d => new { d.Style_Code, d.DimQlty_ID });
-                d.HasOne(d => d.ItemMst).WithMany(d => d.DimMsts).HasForeignKey(d => d.Style_Code);
+                d.HasKey(d => d.DimMst_ID);
+                d.HasOne(d => d.ItemMst).WithOne(d => d.DimMsts).HasForeignKey<DimMst>(d => d.Style_Code);
                 d.HasOne(d => d.DimQltySubMst).WithMany(d => d.DimMsts).HasForeignKey(d => d.DimQlty_ID);
                 d.HasOne(d => d.DimQltyMst).WithMany(d => d.DimMsts).HasForeignKey(d => d.DimQlty_ID);
                 d.HasOne(d => d.DimInfoMst).WithOne(d => d.DimMst).HasForeignKey<DimInfoMst>(d => d.DimID);
@@ -436,6 +436,7 @@ namespace projectsem3_backend.data
                 {
                         new DimMst
                         {
+                            DimMst_ID = "1",
                             Style_Code = "1",
                             DimQlty_ID = "1",
                             DimSubType_ID = "1",
@@ -451,6 +452,7 @@ namespace projectsem3_backend.data
                         },
                         new DimMst
                         {
+                            DimMst_ID = "2",
                             Style_Code = "2",
                             DimQlty_ID = "2",
                             DimSubType_ID = "2",
@@ -466,6 +468,7 @@ namespace projectsem3_backend.data
                         },
                         new DimMst
                         {
+                            DimMst_ID = "3",
                             Style_Code = "3",
                             DimQlty_ID = "3",
                             DimSubType_ID = "3",

@@ -247,5 +247,20 @@
     "Max Price": "Giá tối đa",
     "Search...": "Tìm kiếm...",
     "Diamonds": "Kim cương",
-    "About us": "Về chúng tôi"
+    "About us": "Về chúng tôi",
+    "Diamond": "Kim cương",
+    "with": "với",
+    "shape": "hình dạng",
+    "was discovered in": "được phát hiện vào năm",
+    "Triangle": "Hình tam giác, một kiểu cắt kim cương hình tam giác với 3 cạnh và 3 góc",
+    "Round": "Tròn, một kiểu cắt kim cương hình tròn với 58 mặt phẳng",
+    "Heart":"Trái tim, một kiểu cắt kim cương hình trái tim với một đỉnh nhọn và một đỉnh tròn",
+    "Princess":"Công chúa, một kiểu cắt kim cương hình vuông với góc cạnh cắt sắc và các mặt phẳng phẳng",
+    "Radiant":"Bức Phổ, một kiểu cắt kim cương kết hợp giữa hình vuông và hình chữ nhật, với các cạnh cắt góc và các mặt phẳng phẳng",
+    "Asscher":"Hình Vuông Cắt Góc Có Bo Tròn",
+    "Emerald":"Ngọc lục bảo, một kiểu cắt kim cương hình chữ nhật với các cạnh cắt góc và các mặt phẳng phẳng",
+    "Pear":"quả lê, một kiểu cắt kim cương hình lê với một đầu nhọn và một đầu tròn",
+    "Marquise":"Marquise, một kiểu cắt kim cương hình hạt dẻ với một đầu nhọn và một đầu tròn",
+    "Oval":"Hình Oval, một kiểu cắt kim cương hình trái lê với một đầu nhọn và một đầu tròn"
+
 }

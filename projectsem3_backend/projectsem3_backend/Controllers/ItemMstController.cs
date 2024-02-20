@@ -79,5 +79,11 @@ namespace projectsem3_backend.Controllers
         {
             return await itemMstRepo.CheckQuantity();
         }
+
+        [HttpGet("getallitemwithdim")]
+        public async Task<CustomResult> GetAllItemWithDim()
+        {
+            return await itemMstRepo.GetAllItemWithDim();
+        }
     }
 }

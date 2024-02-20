@@ -5,6 +5,8 @@ namespace projectsem3_backend.Models
 {
     public class DimMst
     {
+        [Key]
+        public string DimMst_ID { get; set; }
 
         public string? Style_Code { get; set; }
 

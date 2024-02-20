@@ -17,5 +17,7 @@ namespace projectsem3_backend.Repository
 
         //tạo hàm tự động duyệt qua tất cả item hiện đang có và kiểm tra nếu cái nào có quantity <= 10 thì sẽ tự động thông báo
         Task<CustomResult> CheckQuantity();
+
+        Task<CustomResult> GetAllItemWithDim();
     }
 }

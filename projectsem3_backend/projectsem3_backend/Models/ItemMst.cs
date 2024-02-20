@@ -113,7 +113,7 @@ namespace projectsem3_backend.Models
         public JewelTypeMst? JewelTypeMst { get; set; }
 
         public ICollection<StoneMst>? StoneMsts { get; set; }
-        public ICollection<DimMst>? DimMsts { get; set; }        
+        public DimMst? DimMsts { get; set; }        
         public ICollection<OrderDetailMst>? OrderDetailMsts { get; set; }
         public ICollection<CartList>? CartLists { get; set; }
 

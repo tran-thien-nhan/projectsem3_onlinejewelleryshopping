@@ -75,6 +75,7 @@ import ItemShop from "../components/User/ItemShop";
 import AdminList from "../components/Admin/Pages/AdminList";
 import AdminEditInfo from "../components/Admin/Pages/AdminEditInfo";
 import AdminCreateInfo from "../components/Admin/Pages/AdminCreateInfo";
+import UserDiamond from "../components/User/UserDiamond";
 
 //Minh's routes
 
@@ -159,6 +160,10 @@ const publicRouter = [
     path: "/contact",
     element: <Contact />,
   },
+  {
+    path: "/udiamond",
+    element: <UserDiamond />,
+  }
 ];
 
 const privateRouter = [
