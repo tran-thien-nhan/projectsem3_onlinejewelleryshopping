@@ -186,10 +186,10 @@ const ItemShop = () => {
       <HeroSection />
       <div className="mb-3">
         <div className="d-flex justify-content-between">
-          <div className="container-fluid">
+          <div className="container">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder={t("Search...")}
               className="form-control"
               value={searchTerm}
               onChange={handleSearchTermChange}
@@ -197,7 +197,7 @@ const ItemShop = () => {
             />
             <datalist id="search-results">
               {searchSuggestions.map((suggestion) => (
-                <option key={suggestion} value={suggestion} />
+                <option key={suggestion} value={suggestion}/>
               ))}
             </datalist>
           </div>

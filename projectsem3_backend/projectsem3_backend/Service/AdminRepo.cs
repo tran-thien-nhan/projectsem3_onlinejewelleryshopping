@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using projectsem3_backend.CustomStatusCode;
 using projectsem3_backend.data;
+using projectsem3_backend.Helper;
 using projectsem3_backend.Models;
 using projectsem3_backend.Repository;
 
@@ -17,12 +18,41 @@ namespace projectsem3_backend.Service
 
         public async Task<CustomResult> CreateAdmin(AdminLoginMst admin)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //xóa chuỗi "@gmail.com" trong username
+                admin.UserName = admin.UserName.Replace("@gmail.com", "");
+                admin.Password = UserSecurity.HashPassword(admin.Password);
+                
+                admin.CreatedAt = DateTime.Now;
+                admin.UpdatedAt = DateTime.Now;
+                db.AdminLoginMsts.Add(admin);
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", admin);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
         }
 
-        public async Task<CustomResult> DeleteAdmin(string id)
+        public async Task<CustomResult> DeleteAdmin(string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var admin = await db.AdminLoginMsts.FindAsync(username);
+                if (admin == null)
+                {
+                    return new CustomResult(404, "Not Found", null);
+                }
+                db.AdminLoginMsts.Remove(admin);
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", admin);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
         }
 
         public async Task<CustomResult> GetAllAdmin()
@@ -38,14 +68,57 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<CustomResult> GetAdminById(string id)
+        public async Task<CustomResult> GetAdminByUsername(string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var data = await db.AdminLoginMsts.SingleOrDefaultAsync(a => a.UserName == username);
+                if (data == null)
+                {
+                    return new CustomResult(404, "Not Found", null);
+                }
+                return new CustomResult(200, "Success", data);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
         }
 
-        public async Task<CustomResult> UpdateAdmin(AdminLoginMst admin)
+        public async Task<CustomResult> UpdateAdmin(string username, AdminLoginMst admin)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var data = await db.AdminLoginMsts.SingleOrDefaultAsync(a => a.UserName == admin.UserName);
+                if (data == null)
+                {
+                    return new CustomResult(404, "Not Found", null);
+                }
+
+                var oldPassword = UserSecurity.VerifyPassword(admin.Password, data.Password);
+                if (oldPassword)
+                {
+                    return new CustomResult(400, "Do not change Password", null);
+                }
+
+                admin.UpdatedAt = DateTime.Now;
+                db.Entry(data).CurrentValues.SetValues(admin);
+                var result = await db.SaveChangesAsync();
+
+                if (result == 1)
+                {
+                    return new CustomResult(200, "Success", admin);
+                }
+                else
+                {
+                    return new CustomResult(500, "Error", null);
+                }
+
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
         }
     }
 }

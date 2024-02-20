@@ -6,9 +6,9 @@ namespace projectsem3_backend.Repository
     public interface IAdminRepo
     {
         Task<CustomResult> CreateAdmin(AdminLoginMst admin);
-        Task<CustomResult> UpdateAdmin(AdminLoginMst admin);
-        Task<CustomResult> DeleteAdmin(string id);
-        Task<CustomResult> GetAdminById(string id);
+        Task<CustomResult> UpdateAdmin(string username, AdminLoginMst admin);
+        Task<CustomResult> DeleteAdmin(string username);
+        Task<CustomResult> GetAdminByUsername(string username);
         Task<CustomResult> GetAllAdmin();
 
     }

@@ -86,7 +86,7 @@ namespace projectsem3_backend.Service
 
                     model.orderInfo = "Thanh toán đơn hàng bằng " + paymentMethod;
 
-                    var rawData = $"partnerCode={_options.Value.PartnerCode}&accessKey={_options.Value.AccessKey}&requestId={model.Order_ID}&amount={model.TotalPrice}&orderId={model.Order_ID}&orderInfo={model.orderInfo}&returnUrl={_options.Value.ReturnUrl}&notifyUrl={_options.Value.NotifyUrl}&extraData=";
+                    var rawData = $"partnerCode={_options.Value.PartnerCode}&accessKey={_options.Value.AccessKey}&requestId={model.Order_ID}&amount={vnTotalPrice}&orderId={model.Order_ID}&orderInfo={model.orderInfo}&returnUrl={_options.Value.ReturnUrl}&notifyUrl={_options.Value.NotifyUrl}&extraData=";
                     var signature = ComputeHmacSha256(rawData, _options.Value.SecretKey);
                     var client = new RestClient(_options.Value.MomoApiUrl);
                     var request = new RestRequest() { Method = Method.Post };
@@ -99,7 +99,7 @@ namespace projectsem3_backend.Service
                         notifyUrl = _options.Value.NotifyUrl,
                         returnUrl = _options.Value.ReturnUrl,
                         orderId = model.Order_ID,
-                        amount = model.TotalPrice.ToString(),
+                        amount = vnTotalPrice.ToString(),
                         orderInfo = model.orderInfo,
                         requestId = model.Order_ID,
                         extraData = "",

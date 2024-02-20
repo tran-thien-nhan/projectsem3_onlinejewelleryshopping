@@ -50,7 +50,7 @@ const UserNavbar = () => {
         className="custom-navbar navbar navbar-expand-md navbar-dark bg-dark"
         aria-label="Furni navigation bar"
       >
-        <div className="container">
+        <div className="container-fluid">
           <a className="navbar-brand" href="/">
             {t("Jewelry Store")}
             <span>.</span>
@@ -91,7 +91,7 @@ const UserNavbar = () => {
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link" href="/">
-                  {t("Services")}
+                  {t("Diamonds")}
                 </a>
                 {/* <button
                   type="button"
@@ -106,6 +106,11 @@ const UserNavbar = () => {
               <li className="nav-item">
                 <a className="nav-link" href="/contact">
                   {t("Contact")}
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  {t("About us")}
                 </a>
               </li>
             </ul>

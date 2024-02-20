@@ -72,6 +72,9 @@ import AdminEditStoneQuality from "../components/Admin/Pages/StoneQuality/AdminE
 import AdminCreateStone from "../components/Admin/Pages/Stone/AdminCreateStone";
 import AdminEditStone from "../components/Admin/Pages/Stone/AdminEditStone";
 import ItemShop from "../components/User/ItemShop";
+import AdminList from "../components/Admin/Pages/AdminList";
+import AdminEditInfo from "../components/Admin/Pages/AdminEditInfo";
+import AdminCreateInfo from "../components/Admin/Pages/AdminCreateInfo";
 
 //Minh's routes
 
@@ -170,6 +173,24 @@ const privateRouter = [
     path: "/admin",
     element: <AdminIndex />,
     name: "Dashboard",
+    visible: false,
+  },
+  {
+    path: "/adminlist",
+    element: <AdminList />,
+    name: "Admin Management",
+    visible: true,
+  },
+  {
+    path: "/createadmin",
+    element: <AdminCreateInfo />,
+    name: "Create Admin",
+    visible: false,
+  },
+  {
+    path: "/editadmin/:userName",
+    element: <AdminEditInfo />,
+    name: "Admin Edit Info",
     visible: false,
   },
   {
@@ -354,7 +375,7 @@ const privateRouter = [
   {
     path: "/dim",
     element: <AdminDim />,
-    name: "Dim Management",
+    name: "DimMst Management",
     visible: true,
   },
   // {
