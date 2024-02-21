@@ -93,6 +93,7 @@ const AdminStone = () => {
 
     return (
         <div className='container-fluid'>
+            <h1 className='mt-4'>Stone Info List</h1>
             <div className='mb-3'>
                 <label for="">
                     Search by ID or Name

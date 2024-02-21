@@ -38,6 +38,7 @@ const AdminInquiry = () => {
 
     return (
         <div className='container-fluid'>
+            <h2 className='mt-4'>Inquiry</h2>
             <div className='mb-3'>
                 <label htmlFor='searchTerm'>
                     Search by Name, City, Contact, Email, or Comment

@@ -65,11 +65,11 @@ const Order = () => {
                       <td>{order.orderDate}</td>
                       <td>
                         {order.orderPayment === 1
-                          ? "by cash"
+                          ? t("by cash")
                           : order.orderPayment === 2
-                          ? "by credit card"
+                          ? t("by credit card")
                           : order.orderPayment === 3
-                          ? "by momo"
+                          ? t("by momo")
                           : ""}
                       </td>
                       <td>

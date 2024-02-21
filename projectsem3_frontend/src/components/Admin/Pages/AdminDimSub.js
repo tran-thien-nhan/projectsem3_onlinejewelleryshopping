@@ -50,6 +50,7 @@ const AdminDimSub = () => {
 
     return (
         <div className='container-fluid'>
+            <h2 className='mt-4'>Dim Quality Sub</h2>
             <div className='mb-3'>
                 <label htmlFor='searchTerm'>
                     Search by ID or Name

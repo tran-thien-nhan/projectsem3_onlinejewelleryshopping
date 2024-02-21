@@ -168,7 +168,7 @@ const publicRouter = [
   {
     path: "/aboutus",
     element: <UserAbout />,
-  }
+  },
 ];
 
 const privateRouter = [
@@ -188,7 +188,7 @@ const privateRouter = [
   {
     path: "/adminlist",
     element: <AdminList />,
-    name: "Admin Management",
+    name: "Admin ",
     visible: true,
   },
   {
@@ -206,13 +206,13 @@ const privateRouter = [
   {
     path: "/items",
     element: <AdminItemList />,
-    name: "Items Management",
+    name: "Items ",
     visible: true,
   },
   {
     path: "/allorders",
     element: <AdminAllOrders />,
-    name: "Orders Management",
+    name: "Orders ",
     visible: true,
   },
   {
@@ -236,7 +236,7 @@ const privateRouter = [
   {
     path: "/userlist",
     element: <AdminUserList />,
-    name: "User Management",
+    name: "User ",
     visible: true,
   },
   {
@@ -250,7 +250,7 @@ const privateRouter = [
   {
     path: "/brands",
     element: <AdminBrand />,
-    name: "Brands Management",
+    name: "Brands ",
     visible: true,
   },
   {
@@ -269,7 +269,7 @@ const privateRouter = [
   {
     path: "/gold_krt",
     element: <AdminGold />,
-    name: "Gold Krt Management",
+    name: "Gold Krt ",
     visible: true,
   },
   {
@@ -288,7 +288,7 @@ const privateRouter = [
   {
     path: "/cat",
     element: <AdminCat />,
-    name: "Category Management",
+    name: "Category ",
     visible: true,
   },
   {
@@ -307,7 +307,7 @@ const privateRouter = [
   {
     path: "/stones",
     element: <AdminStone />,
-    name: "Stone Info Management",
+    name: "Stone Info ",
     visible: true,
   },
   {
@@ -326,7 +326,7 @@ const privateRouter = [
   {
     path: "/stone-quality",
     element: <AdminStoneQuality />,
-    name: "Stone Quality Management",
+    name: "Stone Quality ",
     visible: true,
   },
   {
@@ -345,7 +345,7 @@ const privateRouter = [
   {
     path: "/certify",
     element: <AdminCertify />,
-    name: "Certification Management",
+    name: "Certification ",
     visible: true,
   },
   {
@@ -366,7 +366,7 @@ const privateRouter = [
   {
     path: "/dimQlty",
     element: <AdminDimQlty />,
-    name: "DimQlty Management",
+    name: "DimQlty ",
     visible: true,
   },
   {
@@ -385,7 +385,7 @@ const privateRouter = [
   {
     path: "/dim",
     element: <AdminDim />,
-    name: "DimMst Management",
+    name: "DimMst ",
     visible: true,
   },
   // {
@@ -404,7 +404,7 @@ const privateRouter = [
   {
     path: "/prod",
     element: <AdminProd />,
-    name: "Prod Management",
+    name: "Prod ",
     visible: true,
   },
   {
@@ -423,7 +423,7 @@ const privateRouter = [
   {
     path: "/dimQltySub",
     element: <AdminDimSub />,
-    name: "DimQltySub Management",
+    name: "DimQltySub ",
     visible: true,
   },
   {
@@ -442,7 +442,7 @@ const privateRouter = [
   {
     path: "/dimInfo",
     element: <AdminDimInfo />,
-    name: "DimInfo Management",
+    name: "DimInfo ",
     visible: true,
   },
   {
@@ -461,7 +461,7 @@ const privateRouter = [
   {
     path: "/jewelType",
     element: <AdminJewelType />,
-    name: "JewelType Management",
+    name: "JewelType ",
     visible: true,
   },
   {
@@ -479,7 +479,7 @@ const privateRouter = [
   {
     path: "/inquiryList",
     element: <AdminInquiryList />,
-    name: "inquiry Management",
+    name: "inquiry ",
     visible: true,
   },
 ];

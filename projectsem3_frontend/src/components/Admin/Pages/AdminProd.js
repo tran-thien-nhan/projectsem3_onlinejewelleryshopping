@@ -54,6 +54,7 @@ const AdminProd = () => {
 
     return (
         <div className='container-fluid'>
+            <h1 className='mt-4'>Product Type</h1>
             <div className='mb-3'>
                 <label htmlFor="searchTerm">
                     Search by ID or Name

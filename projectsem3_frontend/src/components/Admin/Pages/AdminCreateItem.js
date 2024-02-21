@@ -80,8 +80,72 @@ const AdminCreateItem = () => {
     setItem({ ...item, stoneQlty_ID: e.target.value });
   };
 
+  function processImageName(imagePath) {
+    const part = imagePath.split("/").slice(-1)[0].split("_");
+    const name = part[part.length - 2] + part[part.length - 1];
+    return name;
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!file) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please select an image for the item",
+      });
+      return;
+    }
+
+    if (
+      item.product_Name === "" ||
+      item.pairs === "" ||
+      item.quantity === "" ||
+      item.prod_Quality === "" ||
+      item.gold_Wt === "" ||
+      item.gold_Rate === "" ||
+      item.stone_Wt === "" ||
+      item.wstg === "" ||
+      item.gold_Making === "" ||
+      item.stone_Making === "" ||
+      item.other_Making === ""
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please fill in all the fields",
+      });
+      return;
+    }
+
+    if (
+      item.gold_Rate < 0 ||
+      item.gold_Wt < 0 ||
+      item.stone_Wt < 0 ||
+      item.wstg < 0 ||
+      item.gold_Making < 0 ||
+      item.stone_Making < 0 ||
+      item.other_Making < 0 ||
+      item.pairs < 0 ||
+      item.quantity < 0 ||
+      item.pairs > 100 ||
+      item.quantity > 100 ||
+      item.gold_Rate > 100 ||
+      item.gold_Wt > 100 ||
+      item.stone_Wt > 100 ||
+      item.wstg > 100 ||
+      item.gold_Making > 100 ||
+      item.stone_Making > 100 ||
+      item.other_Making > 100
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please enter valid values",
+      });
+      return;
+    }
 
     const formData = new FormData();
     formData.append("style_Code", "abc");
@@ -104,6 +168,39 @@ const AdminCreateItem = () => {
     formData.append("jewellery_ID", item.jewellery_ID);
     formData.append("stoneQlty_ID", item.stoneQlty_ID);
     formData.append("file", file);
+
+    //xử lý nếu trùng tên với 1 trong các sản phẩm đã có
+    if (
+      items.some(
+        (i) =>
+          file !== null &&
+          i.product_Name === item.product_Name &&
+          i.style_Code !== item.style_Code
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Product Name already exists!",
+      });
+      return;
+    }
+
+    //xử lý nếu trùng hình ảnh với 1 trong các sản phẩm đã có
+    if (
+      items.some(
+        (i) =>
+          processImageName(i.imagePath) === processImageName(item.imagePath) &&
+          i.style_Code !== item.style_Code
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Image already exists!",
+      });
+      return;
+    }
 
     axios
       .post("https://localhost:7241/api/ItemMst", formData)

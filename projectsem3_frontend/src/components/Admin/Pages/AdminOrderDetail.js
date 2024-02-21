@@ -52,6 +52,7 @@ const AdminOrderDetail = () => {
 
   return (
     <div className="container-fluid">
+      <h2>Order Details</h2>
       <div className="site-blocks-table">
         <table className="table">
           <thead>

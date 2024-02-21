@@ -151,5 +151,17 @@ namespace projectsem3_backend.Controllers
         {
             return await userRepo.CheckPassword(userid, password);
         }
+
+        [HttpGet("countorderofuser/{userid}")]
+        public async Task<int> CountOrderOfUser(string userid)
+        {
+            return await userRepo.CountOrderOfUser(userid);
+        }
+
+        [HttpGet("countcancelorderofuser/{userid}")]
+        public async Task<int> CountCancelOrderOfUser(string userid)
+        {
+            return await userRepo.CountCancelOrderOfUser(userid);
+        }
     }
 }

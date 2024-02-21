@@ -197,7 +197,7 @@ const ItemShop = () => {
             />
             <datalist id="search-results">
               {searchSuggestions.map((suggestion) => (
-                <option key={suggestion} value={suggestion}/>
+                <option key={suggestion} value={suggestion} />
               ))}
             </datalist>
           </div>
@@ -393,6 +393,12 @@ const ItemShop = () => {
                           <div className="card-body">
                             <h5 className="card-title">{item.product_Name}</h5>
                           </div>
+                          <a
+                            className="btn btn-secondary mb-2 mx-4"
+                            href={`/item/${item.style_Code}`}
+                          >
+                            {t("View Details")}
+                          </a>
                         </div>
                       </Link>
                     </div>

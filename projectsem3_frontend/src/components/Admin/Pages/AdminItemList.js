@@ -167,6 +167,7 @@ const AdminItemList = () => {
 
   return (
     <div className="container-fluid">
+      <h2 className="mt-4">Items List</h2>
       <div className="mb-3">
         <label htmlFor="searchTerm" className="form-label">
           Search by ID or Name

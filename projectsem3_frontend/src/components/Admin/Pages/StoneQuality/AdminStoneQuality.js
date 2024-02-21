@@ -93,6 +93,7 @@ const AdminStoneQuality = () => {
 
     return (
         <div className='container-fluid'>
+            <h2 className='mt-4'>Stone Quality</h2>
             <label for="">
                 Search by ID or Name
             </label>

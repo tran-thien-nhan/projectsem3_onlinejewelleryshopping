@@ -29,6 +29,7 @@ const AdminUserDetail = () => {
 
   return (
     <div className="container-fluid">
+      <h2>User Details</h2>
       <div className="site-blocks-table">
         <table className="table">   
           <thead>

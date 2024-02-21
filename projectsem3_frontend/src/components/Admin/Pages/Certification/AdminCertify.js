@@ -92,6 +92,7 @@ const AdminCertify = () => {
 
     return (
         <div className='container-fluid'>
+            <h2 className='mt-4'>Certification</h2>
             <div className='mb-3'>
                 <label for="">
                     Search by ID or Name

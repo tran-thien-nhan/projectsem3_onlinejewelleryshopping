@@ -143,7 +143,9 @@ namespace projectsem3_backend.Service
                 {
                     // Kiểm tra xem có người dùng nào có cùng UserName hoặc EmailID không
                     var existingUser = await db.UserRegMsts
-                        .Where(x => x.UserName.ToLower() == userMst.UserName.ToLower() || x.EmailID.ToLower() == userMst.EmailID.ToLower())
+                        .Where(x => x.UserName.ToLower() == userMst.UserName.ToLower() || 
+                        x.EmailID.ToLower() == userMst.EmailID.ToLower() ||
+                        x.MobNo == userMst.MobNo)
                         .FirstOrDefaultAsync();
 
                     // Nếu đã tồn tại người dùng, trả về lỗi
@@ -465,6 +467,48 @@ namespace projectsem3_backend.Service
             catch (Exception e)
             {
                 return false;
+            }
+        }
+
+        public async Task<int> CountOrderOfUser(string userid)
+        {
+            try
+            {
+                var userOrderCount = await db.UserRegMsts.Include(x => x.OrderMsts).FirstOrDefaultAsync(x => x.UserID == userid);
+                if (userOrderCount == null)
+                {
+                    return 0;
+                }
+                return userOrderCount.OrderMsts.Count;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<int> CountCancelOrderOfUser(string userid)
+        {
+            try
+            {
+                var userOrderCount = await db.UserRegMsts.Include(x => x.OrderMsts).FirstOrDefaultAsync(x => x.UserID == userid);
+                if (userOrderCount == null)
+                {
+                    return 0;
+                }
+                int count = 0;
+                foreach (var order in userOrderCount.OrderMsts)
+                {
+                    if (order.OrderStatus == 4)
+                    {
+                        count++;
+                    }
+                }
+                return count;
+            }
+            catch (Exception e)
+            {
+                return 0;
             }
         }
     }

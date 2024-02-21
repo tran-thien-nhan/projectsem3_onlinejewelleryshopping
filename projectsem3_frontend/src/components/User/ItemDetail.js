@@ -20,6 +20,11 @@ function ItemDetail() {
     stoneQualities,
     loading,
     error,
+    dim,
+    dimQlty,
+    dimQltySub,
+    dimInfo,
+    itemListWithDim
   } = useData();
   const [quantity, setQuantity] = useState(1);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
@@ -33,6 +38,10 @@ function ItemDetail() {
   if (error) {
     return <p className="alert alert-danger">Có lỗi xảy ra: {error.message}</p>;
   }
+
+  const selectedDim = itemListWithDim.find((item) => item.style_Code === styleCode);
+
+  console.log(selectedDim);
 
   const selectedItem = items.find((item) => item.style_Code === styleCode);
   // sp liên quan
@@ -260,9 +269,25 @@ function ItemDetail() {
 
           <div>
             {selectedItem.quantity > 10 && selectedItem.visible === true ? (
-              <h5 style={{ color: "green",fontWeight:"bold", fontStyle:"italic" }}>({t("In Stock")})</h5>
+              <h5
+                style={{
+                  color: "green",
+                  fontWeight: "bold",
+                  fontStyle: "italic",
+                }}
+              >
+                ({t("In Stock")})
+              </h5>
             ) : (
-              <h5 style={{ color: "red",fontWeight:"bold", fontStyle:"italic" }}>({t("Out of Stock")})</h5>
+              <h5
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  fontStyle: "italic",
+                }}
+              >
+                ({t("Out of Stock")})
+              </h5>
             )}
           </div>
 
@@ -342,18 +367,15 @@ function ItemDetail() {
           <div id="demo1" className="collapse">
             <div className="card-body">
               <p>
-                {t("The product")} {selectedItem.product_Name}{" "} 
-                {
-                  selectedItem.stoneQltyMst.stoneQlty !== "None" && (
-                    <>
-                      {t("with one part of")}{" "}
-                      {t("making of")} {t("stones of")}{" "}
-                      {selectedItem.stoneQltyMst.stoneQlty}, {t("the type of stone")}{" "}
-                      {t("found in the year")} {selectedItem.stoneQltyMst.stone_Year}.{" "}
-                    </>
-                  )
-                }
-                
+                {t("The product")} {selectedItem.product_Name}{" "}
+                {selectedItem.stoneQltyMst.stoneQlty !== "None" && (
+                  <>
+                    {t("with one part of")} {t("making of")} {t("stones of")}{" "}
+                    {selectedItem.stoneQltyMst.stoneQlty},{" "}
+                    {t("the type of stone")} {t("found in the year")}{" "}
+                    {selectedItem.stoneQltyMst.stone_Year}.{" "}
+                  </>
+                )}
                 ,{t("The product")} {t("has")} {selectedItem.pairs} {t("Pairs")}{" "}
                 {t("and is certified by")}{" "}
                 {selectedItem.certifyMst.certify_Type}. {t("The product")}{" "}
@@ -420,20 +442,97 @@ function ItemDetail() {
                     <td>{t("Jewelry Type")}</td>
                     <td>{t(selectedItem.jewelTypeMst.jewellery_Type)}</td>
                   </tr>
-                  {
-                    selectedItem.stoneQltyMst.stoneQlty !== "None" && (
-                      <tr>
-                        <td>{t("Stone Quality")}</td>
-                        <td>{t(selectedItem.stoneQltyMst.stoneQlty)}</td>
-                      </tr>
-                    )
-                  }
+                  {selectedItem.stoneQltyMst.stoneQlty !== "None" && (
+                    <tr>
+                      <td>{t("Stone Quality")}</td>
+                      <td>{t(selectedItem.stoneQltyMst.stoneQlty)}</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+
+      {
+        //nếu có style_Code trùng với style_Code của dim thì hiển thị
+        selectedDim !== undefined ? (
+          <div
+            className="accordion"
+            style={{ cursor: "pointer" }}
+            data-bs-toggle="collapse"
+            data-bs-target="#demo3"
+          >
+            <div className="card">
+              <div className="card-header">
+                <h5 className="card-title text-center">
+                  <a
+                    href="#demo3"
+                    className="card-link"
+                    data-bs-toggle="collapse"
+                    aria-expanded="false"
+                    aria-controls="demo"
+                    style={{ textDecoration: "none" }}
+                  >
+                    {t("Diamond Information")}
+                  </a>
+                </h5>
+              </div>
+              <div id="demo3" className="collapse">
+                <div className="card-body">
+                  <table className="table">
+                    <tbody>
+                      <tr>
+                        <td>{t("Carat Of Diamond")}</td>
+                        <td>{selectedDim.dimMsts.dim_Crt} Carat</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Total Pcs Of Diamond In Item")}</td>
+                        <td>{t(selectedDim.dimMsts.dim_Pcs)}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Weight Of Each Diamond (Grams)")}</td>
+                        <td>{t(selectedDim.dimMsts.dim_Gm)}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Size Of Each Diamond")}</td>
+                        <td>{selectedDim.dimMsts.dim_Size}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Rate Of Each Diamond")}</td>
+                        <td>{selectedDim.dimMsts.dim_Rate}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Total Amount Of All Diamonds In Item")}</td>
+                        <td>{t(selectedDim.dimMsts.dim_Amt)}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Quality Of Diamond")}</td>
+                        <td>{t(selectedDim.dimMsts.dimQltyMst.dimQlty)}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Sub Quality Of Diamond")}</td>
+                        <td>{t(selectedDim.dimMsts.dimQltySubMst.dimQlty)}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Type Of Diamond")}</td>
+                        <td>{t(selectedDim.dimMsts.dimInfoMst.dimType)}</td>
+                      </tr>
+                      <tr>
+                        <td>{t("Sub Type Of Diamond")}</td>
+                        <td>{t(selectedDim.dimMsts.dimInfoMst.dimSubType)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )
+      }
 
       <h3 className="mt-4">{t("Related Products")}:</h3>
       <div className="row">
@@ -453,11 +552,7 @@ function ItemDetail() {
                 </p>
                 <a
                   className="btn btn-secondary"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(`/item/${item.style_Code}`, "_blank");
-                  }}
-                  target="_blank"
+                  href={`/item/${item.style_Code}`}
                 >
                   {t("View Details")}
                 </a>

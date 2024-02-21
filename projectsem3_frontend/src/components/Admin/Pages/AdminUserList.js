@@ -1,14 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useData } from "../../../Context/DataContext";
 import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 const AdminUserList = () => {
-  const { userList, loading, error } = useData();
+  const { userList, loading, error, orderList } = useData();
   const [statusFilter, setStatusFilter] = useState("all");
   const [activateFilter, setActivateFilter] = useState("all");
-  const [searchTerm, setSearchTerm] = useState(""); // Thêm state cho ô tìm kiếm
+  const [searchTerm, setSearchTerm] = useState("");
+  const [userBuyingCounts, setUserBuyingCounts] = useState({});
+  const [userOrderCancelCounts, setUserOrderCancelCounts] = useState({});
+  const [sortBy, setSortBy] = useState("");
+
+  useEffect(() => {
+    const fetchBuyingCounts = async () => {
+      try {
+        const counts = {};
+        for (const user of userList) {
+          const response = await axios.get(
+            `https://localhost:7241/api/User/countorderofuser/${user.userID}`
+          );
+          counts[user.userID] = response.data;
+        }
+        setUserBuyingCounts(counts);
+      } catch (error) {
+        console.log("Error fetching buying counts:", error);
+      }
+    };
+
+    const fetchOrderCancelCounts = async () => {
+      try {
+        const counts = {};
+        for (const user of userList) {
+          const response = await axios.get(
+            `https://localhost:7241/api/User/countcancelorderofuser/${user.userID}`
+          );
+          counts[user.userID] = response.data;
+        }
+        setUserOrderCancelCounts(counts);
+      } catch (error) {
+        console.log("Error fetching order cancel counts:", error);
+      }
+    };
+
+    fetchBuyingCounts();
+    fetchOrderCancelCounts();
+  }, [userList]);
 
   const handleStatusFilterChange = (filter) => {
     setStatusFilter(filter);
@@ -21,10 +59,17 @@ const AdminUserList = () => {
   const handleActivate = async (userID) => {
     try {
       await axios.put(`https://localhost:7241/api/User/activeuser/${userID}`);
-      // Update the visibility of the item in the state or fetch the updated data again
       await window.location.reload();
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleSortByBuyingCount = () => {
+    if (sortBy === "asc") {
+      setSortBy("desc");
+    } else {
+      setSortBy("asc");
     }
   };
 
@@ -48,7 +93,6 @@ const AdminUserList = () => {
       }
     })
     .filter((user) => {
-      // Áp dụng bộ lọc từ ô tìm kiếm
       const searchTermLower = searchTerm.toLowerCase();
       return (
         user.userID.includes(searchTermLower) ||
@@ -63,10 +107,22 @@ const AdminUserList = () => {
     setStatusFilter("all");
     setSearchTerm("");
     setActivateFilter("all");
+    setSortBy("");
   };
+
+  const sortedUserList = [...filteredUserList].sort((a, b) => {
+    const countA = userBuyingCounts[a.userID] || 0;
+    const countB = userBuyingCounts[b.userID] || 0;
+    if (sortBy === "asc") {
+      return countA - countB;
+    } else {
+      return countB - countA;
+    }
+  });
 
   return (
     <div className="container-fluid">
+      <h2>User List</h2>
       <div className="mb-3">
         <label htmlFor="statusFilter" className="form-label">
           Filter by Verified Status
@@ -99,7 +155,6 @@ const AdminUserList = () => {
         </select>
       </div>
 
-      {/* Thêm ô tìm kiếm */}
       <div className="mb-3">
         <label htmlFor="searchTerm" className="form-label">
           Search by UserID, Username, City, Mob No, or Address
@@ -120,47 +175,66 @@ const AdminUserList = () => {
               <th>User ID</th>
               <th>Username</th>
               <th>Mob No</th>
-              <th>City</th>
-              <th>Joined Date</th>
               <th>Verified</th>
               <th>Activate</th>
+              <th>
+                Buying Count{" "}
+                <button
+                  className="btn btn-primary"
+                  onClick={handleSortByBuyingCount}
+                >
+                  {sortBy === "asc" ? "▲" : "▼"}
+                </button>
+              </th>
+              <th>Order Cancel Count</th>
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
             {loading ? (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100vh",
-                }}
-              >
-                <TailSpin color="red" radius={8} />
-              </div>
+              <tr>
+                <td colSpan="9">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100px",
+                    }}
+                  >
+                    <TailSpin color="red" radius={8} />
+                  </div>
+                </td>
+              </tr>
             ) : error ? (
               <tr>
                 <td colSpan="9">Error: {error.message}</td>
               </tr>
             ) : (
-              filteredUserList.map((user) => (
+              sortedUserList.map((user) => (
                 <tr key={user.userID}>
                   <td>{user.userID}</td>
                   <td>{user.userName}</td>
                   <td>{user.mobNo}</td>
-                  <td>{user.city}</td>
-                  <td>{new Date(user.createdAt).toLocaleString()}</td>
                   <td>{user.isVerified ? "Verified" : "Not Verified"}</td>
                   <td>
-                    {" "}
                     <button
                       className="btn btn-primary"
                       onClick={() => handleActivate(user.userID)}
                     >
                       {user.activate ? <FaTimes /> : <FaCheck />}
                     </button>
+                  </td>
+                  <td>
+                    {userBuyingCounts[user.userID] === undefined
+                      ? "Loading..."
+                      : userBuyingCounts[user.userID]}
+                  </td>
+                  <td>
+                    {userOrderCancelCounts[user.userID] === undefined
+                      ? "Loading..."
+                      : userOrderCancelCounts[user.userID]}
                   </td>
                   <td>
                     <a

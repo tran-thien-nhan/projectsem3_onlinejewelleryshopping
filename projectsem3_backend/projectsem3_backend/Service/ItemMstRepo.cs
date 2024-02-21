@@ -244,7 +244,7 @@ namespace projectsem3_backend.Service
                 item.Gold_Wt = itemMst.Gold_Wt;
                 item.Stone_Wt = itemMst.Stone_Wt;
                 item.Wstg = itemMst.Wstg;
-                item.Visible = false;
+                item.Visible = true;
 
                 //gán
                 item.BrandMst = brand;
@@ -481,9 +481,15 @@ namespace projectsem3_backend.Service
             {
                 var dim = await db.DimMsts.ToListAsync();
                 var item = await db.ItemMsts
-                    .Include(i => i.DimMsts)
-                    .Where(i => i.DimMsts.Style_Code == i.Style_Code)
+                    .Include(i => i.DimMsts.DimQltyMst)
+                    .Include(i => i.DimMsts.DimQltySubMst)
+                    .Include(i => i.DimMsts.DimInfoMst)
+                    .Where(i => i.DimMsts.Style_Code == i.Style_Code &&
+                                i.DimMsts.DimQltyMst.DimQlty_ID == i.DimMsts.DimQlty_ID &&
+                                i.DimMsts.DimQltySubMst.DimSubType_ID == i.DimMsts.DimSubType_ID &&
+                                i.DimMsts.DimInfoMst.DimID == i.DimMsts.DimID)
                     .ToListAsync();
+
 
                 if (item == null)
                 {

@@ -23,6 +23,7 @@ const AdminList = () => {
 
   return (
     <div className="container-fluid">
+      <h2>Admin List</h2>
       <div className="site-blocks-table">
         <table className="table table-bordered">
           <thead>

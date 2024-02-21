@@ -94,6 +94,7 @@ const AdminGold = () => {
 
     return (
         <div className='container-fluid'>
+            <h2>Gold List</h2>
             <div className='mb-3'>
                 <label for="">
                     Search by ID or Name

@@ -51,6 +51,7 @@ const AdminJewelType = () => {
 
     return (
         <div className='container-fluid'>
+            <h2 className='mt-4'>Jewel Type</h2>
             <div className='mb-3'>
                 <label htmlFor="">
                     Search by Jewel Type

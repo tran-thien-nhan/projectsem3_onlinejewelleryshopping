@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useData } from "../../Context/DataContext";
 import { Link } from "react-router-dom";
@@ -7,6 +7,16 @@ const UserDiamond = () => {
   const { t, i18n } = useTranslation();
   const { items, dimInfo, dim, dimQltySub, dimQlty, itemListWithDim } =
     useData();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [filterItemDimQltySubMst, setFilterItemDimQltySubMst] = useState("All");
+  const [filterItemDimQltyMst, setFilterItemDimQltyMst] = useState("All");
+  const [filterItemDimTypeDimInfoMst, setFilterItemDimTypeDimInfoMst] =
+    useState("All");
+  const [filterItemDimSubTypeDimInfoMst, setFilterItemDimSubTypeDimInfoMst] =
+    useState("All");
+  const [minDimCrt, setMinDimCrt] = useState("");
+  const [maxDimCrt, setMaxDimCrt] = useState("");
 
   // Lấy số lượng diminfo
   const count = dimInfo.length;
@@ -18,13 +28,111 @@ const UserDiamond = () => {
 
   console.log(itemListWithDim);
 
+  useEffect(() => {
+    const results = itemListWithDim.map((item) => item.product_Name);
+    setSearchSuggestions(results);
+  }, [itemListWithDim]);
+
+  const handleSearchTermChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilterItemDimQltySubMst(e.target.value);
+  };
+
+  const handleFilterChangeDimQltyMst = (e) => {
+    setFilterItemDimQltyMst(e.target.value);
+  };
+
+  const handleFilterChangeDimTypeDimInfoMst = (e) => {
+    setFilterItemDimTypeDimInfoMst(e.target.value);
+  };
+
+  const handleFilterChangeDimSubTypeDimInfoMst = (e) => {
+    setFilterItemDimSubTypeDimInfoMst(e.target.value);
+  };
+
+  const filteredItems = itemListWithDim.filter((item) =>
+    item.product_Name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredItemsByDimQltySubMst = filteredItems.filter((item) =>
+    filterItemDimQltySubMst === "All"
+      ? true
+      : item.dimMsts.dimQltySubMst.dimQlty === filterItemDimQltySubMst
+  );
+
+  const filteredItemsByDimQltyMst = filteredItemsByDimQltySubMst.filter(
+    (item) =>
+      filterItemDimQltyMst === "All"
+        ? true
+        : item.dimMsts.dimQltyMst.dimQlty === filterItemDimQltyMst
+  );
+
+  const filteredItemsByDimTypeDimInfoMst = filteredItemsByDimQltyMst.filter(
+    (item) =>
+      filterItemDimTypeDimInfoMst === "All"
+        ? true
+        : item.dimMsts.dimInfoMst.dimType === filterItemDimTypeDimInfoMst
+  );
+
+  const filteredItemsByDimSubTypeDimInfoMst =
+    filteredItemsByDimTypeDimInfoMst.filter((item) =>
+      filterItemDimSubTypeDimInfoMst === "All"
+        ? true
+        : item.dimMsts.dimInfoMst.dimSubType === filterItemDimSubTypeDimInfoMst
+    );
+
+  const filteredItemsByDimCrt = filteredItemsByDimSubTypeDimInfoMst.filter(
+    (item) => {
+      if (minDimCrt && maxDimCrt) {
+        return (
+          item.dimMsts.dimInfoMst.dimCrt >= parseFloat(minDimCrt) &&
+          item.dimMsts.dimInfoMst.dimCrt <= parseFloat(maxDimCrt)
+        );
+      } else if (minDimCrt) {
+        return item.dimMsts.dimInfoMst.dimCrt >= parseFloat(minDimCrt);
+      } else if (maxDimCrt) {
+        return item.dimMsts.dimInfoMst.dimCrt <= parseFloat(maxDimCrt);
+      }
+      return true;
+    }
+  );
+
+  const handleMinDimCrtChange = (e) => {
+    setMinDimCrt(e.target.value);
+  };
+
+  const handleMaxDimCrtChange = (e) => {
+    setMaxDimCrt(e.target.value);
+  };
+
+  const resetSelectOptions = () => {
+    const selectElements = document.querySelectorAll("select");
+    selectElements.forEach((select) => {
+      select.selectedIndex = 0;
+    });
+  };
+
+  const handleReset = () => {
+    setSearchTerm("");
+    setFilterItemDimQltySubMst("All");
+    setFilterItemDimQltyMst("All");
+    setFilterItemDimTypeDimInfoMst("All");
+    setFilterItemDimSubTypeDimInfoMst("All");
+    setMinDimCrt("");
+    setMaxDimCrt("");
+    resetSelectOptions();
+  };
+
   return (
     <div className="container">
-      <div className="container my-4">
+      <div className="container my-4 text-center">
         <img
           src="https://cdn.pnj.io/images/promo/140/Adapt_banner_KC_vien_t10_1200x450.jpg"
           alt="banner"
-          style={{ width: "100%", height: "auto" }}
+          style={{ width: "90%", height: "auto" }}
         />
       </div>
       <div id="demo" className="carousel slide" data-bs-ride="carousel">
@@ -76,9 +184,9 @@ const UserDiamond = () => {
                     color: "white",
                   }}
                 >
-                  {t("Product")} {t("Diamond")} {t(dim.dimType)} {t("with")} {t("shape")}{" "}
-                  {t(dim.dimSubType)} {t("and")} {dim.dimCrt} carats{" "}
-                  {t("was discovered in")} {dim.dimYear}
+                  {t("Product")} {t("Diamond")} {t(dim.dimType)} {t("with")}{" "}
+                  {t("shape")} {t(dim.dimSubType)} {t("and")} {dim.dimCrt}{" "}
+                  carats {t("was discovered in")} {dim.dimYear}
                 </h5>
               </div>
             ))}
@@ -107,11 +215,146 @@ const UserDiamond = () => {
         {t("Related Diamond Quality Products")}
       </h5>
 
+      <div className="row my-2" style={{ justifyContent: "center" }}>
+        <div className="d-flex justify-content-between">
+          <div className="container">
+            <input
+              type="text"
+              placeholder={t("Search...")}
+              className="form-control"
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+              list="search-results"
+            />
+            <datalist id="search-results">
+              {searchSuggestions.map((suggestion) => (
+                <option key={suggestion} value={suggestion} />
+              ))}
+            </datalist>
+          </div>
+        </div>
+      </div>
+
+      <button className="btn btn-success mb-2 mx-2" onClick={handleReset}>
+        {t("Reset")}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary mb-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#demo3"
+      >
+        {t("Advance Search")} ▼
+      </button>
+
+      <div id="demo3" className="collapse">
+        <div className="d-flex">
+          <div className="col-auto" style={{ marginRight: "5px" }}>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={handleFilterChange}
+            >
+              <option value="All">{t("Select Diamond Sub Quality")} ▼</option>
+              {itemListWithDim.map((sub) => (
+                <option
+                  key={sub.dimMsts.dimQltySubMst.dimSubtype_ID}
+                  value={sub.dimMsts.dimQltySubMst.dimQlty}
+                >
+                  {t(sub.dimMsts.dimQltySubMst.dimQlty)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="col-auto" style={{ marginRight: "5px" }}>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={handleFilterChangeDimQltyMst}
+            >
+              <option value="All">{t("Select Diamond Quality")} ▼</option>
+              {itemListWithDim.map((sub) => (
+                <option
+                  key={sub.dimMsts.dimQltyMst.dimQlty_ID}
+                  value={sub.dimMsts.dimQltyMst.dimQlty}
+                >
+                  {t(sub.dimMsts.dimQltyMst.dimQlty)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="col-auto" style={{ marginRight: "5px" }}>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={handleFilterChangeDimTypeDimInfoMst}
+            >
+              <option value="All">
+                {t("Select")} {t("Type Of Diamond")} ▼
+              </option>
+              {itemListWithDim.map((sub) => (
+                <option
+                  key={sub.dimMsts.dimInfoMst.dimID}
+                  value={sub.dimMsts.dimInfoMst.dimType}
+                >
+                  {sub.dimMsts.dimInfoMst.dimType}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="col-auto" style={{ marginRight: "5px" }}>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={handleFilterChangeDimSubTypeDimInfoMst}
+            >
+              <option value="All">
+                {t("Select")} {t("Sub Type Of Diamond")} ▼
+              </option>
+              {itemListWithDim.map((sub) => (
+                <option
+                  key={sub.dimMsts.dimInfoMst.dimID}
+                  value={sub.dimMsts.dimInfoMst.dimSubType}
+                >
+                  {t(sub.dimMsts.dimInfoMst.dimSubType)}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="d-flex">
+          <div className="col-auto" style={{ marginRight: "5px" }}>
+            <input
+              type="number"
+              className="form-control"
+              placeholder={t("Min Carat")}
+              value={minDimCrt}
+              onChange={handleMinDimCrtChange}
+            />
+          </div>
+
+          <div className="col-auto" style={{ marginRight: "5px" }}>
+            <input
+              type="number"
+              className="form-control"
+              placeholder={t("Max Carat")}
+              value={maxDimCrt}
+              onChange={handleMaxDimCrtChange}
+            />
+          </div>
+        </div>
+      </div>
+
       <div
         className="row my-2"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
-        {itemListWithDim.map((item, index) => (
+        {filteredItemsByDimCrt.map((item, index) => (
           <div
             key={index}
             className="card mx-2 my-4"
@@ -140,11 +383,7 @@ const UserDiamond = () => {
                 <h5 className="card-title">{item.product_Name}</h5>
                 <a
                   className="btn btn-secondary"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(`/item/${item.style_Code}`, "_blank");
-                  }}
-                  target="_blank"
+                  href={`/item/${item.style_Code}`}
                 >
                   {t("View Details")}
                 </a>

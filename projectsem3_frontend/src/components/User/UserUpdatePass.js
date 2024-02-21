@@ -44,6 +44,7 @@ const UserUpdatePass = () => {
     }
 
     if (!newPassword || !confirmNewPassword) {
+      setLoading(false);
       Swal.fire(
         t("Error"),
         t("Please enter both new password and confirm new password"),
@@ -54,6 +55,7 @@ const UserUpdatePass = () => {
       }, 1000);
       return;
     } else if (newPassword.length < 3 || confirmNewPassword.length < 3) {
+      setLoading(false);
       Swal.fire(
         t("Error"),
         t("New password and confirm new password must be at least 3 characters"),
@@ -64,6 +66,7 @@ const UserUpdatePass = () => {
       }, 1000);
       return;
     } else if (newPassword.length > 20 || confirmNewPassword.length > 20) {
+      setLoading(false);
       Swal.fire(
         t("Error"),
         t("New password and confirm new password must be at most 20 characters"),
@@ -74,6 +77,7 @@ const UserUpdatePass = () => {
       }, 1000);
       return;
     } else if (newPassword !== confirmNewPassword) {
+      setLoading(false);
       Swal.fire(
         t("Error"),
         t("New password and confirm new password must be the same"),

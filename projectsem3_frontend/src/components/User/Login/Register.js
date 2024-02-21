@@ -5,10 +5,12 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import { useData } from "../../../Context/DataContext";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation(); 
+  const { userList } = useData();
+  const { t, i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
     userID: "",
@@ -43,6 +45,34 @@ const Register = () => {
     formData.append("mobNo", user.phone);
     formData.append("dob", user.dob);
     formData.append("password", user.pswd);
+
+    //xử lý nếu trùng sdt với 1 trong các user đã có
+    if (
+      userList.some(
+        (i) => i.mobNo === user.mobNo && i.userID !== userList.userID
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("this phone number is already exists!"),
+      });
+      return;
+    }
+
+    //xử lý nếu trùng email với 1 trong các user đã có
+    if (
+      userList.some(
+        (i) => i.emailID === user.emailID && i.userID !== userList.userID
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("this email is already exists!"),
+      });
+      return;
+    }
 
     axios
       .post("https://localhost:7241/api/User/register", formData)

@@ -93,6 +93,7 @@ const AdminCat = () => {
 
     return (
         <div className='container-fluid'>
+            <h2>Category List</h2>
             <div className='mb-3'>
                 <label for="">
                     Search by ID or Name

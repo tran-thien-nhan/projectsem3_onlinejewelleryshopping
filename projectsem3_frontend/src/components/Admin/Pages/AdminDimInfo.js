@@ -44,6 +44,7 @@ const AdminDimInfo = () => {
 
   return (
     <div className="container-fluid">
+      <h2 className="mt-4">Dim Info</h2>
       <div className="mb-3">
         <label htmlFor="searchTerm">Search by DimType or DimSubType</label>
         <input

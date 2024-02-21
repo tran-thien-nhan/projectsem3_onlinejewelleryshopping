@@ -144,6 +144,55 @@ const AdminUpdateItem = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
+    if (
+      item.product_Name === "" ||
+      item.pairs === "" ||
+      item.quantity === "" ||
+      item.prod_Quality === "" ||
+      item.gold_Wt === "" ||
+      item.gold_Rate === "" ||
+      item.stone_Wt === "" ||
+      item.wstg === "" ||
+      item.gold_Making === "" ||
+      item.stone_Making === "" ||
+      item.other_Making === ""
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please fill in all the fields",
+      });
+      return;
+    }
+
+    if (
+      item.gold_Rate < 0 ||
+      item.gold_Wt < 0 ||
+      item.stone_Wt < 0 ||
+      item.wstg < 0 ||
+      item.gold_Making < 0 ||
+      item.stone_Making < 0 ||
+      item.other_Making < 0 ||
+      item.pairs < 0 ||
+      item.quantity < 0 ||
+      item.pairs > 100 ||
+      item.quantity > 100 ||
+      item.gold_Rate > 100 ||
+      item.gold_Wt > 100 ||
+      item.stone_Wt > 100 ||
+      item.wstg > 100 ||
+      item.gold_Making > 100 ||
+      item.stone_Making > 100 ||
+      item.other_Making > 100
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please enter valid values",
+      });
+      return;
+    }
+
     const formData = new FormData();
     formData.append("style_Code", item.style_Code);
     formData.append("product_Name", item.product_Name);
