@@ -43,6 +43,8 @@ import AdminDimQlty from "./../components/Admin/Pages/AdminDimQlty";
 import AdminEditDimQlty from "../components/Admin/Pages/AdminEditDimQlty";
 import AdminCreateDimQlty from "./../components/Admin/Pages/AdminCreateDimQlty";
 import AdminDim from "./../components/Admin/Pages/AdminDim";
+import AdminCreateDim from "./../components/Admin/Pages/AdminCreateDim";
+import AdminEditDim from "./../components/Admin/Pages/AdminEditDim";
 import AdminProd from "./../components/Admin/Pages/AdminProd";
 import AdminCreateProd from "./../components/Admin/Pages/AdminCreateProd";
 import AdminEditProd from "../components/Admin/Pages/AdminEditProd";
@@ -385,21 +387,21 @@ const privateRouter = [
   {
     path: "/dim",
     element: <AdminDim />,
-    name: "DimMst ",
+    name: "DimMst Management",
     visible: true,
   },
-  // {
-  //   path: "/createDim",
-  //   element: <AdminCreateDim />,
-  //   name: "CreateDimQlty",
-  //   visible: false,
-  // },
-  // {
-  //   path: "/editDim/:id",
-  //   element: <AdminEditDim />,
-  //   name: "editDim",
-  //   visible: false,
-  // },
+  {
+    path: "/create-dim",
+    element: <AdminCreateDim />,
+    name: "CreateDimQlty",
+    visible: false,
+  },
+  {
+    path: "/edit-dim/:dimMst_ID",
+    element: <AdminEditDim />,
+    name: "editDim",
+    visible: false,
+  },
 
   {
     path: "/prod",
