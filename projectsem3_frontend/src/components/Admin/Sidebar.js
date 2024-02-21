@@ -7,7 +7,7 @@ const Sidebar = (props) => {
     <div>
       <ul className={props.style} id="accordionSidebar">
         <h5
-          className="sidebarbrand d-flex text-white mt-3 mx-3"
+          className="sidebarbrand d-flex text-white mb-3 mx-3"
           style={{ fontWeight: "bold" }}
         >
           <a

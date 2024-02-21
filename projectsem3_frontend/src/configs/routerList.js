@@ -387,7 +387,7 @@ const privateRouter = [
   {
     path: "/dim",
     element: <AdminDim />,
-    name: "DimMst Management",
+    name: "DimMst",
     visible: true,
   },
   {

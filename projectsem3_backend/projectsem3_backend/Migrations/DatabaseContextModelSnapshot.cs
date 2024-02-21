@@ -47,16 +47,16 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             UserName = "admin1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1514),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 48, DateTimeKind.Local).AddTicks(1935),
                             Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1528)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 48, DateTimeKind.Local).AddTicks(1951)
                         },
                         new
                         {
                             UserName = "admin2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1530),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 48, DateTimeKind.Local).AddTicks(1954),
                             Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(1531)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 48, DateTimeKind.Local).AddTicks(1955)
                         });
                 });
 
@@ -90,8 +90,8 @@ namespace projectsem3_backend.Migrations
                             Brand_ID = "1",
                             Brand_Type = "Asmi",
                             Brand_Year = 1913,
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6939),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6944),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(8556),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(8560),
                             Visible = true
                         },
                         new
@@ -99,8 +99,8 @@ namespace projectsem3_backend.Migrations
                             Brand_ID = "2",
                             Brand_Type = "D’damas",
                             Brand_Year = 1913,
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6947),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6948),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(8563),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(8564),
                             Visible = true
                         },
                         new
@@ -108,8 +108,8 @@ namespace projectsem3_backend.Migrations
                             Brand_ID = "3",
                             Brand_Type = "ABC Jewelers",
                             Brand_Year = 1913,
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6951),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(6952),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(8566),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(8567),
                             Visible = true
                         });
                 });
@@ -199,24 +199,24 @@ namespace projectsem3_backend.Migrations
                         {
                             Cat_ID = "1",
                             Cat_Name = "Silver Jewelry",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7685),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7688),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(9284),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(9287),
                             Visible = true
                         },
                         new
                         {
                             Cat_ID = "2",
                             Cat_Name = "Gold Jewelry",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7692),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7693),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(9289),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(9291),
                             Visible = true
                         },
                         new
                         {
                             Cat_ID = "3",
                             Cat_Name = "Diamond Jewelry",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7694),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 550, DateTimeKind.Local).AddTicks(7695),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(9292),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(9293),
                             Visible = true
                         });
                 });
@@ -248,24 +248,24 @@ namespace projectsem3_backend.Migrations
                         {
                             Certify_ID = "1",
                             Certify_Type = "BIS Hallmark",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2881),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2885),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(2112),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(2116),
                             Visible = true
                         },
                         new
                         {
                             Certify_ID = "2",
                             Certify_Type = "IGI",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2887),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2888),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(2118),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(2119),
                             Visible = true
                         },
                         new
                         {
                             Certify_ID = "3",
                             Certify_Type = "GIA",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2889),
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(2890),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(2121),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(2122),
                             Visible = true
                         });
                 });
@@ -311,40 +311,40 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             DimID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9913),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(5395),
                             DimCrt = "1",
                             DimImg = "",
                             DimPrice = "1000",
                             DimSubType = "Premium",
                             DimType = "Diamond",
                             DimYear = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9918),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(5398),
                             Visible = true
                         },
                         new
                         {
                             DimID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9923),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(5401),
                             DimCrt = "2",
                             DimImg = "",
                             DimPrice = "2000",
                             DimSubType = "Standard",
                             DimType = "Diamond",
                             DimYear = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9923),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(5402),
                             Visible = true
                         },
                         new
                         {
                             DimID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9927),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(5404),
                             DimCrt = "3",
                             DimImg = "",
                             DimPrice = "1500",
                             DimSubType = "Economy",
                             DimType = "Diamond",
                             DimYear = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 549, DateTimeKind.Local).AddTicks(9927),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(5405),
                             Visible = true
                         });
                 });
@@ -395,9 +395,7 @@ namespace projectsem3_backend.Migrations
 
                     b.HasKey("DimMst_ID");
 
-                    b.HasIndex("DimID")
-                        .IsUnique()
-                        .HasFilter("[DimID] IS NOT NULL");
+                    b.HasIndex("DimID");
 
                     b.HasIndex("DimQlty_ID");
 
@@ -413,7 +411,7 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             DimMst_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(216),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 57, DateTimeKind.Local).AddTicks(8375),
                             DimID = "1",
                             DimQlty_ID = "1",
                             DimSubType_ID = "1",
@@ -424,12 +422,13 @@ namespace projectsem3_backend.Migrations
                             Dim_Rate = 1000m,
                             Dim_Size = 1m,
                             Style_Code = "1",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(221)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 57, DateTimeKind.Local).AddTicks(8379),
+                            Visible = true
                         },
                         new
                         {
                             DimMst_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(227),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 57, DateTimeKind.Local).AddTicks(8387),
                             DimID = "2",
                             DimQlty_ID = "2",
                             DimSubType_ID = "2",
@@ -440,12 +439,13 @@ namespace projectsem3_backend.Migrations
                             Dim_Rate = 2000m,
                             Dim_Size = 2m,
                             Style_Code = "2",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(227)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 57, DateTimeKind.Local).AddTicks(8388),
+                            Visible = true
                         },
                         new
                         {
                             DimMst_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(232),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 57, DateTimeKind.Local).AddTicks(8392),
                             DimID = "3",
                             DimQlty_ID = "3",
                             DimSubType_ID = "3",
@@ -456,7 +456,8 @@ namespace projectsem3_backend.Migrations
                             Dim_Rate = 1500m,
                             Dim_Size = 3m,
                             Style_Code = "3",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(232)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 57, DateTimeKind.Local).AddTicks(8393),
+                            Visible = true
                         });
                 });
 
@@ -485,41 +486,41 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             DimQlty_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2483),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(663),
                             DimQlty = "AD",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2487),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(667),
                             Visible = true
                         },
                         new
                         {
                             DimQlty_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2489),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(670),
                             DimQlty = "VS",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2490),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(671),
                             Visible = true
                         },
                         new
                         {
                             DimQlty_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2491),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(673),
                             DimQlty = "SI",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2492),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(674),
                             Visible = true
                         },
                         new
                         {
                             DimQlty_ID = "4",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2493),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(675),
                             DimQlty = "FD",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2494),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(676),
                             Visible = true
                         },
                         new
                         {
                             DimQlty_ID = "5",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2495),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(678),
                             DimQlty = "WS",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(2496),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(678),
                             Visible = true
                         });
                 });
@@ -549,25 +550,25 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             DimSubType_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7169),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(4724),
                             DimQlty = "Premium",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7173),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(4728),
                             Visible = true
                         },
                         new
                         {
                             DimSubType_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7176),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(4732),
                             DimQlty = "Standard",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7177),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(4733),
                             Visible = true
                         },
                         new
                         {
                             DimSubType_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7179),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(4734),
                             DimQlty = "Economy",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 547, DateTimeKind.Local).AddTicks(7180),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 58, DateTimeKind.Local).AddTicks(4735),
                             Visible = true
                         });
                 });
@@ -600,28 +601,28 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             GoldType_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9239),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(4923),
                             Gold_Crt = "18K",
                             Gold_Year = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9244),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(4927),
                             Visible = true
                         },
                         new
                         {
                             GoldType_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9246),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(4930),
                             Gold_Crt = "22K",
                             Gold_Year = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9247),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(4931),
                             Visible = true
                         },
                         new
                         {
                             GoldType_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9249),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(4934),
                             Gold_Crt = "24K",
                             Gold_Year = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 551, DateTimeKind.Local).AddTicks(9249),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(4935),
                             Visible = true
                         });
                 });
@@ -665,7 +666,7 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             ID = "1",
-                            Cdate = new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(5472),
+                            Cdate = new DateTime(2024, 2, 22, 0, 27, 28, 48, DateTimeKind.Local).AddTicks(5319),
                             City = "HCM",
                             Comment = "Test 1",
                             Contact = "0123456789",
@@ -677,7 +678,7 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             ID = "2",
-                            Cdate = new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(5479),
+                            Cdate = new DateTime(2024, 2, 22, 0, 27, 28, 48, DateTimeKind.Local).AddTicks(5324),
                             City = "HCM",
                             Comment = "Test 2",
                             Contact = "0987654321",
@@ -689,7 +690,7 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             ID = "3",
-                            Cdate = new DateTime(2024, 2, 20, 14, 39, 27, 538, DateTimeKind.Local).AddTicks(5481),
+                            Cdate = new DateTime(2024, 2, 22, 0, 27, 28, 48, DateTimeKind.Local).AddTicks(5327),
                             City = "HCM",
                             Comment = "Test 3",
                             Contact = "0135792468",
@@ -814,7 +815,7 @@ namespace projectsem3_backend.Migrations
                             Brand_ID = "1",
                             Cat_ID = "1",
                             Certify_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8377),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 56, DateTimeKind.Local).AddTicks(5214),
                             GoldType_ID = "1",
                             Gold_Amt = 1000m,
                             Gold_Making = 1000m,
@@ -835,7 +836,7 @@ namespace projectsem3_backend.Migrations
                             Stone_Wt = 1m,
                             Tot_Gross_Wt = 1m,
                             Tot_Making = 1000m,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8381),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 56, DateTimeKind.Local).AddTicks(5218),
                             Visible = true,
                             Wstg = 1m,
                             Wstg_Per = 1m
@@ -846,7 +847,7 @@ namespace projectsem3_backend.Migrations
                             Brand_ID = "2",
                             Cat_ID = "2",
                             Certify_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8393),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 56, DateTimeKind.Local).AddTicks(5238),
                             GoldType_ID = "2",
                             Gold_Amt = 2000m,
                             Gold_Making = 2000m,
@@ -867,7 +868,7 @@ namespace projectsem3_backend.Migrations
                             Stone_Wt = 2m,
                             Tot_Gross_Wt = 2m,
                             Tot_Making = 2000m,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8393),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 56, DateTimeKind.Local).AddTicks(5239),
                             Visible = true,
                             Wstg = 2m,
                             Wstg_Per = 2m
@@ -878,7 +879,7 @@ namespace projectsem3_backend.Migrations
                             Brand_ID = "3",
                             Cat_ID = "3",
                             Certify_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8402),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 56, DateTimeKind.Local).AddTicks(5249),
                             GoldType_ID = "3",
                             Gold_Amt = 1500m,
                             Gold_Making = 1500m,
@@ -899,7 +900,7 @@ namespace projectsem3_backend.Migrations
                             Stone_Wt = 3m,
                             Tot_Gross_Wt = 3m,
                             Tot_Making = 1500m,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 545, DateTimeKind.Local).AddTicks(8402),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 56, DateTimeKind.Local).AddTicks(5250),
                             Visible = true,
                             Wstg = 3m,
                             Wstg_Per = 3m
@@ -932,33 +933,33 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             Jewellery_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3051),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8675),
                             Jewellery_Type = "Ring",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3053),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8677),
                             Visible = true
                         },
                         new
                         {
                             Jewellery_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3056),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8680),
                             Jewellery_Type = "Earring",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3056),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8681),
                             Visible = true
                         },
                         new
                         {
                             Jewellery_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3058),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8683),
                             Jewellery_Type = "Necklace",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3059),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8684),
                             Visible = true
                         },
                         new
                         {
                             Jewellery_ID = "4",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3060),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8686),
                             Jewellery_Type = "Bracelet",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(3061),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8687),
                             Visible = true
                         });
                 });
@@ -1066,33 +1067,33 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             Prod_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2557),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8109),
                             Prod_Type = "Gold Ring",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2561),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8112),
                             Visible = true
                         },
                         new
                         {
                             Prod_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2563),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8115),
                             Prod_Type = "Diamond Earring",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2564),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8116),
                             Visible = true
                         },
                         new
                         {
                             Prod_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2566),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8118),
                             Prod_Type = "Silver Necklace",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2566),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8119),
                             Visible = true
                         },
                         new
                         {
                             Prod_ID = "4",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2568),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8120),
                             Prod_Type = "Silver Ring",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 552, DateTimeKind.Local).AddTicks(2568),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 59, DateTimeKind.Local).AddTicks(8121),
                             Visible = true
                         });
                 });
@@ -1144,38 +1145,38 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             Stone_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(67),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 51, DateTimeKind.Local).AddTicks(6872),
                             StoneQlty_ID = "1",
                             Stone_Amt = 1000m,
                             Stone_Crt = 1m,
                             Stone_Gm = 1m,
                             Stone_Pcs = 1m,
                             Stone_Rate = 1000m,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(74)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 51, DateTimeKind.Local).AddTicks(6876)
                         },
                         new
                         {
                             Stone_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(78),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 51, DateTimeKind.Local).AddTicks(6880),
                             StoneQlty_ID = "2",
                             Stone_Amt = 2000m,
                             Stone_Crt = 2m,
                             Stone_Gm = 2m,
                             Stone_Pcs = 2m,
                             Stone_Rate = 2000m,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(79)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 51, DateTimeKind.Local).AddTicks(6881)
                         },
                         new
                         {
                             Stone_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(82),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 51, DateTimeKind.Local).AddTicks(6885),
                             StoneQlty_ID = "3",
                             Stone_Amt = 1500m,
                             Stone_Crt = 3m,
                             Stone_Gm = 3m,
                             Stone_Pcs = 3m,
                             Stone_Rate = 1500m,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(83)
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 51, DateTimeKind.Local).AddTicks(6886)
                         });
                 });
 
@@ -1207,28 +1208,28 @@ namespace projectsem3_backend.Migrations
                         new
                         {
                             StoneQlty_ID = "1",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6576),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 52, DateTimeKind.Local).AddTicks(3491),
                             StoneQlty = "Ruby",
                             Stone_Year = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6580),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 52, DateTimeKind.Local).AddTicks(3494),
                             Visible = true
                         },
                         new
                         {
                             StoneQlty_ID = "2",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6583),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 52, DateTimeKind.Local).AddTicks(3497),
                             StoneQlty = "Meena",
                             Stone_Year = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6584),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 52, DateTimeKind.Local).AddTicks(3499),
                             Visible = true
                         },
                         new
                         {
                             StoneQlty_ID = "3",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6586),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 52, DateTimeKind.Local).AddTicks(3501),
                             StoneQlty = "Sapphire",
                             Stone_Year = 1913,
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 541, DateTimeKind.Local).AddTicks(6586),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 52, DateTimeKind.Local).AddTicks(3502),
                             Visible = true
                         });
                 });
@@ -1294,16 +1295,16 @@ namespace projectsem3_backend.Migrations
                             UserID = "1",
                             Activate = true,
                             Address = "HCM",
-                            CDate = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2362),
+                            CDate = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7108),
                             City = "HCM",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2364),
-                            DOB = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2356),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7238),
+                            DOB = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7097),
                             EmailID = "user1@gmail.com",
                             IsVerified = true,
                             MobNo = "0123456789",
                             Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",
                             State = "HCM",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2365),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7240),
                             UserFname = "User",
                             UserLname = "1",
                             UserName = "user1"
@@ -1313,16 +1314,16 @@ namespace projectsem3_backend.Migrations
                             UserID = "2",
                             Activate = true,
                             Address = "HCM",
-                            CDate = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2369),
+                            CDate = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7244),
                             City = "HCM",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2370),
-                            DOB = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2368),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7245),
+                            DOB = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7243),
                             EmailID = "user2@gmail.com",
                             IsVerified = true,
                             MobNo = "0123456789",
                             Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",
                             State = "HCM",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2371),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7246),
                             UserFname = "User",
                             UserLname = "2",
                             UserName = "user2"
@@ -1332,16 +1333,16 @@ namespace projectsem3_backend.Migrations
                             UserID = "3",
                             Activate = true,
                             Address = "HCM",
-                            CDate = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2374),
+                            CDate = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7249),
                             City = "HCM",
-                            CreatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2375),
-                            DOB = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2373),
+                            CreatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7251),
+                            DOB = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7249),
                             EmailID = "user3@gmail.com",
                             IsVerified = true,
                             MobNo = "0123456789",
                             Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",
                             State = "HCM",
-                            UpdatedAt = new DateTime(2024, 2, 20, 14, 39, 27, 539, DateTimeKind.Local).AddTicks(2375),
+                            UpdatedAt = new DateTime(2024, 2, 22, 0, 27, 28, 49, DateTimeKind.Local).AddTicks(7251),
                             UserFname = "User",
                             UserLname = "3",
                             UserName = "user3"
@@ -1366,8 +1367,8 @@ namespace projectsem3_backend.Migrations
             modelBuilder.Entity("projectsem3_backend.Models.DimMst", b =>
                 {
                     b.HasOne("projectsem3_backend.Models.DimInfoMst", "DimInfoMst")
-                        .WithOne("DimMst")
-                        .HasForeignKey("projectsem3_backend.Models.DimMst", "DimID");
+                        .WithMany("DimMsts")
+                        .HasForeignKey("DimID");
 
                     b.HasOne("projectsem3_backend.Models.DimQltyMst", "DimQltyMst")
                         .WithMany("DimMsts")
@@ -1502,7 +1503,7 @@ namespace projectsem3_backend.Migrations
 
             modelBuilder.Entity("projectsem3_backend.Models.DimInfoMst", b =>
                 {
-                    b.Navigation("DimMst");
+                    b.Navigation("DimMsts");
                 });
 
             modelBuilder.Entity("projectsem3_backend.Models.DimQltyMst", b =>

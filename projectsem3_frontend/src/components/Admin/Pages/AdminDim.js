@@ -22,6 +22,7 @@ const AdminDim = () => {
 
   return (
     <div className="container-fluid">
+      <h1>DimMst</h1>
       <div className="site-blocks-table">
         <table className="table table-bordered">
           <thead>
@@ -29,12 +30,12 @@ const AdminDim = () => {
               <th>DimQlty</th>
               <th>DimSub</th>
               <th>DimID</th>
-              <th>Dim_Crt</th>
+              {/* <th>Dim_Crt</th>
               <th>Dim_Pcs No</th>
               <th>Dim_Gm</th>
               <th>Dim_Size</th>
               <th>Dim_Rate</th>
-              <th>Dim_Amt</th>
+              <th>Dim_Amt</th> */}
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -75,12 +76,12 @@ const AdminDim = () => {
                         : null
                     )}
                   </td>
-                  <td>{dimItem.dim_Crt}</td>
+                  {/* <td>{dimItem.dim_Crt}</td>
                   <td>{dimItem.dim_Pcs}</td>
                   <td>{dimItem.dim_Gm}</td>
                   <td>{dimItem.dim_Size}</td>
                   <td>{dimItem.dim_Rate}</td>
-                  <td>{dimItem.dim_Amt}</td>
+                  <td>{dimItem.dim_Amt}</td> */}
                   <td>
                     <button
                       className="btn btn-primary"
@@ -102,7 +103,9 @@ const AdminDim = () => {
             )}
           </tbody>
         </table>
-        <div>
+        
+      </div>
+      <div>
           <a
             href="/create-dim"
             style={{ textDecoration: "none" }}
@@ -112,7 +115,6 @@ const AdminDim = () => {
             Create New
           </a>
         </div>
-      </div>
     </div>
   );
 };

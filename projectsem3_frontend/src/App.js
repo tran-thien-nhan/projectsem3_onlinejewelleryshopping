@@ -32,7 +32,7 @@ function App() {
                             </div>
                           </nav>
                           <div className="container-fluid d-flex">
-                            <div className="mb-4" style={{ backgroundColor: "#3b5d50", borderRadius:"10px" }}>
+                            <div className="py-3 mb-3" style={{ backgroundColor: "#3b5d50", borderRadius:"10px" }}>
                               <Sidebar style={style} />
                             </div>
                             <div className="container-fluid">
