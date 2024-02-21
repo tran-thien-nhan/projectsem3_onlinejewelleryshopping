@@ -431,7 +431,7 @@ namespace projectsem3_backend.data
                 d.HasOne(d => d.ItemMst).WithOne(d => d.DimMsts).HasForeignKey<DimMst>(d => d.Style_Code);
                 d.HasOne(d => d.DimQltySubMst).WithMany(d => d.DimMsts).HasForeignKey(d => d.DimQlty_ID);
                 d.HasOne(d => d.DimQltyMst).WithMany(d => d.DimMsts).HasForeignKey(d => d.DimQlty_ID);
-                d.HasOne(d => d.DimInfoMst).WithOne(d => d.DimMst).HasForeignKey<DimInfoMst>(d => d.DimID);
+                d.HasOne(d => d.DimInfoMst).WithMany(d => d.DimMsts).HasForeignKey(d => d.DimID);
                 d.HasData(new DimMst[]
                 {
                         new DimMst
@@ -449,6 +449,7 @@ namespace projectsem3_backend.data
                             Dim_Amt = 1000,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
+                            Visible = true
                         },
                         new DimMst
                         {
@@ -465,6 +466,7 @@ namespace projectsem3_backend.data
                             Dim_Amt = 2000,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
+                            Visible = true
                         },
                         new DimMst
                         {
@@ -481,6 +483,7 @@ namespace projectsem3_backend.data
                             Dim_Amt = 1500,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
+                            Visible = true
                         }
                 });
             });
@@ -573,7 +576,7 @@ namespace projectsem3_backend.data
             modelBuilder.Entity<DimInfoMst>(d =>
             {
                 d.HasKey(d => d.DimID);
-                d.HasOne(d => d.DimMst).WithOne(d => d.DimInfoMst).HasForeignKey<DimMst>(d => d.DimID);
+                d.HasMany(d => d.DimMsts).WithOne(d => d.DimInfoMst).HasForeignKey(d => d.DimID);
                 d.HasData(new DimInfoMst[]
                 {
                         new DimInfoMst

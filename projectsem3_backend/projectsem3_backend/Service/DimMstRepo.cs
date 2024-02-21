@@ -9,18 +9,62 @@ namespace projectsem3_backend.Service
     {
     public class DimMstRepo : IDimMstRepo
         {
-        private readonly DatabaseContext _db;
+        private readonly DatabaseContext db;
 
         public DimMstRepo( DatabaseContext db )
             {
-            _db = db;
+            this.db = db;
             }
+
+        public async Task<CustomResult> CreateDimMstAsync( DimMst dimMst )
+            {
+            try
+                {
+                // Tạo một giá trị GUID mới cho DimMst_ID
+                dimMst.DimMst_ID = Guid.NewGuid().ToString();
+
+                // Thiết lập thời gian tạo và cập nhật
+                dimMst.CreatedAt = DateTime.Now;
+                dimMst.UpdatedAt = DateTime.Now;
+
+                // Check for the existence of related entities
+                var dimQltySubMst = await db.DimQltySubMsts.SingleOrDefaultAsync(d => d.DimSubType_ID == dimMst.DimSubType_ID);
+                var dimQltyMst = await db.DimQltyMsts.SingleOrDefaultAsync(d => d.DimQlty_ID == dimMst.DimQlty_ID);
+                var dimInfoMst = await db.DimInfoMsts.SingleOrDefaultAsync(d => d.DimID == dimMst.DimID);
+
+                // Assign related entities
+                dimMst.DimQltySubMst = dimQltySubMst;
+                dimMst.DimQltyMst = dimQltyMst;
+                dimMst.DimInfoMst = dimInfoMst;
+
+                // Set default value for Visible
+                dimMst.Visible = false;
+
+                // Add the new DimMst
+                await db.DimMsts.AddAsync(dimMst);
+                var result = await db.SaveChangesAsync();
+
+                if (result == 1)
+                    {
+                    return new CustomResult(200, "Create New DimMst Success", dimMst);
+                    }
+                else
+                    {
+                    return new CustomResult(201, "Create New DimMst Error", null);
+                    }
+                }
+            catch (Exception ex)
+                {
+                return new CustomResult(500, ex.Message, null);
+                }
+            }
+
 
         public async Task<CustomResult> GetAllDimMstsAsync()
             {
             try
                 {
-                var result = await _db.DimMsts.ToListAsync();
+                var result = await db.DimMsts.ToListAsync();
                 return new CustomResult(200, "Get all DimMsts success", result);
                 }
             catch (Exception e)
@@ -33,24 +77,10 @@ namespace projectsem3_backend.Service
             {
             try
                 {
-                var result = await _db.DimMsts.SingleOrDefaultAsync(i => i.DimID == dimId);
+                var result = await db.DimMsts.SingleOrDefaultAsync(i => i.DimMst_ID == dimId);
                 return result != null
                     ? new CustomResult(200, "Get DimMst by ID success", result)
                     : new CustomResult(404, "DimMst not found", null);
-                }
-            catch (Exception e)
-                {
-                return new CustomResult(500, e.Message, null);
-                }
-            }
-
-        public async Task<CustomResult> CreateDimMstAsync( DimMst dimMst )
-            {
-            try
-                {
-                _db.DimMsts.Add(dimMst);
-                await _db.SaveChangesAsync();
-                return new CustomResult(200, "Create DimMst success", dimMst);
                 }
             catch (Exception e)
                 {
@@ -62,28 +92,59 @@ namespace projectsem3_backend.Service
             {
             try
                 {
-                _db.DimMsts.Update(dimMst);
-                await _db.SaveChangesAsync();
-                return new CustomResult(200, "Update DimMst success", dimMst);
+                var dim = await db.DimMsts.SingleOrDefaultAsync(i => i.DimMst_ID == dimMst.DimMst_ID);
+                if (dim == null)
+                    {
+                    return new CustomResult(404, "DimMst not found", null);
+                    }
+
+                // Update the information
+                dim.UpdatedAt = DateTime.Now;
+                dim.Dim_Crt = dimMst.Dim_Crt;
+                dim.Dim_Pcs = dimMst.Dim_Pcs;
+                dim.Dim_Gm = dimMst.Dim_Gm;
+                dim.Dim_Size = dimMst.Dim_Size;
+                dim.Dim_Rate = dimMst.Dim_Rate;
+                dim.Dim_Amt = dimMst.Dim_Amt;
+                dim.Visible = dimMst.Visible;
+
+                // Check for the existence of related entities
+                var dimQltySubMst = await db.DimQltySubMsts.SingleOrDefaultAsync(d => d.DimSubType_ID == dimMst.DimSubType_ID);
+                var dimQltyMst = await db.DimQltyMsts.SingleOrDefaultAsync(d => d.DimQlty_ID == dimMst.DimQlty_ID);
+                var dimInfoMst = await db.DimInfoMsts.SingleOrDefaultAsync(d => d.DimID == dimMst.DimID);
+
+                // Assign related entities
+                dim.DimQltySubMst = dimQltySubMst;
+                dim.DimQltyMst = dimQltyMst;
+                dim.DimInfoMst = dimInfoMst;
+
+                // Update the DimMst entity
+                db.DimMsts.Update(dim);
+                await db.SaveChangesAsync();
+
+                return new CustomResult(200, "Update DimMst success", dim);
                 }
             catch (Exception e)
                 {
                 return new CustomResult(500, e.Message, null);
                 }
             }
+
 
         public async Task<CustomResult> DeleteDimMstAsync( string dimId )
             {
             try
                 {
-                var dimMst = await _db.DimMsts.SingleOrDefaultAsync(i => i.DimID == dimId);
-                if (dimMst == null)
+                var existingDimMst = await db.DimMsts.SingleOrDefaultAsync(i => i.DimMst_ID == dimId);
+                if (existingDimMst == null)
+                    {
                     return new CustomResult(404, "DimMst not found", null);
+                    }
 
-                _db.DimMsts.Remove(dimMst);
-                await _db.SaveChangesAsync();
+                db.DimMsts.Remove(existingDimMst);
+                await db.SaveChangesAsync();
 
-                return new CustomResult(200, "Delete DimMst success", dimMst);
+                return new CustomResult(200, "Delete DimMst success", existingDimMst);
                 }
             catch (Exception e)
                 {
@@ -91,84 +152,21 @@ namespace projectsem3_backend.Service
                 }
             }
 
-        public async Task<CustomResult> UpdateVisibility( string dimId )
+        public async Task<CustomResult> UpdateDimVisibility( string dimId )
             {
             try
                 {
-                var dimMst = await _db.DimMsts.SingleOrDefaultAsync(i => i.DimID == dimId);
-                if (dimMst == null)
+                var existingDimMst = await db.DimMsts.SingleOrDefaultAsync(i => i.DimMst_ID == dimId);
+                if (existingDimMst == null)
+                    {
                     return new CustomResult(404, "DimMst not found", null);
+                    }
 
-                dimMst.Visible = !dimMst.Visible;
-                _db.DimMsts.Update(dimMst);
-                await _db.SaveChangesAsync();
+                existingDimMst.Visible = !existingDimMst.Visible;
+                db.DimMsts.Update(existingDimMst);
+                await db.SaveChangesAsync();
 
-                return new CustomResult(200, "Update Visibility success", dimMst);
-                }
-            catch (Exception e)
-                {
-                return new CustomResult(500, e.Message, null);
-                }
-            }
-
-        public async Task<CustomResult> GetDimMstsByStyleCodeAsync( string styleCode )
-            {
-            try
-                {
-                var result = await _db.DimMsts.Where(d => d.Style_Code == styleCode).ToListAsync();
-                return new CustomResult(200, "Get DimMsts by Style Code success", result);
-                }
-            catch (Exception e)
-                {
-                return new CustomResult(500, e.Message, null);
-                }
-            }
-
-        public async Task<CustomResult> GetDimMstsByDimQltyIdAsync( string dimQltyId )
-            {
-            try
-                {
-                var result = await _db.DimMsts.Where(d => d.DimQlty_ID == dimQltyId).ToListAsync();
-                return new CustomResult(200, "Get DimMsts by Quality ID success", result);
-                }
-            catch (Exception e)
-                {
-                return new CustomResult(500, e.Message, null);
-                }
-            }
-
-        public async Task<CustomResult> GetDimMstsByDimSubTypeIdAsync( string dimSubTypeId )
-            {
-            try
-                {
-                var result = await _db.DimMsts.Where(d => d.DimSubType_ID == dimSubTypeId).ToListAsync();
-                return new CustomResult(200, "Get DimMsts by SubType ID success", result);
-                }
-            catch (Exception e)
-                {
-                return new CustomResult(500, e.Message, null);
-                }
-            }
-
-        public async Task<CustomResult> GetDimMstsByCreatedAtRangeAsync( DateTime startDate, DateTime endDate )
-            {
-            try
-                {
-                var result = await _db.DimMsts.Where(d => d.CreatedAt >= startDate && d.CreatedAt <= endDate).ToListAsync();
-                return new CustomResult(200, "Get DimMsts by CreatedAt Range success", result);
-                }
-            catch (Exception e)
-                {
-                return new CustomResult(500, e.Message, null);
-                }
-            }
-
-        public async Task<CustomResult> GetVisibleDimMstsAsync()
-            {
-            try
-                {
-                var result = await _db.DimMsts.Where(d => d.Visible == true).ToListAsync();
-                return new CustomResult(200, "Get Visible DimMsts success", result);
+                return new CustomResult(200, "Update Visibility success", existingDimMst);
                 }
             catch (Exception e)
                 {

@@ -24,6 +24,7 @@ namespace projectsem3_backend.Models
 
         public bool Visible { get; set; }
 
-        public DimMst? DimMst { get; set; }
-    }
+        public ICollection<DimMst>? DimMsts { get; set; }
+
+        }
 }

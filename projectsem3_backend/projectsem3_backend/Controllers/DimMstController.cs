@@ -18,39 +18,39 @@ namespace projectsem3_backend.Controllers
             }
 
         [HttpGet]
-        public async Task<ActionResult<CustomResult>> GetAllDimMsts()
+        public async Task<CustomResult> GetAllDimMsts()
             {
             return await dimMstRepo.GetAllDimMstsAsync();
             }
 
         [HttpGet("getonedim/{id}")]
-        public async Task<ActionResult<CustomResult>> GetDimMstById( string id )
+        public async Task<CustomResult> GetDimMstById( string id )
             {
             return await dimMstRepo.GetDimMstByIdAsync(id);
             }
 
         [HttpPost]
-        public async Task<ActionResult<CustomResult>> CreateDimMst( [FromBody] DimMst dimMst )
+        public async Task<CustomResult> CreateDimMst( [FromForm] DimMst dimMst )
             {
             return await dimMstRepo.CreateDimMstAsync(dimMst);
             }
 
         [HttpPut]
-        public async Task<ActionResult<CustomResult>> UpdateDimMst( [FromBody] DimMst dimMst )
+        public async Task<CustomResult> UpdateDimMst( [FromForm] DimMst dimMst )
             {
             return await dimMstRepo.UpdateDimMstAsync(dimMst);
             }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CustomResult>> DeleteDimMst( string id )
+        public async Task<CustomResult> DeleteDimMst( string id )
             {
             return await dimMstRepo.DeleteDimMstAsync(id);
             }
 
         [HttpPut("updatevisibility/{id}")]
-        public async Task<ActionResult<CustomResult>> UpdateVisibility( string id )
+        public async Task<CustomResult> UpdateDimVisibility( string id )
             {
-            return await dimMstRepo.UpdateVisibility(id);
+            return await dimMstRepo.UpdateDimVisibility(id);
             }
         }
     }
