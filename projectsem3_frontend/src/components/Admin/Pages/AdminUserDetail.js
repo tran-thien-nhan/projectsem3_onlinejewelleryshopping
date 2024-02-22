@@ -53,7 +53,7 @@ const AdminUserDetail = () => {
                 <td>{userDetails.userFname} {userDetails.userLname}</td>
                 <td>{userDetails.emailID}</td>
                 <td>{userDetails.mobNo}</td>
-                <td>{new Date(userDetails.dob).toLocaleString()}</td>
+                <td>{new Date(userDetails.dob).toLocaleDateString('en-GB')}</td>
                 <td>{new Date(userDetails.cDate).toLocaleString()}</td>
                 <td>{userDetails.city}</td>
                 <td>{new Date(userDetails.createdAt).toLocaleString()}</td>

@@ -33,6 +33,7 @@ const Register = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("userID", 1);
     formData.append("username", user.username);

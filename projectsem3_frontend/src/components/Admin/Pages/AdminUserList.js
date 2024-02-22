@@ -8,6 +8,7 @@ const AdminUserList = () => {
   const { userList, loading, error, orderList } = useData();
   const [statusFilter, setStatusFilter] = useState("all");
   const [activateFilter, setActivateFilter] = useState("all");
+  const [onlineStatusFilter, setOnlineStatusFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [userBuyingCounts, setUserBuyingCounts] = useState({});
   const [userOrderCancelCounts, setUserOrderCancelCounts] = useState({});
@@ -56,6 +57,10 @@ const AdminUserList = () => {
     setActivateFilter(filter);
   };
 
+  const handleFilterOnlineStatusChange = (filter) => {
+    setOnlineStatusFilter(filter);
+  };
+
   const handleActivate = async (userID) => {
     try {
       await axios.put(`https://localhost:7241/api/User/activeuser/${userID}`);
@@ -93,6 +98,15 @@ const AdminUserList = () => {
       }
     })
     .filter((user) => {
+      if (onlineStatusFilter === "all") {
+        return true;
+      } else if (onlineStatusFilter === "online") {
+        return user.onlineStatus === true;
+      } else {
+        return user.onlineStatus === false;
+      }
+    })
+    .filter((user) => {
       const searchTermLower = searchTerm.toLowerCase();
       return (
         user.userID.includes(searchTermLower) ||
@@ -108,6 +122,7 @@ const AdminUserList = () => {
     setSearchTerm("");
     setActivateFilter("all");
     setSortBy("");
+    setActivateFilter("all");
   };
 
   const sortedUserList = [...filteredUserList].sort((a, b) => {
@@ -119,6 +134,40 @@ const AdminUserList = () => {
       return countB - countA;
     }
   });
+
+  const getTimeAgo = (timestamp) => {
+    const now = new Date();
+    const time = new Date(timestamp);
+    const timeDifference = now.getTime() - time.getTime();
+
+    const seconds = Math.floor(timeDifference / 1000);
+    if (seconds < 60) {
+      return `${seconds} seconds ago`;
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    }
+
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+      return `${hours} hours ago`;
+    }
+
+    const days = Math.floor(hours / 24);
+    if (days < 30) {
+      return `${days} days ago`;
+    }
+
+    const months = Math.floor(days / 30);
+    if (months < 12) {
+      return `${months} months ago`;
+    }
+
+    const years = Math.floor(months / 12);
+    return `${years} years ago`;
+  };
 
   return (
     <div className="container-fluid">
@@ -156,6 +205,22 @@ const AdminUserList = () => {
       </div>
 
       <div className="mb-3">
+        <label htmlFor="activateFilter" className="form-label">
+          Filter by Online Status
+        </label>
+        <select
+          className="form-select"
+          id="onelineStatusFilter"
+          onChange={(e) => handleFilterOnlineStatusChange(e.target.value)}
+          value={onlineStatusFilter}
+        >
+          <option value="all">All</option>
+          <option value="online">online</option>
+          <option value="offline">offline</option>
+        </select>
+      </div>
+
+      <div className="mb-3">
         <label htmlFor="searchTerm" className="form-label">
           Search by UserID, Username, City, Mob No, or Address
         </label>
@@ -175,6 +240,7 @@ const AdminUserList = () => {
               <th>User ID</th>
               <th>Username</th>
               <th>Mob No</th>
+              <th>Status</th>
               <th>Verified</th>
               <th>Activate</th>
               <th>
@@ -217,6 +283,16 @@ const AdminUserList = () => {
                   <td>{user.userID}</td>
                   <td>{user.userName}</td>
                   <td>{user.mobNo}</td>
+                  <td>
+                    <span
+                      className={`badge ${
+                        user.onlineStatus ? "bg-success" : "bg-danger"
+                      }`}
+                    >
+                      {user.onlineStatus ? "Online" : "Offline"}
+                    </span>
+                    <p>{getTimeAgo(user.lastAccessTime)}</p>
+                  </td>
                   <td>{user.isVerified ? "Verified" : "Not Verified"}</td>
                   <td>
                     <button

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using iText.StyledXmlParser.Jsoup.Safety;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto;
 using projectsem3_backend.Models;
@@ -28,6 +29,7 @@ namespace projectsem3_backend.data
         public DbSet<CartList> CartLists { get; set; }
         public DbSet<OrderDetailMst> OrderDetailMsts { get; set; }
         public DbSet<OrderMst> OrderMsts { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +45,8 @@ namespace projectsem3_backend.data
                     {
                         UserName = "admin1",
                         Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
+                        OnlineStatus = false,
+                        LastAccessTime = DateTime.Now,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     },
@@ -50,6 +54,8 @@ namespace projectsem3_backend.data
                     {
                         UserName = "admin2",
                         Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
+                        OnlineStatus = false,
+                        LastAccessTime = DateTime.Now,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     }
@@ -106,6 +112,7 @@ namespace projectsem3_backend.data
             modelBuilder.Entity<UserRegMst>(u =>
             {
                 u.HasKey(u => u.UserID);
+                u.HasMany(u => u.Wishlists).WithOne(u => u.UserRegMst).HasForeignKey(u => u.UserID);
                 u.HasMany(u => u.CartLists).WithOne(u => u.UserRegMst).HasForeignKey(u => u.UserID);
                 u.HasMany(u => u.OrderMsts).WithOne(u => u.UserRegMst).HasForeignKey(u => u.UserID);
                 u.HasMany(u => u.Inquiries).WithOne(u => u.UserRegMst).HasForeignKey(u => u.UserID);
@@ -127,6 +134,8 @@ namespace projectsem3_backend.data
                         Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
                         IsVerified = true,
                         Activate = true,
+                        OnlineStatus = false,
+                        LastAccessTime = DateTime.Now,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     },
@@ -146,6 +155,8 @@ namespace projectsem3_backend.data
                         IsVerified = true,
                         Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
                         Activate = true,
+                        OnlineStatus = false,
+                        LastAccessTime = DateTime.Now,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     },
@@ -165,6 +176,8 @@ namespace projectsem3_backend.data
                         IsVerified = true,
                         Password = "$2a$12$36eo6oF9uDI0Yf3HJqOsgu6yAkQXceqjPw7WPD1Sb3S/rC4nfKnDu",//123
                         Activate = true,
+                        OnlineStatus = false,
+                        LastAccessTime = DateTime.Now,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     }
@@ -313,6 +326,7 @@ namespace projectsem3_backend.data
             modelBuilder.Entity<ItemMst>(it =>
             {
                 it.HasKey(it => it.Style_Code);
+                it.HasMany(it => it.Wishlists).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
                 it.HasMany(it => it.OrderDetailMsts).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
                 it.HasMany(it => it.CartLists).WithOne(it => it.ItemMst).HasForeignKey(it => it.Style_Code);
                 it.HasOne(it => it.DimMsts).WithOne(it => it.ItemMst).HasForeignKey<DimMst>(it => it.Style_Code);
@@ -846,6 +860,14 @@ namespace projectsem3_backend.data
                             Visible = true
                         }
                 });
+            });
+
+            //20
+            modelBuilder.Entity<Wishlist>(w =>
+            {
+                w.HasKey(w => w.WhistList_ID);
+                w.HasOne(w => w.UserRegMst).WithMany(w => w.Wishlists).HasForeignKey(w => w.UserID);
+                w.HasOne(w => w.ItemMst).WithMany(w => w.Wishlists).HasForeignKey(w => w.Style_Code);
             });
         }
     }

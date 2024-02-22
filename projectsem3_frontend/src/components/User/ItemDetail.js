@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useData } from "../../Context/DataContext";
 import "../../asset/css/expanded-image.css";
@@ -24,11 +24,14 @@ function ItemDetail() {
     dimQlty,
     dimQltySub,
     dimInfo,
-    itemListWithDim
+    itemListWithDim,
+    wistlist,
   } = useData();
   const [quantity, setQuantity] = useState(1);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
+  const [isAddedToWishlist, setIsAddedToWishlist] = useState(false);
+  const [updatewistlist, setUpdateWistlist] = useState([]);
   const { t, i18n } = useTranslation();
 
   if (loading) {
@@ -39,9 +42,19 @@ function ItemDetail() {
     return <p className="alert alert-danger">Có lỗi xảy ra: {error.message}</p>;
   }
 
-  const selectedDim = itemListWithDim.find((item) => item.style_Code === styleCode);
+  const selectedDim = itemListWithDim.find(
+    (item) => item.style_Code === styleCode
+  );
 
-  console.log(selectedDim);
+  const wistlistByUserId = wistlist.filter(
+    (wistlist) => wistlist.userID === sessionStorage.getItem("userID")
+  );
+
+  //console.log(wistlistByUserId);
+  const isWishListExist = wistlistByUserId.some(
+    (item) => item.style_Code === styleCode
+  );
+  console.log(isWishListExist);
 
   const selectedItem = items.find((item) => item.style_Code === styleCode);
   // sp liên quan
@@ -52,6 +65,48 @@ function ItemDetail() {
   if (!selectedItem) {
     return <p>Không tìm thấy item.</p>;
   }
+
+  const handleAddToWishlist = async (e) => {
+    e.preventDefault();
+
+    if (isWishListExist) {
+      handleDeleteFromWishList(wistlistByUserId[0].whistList_ID, e);
+      window.location.reload();
+      return;
+    }
+
+    try {
+      const response = await axios.post("https://localhost:7241/api/WishList", {
+        WhistList_ID: selectedItem.style_Code,
+        Style_Code: selectedItem.style_Code,
+        UserID: sessionStorage.getItem("userID"),
+      });
+
+      if (response.status === 200) {
+        Swal.fire(
+          t("Success"),
+          t("Item added to wishlist successfully"),
+          "success"
+        );
+
+        setTimeout(() => {
+          Swal.close();
+          window.location.reload();
+        }, 1000);
+      }
+    } catch (error) {
+      console.error(error);
+
+      if (error.response) {
+        console.log(error);
+        Swal.fire(
+          "Error",
+          `Failed to add item to wishlist. Server responded with ${error.response.status}`,
+          "error"
+        );
+      }
+    }
+  };
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
@@ -186,7 +241,7 @@ function ItemDetail() {
         console.log(error.response.data);
         Swal.fire(
           "Error",
-          `Failed to add item to cart. Server responded with ${error.response.status}. ${error.response.data}`,
+          `Failed to add item to cart. Server responded with ${error.response}`,
           "error"
         );
 
@@ -213,6 +268,31 @@ function ItemDetail() {
         console.log(error.message);
         Swal.fire("Error", "An unexpected error occurred", "error");
       }
+    }
+  };
+
+  const handleDeleteFromWishList = async (id, e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.delete(
+        `https://localhost:7241/api/WishList/unaddfromwishlist/${id}`
+      );
+      if (response.status === 200) {
+        const updatedWishList = wistlistByUserId.filter(
+          (item) => item.id !== id
+        );
+        setUpdateWistlist(updatedWishList);
+        window.location.reload();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Something went wrong!",
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -338,6 +418,27 @@ function ItemDetail() {
               onClick={(e) => buyButton(e)}
             >
               {t("Buy It Now")}
+            </button>
+          </div>
+        </form>
+        <form onSubmit={handleAddToWishlist}>
+          <div>
+            <input type="hidden" name="WhistList_ID" value="abc" />
+            <button
+              style={{ backgroundColor: "white", color: "black" }}
+              className="btn btn-default mt-2"
+              onClick={handleAddToWishlist}
+            >
+              {isWishListExist ? (
+                <i className="fa fa-heart" aria-hidden="true"></i>
+              ) : (
+                <i className="fa fa-heart-o" aria-hidden="true"></i>
+              )}
+              <span className="mx-2">
+                {
+                  isWishListExist ? t("Remove from Wishlist") : t("Favorite")
+                }
+              </span>
             </button>
           </div>
         </form>

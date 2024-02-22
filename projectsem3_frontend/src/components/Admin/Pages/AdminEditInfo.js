@@ -38,7 +38,12 @@ const AdminEditInfo = () => {
     formData.append("password", admin.password);
     formData.append("adminEmail", admin.adminEmail);
 
-    if (adminList.some((i) => i.adminEmail === admin.adminEmail)) {
+    if (
+      adminList.some(
+        (i) =>
+          i.adminEmail === admin.adminEmail && i.userName !== admin.userName
+      )
+    ) {
       Swal.fire({
         icon: "error",
         title: "Error",

@@ -1,11 +1,31 @@
+import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const TopbarNavbar = () => {
   const navigate = useNavigate();
-  const handleLogout = () => {
-    sessionStorage.clear();    
-    navigate("/movingtouser");
+
+  const handleLogout = async () => {
+    try {
+      const username = sessionStorage.getItem("userName");
+      const response = await axios.get(
+        `https://localhost:7241/api/Admin/updateadminstatus/${username}`
+      );
+      if (response.status === 200) {
+        sessionStorage.clear();
+        Swal.fire("Success", "Logout successful!", "success");
+        setTimeout(() => {
+          Swal.close();
+          navigate("/movingtouser");
+        }, 2000);
+      } else {
+        Swal.fire("Error", "Failed to logout", "error");
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire("Error", "An error occurred", "error");
+    }
   };
 
   return (

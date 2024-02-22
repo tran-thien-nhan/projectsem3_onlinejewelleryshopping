@@ -11,6 +11,9 @@ namespace projectsem3_backend.Models
 
         public string? AdminEmail { get; set; }
 
+        public bool? OnlineStatus { get; set; }
+        public DateTime? LastAccessTime { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

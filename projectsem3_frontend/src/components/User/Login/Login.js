@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation(); 
+  const { t, i18n } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
@@ -18,7 +18,11 @@ const Login = () => {
     event.preventDefault();
 
     if (!username || !password) {
-      Swal.fire(t("Error"), t("Please enter both username and password"), "error");
+      Swal.fire(
+        t("Error"),
+        t("Please enter both username and password"),
+        "error"
+      );
       setTimeout(() => {
         Swal.close();
       }, 2000);
@@ -93,26 +97,59 @@ const Login = () => {
           sessionStorage.setItem("userName", acc.userName);
           sessionStorage.setItem("isVerified", acc.isVerified);
           sessionStorage.setItem("activate", acc.activate);
+          sessionStorage.setItem("onlineStatus", acc.onlineStatus);
+          sessionStorage.setItem("lastAccessTime", acc.lastAccessTime);
 
           const role = response.data.role;
           if (role === "admin") {
-            setRole(role);
-            sessionStorage.setItem("role", role);
-            // Login successful
-            Swal.fire(t("Success"), t("Login successfully"), "success");
-            setTimeout(() => {
-              Swal.close();
-              navigate("/movingtoadmin");
-            }, 2000);
+            const username = sessionStorage.getItem("userName");
+            const response = await axios.get(
+              `https://localhost:7241/api/Admin/updateadminstatus/${username}`
+            );
+            if (response.status === 200) {
+              setRole(role);
+              sessionStorage.setItem("role", role);
+              // Login successful
+              Swal.fire(t("Success"), t("Login successfully"), "success");
+              setTimeout(() => {
+                Swal.close();
+                navigate("/movingtoadmin");
+              }, 2000);
+            }
+            else{
+              setLoading(false);
+              setRole("");
+              // Login fail
+              Swal.fire(t("Error"), t("Login fail"), "error");
+              setTimeout(() => {
+                Swal.close();
+                navigate("/login");
+              }, 2000);
+            }
           } else if (role === "user") {
-            setRole(role);
-            sessionStorage.setItem("role", role);
-            // Login successful
-            Swal.fire(t("Success"), t("Login successfully"), "success");
-            setTimeout(() => {
-              Swal.close();
-              navigate("/");
-            }, 2000);
+            const userid = sessionStorage.getItem("userID");
+            const response = await axios.get(
+              `https://localhost:7241/api/User/updateonlinestatus/${userid}`
+            );
+            if (response.status === 200) {
+              setRole(role);
+              sessionStorage.setItem("role", role);
+              // Login successful
+              Swal.fire(t("Success"), t("Login successfully"), "success");
+              setTimeout(() => {
+                Swal.close();
+                navigate("/");
+              }, 2000);
+            } else {
+              setLoading(false);
+              setRole("");
+              // Login fail
+              Swal.fire(t("Error"), t("Login fail"), "error");
+              setTimeout(() => {
+                Swal.close();
+                navigate("/login");
+              }, 2000);
+            }
           } else if (response.status === 404) {
             setLoading(false);
             Swal.fire(t("Error"), t("Login fail"), "error");
@@ -144,7 +181,6 @@ const Login = () => {
 
   return (
     <>
-      
       <div className="container my-4">
         <div className="row justify-content-center">
           <div className="col-md-6">

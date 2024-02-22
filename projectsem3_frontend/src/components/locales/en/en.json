@@ -308,5 +308,9 @@
     "this email is already exists!": "this email is already exists!",
     "Select Diamond Quality": "Select Diamond Quality",
     "Select Diamond Sub Quality": "Select Diamond Sub Quality",
-    "Select": "Select"
+    "Select": "Select",
+    "Favorite": "Favorite",
+    "Item added to wishlist successfully": "Item added to wishlist successfully",
+    "Remove from Wishlist": "Remove from Wishlist",
+    "Item Removed from wishlist successfully": "Item Removed from wishlist successfully"
 }

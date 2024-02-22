@@ -15,6 +15,7 @@ export const DataProvider = ({ children }) => {
   const [allOrderList, setAllOrderList] = useState([]);
   const [adminList, setAdminList] = useState([]);
   const [itemListWithDim, setItemListWithDim] = useState([]);
+  const [wistlist, setWistlist] = useState([]); 
 
   //Phi's state
   const [brands, setBrands] = useState([]);
@@ -191,6 +192,25 @@ export const DataProvider = ({ children }) => {
         );
         //console.log(response.data.data);
         setItemListWithDim(response.data.data);
+      } catch (error) {
+        //console.error("list error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://localhost:7241/api/WishList/getallwishlist`
+        );
+        //console.log(response.data.data);
+        setWistlist(response.data.data);
       } catch (error) {
         //console.error("list error:", error);
         setError(error);
@@ -473,6 +493,7 @@ export const DataProvider = ({ children }) => {
     userList,
     adminList,
     itemListWithDim,
+    wistlist,
 
     //Phi's Value
     brands,

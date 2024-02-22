@@ -57,11 +57,13 @@ namespace projectsem3_backend.Service
                 var admin = await AuthenticateAdmin(adminlogin);
                 if (user != null)
                 {
+                    user.OnlineStatus = true;
                     var tokenString = TokenService.GenerateJSONWebTokenUser(configuration, user, user.UserID);
                     return new DataToken(200, "Success, this is user", user, tokenString, "user");
                 }
                 else if (admin != null)
                 {
+                    admin.OnlineStatus = true;
                     var tokenString = TokenService.GenerateJSONWebTokenAdmin(configuration, admin);
                     return new DataToken(200, "Success, this is admin", admin, tokenString, "admin");
                 }
@@ -143,7 +145,7 @@ namespace projectsem3_backend.Service
                 {
                     // Kiểm tra xem có người dùng nào có cùng UserName hoặc EmailID không
                     var existingUser = await db.UserRegMsts
-                        .Where(x => x.UserName.ToLower() == userMst.UserName.ToLower() || 
+                        .Where(x => x.UserName.ToLower() == userMst.UserName.ToLower() ||
                         x.EmailID.ToLower() == userMst.EmailID.ToLower() ||
                         x.MobNo == userMst.MobNo)
                         .FirstOrDefaultAsync();
@@ -175,6 +177,8 @@ namespace projectsem3_backend.Service
                     userMst.UpdatedAt = DateTime.Now;
                     userMst.IsVerified = false;
                     userMst.Activate = true;
+                    userMst.OnlineStatus = false; // Đặt trạng thái trực tuyến
+                    userMst.LastAccessTime = DateTime.Now; // Đặt thời gian truy cập gần nhất
 
                     // Thêm mới người dùng vào DbContext
                     await db.UserRegMsts.AddAsync(userMst);
@@ -223,6 +227,7 @@ namespace projectsem3_backend.Service
                 }
             }
         }
+
 
         public async Task<CustomResult> UpdateStatusUser(string userid)
         {
@@ -509,6 +514,26 @@ namespace projectsem3_backend.Service
             catch (Exception e)
             {
                 return 0;
+            }
+        }
+
+        public async Task<CustomResult> UpdateOnlineStatus(string userid)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+                user.OnlineStatus = !user.OnlineStatus;
+                user.LastAccessTime = DateTime.Now;
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
             }
         }
     }

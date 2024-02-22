@@ -32,16 +32,25 @@ const UserNavbar = () => {
   };
 
   const handleLogout = async () => {
-    sessionStorage.clear();
-    Swal.fire(t("Success"), t("Logout successful!"), "success");
-    setTimeout(() => {
-      Swal.close();
-      navigate("/login");
-    }, 1000);
-
-    // Wait for 1 second before reloading the page
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    //window.location.reload();
+    try {
+      const userid = sessionStorage.getItem("userID");
+      const response = await axios.get(
+        `https://localhost:7241/api/User/updateonlinestatus/${userid}`
+      );
+      if (response.status === 200) {
+        sessionStorage.clear();
+        Swal.fire(t("Success"), t("Logout successful!"), "success");
+        setTimeout(() => {
+          Swal.close();
+          navigate("/login");
+        }, 2000);
+      } else {
+        Swal.fire(t("Error"), t("Failed to logout"), "error");
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire(t("Error"), t("An error occurred"), "error");
+    }
   };
 
   return (
@@ -143,6 +152,11 @@ const UserNavbar = () => {
                     <li>
                       <a className="dropdown-item nav-link" href="/order">
                         {t("Order")}
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item nav-link" href="/wishlist">
+                        {t("Favorite")}
                       </a>
                     </li>
                     <li>

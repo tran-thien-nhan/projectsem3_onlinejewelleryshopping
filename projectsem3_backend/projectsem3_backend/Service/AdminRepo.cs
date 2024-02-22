@@ -23,6 +23,8 @@ namespace projectsem3_backend.Service
                 //xóa chuỗi "@gmail.com" trong username
                 admin.UserName = admin.UserName.Replace("@gmail.com", "");
                 admin.Password = UserSecurity.HashPassword(admin.Password);
+                admin.OnlineStatus = false;
+                admin.LastAccessTime = DateTime.Now;
                 
                 admin.CreatedAt = DateTime.Now;
                 admin.UpdatedAt = DateTime.Now;
@@ -101,6 +103,9 @@ namespace projectsem3_backend.Service
                     return new CustomResult(400, "Do not change Password", null);
                 }
 
+                admin.OnlineStatus = data.OnlineStatus;
+                admin.LastAccessTime = data.LastAccessTime;
+                admin.CreatedAt = data.CreatedAt;
                 admin.UpdatedAt = DateTime.Now;
                 db.Entry(data).CurrentValues.SetValues(admin);
                 var result = await db.SaveChangesAsync();
@@ -114,6 +119,27 @@ namespace projectsem3_backend.Service
                     return new CustomResult(500, "Error", null);
                 }
 
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> UpdateOnlineStatus(string username)
+        {
+            try
+            {
+                var admin = await db.AdminLoginMsts.SingleOrDefaultAsync(a => a.UserName == username);
+                if (admin == null)
+                {
+                    return new CustomResult(404, "Not Found", null);
+                }
+                admin.OnlineStatus = !admin.OnlineStatus;
+                admin.LastAccessTime = DateTime.Now;
+                db.AdminLoginMsts.Update(admin);
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", admin);
             }
             catch (Exception e)
             {

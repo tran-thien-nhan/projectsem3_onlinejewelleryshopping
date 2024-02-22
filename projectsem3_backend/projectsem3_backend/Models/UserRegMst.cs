@@ -41,11 +41,16 @@ namespace projectsem3_backend.Models
         public bool? IsVerified { get; set; }
         public bool? Activate { get; set; }
 
+        public bool? OnlineStatus { get; set; }
+        public DateTime? LastAccessTime { get; set; }
+
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
         public ICollection<CartList>? CartLists { get; set; }
         public ICollection<OrderMst>? OrderMsts { get; set; }
         public ICollection<Inquiry>? Inquiries { get; set; }
+
+        public ICollection<Wishlist>? Wishlists { get; set; }
     }
 }

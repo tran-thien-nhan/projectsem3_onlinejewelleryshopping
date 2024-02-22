@@ -52,5 +52,8 @@ namespace projectsem3_backend.Repository
 
         //đếm số lần bị hủy hàng của userid đó
         Task<int> CountCancelOrderOfUser(string userid);
+
+        //online status
+        Task<CustomResult> UpdateOnlineStatus(string userid);
     }
 }

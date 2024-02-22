@@ -118,6 +118,8 @@ namespace projectsem3_backend.Models
         public ICollection<CartList>? CartLists { get; set; }
 
         public StoneQltyMst? StoneQltyMst { get; set; }
+
+        public ICollection<Wishlist>? Wishlists { get; set; }
     }
 
 }

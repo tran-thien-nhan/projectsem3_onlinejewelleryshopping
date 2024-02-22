@@ -308,5 +308,9 @@
     "this email is already exists!": "email này đã tồn tại!",
     "Select Diamond Quality": "Chọn chất lượng kim cương",
     "Select Diamond Sub Quality": "Chọn chất lượng phụ của kim cương",
-    "Select": "Chọn"
+    "Select": "Chọn",
+    "Favorite": "Yêu thích",
+    "Item added to wishlist successfully": "Sản phẩm đã được thêm vào danh sách yêu thích thành công",
+    "Remove from Wishlist": "Xóa khỏi danh sách yêu thích",
+    "Item Removed from wishlist successfully": "Sản phẩm đã được xóa khỏi danh sách yêu thích thành công"
 }
