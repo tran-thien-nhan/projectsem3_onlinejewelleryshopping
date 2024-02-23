@@ -17,6 +17,12 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
+    //phát hiện đang bật caplock
+    if (event.getModifierState("CapsLock")) {
+      Swal.fire(t("Warning"), t("CapsLock is ON"), "warning");
+      return;
+    }
+
     if (!username || !password) {
       Swal.fire(
         t("Error"),

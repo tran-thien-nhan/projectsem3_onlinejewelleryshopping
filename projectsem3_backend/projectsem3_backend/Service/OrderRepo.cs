@@ -466,6 +466,17 @@ namespace projectsem3_backend.Service
                     order.UserRegMst = user;
 
                     order.OrderStatus = status;
+
+                    if(order.OrderStatus == 2)
+                    {
+                        await emailService.SendMailShippingAsync(user.EmailID, order.Order_ID);
+                    }
+
+                    if(order.OrderStatus == 3)
+                    {
+                        await emailService.SendMailDeliveredAsync(user.EmailID, order.Order_ID);
+                    }
+
                     db.OrderMsts.Update(order);
                     var result = await db.SaveChangesAsync();
                     if (result == 1)

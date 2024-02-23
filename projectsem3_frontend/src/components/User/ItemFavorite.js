@@ -89,8 +89,14 @@ const ItemFavorite = () => {
                             handleDeleteFromWishList(w.whistList_ID, e)
                           }
                         >
-                          X
+                          Remove
                         </button>
+                        <a
+                          href={`/item/${w.style_Code}`}
+                          className="btn btn-black btn-sm"
+                        >
+                          View
+                        </a>
                       </td>
                     </tr>
                   ))}

@@ -66,6 +66,7 @@ const AdminUserDetail = () => {
           </tbody>
         </table>
       </div>
+      <a href="/userlist" className="btn btn-primary">Back</a>
     </div>
   );
 };

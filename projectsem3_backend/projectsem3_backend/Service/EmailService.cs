@@ -6,6 +6,7 @@ using projectsem3_backend.Repository;
 using projectsem3_backend.CustomStatusCode;
 using System.Net;
 using DnsClient;
+using static System.Net.WebRequestMethods;
 
 namespace projectsem3_backend.Service
 {
@@ -244,6 +245,104 @@ namespace projectsem3_backend.Service
                     <body>
                         <h2 style=""background: #00466a;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;"">{otp}</h2>
                         <p>This OTP Will Be Expired After 1 minute</p>
+                    </body>
+                </html>";
+
+                builder.HtmlBody = htmlBody;
+                message.Body = builder.ToMessageBody();
+                try
+                {
+                    using (var client = new SmtpClient())
+                    {
+                        await client.ConnectAsync("smtp.gmail.com", 587, false);
+                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.SendAsync(message);
+                        await client.DisconnectAsync(true);
+                    }
+
+                    return 1; // Gửi email thành công
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error sending email: {ex.Message}");
+                    return 0; // Gửi email không thành công
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+                return 0; // Gửi email không thành công
+            }
+        }
+
+        public async Task<int> SendMailShippingAsync(string toEmail, string orderId)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.To.Add(new MailboxAddress("", toEmail));
+                message.Subject = "Order Is Shipping";
+
+                var builder = new BodyBuilder();
+
+                // Template
+                var htmlBody = $@"
+                <html>
+                    <head>
+                    </head>
+                    <body>
+                        <p>Order Id: {orderId}</p>
+                        <p>Status: Is Shipping</p>
+                    </body>
+                </html>";
+
+                builder.HtmlBody = htmlBody;
+                message.Body = builder.ToMessageBody();
+                try
+                {
+                    using (var client = new SmtpClient())
+                    {
+                        await client.ConnectAsync("smtp.gmail.com", 587, false);
+                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.SendAsync(message);
+                        await client.DisconnectAsync(true);
+                    }
+
+                    return 1; // Gửi email thành công
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error sending email: {ex.Message}");
+                    return 0; // Gửi email không thành công
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+                return 0; // Gửi email không thành công
+            }
+        }
+
+        public async Task<int> SendMailDeliveredAsync(string toEmail, string orderId)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.To.Add(new MailboxAddress("", toEmail));
+                message.Subject = "Order Shipping Success !";
+
+                var builder = new BodyBuilder();
+
+                // Template
+                var htmlBody = $@"
+                <html>
+                    <head>
+                    </head>
+                    <body>
+                        <p>Order Id: {orderId}</p>
+                        <p>Status: Ship Successfully !</p>
                     </body>
                 </html>";
 

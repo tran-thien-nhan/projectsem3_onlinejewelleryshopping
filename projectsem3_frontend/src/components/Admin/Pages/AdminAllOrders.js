@@ -29,7 +29,9 @@ const AdminAllOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(4);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingStatus, setIsLoadingStatus] = useState(false);
   const [filterOrderPayment, setFilterOrderPayment] = useState("");
+  const [orderLoadingStatus, setOrderLoadingStatus] = useState({});
 
   const handleFilterOrderPaymentChange = (e) => {
     setFilterOrderPayment(e.target.value);
@@ -111,6 +113,10 @@ const AdminAllOrders = () => {
 
   const handleUpdateOrderStatus = async (orderId, status) => {
     try {
+      setOrderLoadingStatus((prevState) => ({
+        ...prevState,
+        [orderId]: true,
+      }));
       await axios.put(
         `https://localhost:7241/api/Order/updateorderstatus/${orderId}/${status}`
       );
@@ -118,6 +124,11 @@ const AdminAllOrders = () => {
       await window.location.reload();
     } catch (error) {
       console.log(error);
+    } finally {
+      setOrderLoadingStatus((prevState) => ({
+        ...prevState,
+        [orderId]: false,
+      }));
     }
   };
 
@@ -315,17 +326,27 @@ const AdminAllOrders = () => {
                   </td>
 
                   <td>
-                    {order.orderStatus === 1 && (
-                      <span className="badge bg-primary">Pending</span>
-                    )}
-                    {order.orderStatus === 2 && (
-                      <span className="badge bg-info">Shipping</span>
-                    )}
-                    {order.orderStatus === 3 && (
-                      <span className="badge bg-success">Completed</span>
-                    )}
-                    {order.orderStatus === 4 && (
-                      <span className="badge bg-danger">Cancel</span>
+                    {orderLoadingStatus[order.order_ID] ? (
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    ) : (
+                      <>
+                        {order.orderStatus === 1 && (
+                          <span className="badge bg-primary">Pending</span>
+                        )}
+                        {order.orderStatus === 2 && (
+                          <span className="badge bg-info">Shipping</span>
+                        )}
+                        {order.orderStatus === 3 && (
+                          <span className="badge bg-success">Completed</span>
+                        )}
+                        {order.orderStatus === 4 && (
+                          <span className="badge bg-danger">Cancel</span>
+                        )}
+                      </>
                     )}
                   </td>
                   <td>
@@ -335,21 +356,22 @@ const AdminAllOrders = () => {
                     >
                       View
                     </a>
-                    <select
-                      className="form-select"
-                      value={order.orderStatus}
-                      onChange={(e) =>
-                        handleUpdateOrderStatus(
-                          order.order_ID,
-                          parseInt(e.target.value)
-                        )
-                      }
-                    >
-                      <option value={1}>Pending</option>
-                      <option value={2}>Shipping</option>
-                      <option value={3}>Completed</option>
-                      {/* <option value={4}>Cancel</option> */}
-                    </select>
+                    {order.orderStatus !== 4 && (
+                      <select
+                        className="form-select"
+                        value={order.orderStatus}
+                        onChange={(e) =>
+                          handleUpdateOrderStatus(
+                            order.order_ID,
+                            parseInt(e.target.value)
+                          )
+                        }
+                      >
+                        <option value={1}>Pending</option>
+                        <option value={2}>Shipping</option>
+                        <option value={3}>Completed</option>
+                      </select>
+                    )}
                   </td>
                 </tr>
               ))

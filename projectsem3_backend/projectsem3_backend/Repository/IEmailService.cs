@@ -14,5 +14,11 @@ namespace projectsem3_backend.Repository
         Task<int> SendMailCancelOrderAsync(string toEmail, string orderId, string cancelreason);
 
         Task<int> SendMailOTPAsync(string toEmail, string otp);
+
+        //gửi mail thông báo đơn hàng đang vận chuyển
+        Task<int> SendMailShippingAsync(string toEmail, string orderId);
+
+        //gửi mail thông báo đơn hàng được giao thành công
+        Task<int> SendMailDeliveredAsync(string toEmail, string orderId);
     }
 }
