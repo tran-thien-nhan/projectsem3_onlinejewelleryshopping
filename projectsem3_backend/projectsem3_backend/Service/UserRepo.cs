@@ -475,20 +475,29 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<int> CountOrderOfUser(string userid)
+        public async Task<CustomResult> CountOrderDetailOfUser(string userid)
         {
             try
             {
-                var userOrderCount = await db.UserRegMsts.Include(x => x.OrderMsts).FirstOrDefaultAsync(x => x.UserID == userid);
-                if (userOrderCount == null)
+                var userOrderDetailCount = await db.UserRegMsts
+                                    .Include(x => x.OrderMsts)
+                                    .ThenInclude(x => x.OrderDetailMsts)
+                                    .SingleOrDefaultAsync(x => x.UserID == userid);
+
+                if (userOrderDetailCount == null)
                 {
-                    return 0;
+                    return new CustomResult(404, "User not found", null);
                 }
-                return userOrderCount.OrderMsts.Count;
+                int count = 0;
+                foreach (var order in userOrderDetailCount.OrderMsts.Where(o => o.OrderStatus == 3))
+                {
+                    count += order.OrderDetailMsts.Count;
+                }
+                return new CustomResult(200, "Success", count);
             }
             catch (Exception e)
             {
-                return 0;
+                return new CustomResult(500, e.Message, null);
             }
         }
 

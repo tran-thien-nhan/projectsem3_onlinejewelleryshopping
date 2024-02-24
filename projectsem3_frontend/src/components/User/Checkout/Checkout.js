@@ -319,7 +319,7 @@ const Checkout = () => {
                     id="mobno"
                     name="order_MobNo"
                     placeholder={t("phone number")}
-                    value={billingDetails.order_MobNo}
+                    value={billingDetails.order_MobNo || sessionStorage.getItem("mobNo")}
                     onChange={handleChangeInput}
                   />
                 </div>
@@ -336,7 +336,7 @@ const Checkout = () => {
                     id="address"
                     name="order_Address"
                     placeholder={t("Address")}
-                    value={billingDetails.order_Address}
+                    value={billingDetails.order_Address || sessionStorage.getItem("address")}
                     onChange={handleChangeInput}
                   />
                 </div>

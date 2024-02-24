@@ -33,6 +33,23 @@ const Register = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
+    //xử lý nếu tuổi nhỏ hơn 18
+    var today = new Date();
+    var birthDate = new Date(user.dob);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    if (age < 18) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("You must be at least 18 years old to register!"),
+      });
+      return;
+    }
+
     setIsLoading(true);
     const formData = new FormData();
     formData.append("userID", 1);

@@ -96,13 +96,40 @@ namespace projectsem3_backend.Service
             var htmlBody = $@"
             <html>
                 <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 0;
+                        }}
+                        .container {{
+                            max-width: 600px;
+                            margin: auto;
+                            padding: 20px;
+                            text-align: center;
+                        }}
+                        .button {{
+                            display: inline-block;
+                            background-color: #007bff;
+                            color: #fff;
+                            padding: 10px 20px;
+                            text-decoration: none;
+                            border-radius: 5px;
+                        }}
+                        .button:hover {{
+                            background-color: #0056b3;
+                        }}
+                    </style>
                 </head>
                 <body>
-                    <h2>Verify Email</h2>
-                    <p>Click the link below to verify your email</p>
-                    <a href='http://localhost:3000/verifyemailsuccess/{token}'>Verify Email</a>
+                    <div class='container'>
+                        <h2>Verify Email</h2>
+                        <p>Click the button below to verify your email</p>
+                        <a href='http://localhost:3000/verifyemailsuccess/{token}' class='button'>Verify Email</a>
+                    </div>
                 </body>
             </html>";
+
 
             builder.HtmlBody = htmlBody;
 
@@ -140,12 +167,38 @@ namespace projectsem3_backend.Service
                 var htmlBody = $@"
                 <html>
                     <head>
+                        <style>
+                            body {{
+                                font-family: Arial, sans-serif;
+                                margin: 0;
+                                padding: 0;
+                            }}
+                            .container {{
+                                max-width: 600px;
+                                margin: auto;
+                                padding: 20px;
+                                text-align: center;
+                            }}
+                            .button {{
+                                display: inline-block;
+                                background-color: #007bff;
+                                color: #fff;
+                                padding: 10px 20px;
+                                text-decoration: none;
+                                border-radius: 5px;
+                            }}
+                            .button:hover {{
+                                background-color: #0056b3;
+                            }}
+                        </style>
                     </head>
                     <body>
-                        <h2>Reset Password</h2>
-                        <p>Click the link below to reset your password</p>
-                        <a href='http://localhost:3000/resetpassword/{token}'>Reset Password</a>
-                        <p>link will be expired after 1 minutes</p>
+                        <div class='container'>
+                            <h2>Reset Password</h2>
+                            <p>Click the button below to reset your password</p>
+                            <a href='http://localhost:3000/resetpassword/{token}' class='button'>Reset Password</a>
+                            <p>link will be expired after 1 minute</p>
+                        </div>
                     </body>
                 </html>";
 
@@ -191,11 +244,26 @@ namespace projectsem3_backend.Service
                 var htmlBody = $@"
                 <html>
                     <head>
+                        <style>
+                            body {{
+                                font-family: Arial, sans-serif;
+                                margin: 0;
+                                padding: 0;
+                            }}
+                            .container {{
+                                max-width: 600px;
+                                margin: auto;
+                                padding: 20px;
+                                text-align: center;
+                            }}
+                        </style>
                     </head>
                     <body>
-                        <h2>Order Cancel</h2>
-                        <p>Order ID: {orderId}</p>
-                        <p>Reason: {cancelreason}</p>
+                        <div class='container'>
+                            <h2>Order Cancel</h2>
+                            <p>Order ID: {orderId}</p>
+                            <p>Reason: {cancelreason}</p>
+                        </div>
                     </body>
                 </html>";
 
@@ -241,10 +309,42 @@ namespace projectsem3_backend.Service
                 var htmlBody = $@"
                 <html>
                     <head>
+                        <style>
+                            body {{
+                                font-family: Arial, sans-serif;
+                                margin: 0;
+                                padding: 0;
+                            }}
+                            .container {{
+                                max-width: 600px;
+                                margin: auto;
+                                padding: 20px;
+                                text-align: center;
+                            }}
+                            .otp-container {{
+                                display: flex;
+                                justify-content: center;
+                            }}
+                            .otp {{
+                                background: #00466a;
+                                width: max-content;
+                                padding: 10px;
+                                color: #fff;
+                                border-radius: 4px;
+                                margin: auto;
+                                display: table;
+                            }}
+                        </style>
                     </head>
                     <body>
-                        <h2 style=""background: #00466a;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;"">{otp}</h2>
-                        <p>This OTP Will Be Expired After 1 minute</p>
+                        <div class='container'>
+                            <h2>One-Time Password (OTP)</h2>
+                            <p>Your OTP:</p>
+                            <div class='otp-container'>
+                                <h2 class='otp'>{otp}</h2>
+                            </div>
+                            <p>This OTP will expire after 1 minute</p>
+                        </div>
                     </body>
                 </html>";
 
@@ -290,10 +390,26 @@ namespace projectsem3_backend.Service
                 var htmlBody = $@"
                 <html>
                     <head>
+                        <style>
+                            body {{
+                                font-family: Arial, sans-serif;
+                                margin: 0;
+                                padding: 0;
+                            }}
+                            .container {{
+                                max-width: 600px;
+                                margin: auto;
+                                padding: 20px;
+                                text-align: center;
+                            }}
+                        </style>
                     </head>
                     <body>
-                        <p>Order Id: {orderId}</p>
-                        <p>Status: Is Shipping</p>
+                        <div class='container'>
+                            <h2>Order Shipping Notification</h2>
+                            <p>Order Id: {orderId}</p>
+                            <p>Status: Is Shipping</p>
+                        </div>
                     </body>
                 </html>";
 
@@ -339,10 +455,26 @@ namespace projectsem3_backend.Service
                 var htmlBody = $@"
                 <html>
                     <head>
+                        <style>
+                            body {{
+                                font-family: Arial, sans-serif;
+                                margin: 0;
+                                padding: 0;
+                            }}
+                            .container {{
+                                max-width: 600px;
+                                margin: auto;
+                                padding: 20px;
+                                text-align: center;
+                            }}
+                        </style>
                     </head>
                     <body>
-                        <p>Order Id: {orderId}</p>
-                        <p>Status: Ship Successfully !</p>
+                        <div class='container'>
+                            <h2>Order Delivered Notification</h2>
+                            <p>Order Id: {orderId}</p>
+                            <p>Status: Ship Successfully !</p>
+                        </div>
                     </body>
                 </html>";
 

@@ -63,7 +63,6 @@ const OrderDetail = () => {
   }
 
   const orderIsCancelable =
-    orderPayment === 1 &&
     orderListByUserId.find((order) => order.order_ID === order_ID)
       ?.orderStatus === 1;
 

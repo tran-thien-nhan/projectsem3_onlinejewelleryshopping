@@ -17,6 +17,7 @@ import CardEarning8 from "../CardEarning8";
 import CardEarning9 from "../CardEarning9";
 import CardEarning10 from "../CardEarning10";
 import CardEarning11 from "../CardEarning11";
+import Swal from "sweetalert2";
 
 const AdminAllOrders = () => {
   const { allOrderList, loading, error } = useData();
@@ -113,15 +114,29 @@ const AdminAllOrders = () => {
 
   const handleUpdateOrderStatus = async (orderId, status) => {
     try {
-      setOrderLoadingStatus((prevState) => ({
-        ...prevState,
-        [orderId]: true,
-      }));
-      await axios.put(
-        `https://localhost:7241/api/Order/updateorderstatus/${orderId}/${status}`
-      );
-      // Update the order status in the local state or fetch the updated order list
-      await window.location.reload();
+      //confirm swal alert
+      const confirm = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, do it!",
+      });
+      if (confirm.isConfirmed) {
+        setOrderLoadingStatus((prevState) => ({
+          ...prevState,
+          [orderId]: true,
+        }));
+        await axios.put(
+          `https://localhost:7241/api/Order/updateorderstatus/${orderId}/${status}`
+        );
+        // Update the order status in the local state or fetch the updated order list
+        await window.location.reload();
+      } else if (!confirm.isConfirmed) {
+        return;
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -367,9 +382,41 @@ const AdminAllOrders = () => {
                           )
                         }
                       >
-                        <option value={1}>Pending</option>
-                        <option value={2}>Shipping</option>
-                        <option value={3}>Completed</option>
+                        {order.orderStatus === 1 && (
+                          <>
+                            <option value={1} disabled>
+                              Pending
+                            </option>
+                            <option value={2}>Shipping</option>
+                            <option value={3} disabled>
+                              Completed
+                            </option>
+                          </>
+                        )}
+                        {order.orderStatus === 2 && (
+                          <>
+                            <option value={1} disabled>
+                              Pending
+                            </option>
+                            <option value={2} disabled>
+                              Shipping
+                            </option>
+                            <option value={3}>Completed</option>
+                          </>
+                        )}
+                        {order.orderStatus === 3 && (
+                          <>
+                            <option value={1} disabled>
+                              Pending
+                            </option>
+                            <option value={2} disabled>
+                              Shipping
+                            </option>
+                            <option value={3} disabled>
+                              Completed
+                            </option>
+                          </>
+                        )}
                       </select>
                     )}
                   </td>

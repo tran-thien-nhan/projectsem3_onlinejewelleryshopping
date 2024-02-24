@@ -153,9 +153,9 @@ namespace projectsem3_backend.Controllers
         }
 
         [HttpGet("countorderofuser/{userid}")]
-        public async Task<int> CountOrderOfUser(string userid)
+        public async Task<CustomResult> CountOrderOfUser(string userid)
         {
-            return await userRepo.CountOrderOfUser(userid);
+            return await userRepo.CountOrderDetailOfUser(userid);
         }
 
         [HttpGet("countcancelorderofuser/{userid}")]

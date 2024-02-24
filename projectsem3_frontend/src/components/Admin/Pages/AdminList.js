@@ -9,6 +9,44 @@ const AdminList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [onlineStatusFilter, setOnlineStatusFilter] = useState("all");
 
+  const getIdle = (timestamp) => {
+    const now = new Date();
+    const time = new Date(timestamp);
+    const timeDifference = now.getTime() - time.getTime();
+
+    const seconds = Math.floor(timeDifference / 1000);
+    if (seconds < 60) {
+      return seconds;
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) {
+      return minutes;
+    }
+
+    if (minutes > 30) {
+      return 1;
+    }
+
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+      return 1;
+    }
+
+    const days = Math.floor(hours / 24);
+    if (days < 30) {
+      return 1;
+    }
+
+    const months = Math.floor(days / 30);
+    if (months < 12) {
+      return 1;
+    }
+
+    const years = Math.floor(months / 12);
+    return 1;
+  };
+
   const getTimeAgo = (timestamp) => {
     const now = new Date();
     const time = new Date(timestamp);
@@ -89,8 +127,8 @@ const AdminList = () => {
           value={onlineStatusFilter}
         >
           <option value="all">All</option>
-          <option value="online">online</option>
-          <option value="offline">offline</option>
+          <option value="online">Active</option>
+          <option value="offline">Non-Active</option>
         </select>
       </div>
 
@@ -101,7 +139,6 @@ const AdminList = () => {
               <th>Admin username</th>
               <th>Admin email</th>
               <th>Status</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -128,14 +165,24 @@ const AdminList = () => {
                   <td>
                     <span
                       className={`badge ${
-                        admin.onlineStatus ? "bg-success" : "bg-danger"
+                        admin.onlineStatus === true &&
+                        getIdle(admin.lastAccessTime) === 1
+                          ? "bg-primary"
+                          : admin.onlineStatus === false
+                          ? "bg-danger"
+                          : "bg-success"
                       }`}
                     >
-                      {admin.onlineStatus ? "Online" : "Offline"}
+                      {admin.onlineStatus === true &&
+                      getIdle(admin.lastAccessTime) === 1
+                        ? "Idle"
+                        : admin.onlineStatus === false
+                        ? "Non-Active"
+                        : "Active"}
                     </span>
                     <p>{getTimeAgo(admin.lastAccessTime)}</p>
                   </td>
-                  <td>
+                  {/* <td>
                     <a
                       className="btn btn-primary"
                       href={`/editadmin/${admin.userName}`}
@@ -148,7 +195,7 @@ const AdminList = () => {
                     >
                       Delete
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))
             ) : (

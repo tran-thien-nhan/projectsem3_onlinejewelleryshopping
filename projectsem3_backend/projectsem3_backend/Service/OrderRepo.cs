@@ -633,17 +633,8 @@ namespace projectsem3_backend.Service
                         return new CustomResult(404, "Order not found!", null);
                     }
 
-                    // Kiểm tra xem order có thể hủy hay không
-                    if (order.OrderStatus != 1)
-                    {
-                        transaction.Rollback();
-                        return new CustomResult(400, "Order cannot be cancelled!", null);
-                    }
-                    else
-                    {
-                        order.OrderStatus = 4;
-                        order.cancelreason = cancelreason;
-                    }
+                    order.OrderStatus = 4;
+                    order.cancelreason = cancelreason;
 
                     // Trả lại số lượng item trong order về lại cho ItemMst
                     foreach (var detail in order.OrderDetailMsts)

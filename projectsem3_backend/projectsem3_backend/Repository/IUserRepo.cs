@@ -48,7 +48,7 @@ namespace projectsem3_backend.Repository
         Task<bool> CheckPassword(string userid, string password);
 
         //đếm số lần mua hàng (số lượng order của userid đó)
-        Task<int> CountOrderOfUser(string userid);
+        Task<CustomResult> CountOrderDetailOfUser(string userid);
 
         //đếm số lần bị hủy hàng của userid đó
         Task<int> CountCancelOrderOfUser(string userid);

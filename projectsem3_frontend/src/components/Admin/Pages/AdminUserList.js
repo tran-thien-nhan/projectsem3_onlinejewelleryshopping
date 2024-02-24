@@ -22,13 +22,15 @@ const AdminUserList = () => {
           const response = await axios.get(
             `https://localhost:7241/api/User/countorderofuser/${user.userID}`
           );
-          counts[user.userID] = response.data;
+          counts[user.userID] = response.data.data;
         }
         setUserBuyingCounts(counts);
       } catch (error) {
         console.log("Error fetching buying counts:", error);
       }
     };
+
+    console.log(userBuyingCounts);
 
     const fetchOrderCancelCounts = async () => {
       try {
@@ -135,6 +137,44 @@ const AdminUserList = () => {
     }
   });
 
+  const getIdle = (timestamp) => {
+    const now = new Date();
+    const time = new Date(timestamp);
+    const timeDifference = now.getTime() - time.getTime();
+
+    const seconds = Math.floor(timeDifference / 1000);
+    if (seconds < 60) {
+      return seconds;
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) {
+      return minutes;
+    }
+
+    if(minutes > 30){
+      return 1;
+    }
+
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+      return 1;
+    }
+
+    const days = Math.floor(hours / 24);
+    if (days < 30) {
+      return 1;
+    }
+
+    const months = Math.floor(days / 30);
+    if (months < 12) {
+      return 1;
+    }
+
+    const years = Math.floor(months / 12);
+    return 1;
+  };
+
   const getTimeAgo = (timestamp) => {
     const now = new Date();
     const time = new Date(timestamp);
@@ -215,8 +255,8 @@ const AdminUserList = () => {
           value={onlineStatusFilter}
         >
           <option value="all">All</option>
-          <option value="online">online</option>
-          <option value="offline">offline</option>
+          <option value="online">Active</option>
+          <option value="offline">Non-Active</option>
         </select>
       </div>
 
@@ -244,7 +284,7 @@ const AdminUserList = () => {
               <th>Verified</th>
               <th>Activate</th>
               <th>
-                Buying Count{" "}
+                Total Invoice Success{" "}
                 <button
                   className="btn btn-primary"
                   onClick={handleSortByBuyingCount}
@@ -286,13 +326,22 @@ const AdminUserList = () => {
                   <td>
                     <span
                       className={`badge ${
-                        user.onlineStatus ? "bg-success" : "bg-danger"
+                        user.onlineStatus === true && getIdle(user.lastAccessTime) === 1
+                          ? "bg-primary"
+                          : user.onlineStatus === false
+                          ? "bg-danger"
+                          : "bg-success"
                       }`}
                     >
-                      {user.onlineStatus ? "Online" : "Offline"}
+                      {user.onlineStatus === true && getIdle(user.lastAccessTime) === 1
+                        ? "Idle"
+                        : user.onlineStatus === false
+                        ? "Non-Active"
+                        : "Active"}
                     </span>
                     <p>{getTimeAgo(user.lastAccessTime)}</p>
                   </td>
+
                   <td>{user.isVerified ? "Verified" : "Not Verified"}</td>
                   <td>
                     <button
