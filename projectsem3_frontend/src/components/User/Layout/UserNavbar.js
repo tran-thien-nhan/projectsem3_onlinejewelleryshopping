@@ -23,7 +23,37 @@ const UserNavbar = () => {
       // Nếu không có ngôn ngữ đã lưu, đặt ngôn ngữ mặc định
       setSelectedLanguage(i18n.language);
     }
-  }, [i18n]);
+  
+    // Thiết lập hẹn giờ cho việc logout sau 15 phút không thao tác
+    let timeout = setTimeout(() => {
+      handleLogout(); // Gọi hàm handleLogout khi hết thời gian
+    }, 15 * 60 * 1000); // 15 phút * 60 giây/phút * 1000 miligiây/giây
+  
+    // Đặt sự kiện cho các hoạt động người dùng để làm mới hẹn giờ
+    const resetTimeout = () => {
+      clearTimeout(timeout); // Xóa hẹn giờ hiện tại
+      // Thiết lập lại hẹn giờ mới
+      timeout = setTimeout(() => {
+        handleLogout();
+      }, 15 * 60 * 1000);
+    };
+  
+    // Đặt sự kiện cho các hoạt động người dùng để làm mới hẹn giờ
+    document.addEventListener("mousemove", resetTimeout);
+    document.addEventListener("mousedown", resetTimeout);
+    document.addEventListener("keypress", resetTimeout);
+    document.addEventListener("touchmove", resetTimeout);
+  
+    // Xóa các sự kiện khi component unmount
+    return () => {
+      clearTimeout(timeout);
+      document.removeEventListener("mousemove", resetTimeout);
+      document.removeEventListener("mousedown", resetTimeout);
+      document.removeEventListener("keypress", resetTimeout);
+      document.removeEventListener("touchmove", resetTimeout);
+    };
+  }, [i18n]); 
+
 
   const changeLanguage = (lng) => {
     setSelectedLanguage(lng);

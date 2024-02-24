@@ -20,31 +20,31 @@ const AdminList = () => {
     }
 
     const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) {
+    if (minutes < 30) {
       return minutes;
     }
 
-    if (minutes > 30) {
-      return 1;
-    }
+    // if (minutes >= 30) {
+    //   return 1;
+    // }
 
     const hours = Math.floor(minutes / 60);
     if (hours < 24) {
-      return 1;
+      return true;
     }
 
     const days = Math.floor(hours / 24);
     if (days < 30) {
-      return 1;
+      return true;
     }
 
     const months = Math.floor(days / 30);
     if (months < 12) {
-      return 1;
+      return true;
     }
 
     const years = Math.floor(months / 12);
-    return 1;
+    return true;
   };
 
   const getTimeAgo = (timestamp) => {
@@ -80,6 +80,7 @@ const AdminList = () => {
     const years = Math.floor(months / 12);
     return `${years} years ago`;
   };
+  
 
   const handleFilterOnlineStatusChange = (filter) => {
     setOnlineStatusFilter(filter);
@@ -166,7 +167,7 @@ const AdminList = () => {
                     <span
                       className={`badge ${
                         admin.onlineStatus === true &&
-                        getIdle(admin.lastAccessTime) === 1
+                        getIdle(admin.lastAccessTime) === true
                           ? "bg-primary"
                           : admin.onlineStatus === false
                           ? "bg-danger"
@@ -174,7 +175,7 @@ const AdminList = () => {
                       }`}
                     >
                       {admin.onlineStatus === true &&
-                      getIdle(admin.lastAccessTime) === 1
+                      getIdle(admin.lastAccessTime) === true
                         ? "Idle"
                         : admin.onlineStatus === false
                         ? "Non-Active"
