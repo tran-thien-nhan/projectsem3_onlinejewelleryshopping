@@ -44,7 +44,8 @@ const AdminAllOrders = () => {
     return (
       orderDate.getDate() === today.getDate() &&
       orderDate.getMonth() === today.getMonth() &&
-      orderDate.getFullYear() === today.getFullYear()
+      orderDate.getFullYear() === today.getFullYear() &&
+      order.orderStatus === 1
     );
   };
 
