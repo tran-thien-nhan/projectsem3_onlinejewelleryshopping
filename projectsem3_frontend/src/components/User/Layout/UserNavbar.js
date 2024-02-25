@@ -23,12 +23,12 @@ const UserNavbar = () => {
       // Nếu không có ngôn ngữ đã lưu, đặt ngôn ngữ mặc định
       setSelectedLanguage(i18n.language);
     }
-  
+
     // Thiết lập hẹn giờ cho việc logout sau 15 phút không thao tác
     let timeout = setTimeout(() => {
       handleLogout(); // Gọi hàm handleLogout khi hết thời gian
     }, 15 * 60 * 1000); // 15 phút * 60 giây/phút * 1000 miligiây/giây
-  
+
     // Đặt sự kiện cho các hoạt động người dùng để làm mới hẹn giờ
     const resetTimeout = () => {
       clearTimeout(timeout); // Xóa hẹn giờ hiện tại
@@ -37,13 +37,13 @@ const UserNavbar = () => {
         handleLogout();
       }, 15 * 60 * 1000);
     };
-  
+
     // Đặt sự kiện cho các hoạt động người dùng để làm mới hẹn giờ
     document.addEventListener("mousemove", resetTimeout);
     document.addEventListener("mousedown", resetTimeout);
     document.addEventListener("keypress", resetTimeout);
     document.addEventListener("touchmove", resetTimeout);
-  
+
     // Xóa các sự kiện khi component unmount
     return () => {
       clearTimeout(timeout);
@@ -52,8 +52,23 @@ const UserNavbar = () => {
       document.removeEventListener("keypress", resetTimeout);
       document.removeEventListener("touchmove", resetTimeout);
     };
-  }, [i18n]); 
+  }, [i18n]);
 
+  // useEffect(() => {
+  //   const handleWindowClose = () => {
+  //     handleLogout();
+  //   };
+
+  //   window.addEventListener("beforeunload", handleWindowClose);
+
+  //   window.onunload = function () {
+  //     handleLogout();
+  //   };
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleWindowClose);
+  //   };
+  // }, []);
 
   const changeLanguage = (lng) => {
     setSelectedLanguage(lng);
@@ -65,7 +80,7 @@ const UserNavbar = () => {
     try {
       const userid = sessionStorage.getItem("userID");
       const response = await axios.get(
-        `https://localhost:7241/api/User/updateonlinestatus/${userid}`
+        `https://localhost:7241/api/User/updateonlinestatuslogout/${userid}`
       );
       if (response.status === 200) {
         sessionStorage.clear();

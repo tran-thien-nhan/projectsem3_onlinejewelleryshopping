@@ -69,6 +69,12 @@ function ItemDetail() {
   const handleAddToWishlist = async (e) => {
     e.preventDefault();
 
+    //kiểm tra đăng nhập
+    if (!sessionStorage.getItem("userID")) {
+      Swal.fire(t("Error"), t("Please login to add item to wishlist"), "error");
+      return;
+    }
+
     if (isWishListExist) {
       handleDeleteFromWishList(wistlistByUserId[0].whistList_ID, e);
       window.location.reload();
@@ -297,7 +303,7 @@ function ItemDetail() {
   };
 
   return (
-    <div className="container-fluid row my-4 mx-2">
+    <div className="container-fluid row my-4">
       <div className="col-md-6">
         <div
           className={`expanded-image-overlay ${
@@ -435,9 +441,7 @@ function ItemDetail() {
                 <i className="fa fa-heart-o" aria-hidden="true"></i>
               )}
               <span className="mx-2">
-                {
-                  isWishListExist ? t("Remove from Wishlist") : t("Favorite")
-                }
+                {isWishListExist ? t("Remove from Wishlist") : t("Favorite")}
               </span>
             </button>
           </div>

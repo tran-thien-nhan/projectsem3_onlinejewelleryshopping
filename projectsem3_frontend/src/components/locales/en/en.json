@@ -127,9 +127,9 @@
     "Login fail": "Login fail",
     "wrong username or password": "wrong username or password",
     "Please enter both username and password": "Please enter both username and password",
-    "Username and password must be at least 3 characters": "Username and password must be at least 3 characters",
+    "Username and password must be at least 6 characters": "Username and password must be at least 6 characters",
     "Username and password must be at most 20 characters": "Username and password must be at most 20 characters",
-    "Enter username": "Enter username",
+    "Enter username or password": "Enter username or password",
     "Enter password": "Enter password",
     "Forgot Password": "Forgot Password",
     "Click Here": "Click Here",
@@ -313,5 +313,12 @@
     "Item added to wishlist successfully": "Item added to wishlist successfully",
     "Remove from Wishlist": "Remove from Wishlist",
     "Item Removed from wishlist successfully": "Item Removed from wishlist successfully",
-    "CapsLock is ON": "CapsLock is ON"
+    "CapsLock is ON": "CapsLock is ON",
+    "Password must be at least 8 characters and must contain at least one letter, one number and one special character!": "Password must be at least 8 characters and must contain at least one letter, one number and one special character!",
+    "Phone number must be 10 digits!": "Phone number must be 10 digits!",
+    "You must be at least 18 years old to register!": "You must be at least 18 years old to register!",
+    "Email is not valid!": "Email is not valid!",
+    "Username must be between 6 and 20 characters!": "Username must be between 6 and 20 characters!",
+    "Username (or email)" : "Username (or email)",
+    "Please login to add item to wishlist": "Please login to add item to wishlist"
 }

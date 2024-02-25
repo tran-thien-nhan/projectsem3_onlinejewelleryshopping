@@ -47,10 +47,16 @@ namespace projectsem3_backend.Controllers
             return await adminRepo.UpdateAdmin(username, admin);
         }
 
-        [HttpGet("updateadminstatus/{username}")]
+        [HttpGet("updateadminstatuslogin/{username}")]
         public async Task<CustomResult> UpdateOnlineStatus(string username)
         {
-            return await adminRepo.UpdateOnlineStatus(username);
+            return await adminRepo.UpdateOnlineStatusLogin(username);
+        }
+
+        [HttpGet("updateadminstatuslogout/{username}")]
+        public async Task<CustomResult> UpdateOnlineStatusLogout(string username)
+        {
+            return await adminRepo.UpdateOnlineStatusLogout(username);
         }
     }
 }

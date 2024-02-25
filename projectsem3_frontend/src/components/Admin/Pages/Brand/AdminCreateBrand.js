@@ -55,6 +55,17 @@ const AdminCreateBrand = () => {
         formData.append("brand_Year", brand.brand_Year);
         formData.append("visible", selectedOption.toString());
 
+        //xử lý trùng lặp brand_Type
+        const brandType = brands.find((brand) => brand.brand_Type === brand.brand_Type);
+        if (brandType) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Brand Type Already Exists",
+            });
+            return;
+        }
+
         axios
             .post("https://localhost:7241/api/BrandMst", formData)
             .then((res) => {
@@ -67,7 +78,7 @@ const AdminCreateBrand = () => {
                     });
                     setTimeout(() => {
                         Swal.close();
-                        navigate("/certify");
+                        navigate("/brands");
                         window.location.reload();
                     }, 1500);
                 }

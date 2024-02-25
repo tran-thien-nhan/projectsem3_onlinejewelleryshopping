@@ -354,7 +354,7 @@
                     <td>
                       {userBuyingCounts[user.userID] === undefined
                         ? "Loading..."
-                        : userBuyingCounts[user.userID]}
+                        : userBuyingCounts[user.userID]} items
                     </td>
                     <td>
                       {userOrderCancelCounts[user.userID] === undefined

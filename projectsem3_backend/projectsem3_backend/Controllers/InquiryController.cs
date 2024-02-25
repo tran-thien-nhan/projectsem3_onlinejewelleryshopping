@@ -89,6 +89,13 @@ namespace projectsem3_backend.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new CustomResult(500, e.Message, null));
             }
         }
+
+        //reply inquiry
+        [HttpPost("reply")]
+        public async Task<CustomResult> ReplyToUser([FromBody] ReplyRequest request)
+        {
+            return await _inquiryRepo.ReplyInquiry(request.id, request.content);
+        }
     }
 
     public class InquiryCreateRequest
@@ -98,6 +105,12 @@ namespace projectsem3_backend.Controllers
         public string Contact { get; set; }
         public string EmailID { get; set; }
         public string Comment { get; set; }
+    }
+
+    public class ReplyRequest
+    {
+        public string id { get; set; }
+        public string content { get; set; }
     }
 }
 

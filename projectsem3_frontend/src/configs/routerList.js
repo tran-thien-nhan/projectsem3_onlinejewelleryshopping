@@ -175,7 +175,7 @@ const publicRouter = [
   {
     path: "/wishlist",
     element: <ItemFavorite />,
-  }
+  },
 ];
 
 const privateRouter = [
@@ -185,72 +185,84 @@ const privateRouter = [
     element: <MovingToUser />,
     name: "",
     visible: false,
+    icon: "",
   },
   {
     path: "/admin",
     element: <AdminIndex />,
     name: "Dashboard",
-    visible: false,
+    visible: true,
+    icon: <i className="fas fa-tachometer-alt mx-2"></i>,
   },
   {
     path: "/adminlist",
     element: <AdminList />,
     name: "Admin ",
     visible: true,
+    icon: <i className="fas fa-user-cog mx-2"></i>,
   },
   {
     path: "/createadmin",
     element: <AdminCreateInfo />,
     name: "Create Admin",
     visible: false,
+    icon: "",
   },
   {
     path: "/editadmin/:userName",
     element: <AdminEditInfo />,
     name: "Admin Edit Info",
     visible: false,
+    icon: "",
   },
   {
     path: "/items",
     element: <AdminItemList />,
     name: "Items ",
     visible: true,
+    icon: <i className="fas fa-shopping-bag mx-2"></i>,
   },
   {
     path: "/allorders",
     element: <AdminAllOrders />,
     name: "Orders ",
     visible: true,
+    icon: <i className="fas fa-list-alt mx-2"></i>,
   },
   {
     path: "/order/:order_ID",
     element: <AdminOrderDetail />,
     name: "Order Detail",
     visible: false,
+    icon: "",
   },
   {
     path: "/createitem",
     element: <AdminCreateItem />,
     name: "Create Item",
     visible: false,
+    icon: "",
   },
   {
     path: "/edititem/:style_Code",
     element: <AdminUpdateItem />,
     name: "update item",
     visible: false,
+    icon: "",
   },
   {
     path: "/userlist",
     element: <AdminUserList />,
     name: "User ",
     visible: true,
+    icon: <i className="fas fa-user-friends mx-2"></i>,
   },
   {
     path: "/user/:userID",
     element: <AdminUserDetail />,
     name: "user detail",
     visible: false,
+    icon: "",
   },
 
   //Phi route's
@@ -259,18 +271,21 @@ const privateRouter = [
     element: <AdminBrand />,
     name: "Brands ",
     visible: true,
+    icon: <i className="fas fa-tags mx-2"></i>,
   },
   {
     path: "/create-brand",
     element: <AdminCreateBrand />,
     name: "Create New Brand",
     visible: false,
+    icon: "",
   },
   {
     path: "/edit-brand/:brand_ID",
     element: <AdminEditBrand />,
     name: "Edit Brand",
     visible: false,
+    icon: "",
   },
 
   {
@@ -278,18 +293,21 @@ const privateRouter = [
     element: <AdminGold />,
     name: "Gold Krt ",
     visible: true,
+    icon: <i className="fas fa-coins mx-2"></i>,
   },
   {
     path: "/create-gold",
     element: <AdminCreateGold />,
     name: "Create New Gold Krt",
     visible: false,
+    icon: "",
   },
   {
     path: "/edit-gold/:goldType_ID",
     element: <AdminEditGold />,
     name: "Edit Category",
     visible: false,
+    icon: "",
   },
 
   {
@@ -297,56 +315,65 @@ const privateRouter = [
     element: <AdminCat />,
     name: "Category ",
     visible: true,
+    icon: <i className="fas fa-list-alt mx-2"></i>,
   },
   {
     path: "/create-cat",
     element: <AdminCreateCat />,
     name: "Create New Category",
     visible: false,
+    icon: "",
   },
   {
     path: "/edit-cat/:cat_ID",
     element: <AdminEditCat />,
     name: "Edit Category",
     visible: false,
+    icon: "",
   },
 
   {
     path: "/stones",
     element: <AdminStone />,
-    name: "Stone Info ",
+    name: "Stone Info",
     visible: true,
+    icon: <i className="fas fa-gem mx-2"></i>, // Biểu tượng đá quý
   },
   {
     path: "/create-stone",
     element: <AdminCreateStone />,
     name: "Create New Stone",
     visible: false,
+    icon: "",
   },
   {
     path: "/edit-stone/:stone_ID",
     element: <AdminEditStone />,
     name: "Edit Stone",
     visible: false,
+    icon: "",
   },
-
   {
     path: "/stone-quality",
     element: <AdminStoneQuality />,
-    name: "Stone Quality ",
+    name: "Stone Quality",
     visible: true,
+    icon: <i className="fas fa-gem mx-2"></i>, // Biểu tượng đá quý
   },
+
   {
     path: "/create-stone-quality",
     element: <AdminCreateStoneQuality />,
     name: "Create New Stone Quality",
     visible: false,
+    icon: "",
   },
   {
     path: "/edit-stone-quality/:stoneQlty_ID",
     element: <AdminEditStoneQuality />,
     name: "Edit Category",
     visible: false,
+    icon: "",
   },
 
   {
@@ -354,18 +381,21 @@ const privateRouter = [
     element: <AdminCertify />,
     name: "Certification ",
     visible: true,
+    icon: <i className="fas fa-certificate mx-2"></i>,
   },
   {
     path: "/create-certify",
     element: <AdminCreateCertify />,
     name: "Create New Certification",
     visible: false,
+    icon: "",
   },
   {
     path: "/edit-certify/:certify_ID",
     element: <AdminEditCertify />,
     name: "Edit Certification",
     visible: false,
+    icon: "",
   },
 
   //Hung
@@ -375,18 +405,21 @@ const privateRouter = [
     element: <AdminDimQlty />,
     name: "DimQlty ",
     visible: true,
+    icon: <i className="fas fa-gem mx-2"></i>,
   },
   {
     path: "/createDimQlty",
     element: <AdminCreateDimQlty />,
     name: "CreateDimQlty",
     visible: false,
+    icon: "",
   },
   {
     path: "/editDimQlty/:id",
     element: <AdminEditDimQlty />,
     name: "editDimQlty",
     visible: false,
+    icon: "",
   },
 
   {
@@ -394,101 +427,113 @@ const privateRouter = [
     element: <AdminDim />,
     name: "DimMst",
     visible: true,
+    icon: <i className="fas fa-ruler mx-2"></i>, // Biểu tượng cho kích thước
   },
   {
     path: "/create-dim",
     element: <AdminCreateDim />,
     name: "CreateDimQlty",
     visible: false,
+    icon: "",
   },
   {
     path: "/edit-dim/:dimMst_ID",
     element: <AdminEditDim />,
     name: "editDim",
     visible: false,
+    icon: "",
   },
-
   {
     path: "/prod",
     element: <AdminProd />,
-    name: "Prod ",
+    name: "Prod",
     visible: true,
+    icon: <i className="fas fa-box mx-2"></i>, // Biểu tượng cho sản phẩm
   },
   {
     path: "/createProd",
     element: <AdminCreateProd />,
-    name: "CreateProd ",
+    name: "CreateProd",
     visible: false,
+    icon: "",
   },
   {
     path: "/editProd/:id",
     element: <AdminEditProd />,
     name: "editDimSub",
     visible: false,
+    icon: "",
   },
-
   {
     path: "/dimQltySub",
     element: <AdminDimSub />,
-    name: "DimQltySub ",
+    name: "DimQltySub",
     visible: true,
+    icon: <i className="fas fa-layer-group mx-2"></i>, // Biểu tượng cho các phụ thuộc kích thước
   },
   {
     path: "/createDimQltySub",
     element: <AdminCreateDimSub />,
     name: "CreateDimSub",
     visible: false,
+    icon: "",
   },
   {
     path: "/editDimQltySub/:id",
     element: <AdminEditDimSub />,
     name: "editDimSub",
     visible: false,
+    icon: "",
   },
-
   {
     path: "/dimInfo",
     element: <AdminDimInfo />,
-    name: "DimInfo ",
+    name: "DimInfo",
     visible: true,
+    icon: <i className="fas fa-info-circle mx-2"></i>, // Biểu tượng cho thông tin kích thước
   },
   {
     path: "/createDimInfo",
     element: <AdminCreateDimInfo />,
     name: "Create DimInfo",
     visible: false,
+    icon: "",
   },
   {
     path: "/editDimInfo/:id",
     element: <AdminEditDimInfo />,
     name: "Create DimInfo",
     visible: false,
+    icon: "",
   },
-
   {
     path: "/jewelType",
     element: <AdminJewelType />,
-    name: "JewelType ",
+    name: "JewelType",
     visible: true,
+    icon: <i className="fas fa-gem mx-2"></i>, // Biểu tượng cho loại đá quý
   },
   {
     path: "/createJewelType",
     element: <AdminCreateJewelType />,
     name: "Create JewelType",
     visible: false,
+    icon: "",
   },
   {
     path: "/editJewelType/:id",
     element: <AdminEditJewelType />,
     name: "edit JewelType",
     visible: false,
+    icon: "",
   },
   {
     path: "/inquiryList",
     element: <AdminInquiryList />,
-    name: "inquiry ",
+    name: "Inquiry",
     visible: true,
-  },
+    icon: <i className="fas fa-list-alt mx-2"></i>, 
+  }
 ];
 
 export { publicRouter, privateRouter };

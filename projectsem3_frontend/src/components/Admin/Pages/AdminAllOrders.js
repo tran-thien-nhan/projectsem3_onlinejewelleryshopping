@@ -182,7 +182,7 @@ const AdminAllOrders = () => {
   return (
     <div className="container-fluid row">
       <PageHeading text="All Orders" />
-      <div className="d-flex flex-wrap">
+      {/* <div className="d-flex flex-wrap">
         <CardEarning className="flex-fill" />
         <CardEarning6 className="flex-fill" />
         <CardEarning7 className="flex-fill" />
@@ -199,7 +199,7 @@ const AdminAllOrders = () => {
         <CardEarning8 className="flex-fill" />
         <CardEarning11 className="flex-fill" />
         <CardEarning9 className="flex-fill" />
-      </div>
+      </div> */}
       <div className="container-fluid d-flex">
         <div className="col-6 mx-2">
           <div className="mb-3">

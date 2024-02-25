@@ -33,6 +33,36 @@ const Register = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
+    //xử lý nếu username chỉ có 3 ký tự hoặc nhiều hơn 20 ký tự
+    if (user.username.length < 6 || user.username.length > 20) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("Username must be between 6 and 20 characters!"),
+      });
+      return;
+    };
+
+    //xử lý nếu email sai định dạng
+    if (!user.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("Email is not valid!"),
+      });
+      return;
+    }
+
+    //xử lý nếu nhập không đủ 10 số
+    if (user.phone.length !== 10) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("Phone number must be 10 digits!"),
+      });
+      return;
+    }
+
     //xử lý nếu tuổi nhỏ hơn 18
     var today = new Date();
     var birthDate = new Date(user.dob);
@@ -46,6 +76,45 @@ const Register = () => {
         icon: "error",
         title: "Error",
         text: t("You must be at least 18 years old to register!"),
+      });
+      return;
+    }
+
+    //mật khẩu phải có ít nhất 8 ký tự và có ít nhất 1 chữ cái và 1 chữ số và 1 ký tự đặc biệt
+    if (
+      !user.pswd.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t(
+          t(
+            "Password must be at least 8 characters and must contain at least one letter, one number and one special character!"
+          )
+        ),
+      });
+      return;
+    }
+
+    //xử lý nếu có 1 trường nào đó trống
+    if (
+      user.username === "" ||
+      user.fname === "" ||
+      user.lname === "" ||
+      user.address === "" ||
+      user.city === "" ||
+      user.state === "" ||
+      user.email === "" ||
+      user.phone === "" ||
+      user.dob === "" ||
+      user.pswd === ""
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("Please fill in all the information!"),
       });
       return;
     }
@@ -241,6 +310,7 @@ const Register = () => {
                     id="phone"
                     placeholder={t("Enter phone")}
                     name="phone"
+                    maxLength={10}
                     value={user.phone}
                     onChange={handleChangeInput}
                   />

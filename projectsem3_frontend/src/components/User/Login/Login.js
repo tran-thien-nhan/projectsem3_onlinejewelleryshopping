@@ -33,20 +33,10 @@ const Login = () => {
         Swal.close();
       }, 2000);
       return;
-    } else if (username.length < 3 || password.length < 3) {
+    } else if (username.length < 6 || password.length < 3) {
       Swal.fire(
         t("Error"),
-        t("Username and password must be at least 3 characters"),
-        "error"
-      );
-      setTimeout(() => {
-        Swal.close();
-      }, 2000);
-      return;
-    } else if (username.length > 20 || password.length > 20) {
-      Swal.fire(
-        t("Error"),
-        t("Username and password must be at most 20 characters"),
+        t("Username and password must be at least 6 characters"),
         "error"
       );
       setTimeout(() => {
@@ -110,7 +100,7 @@ const Login = () => {
           if (role === "admin") {
             const username = sessionStorage.getItem("userName");
             const response = await axios.get(
-              `https://localhost:7241/api/Admin/updateadminstatus/${username}`
+              `https://localhost:7241/api/Admin/updateadminstatuslogin/${username}`
             );
             if (response.status === 200) {
               setRole(role);
@@ -135,7 +125,7 @@ const Login = () => {
           } else if (role === "user") {
             const userid = sessionStorage.getItem("userID");
             const response = await axios.get(
-              `https://localhost:7241/api/User/updateonlinestatus/${userid}`
+              `https://localhost:7241/api/User/updateonlinestatuslogin/${userid}`
             );
             if (response.status === 200) {
               setRole(role);
@@ -193,12 +183,12 @@ const Login = () => {
             <h2>{t("LOGIN")}</h2>
             <form onSubmit={handleLogin}>
               <div className="mb-3 mt-3">
-                <label htmlFor="username">{t("Username")}:</label>
+                <label htmlFor="username">{t("Username (or email)")}:</label>
                 <input
                   type="text"
                   className="form-control"
                   id="username"
-                  placeholder={t("Enter username")}
+                  placeholder={t("Enter username or password")}
                   name="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}

@@ -9,7 +9,7 @@ const MovingToAdmin = () => {
             await new Promise((resolve) => setTimeout(resolve, 1000));
             await window.location.reload();
             //await navigate("/admin");
-            await navigate("/allorders");
+            await navigate("/admin");
         };
         delay();
     }, [])

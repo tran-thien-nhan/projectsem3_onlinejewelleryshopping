@@ -9,10 +9,14 @@ namespace projectsem3_backend.Service
     public class InquiryRepo : IInquiryRepo
     {
         private readonly DatabaseContext _db;
+        private readonly EmailService emailService;
+        private readonly IConfiguration _config;
 
-        public InquiryRepo(DatabaseContext db)
+        public InquiryRepo(DatabaseContext db, EmailService emailService, IConfiguration config)
         {
             _db = db;
+            this.emailService = emailService;
+            _config = config;
         }
 
         public async Task<CustomResult> GetAllInquiries()
@@ -58,7 +62,7 @@ namespace projectsem3_backend.Service
                     return new CustomResult(400, "Invalid input. Inquiry is null.", null);
                 }
 
-                if(inquiry.Comment == null || inquiry.EmailID == null || inquiry.Name == null || inquiry.Contact == null || inquiry.City == null)
+                if (inquiry.Comment == null || inquiry.EmailID == null || inquiry.Name == null || inquiry.Contact == null || inquiry.City == null)
                 {
                     return new CustomResult(400, "Invalid input. Inquiry is null.", null);
                 }
@@ -72,7 +76,7 @@ namespace projectsem3_backend.Service
                     return new CustomResult(404, "User not found", null);
                 }
 
-                inquiry.UserID = user.UserID;   
+                inquiry.UserID = user.UserID;
 
                 _db.Inquiries.Add(inquiry);
                 var result = await _db.SaveChangesAsync();
@@ -121,6 +125,37 @@ namespace projectsem3_backend.Service
                 var result = await _db.SaveChangesAsync();
 
                 return result == 1 ? new CustomResult(200, "Update Success", inquiry) : new CustomResult(204, "No changes were made in the database", null);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> ReplyInquiry(string id, string content)
+        {
+            try
+            {
+                var inquiryData = await _db.Inquiries.Where(i => i.ID == id)
+                    .Include(u => u.UserRegMst)
+                    .FirstOrDefaultAsync();
+
+                var user = inquiryData.UserRegMst;
+                var userEmail = user.EmailID;
+
+                //lấy mail trong appsettings
+                var emailHost = _config["SmtpSettings:Mail"];
+
+                if (inquiryData == null)
+                {
+                    return new CustomResult(404, "Inquiry not found", null);
+                }
+
+                await emailService.SendMailReplyInquiryAsync(userEmail, inquiryData.Comment ,content);
+                await emailService.SendMailReplyInquiryAsync(emailHost, inquiryData.Comment, content);
+
+                return new CustomResult(200, "Reply Success", inquiryData);
+                
             }
             catch (Exception e)
             {

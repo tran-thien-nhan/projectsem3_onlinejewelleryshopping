@@ -80,11 +80,11 @@ const AdminCreateItem = () => {
     setItem({ ...item, stoneQlty_ID: e.target.value });
   };
 
-  function processImageName(imagePath) {
-    const part = imagePath.split("/").slice(-1)[0].split("_");
-    const name = part[part.length - 2] + part[part.length - 1];
-    return name;
-  }
+  // function processImageName(imagePath) {
+  //   const part = imagePath.split("/").slice(-1)[0].split("_");
+  //   const name = part[part.length - 2] + part[part.length - 1];
+  //   return name;
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -187,20 +187,20 @@ const AdminCreateItem = () => {
     }
 
     //xử lý nếu trùng hình ảnh với 1 trong các sản phẩm đã có
-    if (
-      items.some(
-        (i) =>
-          processImageName(i.imagePath) === processImageName(item.imagePath) &&
-          i.style_Code !== item.style_Code
-      )
-    ) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Image already exists!",
-      });
-      return;
-    }
+    // if (
+    //   items.some(
+    //     (i) =>
+    //       processImageName(i.imagePath) === processImageName(item.imagePath) &&
+    //       i.style_Code !== item.style_Code
+    //   )
+    // ) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: "Image already exists!",
+    //   });
+    //   return;
+    // }
 
     axios
       .post("https://localhost:7241/api/ItemMst", formData)

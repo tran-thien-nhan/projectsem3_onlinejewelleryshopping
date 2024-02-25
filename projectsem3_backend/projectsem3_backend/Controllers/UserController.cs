@@ -164,10 +164,16 @@ namespace projectsem3_backend.Controllers
             return await userRepo.CountCancelOrderOfUser(userid);
         }
 
-        [HttpGet("updateonlinestatus/{userid}")]
+        [HttpGet("updateonlinestatuslogin/{userid}")]
         public async Task<CustomResult> UpdateOnlineStatus(string userid)
         {
-            return await userRepo.UpdateOnlineStatus(userid);
+            return await userRepo.UpdateOnlineStatusLogin(userid);
+        }
+
+        [HttpGet("updateonlinestatuslogout/{userid}")]
+        public async Task<CustomResult> UpdateOnlineStatusLogout(string userid)
+        {
+            return await userRepo.UpdateOnlineStatusLogout(userid);
         }
     }
 }

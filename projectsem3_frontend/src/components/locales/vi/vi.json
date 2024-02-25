@@ -127,9 +127,9 @@
     "Login fail": "Đăng nhập thất bại",
     "wrong username or password": "tên đăng nhập hoặc mật khẩu sai",
     "Please enter both username and password": "Vui lòng nhập cả tên đăng nhập và mật khẩu",
-    "Username and password must be at least 3 characters": "Tên đăng nhập và mật khẩu phải có ít nhất 3 ký tự",
+    "Username and password must be at least 6 characters": "Tên đăng nhập và mật khẩu phải có ít nhất 6 ký tự",
     "Username and password must be at most 20 characters": "Tên đăng nhập và mật khẩu phải có tối đa 20 ký tự",
-    "Enter username": "Nhập tên đăng nhập",
+    "Enter username or password": "Nhập tên đăng nhập hoặc mật khẩu",
     "Enter password": "Nhập mật khẩu",
     "Forgot Password": "Quên mật khẩu",
     "Click Here": "Nhấn vào đây",
@@ -313,5 +313,12 @@
     "Item added to wishlist successfully": "Sản phẩm đã được thêm vào danh sách yêu thích thành công",
     "Remove from Wishlist": "Xóa khỏi danh sách yêu thích",
     "Item Removed from wishlist successfully": "Sản phẩm đã được xóa khỏi danh sách yêu thích thành công",
-    "CapsLock is ON": "CapsLock đang bật"
+    "CapsLock is ON": "CapsLock đang bật",
+    "Password must be at least 8 characters and must contain at least one letter, one number and one special character!": "Mật khẩu phải có ít nhất 8 ký tự và phải chứa ít nhất một chữ cái, một số và một ký tự đặc biệt!",
+    "Phone number must be 10 digits!": "Số điện thoại phải có 10 chữ số!",
+    "You must be at least 18 years old to register!": "Bạn phải ít nhất 18 tuổi để đăng ký!",
+    "Email is not valid!": "Email không hợp lệ!",
+    "Username must be between 6 and 20 characters!": "Tên đăng nhập phải từ 6 đến 20 ký tự!",
+    "Username (or email)": "Tên đăng nhập (hoặc email)",
+    "Please login to add item to wishlist": "Vui lòng đăng nhập để thêm sản phẩm vào danh sách yêu thích"
 }

@@ -10,6 +10,7 @@ namespace projectsem3_backend.Repository
         Task<CustomResult> DeleteAdmin(string username);
         Task<CustomResult> GetAdminByUsername(string username);
         Task<CustomResult> GetAllAdmin();
-        Task<CustomResult> UpdateOnlineStatus(string username);
+        Task<CustomResult> UpdateOnlineStatusLogin(string username);
+        Task<CustomResult> UpdateOnlineStatusLogout(string username);
     }
 }

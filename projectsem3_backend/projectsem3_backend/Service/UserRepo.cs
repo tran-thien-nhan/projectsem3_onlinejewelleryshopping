@@ -28,7 +28,7 @@ namespace projectsem3_backend.Service
         [NonAction]
         private async Task<UserRegMst> AuthenticateUser(AdminLoginMst adminLogin)
         {
-            var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower());
+            var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower() || x.EmailID.ToLower() == adminLogin.UserName.ToLower());
 
             if (user != null && UserSecurity.VerifyPassword(adminLogin.Password, user.Password))
             {
@@ -41,7 +41,7 @@ namespace projectsem3_backend.Service
         [NonAction]
         private async Task<AdminLoginMst> AuthenticateAdmin(AdminLoginMst adminLogin)
         {
-            var admin = await db.AdminLoginMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower());
+            var admin = await db.AdminLoginMsts.FirstOrDefaultAsync(x => x.UserName.ToLower() == adminLogin.UserName.ToLower() || x.AdminEmail.ToLower() == adminLogin.UserName.ToLower());
             if (admin != null && UserSecurity.VerifyPassword(adminLogin.Password, admin.Password))
             {
                 return admin;
@@ -491,7 +491,10 @@ namespace projectsem3_backend.Service
                 int count = 0;
                 foreach (var order in userOrderDetailCount.OrderMsts.Where(o => o.OrderStatus == 3))
                 {
-                    count += order.OrderDetailMsts.Count;
+                    foreach (var orderDetail in order.OrderDetailMsts)
+                    {
+                        count += (order.OrderDetailMsts.Count * (int)orderDetail.Quantity);
+                    }
                 }
                 return new CustomResult(200, "Success", count);
             }
@@ -526,7 +529,7 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<CustomResult> UpdateOnlineStatus(string userid)
+        public async Task<CustomResult> UpdateOnlineStatusLogin(string userid)
         {
             try
             {
@@ -535,7 +538,27 @@ namespace projectsem3_backend.Service
                 {
                     return new CustomResult(404, "User not found", null);
                 }
-                user.OnlineStatus = !user.OnlineStatus;
+                user.OnlineStatus = true;
+                user.LastAccessTime = DateTime.Now;
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", user);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> UpdateOnlineStatusLogout(string userid)
+        {
+            try
+            {
+                var user = await db.UserRegMsts.FirstOrDefaultAsync(x => x.UserID == userid);
+                if (user == null)
+                {
+                    return new CustomResult(404, "User not found", null);
+                }
+                user.OnlineStatus = false;
                 user.LastAccessTime = DateTime.Now;
                 await db.SaveChangesAsync();
                 return new CustomResult(200, "Success", user);

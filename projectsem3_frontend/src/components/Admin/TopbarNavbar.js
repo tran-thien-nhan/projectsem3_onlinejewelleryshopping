@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useData } from "../../Context/DataContext";
@@ -7,25 +7,44 @@ import { useData } from "../../Context/DataContext";
 const TopbarNavbar = () => {
   const { allOrderList, loading, error } = useData();
   const navigate = useNavigate();
+  const [newOrderCount, setNewOrderCount] = useState(0);
+  const [oldOrderCount, setOldOrderCount] = useState(0);
 
   //lấy những đơn hàng của ngày hôm nay và có orderStatus == 1
-  const newOrder = allOrderList.filter(
-    (order) =>
-      new Date(order.orderDate).toDateString() === new Date().toDateString() &&
-      order.orderStatus === 1
-  );
+  // const newOrder = allOrderList.filter(
+  //   (order) =>
+  //     new Date(order.orderDate).toDateString() === new Date().toDateString() &&
+  //     order.orderStatus === 1
+  // );
 
-  const oldOrder = allOrderList.filter(
-    (order) =>
-      new Date(order.orderDate).toDateString() !== new Date().toDateString() &&
-      (order.orderStatus === 1 || order.orderStatus === 2)
-  );
+  // const oldOrder = allOrderList.filter(
+  //   (order) =>
+  //     new Date(order.orderDate).toDateString() !== new Date().toDateString() &&
+  //     (order.orderStatus === 1 || order.orderStatus === 2)
+  // );
+
+  useEffect(() => {
+    const newOrders = allOrderList.filter(
+      (order) =>
+        new Date(order.orderDate).toDateString() ===
+          new Date().toDateString() && order.orderStatus === 1
+    );
+    const oldOrders = allOrderList.filter(
+      (order) =>
+        new Date(order.orderDate).toDateString() !==
+          new Date().toDateString() &&
+        (order.orderStatus === 1 || order.orderStatus === 2)
+    );
+
+    setNewOrderCount(newOrders.length);
+    setOldOrderCount(oldOrders.length);
+  }, [allOrderList]); // Trigger effect khi danh sách đơn hàng thay đổi
 
   const handleLogout = async () => {
     try {
       const username = sessionStorage.getItem("userName");
       const response = await axios.get(
-        `https://localhost:7241/api/Admin/updateadminstatus/${username}`
+        `https://localhost:7241/api/Admin/updateadminstatuslogout/${username}`
       );
       if (response.status === 200) {
         sessionStorage.clear();
@@ -74,6 +93,22 @@ const TopbarNavbar = () => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const handleWindowClose = () => {
+  //     handleLogout();
+  //   };
+
+  //   window.addEventListener("beforeunload", handleWindowClose);
+
+  //   window.onunload = function () {
+  //     handleLogout();
+  //   };
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleWindowClose);
+  //   };
+  // }, []);
+
   return (
     <ul className="navbar-nav ml-auto">
       {/* <div className="topbar-divider d-none d-sm-block"></div> */}
@@ -105,10 +140,10 @@ const TopbarNavbar = () => {
         >
           <span
             className={`badge ${
-              newOrder.length > 0 ? "bg-danger" : "bg-success"
+              newOrderCount > 0 ? "bg-danger" : "bg-success"
             }`}
           >
-            {newOrder.length} New Orders
+            {newOrderCount} New Orders
           </span>
         </a>
       </li>
@@ -121,10 +156,10 @@ const TopbarNavbar = () => {
         >
           <span
             className={`badge ${
-              oldOrder.length > 0 ? "bg-secondary" : "bg-success"
+              oldOrderCount > 0 ? "bg-secondary" : "bg-success"
             }`}
           >
-            {oldOrder.length} Unprocessing Orders
+            {oldOrderCount} Unprocessing Orders
           </span>
         </a>
       </li>

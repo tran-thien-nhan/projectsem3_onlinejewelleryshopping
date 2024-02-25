@@ -54,6 +54,8 @@ namespace projectsem3_backend.Repository
         Task<int> CountCancelOrderOfUser(string userid);
 
         //online status
-        Task<CustomResult> UpdateOnlineStatus(string userid);
+        Task<CustomResult> UpdateOnlineStatusLogin(string userid);
+
+        Task<CustomResult> UpdateOnlineStatusLogout(string userid);
     }
 }

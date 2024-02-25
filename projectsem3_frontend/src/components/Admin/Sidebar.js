@@ -11,12 +11,12 @@ const Sidebar = (props) => {
           style={{ fontWeight: "bold" }}
         >
           <a
-            href="/allorders"
+            href="/admin"
             className="text-white"
             style={{ textDecoration: "none" }}
           >
             <span className="mx-2">
-              <i className="fas fa-user-cog mx-2"></i> 
+              <i className="fas fa-user-cog mx-2"></i>
               Admin
             </span>
           </a>
@@ -30,7 +30,10 @@ const Sidebar = (props) => {
             route.visible && (
               <li className="sidebartext" key={index}>
                 <a className="nav-link" href={route.path}>
-                  <span>{route.name}</span>
+                  <div className="d-flex align-items-center">
+                    <div className="col-auto">{route.icon}</div>
+                    <div className="col-auto">{route.name}</div>
+                  </div>
                 </a>
               </li>
             )

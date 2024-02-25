@@ -126,7 +126,7 @@ namespace projectsem3_backend.Service
             }
         }
 
-        public async Task<CustomResult> UpdateOnlineStatus(string username)
+        public async Task<CustomResult> UpdateOnlineStatusLogin(string username)
         {
             try
             {
@@ -135,7 +135,28 @@ namespace projectsem3_backend.Service
                 {
                     return new CustomResult(404, "Not Found", null);
                 }
-                admin.OnlineStatus = !admin.OnlineStatus;
+                admin.OnlineStatus = true;
+                admin.LastAccessTime = DateTime.Now;
+                db.AdminLoginMsts.Update(admin);
+                await db.SaveChangesAsync();
+                return new CustomResult(200, "Success", admin);
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
+        public async Task<CustomResult> UpdateOnlineStatusLogout(string username)
+        {
+            try
+            {
+                var admin = await db.AdminLoginMsts.SingleOrDefaultAsync(a => a.UserName == username);
+                if (admin == null)
+                {
+                    return new CustomResult(404, "Not Found", null);
+                }
+                admin.OnlineStatus = false;
                 admin.LastAccessTime = DateTime.Now;
                 db.AdminLoginMsts.Update(admin);
                 await db.SaveChangesAsync();

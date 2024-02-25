@@ -20,5 +20,8 @@ namespace projectsem3_backend.Repository
 
         //gửi mail thông báo đơn hàng được giao thành công
         Task<int> SendMailDeliveredAsync(string toEmail, string orderId);
+
+        //send mail trả lời inquiry
+        Task<int> SendMailReplyInquiryAsync(string toEmail, string inquiryContent, string content);
     }
 }
