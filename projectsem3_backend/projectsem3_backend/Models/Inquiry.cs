@@ -23,6 +23,8 @@ namespace projectsem3_backend.Models
 
         public string? Comment { get; set; }
 
+        public string? Reply { get; set; }
+
         public DateTime? Cdate { get; set; }
 
         public bool? Visible { get; set; }

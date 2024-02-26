@@ -15,6 +15,26 @@ namespace projectsem3_backend.Service
             this.db = db;
         }
 
+        public async Task<CustomResult> CheckItemInCart(string userId, string style_Code)
+        {
+            try
+            {
+                var checkCart = await db.CartLists.SingleOrDefaultAsync(c => c.UserID == userId && c.Style_Code == style_Code);
+                if (checkCart == null)
+                {
+                    return new CustomResult(404, "Item not found in cart", false);
+                }
+                else
+                {
+                    return new CustomResult(200, "Item found in cart", true);
+                }
+            }
+            catch (Exception e)
+            {
+                return new CustomResult(500, e.Message, null);
+            }
+        }
+
         public async Task<CustomResult> ClearCart(string userId)
         {
             try

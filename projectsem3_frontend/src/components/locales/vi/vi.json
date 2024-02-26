@@ -320,5 +320,6 @@
     "Email is not valid!": "Email không hợp lệ!",
     "Username must be between 6 and 20 characters!": "Tên đăng nhập phải từ 6 đến 20 ký tự!",
     "Username (or email)": "Tên đăng nhập (hoặc email)",
-    "Please login to add item to wishlist": "Vui lòng đăng nhập để thêm sản phẩm vào danh sách yêu thích"
+    "Please login to add item to wishlist": "Vui lòng đăng nhập để thêm sản phẩm vào danh sách yêu thích",
+    "Please fill in all the information!": "Vui lòng điền đầy đủ thông tin!"
 }

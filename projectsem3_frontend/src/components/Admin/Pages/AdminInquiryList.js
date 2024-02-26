@@ -139,6 +139,7 @@ const AdminInquiry = () => {
               <th>Contact</th>
               <th>Email</th>
               <th>Comment</th>
+              <th>Reply</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -164,6 +165,7 @@ const AdminInquiry = () => {
                   <td>{inquiryItem.contact}</td>
                   <td>{inquiryItem.emailID}</td>
                   <td>{inquiryItem.comment}</td>
+                  <td>{inquiryItem.reply}</td>
                   <td>
                     {/* <button
                       className="btn btn-danger"
@@ -201,38 +203,18 @@ const AdminInquiry = () => {
                           </div>
 
                           <div className="modal-body">
-                            <form
-                              onSubmit={(e) =>
-                                handleSendResponse(e, modalInquiryID)
-                              }
-                            >
+                            <form onSubmit={(e) => handleSendResponse(e, modalInquiryID)}>
                               <div className="mb-3">
-                                <label
-                                  style={{ fontWeight: "bold", float: "left" }}
-                                >
-                                  To:
-                                </label>
+                                <label style={{ fontWeight: "bold", float: "left" }}>To:</label>
                                 <p>{modalEmailID}</p>
                               </div>
                               <div className="mb-3">
-                                <label
-                                  style={{ fontWeight: "bold", float: "left" }}
-                                >
-                                  Comment:
-                                </label>
+                                <label style={{ fontWeight: "bold", float: "left" }}>Comment:</label>
                                 <p>{modalComment}</p>
                               </div>
-                              <input
-                                type="hidden"
-                                name="id"
-                                value={modalInquiryID}
-                              />
+                              <input type="hidden" name="id" value={modalInquiryID} />
                               <div className="mb-3">
-                                <label
-                                  style={{ fontWeight: "bold", float: "left" }}
-                                >
-                                  Your Response:
-                                </label>
+                                <label style={{ fontWeight: "bold", float: "left" }}>Your Response:</label>
                                 <textarea
                                   className="form-control"
                                   rows="5"
@@ -243,11 +225,7 @@ const AdminInquiry = () => {
                                 ></textarea>
                               </div>
                               <div className="mb-3">
-                                <button
-                                  type="submit"
-                                  className="btn btn-warning"
-                                  disabled={isLoading}
-                                >
+                                <button type="submit" className="btn btn-default" disabled={isLoading}>
                                   {isLoading ? (
                                     <span
                                       className="spinner-border spinner-border-sm"

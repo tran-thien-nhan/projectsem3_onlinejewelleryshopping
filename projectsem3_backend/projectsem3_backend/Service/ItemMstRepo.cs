@@ -32,6 +32,7 @@ namespace projectsem3_backend.Service
                                 Include(i => i.GoldKrtMst).
                                 Include(i => i.JewelTypeMst).
                                 Include(i => i.StoneQltyMst).
+                                Include(i => i.DimMsts).
                                 ToListAsync();
                 if (result == null)
                 {
@@ -96,6 +97,11 @@ namespace projectsem3_backend.Service
                             FileUpload.DeleteImage(newItem.ImagePath); // Xóa hình ảnh đã tải lên
                             return new CustomResult(409, "Another product with the same image already exists.", null);
                         }
+                    }
+
+                    if (file == null)
+                    {
+                        return new CustomResult(409, "Image is required", null);
                     }
 
                     // Kiểm tra xem có trùng tên sản phẩm hay không
@@ -321,10 +327,7 @@ namespace projectsem3_backend.Service
 
                     // Xóa các hàng từ bảng CartLists có cùng Style_Code trước khi xóa mặt hàng từ ItemMsts
                     var cartItems = await db.CartLists.Where(cl => cl.Style_Code == id).ToListAsync();
-                    if (cartItems.Count > 0)
-                    { 
-                        return new CustomResult(409, "Cannot delete item. There are items in the cart that use this item.", null);
-                    }
+                    db.CartLists.RemoveRange(cartItems); // Xóa tất cả các mục trong giỏ hàng có liên quan đến mặt hàng này
 
                     // Xóa mặt hàng từ ItemMsts
                     db.ItemMsts.Remove(item);
@@ -343,6 +346,7 @@ namespace projectsem3_backend.Service
                 return new CustomResult(402, ex.Message, null);
             }
         }
+
 
 
         public async Task<CustomResult> UpdateVisibility(string id)

@@ -56,12 +56,17 @@ const AdminCreateBrand = () => {
         formData.append("visible", selectedOption.toString());
 
         //xử lý trùng lặp brand_Type
-        const brandType = brands.find((brand) => brand.brand_Type === brand.brand_Type);
-        if (brandType) {
+        if (
+            brands.some(
+                (i) =>
+                    i.brand_Type === brand.brand_Type &&
+                    i.brand_ID !== brand.brand_ID
+            )
+        ) {
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "Brand Type Already Exists",
+                text: "Brand type already exists!",
             });
             return;
         }

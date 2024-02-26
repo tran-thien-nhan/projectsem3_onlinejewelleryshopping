@@ -125,7 +125,7 @@ namespace projectsem3_backend.Service
                     <div class='container'>
                         <h2>Verify Email</h2>
                         <p>Click the button below to verify your email</p>
-                        <a href='http://localhost:3000/verifyemailsuccess/{token}' class='button'>Verify Email</a>
+                        <a href='http://localhost:3000/verifyemailsuccess/{token}' class='button' style='color: white'>Verify Email</a>
                     </div>
                 </body>
             </html>";
@@ -196,7 +196,7 @@ namespace projectsem3_backend.Service
                         <div class='container'>
                             <h2>Reset Password</h2>
                             <p>Click the button below to reset your password</p>
-                            <a href='http://localhost:3000/resetpassword/{token}' class='button'>Reset Password</a>
+                            <a href='http://localhost:3000/resetpassword/{token}' class='button' style='color: white'>Reset Password</a>
                             <p>link will be expired after 1 minute</p>
                         </div>
                     </body>

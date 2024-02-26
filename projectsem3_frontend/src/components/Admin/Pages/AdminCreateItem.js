@@ -89,15 +89,6 @@ const AdminCreateItem = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!file) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Please select an image for the item",
-      });
-      return;
-    }
-
     if (
       item.product_Name === "" ||
       item.pairs === "" ||
@@ -146,6 +137,15 @@ const AdminCreateItem = () => {
       });
       return;
     }
+
+    // if (!file) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: "Please select an image for the item",
+    //   });
+    //   return;
+    // }
 
     const formData = new FormData();
     formData.append("style_Code", "abc");
@@ -225,6 +225,12 @@ const AdminCreateItem = () => {
             title: "Error",
             text: res.data.message,
           });
+        } else if(res.data.status === 400){
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please fill in all the fields",
+          });
         }
       })
       .catch((error) => {
@@ -232,7 +238,7 @@ const AdminCreateItem = () => {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "An error occurred while adding the item",
+          text: "Please fill in all the fields",
         });
       });
   }

@@ -26,12 +26,23 @@ const UserDiamond = () => {
     (item) => item.style_Code === dim.style_Code
   );
 
-  console.log(itemListWithDim);
+  //console.log(itemListWithDim);
+  //console.log(items);
+
+  const itemsDiamond = itemListWithDim.filter(
+    (item) =>
+      item.cat_ID === "3" &&
+      item.style_Code !== null &&
+      item.visible &&
+      item.dimMsts.dimMst_ID !== null &&
+      item.dimMsts.visible
+  );
+  //console.log(itemsDiamond);
 
   useEffect(() => {
-    const results = itemListWithDim.map((item) => item.product_Name);
+    const results = itemsDiamond.map((item) => item.product_Name);
     setSearchSuggestions(results);
-  }, [itemListWithDim]);
+  }, [itemsDiamond]);
 
   const handleSearchTermChange = (e) => {
     setSearchTerm(e.target.value);
@@ -53,7 +64,7 @@ const UserDiamond = () => {
     setFilterItemDimSubTypeDimInfoMst(e.target.value);
   };
 
-  const filteredItems = itemListWithDim.filter((item) =>
+  const filteredItems = itemsDiamond.filter((item) =>
     item.product_Name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -257,7 +268,7 @@ const UserDiamond = () => {
               onChange={handleFilterChange}
             >
               <option value="All">{t("Select Diamond Sub Quality")} ▼</option>
-              {itemListWithDim.map((sub) => (
+              {itemsDiamond.map((sub) => (
                 <option
                   key={sub.dimMsts.dimQltySubMst.dimSubtype_ID}
                   value={sub.dimMsts.dimQltySubMst.dimQlty}
@@ -275,7 +286,7 @@ const UserDiamond = () => {
               onChange={handleFilterChangeDimQltyMst}
             >
               <option value="All">{t("Select Diamond Quality")} ▼</option>
-              {itemListWithDim.map((sub) => (
+              {itemsDiamond.map((sub) => (
                 <option
                   key={sub.dimMsts.dimQltyMst.dimQlty_ID}
                   value={sub.dimMsts.dimQltyMst.dimQlty}
@@ -295,7 +306,7 @@ const UserDiamond = () => {
               <option value="All">
                 {t("Select")} {t("Type Of Diamond")} ▼
               </option>
-              {itemListWithDim.map((sub) => (
+              {itemsDiamond.map((sub) => (
                 <option
                   key={sub.dimMsts.dimInfoMst.dimID}
                   value={sub.dimMsts.dimInfoMst.dimType}
@@ -315,7 +326,7 @@ const UserDiamond = () => {
               <option value="All">
                 {t("Select")} {t("Sub Type Of Diamond")} ▼
               </option>
-              {itemListWithDim.map((sub) => (
+              {itemsDiamond.map((sub) => (
                 <option
                   key={sub.dimMsts.dimInfoMst.dimID}
                   value={sub.dimMsts.dimInfoMst.dimSubType}

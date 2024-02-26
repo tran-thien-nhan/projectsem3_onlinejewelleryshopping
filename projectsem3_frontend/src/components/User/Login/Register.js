@@ -33,6 +33,27 @@ const Register = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
+    //xử lý nếu có 1 trường nào đó trống
+    if (
+      user.username === "" ||
+      user.fname === "" ||
+      user.lname === "" ||
+      user.address === "" ||
+      user.city === "" ||
+      user.state === "" ||
+      user.email === "" ||
+      user.phone === "" ||
+      user.dob === "" ||
+      user.pswd === ""
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("Please fill in all the information!"),
+      });
+      return;
+    }
+
     //xử lý nếu username chỉ có 3 ký tự hoặc nhiều hơn 20 ký tự
     if (user.username.length < 6 || user.username.length > 20) {
       Swal.fire({
@@ -94,27 +115,6 @@ const Register = () => {
             "Password must be at least 8 characters and must contain at least one letter, one number and one special character!"
           )
         ),
-      });
-      return;
-    }
-
-    //xử lý nếu có 1 trường nào đó trống
-    if (
-      user.username === "" ||
-      user.fname === "" ||
-      user.lname === "" ||
-      user.address === "" ||
-      user.city === "" ||
-      user.state === "" ||
-      user.email === "" ||
-      user.phone === "" ||
-      user.dob === "" ||
-      user.pswd === ""
-    ) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: t("Please fill in all the information!"),
       });
       return;
     }

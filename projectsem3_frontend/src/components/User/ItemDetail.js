@@ -43,7 +43,7 @@ function ItemDetail() {
   }
 
   const selectedDim = itemListWithDim.find(
-    (item) => item.style_Code === styleCode
+    (item) => item.style_Code === styleCode && item.cat_ID === "3"
   );
 
   const wistlistByUserId = wistlist.filter(

@@ -8,6 +8,9 @@ const AdminDim = () => {
   const { dim, loading, error, dimData } = useData();
   const { dimQlty, dimInfo, dimQltySub } = useData();
   const [createDimLoading, setCreateDimLoading] = useState(false);
+
+  console.log(dim);
+
   const handleUpdateVisibility = async (dimMst_ID) => {
     try {
       await axios.put(
@@ -27,6 +30,7 @@ const AdminDim = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
+              <th>Product</th>
               <th>DimQlty</th>
               <th>DimSub</th>
               <th>DimID</th>
@@ -55,6 +59,7 @@ const AdminDim = () => {
             ) : (
               dim.map((dimItem) => (
                 <tr key={dimItem.dimMst_ID}>
+                  <td>{dimItem.itemMst.product_Name}</td>
                   <td>
                     {dimQlty.map((dimQuality) =>
                       dimQuality.dimQlty_ID === dimItem.dimQlty_ID

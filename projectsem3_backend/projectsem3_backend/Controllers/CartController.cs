@@ -64,5 +64,11 @@ namespace projectsem3_backend.Controllers
         {
             return await cartRepo.UpdateQuantity(cartId, quantity);
         }
+
+        [HttpGet("checkitemincart/{userId}/{styleCode}")]
+        public async Task<CustomResult> CheckItemInCart(string userId, string styleCode)
+        {
+            return await cartRepo.CheckItemInCart(userId, styleCode);
+        }
     }
 }

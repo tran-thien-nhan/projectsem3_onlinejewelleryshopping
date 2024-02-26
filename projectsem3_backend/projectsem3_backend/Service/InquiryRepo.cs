@@ -140,11 +140,13 @@ namespace projectsem3_backend.Service
                     .Include(u => u.UserRegMst)
                     .FirstOrDefaultAsync();
 
+                //cập nhật reply
+                inquiryData.Reply = content;
+                _db.Inquiries.Update(inquiryData);
+                await _db.SaveChangesAsync();
+
                 var user = inquiryData.UserRegMst;
                 var userEmail = user.EmailID;
-
-                //lấy mail trong appsettings
-                var emailHost = _config["SmtpSettings:Mail"];
 
                 if (inquiryData == null)
                 {
@@ -152,7 +154,6 @@ namespace projectsem3_backend.Service
                 }
 
                 await emailService.SendMailReplyInquiryAsync(userEmail, inquiryData.Comment ,content);
-                await emailService.SendMailReplyInquiryAsync(emailHost, inquiryData.Comment, content);
 
                 return new CustomResult(200, "Reply Success", inquiryData);
                 

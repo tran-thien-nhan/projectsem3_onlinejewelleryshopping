@@ -7,8 +7,9 @@ import { useData } from "../../../Context/DataContext";
 const AdminEditDim = () => {
   const navigate = useNavigate();
   const { dimMst_ID } = useParams();
-  const { dimQlty, dimQltySub, dimInfo, loading, error } = useData();
+  const { items, dimQlty, dimQltySub, dimInfo, loading, error } = useData();
   const [dim, setDim] = useState({
+    style_Code: "",
     dimMst_ID: "",
     dimQlty_ID: "",
     dimSubType_ID: "",
@@ -21,6 +22,10 @@ const AdminEditDim = () => {
     dim_Amt: 0,
     visible: true,
   });
+
+  const itemDiamond = items.filter(
+    (item) => item.catMst.cat_ID === "3" && item.dimMsts === null
+  );
 
   useEffect(() => {
     const fetchDim = async () => {
@@ -50,6 +55,7 @@ const AdminEditDim = () => {
     e.preventDefault();
 
     const formData = new FormData();
+    formData.append("style_Code", dim.style_Code);
     formData.append("dimMst_ID", dim.dimMst_ID);
     formData.append("dimQlty_ID", dim.dimQlty_ID);
     formData.append("dimSubType_ID", dim.dimSubType_ID);
@@ -135,6 +141,27 @@ const AdminEditDim = () => {
             readOnly
           />
         </div>
+
+        <div className="mb-3">
+          <label htmlFor="style_Code" className="form-label">
+            Product
+          </label>
+          <select
+            className="form-select"
+            id="style_Code"
+            name="style_Code"
+            value={dim.style_Code}
+            onChange={handleInputChange}
+          >
+            <option value="">select Product</option>
+            {itemDiamond.map((dimQuality) => (
+              <option key={dimQuality.style_Code} value={dimQuality.style_Code}>
+                {dimQuality.product_Name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="mb-3">
           <label htmlFor="dimQlty_ID" className="form-label">
             Dim Quality ID

@@ -17,5 +17,8 @@ namespace projectsem3_backend.Repository
 
         //hàm clearcart
         Task<CustomResult> ClearCart(string userId);
+
+        //check item trong cart
+        Task<CustomResult> CheckItemInCart(string userId, string style_Code);
     }
 }

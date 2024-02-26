@@ -320,5 +320,6 @@
     "Email is not valid!": "Email is not valid!",
     "Username must be between 6 and 20 characters!": "Username must be between 6 and 20 characters!",
     "Username (or email)" : "Username (or email)",
-    "Please login to add item to wishlist": "Please login to add item to wishlist"
+    "Please login to add item to wishlist": "Please login to add item to wishlist",
+    "Please fill in all the information!": "Please fill in all the information!"
 }

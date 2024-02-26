@@ -6,8 +6,7 @@ import { useData } from "../../../Context/DataContext";
 
 const AdminCreateDim = () => {
   const navigate = useNavigate();
-  const { dimQlty, dimInfo, dimQltySub } = useData();
-
+  const { items, itemListWithDim, dimQlty, dimInfo, dimQltySub } = useData();
   const [dim, setDim] = useState([]);
   const [selectedOption, setSelectedOption] = useState(true);
   const [dim_Crt, setDim_Crt] = useState(0);
@@ -17,6 +16,14 @@ const AdminCreateDim = () => {
   const [dim_Rate, setDim_Rate] = useState(0);
   const [dim_Amt, setDim_Amt] = useState(0);
   const [dimVisibility, setDimVisibility] = useState(true);
+  const [style_Code, setStyle_Code] = useState("");
+
+  const itemDiamond = items.filter(
+    (item) =>
+      item.catMst.cat_ID === "3" && item.dimMsts == null
+  );
+  //console.log(itemDiamond);
+  //console.log(items);
 
   function handleDimChange(e) {
     let { name, value } = e.target;
@@ -44,10 +51,15 @@ const AdminCreateDim = () => {
   const handleDimInfoChange = (e) => {
     setDim({ ...dim, dimID: e.target.value });
   };
+
+  const handleProductChange = (e) => {
+    setDim({ ...dim, style_Code: e.target.value });
+  }
   function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData();
+    formData.append("style_Code", dim.style_Code);
     formData.append("dimMst_ID", dim.dimMst_ID);
     formData.append("dimQlty_ID", dim.dimQlty_ID);
     formData.append("dimSubType_ID", dim.dimSubType_ID);
@@ -116,13 +128,13 @@ const AdminCreateDim = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="Stone Weight in Gm" className="form-label">
-            Stone Weight in Gm
+            Dim Carat
           </label>
           <input
             type="number"
             className="form-control"
             id="dim_Crt"
-            placeholder="Enter Stone Weight in dim_Crt"
+            placeholder="Enter Dim Carat"
             name="dim_Crt"
             value={dim.dim_Crt}
             onChange={handleDimChange}
@@ -130,13 +142,13 @@ const AdminCreateDim = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="Stone Weight in dim_Pcs" className="form-label">
-            Stone Weight in dim_Pcs
+            dim_Pcs
           </label>
           <input
             type="number"
             className="form-control"
             id="dim_Pcs"
-            placeholder="Enter Dim Weight in dim_Pcs"
+            placeholder="Enter dim_Pcs"
             name="dim_Pcs"
             value={dim.dim_Pcs}
             onChange={handleDimChange}
@@ -144,13 +156,13 @@ const AdminCreateDim = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="Stone Weight in Gm" className="form-label">
-            Stone Weight in dim_Gm
+            dim_Gm
           </label>
           <input
             type="number"
             className="form-control"
             id="dim_Gm"
-            placeholder="Enter Stone Weight in dim_Gm"
+            placeholder="Enter dim_Gm"
             name="dim_Gm"
             value={dim.dim_Gm}
             onChange={handleDimChange}
@@ -158,13 +170,13 @@ const AdminCreateDim = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="Stone Weight in Gm" className="form-label">
-            Stone Weight in dim_Size
+            dim_Size
           </label>
           <input
             type="number"
             className="form-control"
             id="dim_Size"
-            placeholder="Enter Stone Weight in Gm"
+            placeholder="Enter dim_Size"
             name="dim_Size"
             value={dim.dim_Size}
             onChange={handleDimChange}
@@ -172,13 +184,13 @@ const AdminCreateDim = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="Stone Weight in Gm" className="form-label">
-            Stone Weight in dim_Rate
+            dim_Rate
           </label>
           <input
             type="number"
             className="form-control"
             id="dim_Rate"
-            placeholder="Enter Stone Weight in Gm"
+            placeholder="Enter dim_Rate"
             name="dim_Rate"
             value={dim.dim_Rate}
             onChange={handleDimChange}
@@ -186,18 +198,36 @@ const AdminCreateDim = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="Stone Weight in dim_Amt" className="form-label">
-            Stone Weight in dim_Amt
+            dim_Amt
           </label>
           <input
             type="number"
             className="form-control"
             id="dim_Amt"
-            placeholder="Enter Stone Weight in dim_Amt"
+            placeholder="Enter dim_Amt"
             name="dim_Amt"
             value={dim.dim_Amt}
             onChange={handleDimChange}
           />
         </div>
+
+        <div className="mb-3 mt-3">
+          <label for="Stone Quality">Product:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={handleProductChange}
+            value={dim.style_Code || ""}
+          >
+            <option selected>Select Product</option>
+            {itemDiamond.map((d) => (
+              <option value={d.style_Code}>
+                {d.product_Name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="mb-3 mt-3">
           <label for="Stone Quality">dimQlty_ID:</label>
           <select
