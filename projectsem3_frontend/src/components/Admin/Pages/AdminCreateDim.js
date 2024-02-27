@@ -19,8 +19,7 @@ const AdminCreateDim = () => {
   const [style_Code, setStyle_Code] = useState("");
 
   const itemDiamond = items.filter(
-    (item) =>
-      item.catMst.cat_ID === "3" && item.dimMsts == null
+    (item) => item.catMst.cat_ID === "3" && item.dimMsts == null
   );
   //console.log(itemDiamond);
   //console.log(items);
@@ -54,7 +53,7 @@ const AdminCreateDim = () => {
 
   const handleProductChange = (e) => {
     setDim({ ...dim, style_Code: e.target.value });
-  }
+  };
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -72,6 +71,22 @@ const AdminCreateDim = () => {
     formData.append("dim_Amt", dim.dim_Amt);
     formData.append("visible", selectedOption.toString());
 
+    // Kiểm tra số âm hoặc số 0
+    if (
+      dim.dim_Crt <= 0 ||
+      dim.dim_Pcs <= 0 ||
+      dim.dim_Gm <= 0 ||
+      dim.dim_Size <= 0 ||
+      dim.dim_Rate <= 0 ||
+      dim.dim_Amt <= 0
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Input",
+        text: "Dimensions must be positive numbers.",
+      });
+      return;
+    }
     axios
       .post("https://localhost:7241/api/DimMst", formData)
       .then((res) => {
@@ -221,9 +236,7 @@ const AdminCreateDim = () => {
           >
             <option selected>Select Product</option>
             {itemDiamond.map((d) => (
-              <option value={d.style_Code}>
-                {d.product_Name}
-              </option>
+              <option value={d.style_Code}>{d.product_Name}</option>
             ))}
           </select>
         </div>

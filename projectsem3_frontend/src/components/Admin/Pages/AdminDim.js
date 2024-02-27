@@ -3,13 +3,13 @@ import { useData } from "../../../Context/DataContext";
 import { TailSpin } from "react-loader-spinner";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const AdminDim = () => {
   const { dim, loading, error, dimData } = useData();
   const { dimQlty, dimInfo, dimQltySub } = useData();
   const [createDimLoading, setCreateDimLoading] = useState(false);
-
-  console.log(dim);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleUpdateVisibility = async (dimMst_ID) => {
     try {
@@ -20,6 +20,42 @@ const AdminDim = () => {
       await window.location.reload();
     } catch (error) {
       console.error("Update dim visibility error:", error);
+    }
+  };
+
+  const handleDelete = async (dimMst_ID) => {
+    try {
+      const confirm = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+      if (confirm.isConfirmed) {
+        setDeleteLoading(true); // Set delete loading to true
+        const res = await axios.delete(
+          `https://localhost:7241/api/DimMst/${dimMst_ID}`
+        );
+        if (res.data.status === 200) {
+          Swal.fire("Success", res.data.message, "success");
+          setTimeout(() => {
+            Swal.close();
+            window.location.reload();
+          }, 1500);
+        } else {
+          Swal.fire("Error", res.data.message, "error");
+        }
+      } else if (!confirm.isConfirmed) {
+        Swal.fire("Cancelled", "Your DimMst is safe :)", "success");
+      }
+    } catch (error) {
+      console.error("Delete dim error:", error);
+      Swal.fire("Error", error.message, "error");
+    } finally {
+      setDeleteLoading(false); // Set delete loading to false regardless of the outcome
     }
   };
 
@@ -34,12 +70,6 @@ const AdminDim = () => {
               <th>DimQlty</th>
               <th>DimSub</th>
               <th>DimID</th>
-              {/* <th>Dim_Crt</th>
-              <th>Dim_Pcs No</th>
-              <th>Dim_Gm</th>
-              <th>Dim_Size</th>
-              <th>Dim_Rate</th>
-              <th>Dim_Amt</th> */}
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -81,12 +111,6 @@ const AdminDim = () => {
                         : null
                     )}
                   </td>
-                  {/* <td>{dimItem.dim_Crt}</td>
-                  <td>{dimItem.dim_Pcs}</td>
-                  <td>{dimItem.dim_Gm}</td>
-                  <td>{dimItem.dim_Size}</td>
-                  <td>{dimItem.dim_Rate}</td>
-                  <td>{dimItem.dim_Amt}</td> */}
                   <td>
                     <button
                       className="btn btn-primary"
@@ -102,24 +126,29 @@ const AdminDim = () => {
                     >
                       Edit
                     </a>
+                    <button
+                      className="btn btn-danger mx-2"
+                      onClick={() => handleDelete(dimItem.dimMst_ID)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
-        
       </div>
       <div>
-          <a
-            href="/create-dim"
-            style={{ textDecoration: "none" }}
-            className="btn btn-success"
-            onClick={() => setCreateDimLoading(true)}
-          >
-            Create New
-          </a>
-        </div>
+        <a
+          href="/create-dim"
+          style={{ textDecoration: "none" }}
+          className="btn btn-success"
+          onClick={() => setCreateDimLoading(true)}
+        >
+          Create New
+        </a>
+      </div>
     </div>
   );
 };
