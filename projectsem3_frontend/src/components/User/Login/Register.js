@@ -62,7 +62,7 @@ const Register = () => {
         text: t("Username must be between 6 and 20 characters!"),
       });
       return;
-    };
+    }
 
     //xử lý nếu email sai định dạng
     if (!user.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
@@ -97,6 +97,13 @@ const Register = () => {
         icon: "error",
         title: "Error",
         text: t("You must be at least 18 years old to register!"),
+      });
+      return;
+    } else if (age > 100) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: t("You must be less than 100 years old to register!"),
       });
       return;
     }

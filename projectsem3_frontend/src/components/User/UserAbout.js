@@ -24,6 +24,18 @@ const UserAbout = () => {
           "Feel free to explore our website and don't hesitate to contact us if you have any questions or inquiries."
         )}
       </p>
+      <div
+        className="container my-4 d-flex justify-content-center align-items-center"
+        style={{
+          margin: "auto",
+        }}
+      >
+        <img
+          src="https://cdn.vietnambiz.vn/2019/11/21/shared-office-spaces-157432625659639056148.jpg"
+          alt="banner"
+          style={{ width: "50%", height: "auto" }}
+        />
+      </div>
     </div>
   );
 };

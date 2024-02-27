@@ -197,7 +197,8 @@ const UserDiamond = () => {
                 >
                   {t("Product")} {t("Diamond")} {t(dim.dimType)} {t("with")}{" "}
                   {t("shape")} {t(dim.dimSubType)} {t("and")} {dim.dimCrt}{" "}
-                  carats {t("was discovered in")} {dim.dimYear}
+                  carat  {""}
+                  {/* {t("was discovered in")} {dim.dimYear} */}
                 </h5>
               </div>
             ))}

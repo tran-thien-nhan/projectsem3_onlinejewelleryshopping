@@ -583,5 +583,83 @@ namespace projectsem3_backend.Service
                 return 0; // Gửi email không thành công
             }
         }
+
+        public async Task<int> SendMailBanUserAsync(string toEmail)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.To.Add(new MailboxAddress("", toEmail));
+                message.Subject = "Alert !";
+
+                var builder = new BodyBuilder();
+
+                // Template
+                var htmlBody = $@"
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset='UTF-8'>
+                    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 0;
+                            background-color: #f4f4f4;
+                        }}
+                        .container {{
+                            max-width: 600px;
+                            margin: auto;
+                            padding: 20px;
+                            text-align: center;
+                            background-color: #fff;
+                            border-radius: 10px;
+                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        }}
+                        h2 {{
+                            color: #333;
+                        }}
+                        p {{
+                            margin: 10px 0;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class='container'>
+                        <h2>Ban Notification</h2>
+                        <p><strong>You are banned</strong></p>
+                    </div>
+                </body>
+                </html>";
+
+                builder.HtmlBody = htmlBody;
+                message.Body = builder.ToMessageBody();
+                try
+                {
+                    using (var client = new SmtpClient())
+                    {
+                        await client.ConnectAsync("smtp.gmail.com", 587, false);
+                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.SendAsync(message);
+                        await client.DisconnectAsync(true);
+                    }
+
+                    return 1; // Gửi email thành công
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error sending email: {ex.Message}");
+                    return 0; // Gửi email không thành công
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+                return 0; // Gửi email không thành công
+            }
+        }
     }
 }

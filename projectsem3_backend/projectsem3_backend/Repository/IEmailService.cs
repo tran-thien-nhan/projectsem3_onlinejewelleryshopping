@@ -23,5 +23,8 @@ namespace projectsem3_backend.Repository
 
         //send mail trả lời inquiry
         Task<int> SendMailReplyInquiryAsync(string toEmail, string inquiryContent, string content);
+
+        //thông báo bị ban
+        Task<int> SendMailBanUserAsync(string toEmail);
     }
 }

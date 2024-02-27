@@ -444,6 +444,10 @@ namespace projectsem3_backend.Service
                     return new CustomResult(404, "User not found", null);
                 }
                 user.Activate = !user.Activate;
+                if(user.Activate == false)
+                {
+                    await emailService.SendMailBanUserAsync(user.EmailID);
+                }
                 await db.SaveChangesAsync();
                 return new CustomResult(200, "Success", user);
             }

@@ -32,12 +32,10 @@ const CardEarning = () => {
                   </div>
                 ) : (
                   <div>
-                    {total
-                      .toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })
-                      .replace(".00", "")}
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(total)}
                   </div>
                 )}
               </div>

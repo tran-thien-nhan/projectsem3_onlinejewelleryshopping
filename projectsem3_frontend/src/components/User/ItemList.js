@@ -8,7 +8,7 @@ import HeroSection1 from "./Layout/HeroSection1";
 
 function ItemList() {
   const { items, loading, error } = useData();
-  const limititems = items.slice(0, 4);
+  const limititems = items.slice(0, 8);
   return (
     <div className="container my-2">
       {loading ? (
