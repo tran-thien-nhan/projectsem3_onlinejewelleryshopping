@@ -64,36 +64,39 @@ namespace projectsem3_backend.Service
             {
             try
                 {
-                try
+                if (dimQltyMst == null)
                     {
-                    // Tạo một Style_Code mới
-                    dimQltyMst.DimQlty_ID = Guid.NewGuid().ToString();
-
-                    // Thiết lập thời gian tạo và cập nhật
-                    dimQltyMst.CreatedAt = DateTime.Now;
-                    dimQltyMst.UpdatedAt = DateTime.Now;
-
-                    await _db.DimQltyMsts.AddAsync(dimQltyMst);
-                    var result = await _db.SaveChangesAsync();
-                    if (result == 1)
-                        {
-                        return new CustomResult(200, "Create Success", dimQltyMst);
-                        }
-                    else
-                        {
-                        return new CustomResult(201, "Create Error", null);
-                        }
+                    return new CustomResult(400, "Invalid input. DimQltyMst is null.", null);
                     }
-                catch (Exception ex)
+
+                // Kiểm tra xem DimQlty đã tồn tại trong cơ sở dữ liệu chưa
+                var existingDimQlty = await _db.DimQltyMsts.FirstOrDefaultAsync(d => d.DimQlty == dimQltyMst.DimQlty);
+                if (existingDimQlty != null)
                     {
-                    return HandleDbUpdateException(ex, dimQltyMst);
+                    return new CustomResult(400, "DimQlty already exists.", null);
                     }
+
+                // Kiểm tra xem DimQlty đã tồn tại trong cơ sở dữ liệu chưa
+                var existingDimQltyWithSameID = await _db.DimQltyMsts.FirstOrDefaultAsync(d => d.DimQlty_ID == dimQltyMst.DimQlty_ID);
+                if (existingDimQltyWithSameID != null)
+                    {
+                    return new CustomResult(400, "Another DimQlty with the same ID already exists.", null);
+                    }
+
+                // Tạo một DimQlty_ID mới
+                dimQltyMst.DimQlty_ID = Guid.NewGuid().ToString();
+
+                await _db.DimQltyMsts.AddAsync(dimQltyMst);
+                var result = await _db.SaveChangesAsync();
+
+                return result > 0 ? new CustomResult(201, "Created Success", dimQltyMst) : new CustomResult(204, "No changes were made in the database", null);
                 }
             catch (Exception e)
                 {
                 return new CustomResult(500, e.Message, null);
                 }
             }
+
 
 
         public async Task<CustomResult> UpdateDimQltyMst( DimQltyMst dimQltyMst )

@@ -22,7 +22,14 @@ const AdminEditDim = () => {
     dim_Amt: 0,
     visible: true,
   });
-
+  const [errors, setErrors] = useState({
+    dim_Crt: "",
+    dim_Pcs: "",
+    dim_Gm: "",
+    dim_Size: "",
+    dim_Rate: "",
+    dim_Amt: "",
+  });
   const itemDiamond = items.filter(
     (item) => item.catMst.cat_ID === "3" && item.dimMsts === null
   );
@@ -53,6 +60,33 @@ const AdminEditDim = () => {
 
   const handleUpdateDim = async (e) => {
     e.preventDefault();
+
+    // Kiểm tra các trường không được nhập số âm và số 0
+    const inputErrors = {};
+    if (dim.dim_Crt <= 0) {
+      inputErrors.dim_Crt = "Dim Carat must be greater than 0";
+    }
+    if (dim.dim_Pcs <= 0) {
+      inputErrors.dim_Pcs = "Dim Pieces must be greater than 0";
+    }
+    if (dim.dim_Gm <= 0) {
+      inputErrors.dim_Gm = "Dim Grams must be greater than 0";
+    }
+    if (dim.dim_Size <= 0) {
+      inputErrors.dim_Size = "Dim Grams must be greater than 0";
+    }
+    if (dim.dim_Rate <= 0) {
+      inputErrors.dim_Rate = "Dim Rate must be greater than 0";
+    }
+    if (dim.dim_Amt <= 0) {
+      inputErrors.dim_Amt = "Dim Amount must be greater than 0";
+    }
+    setErrors(inputErrors);
+
+    // Kiểm tra nếu có lỗi thì không gửi dữ liệu lên server
+    if (Object.keys(inputErrors).length > 0) {
+      return;
+    }
 
     const formData = new FormData();
     formData.append("style_Code", dim.style_Code);

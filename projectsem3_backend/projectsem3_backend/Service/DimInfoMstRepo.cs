@@ -55,16 +55,53 @@ namespace projectsem3_backend.Service
             {
             try
                 {
+                // Kiểm tra xem dimInfoMst có tồn tại không
+                if (dimInfoMst == null)
+                    {
+                    return new CustomResult(400, "Invalid input. DimInfoMst is null.", null);
+                    }
+
+                // Kiểm tra trùng lặp tên DimInfoMst trước khi thêm vào cơ sở dữ liệu
+                var existingDimInfoMst = await _db.DimInfoMsts.FirstOrDefaultAsync(d => d.DimType == dimInfoMst.DimType);
+                if (existingDimInfoMst != null)
+                    {
+                    return new CustomResult(400, "DimInfoMst already exists.", null);
+                    }
+
+                // Kiểm tra trùng lặp ID của DimInfoMst trước khi thêm vào cơ sở dữ liệu
+                var existingDimInfoMstWithSameID = await _db.DimInfoMsts.FirstOrDefaultAsync(d => d.DimID == dimInfoMst.DimID);
+                if (existingDimInfoMstWithSameID != null)
+                    {
+                    return new CustomResult(400, "Another DimInfoMst with the same ID already exists.", null);
+                    }
+
+                // Kiểm tra trùng lặp DimImg
+                if (file != null)
+                    {
+                    string imageName = FileUpload.ProcessImageName(file.FileName);
+                    var dimInfoList = await _db.DimInfoMsts.ToListAsync(); // Lấy danh sách tất cả DimInfoMsts từ cơ sở dữ liệu
+
+                    var existingDimImg = dimInfoList.FirstOrDefault(d => FileUpload.ProcessImageName(d.DimImg) == imageName);
+                    if (existingDimImg != null)
+                        {
+                        return new CustomResult(400, "Another DimInfoMst with the same DimImg already exists.", null);
+                        }
+                    }
+
+                // Tạo mới một DimID
                 dimInfoMst.DimID = Guid.NewGuid().ToString();
 
+                // Kiểm tra và lưu ảnh nếu có
                 if (file != null)
                     {
                     dimInfoMst.DimImg = FileUpload.SaveImages("dimInfoMstImage", file);
                     }
 
+                // Thiết lập thời gian tạo và cập nhật
                 dimInfoMst.CreatedAt = DateTime.Now;
                 dimInfoMst.UpdatedAt = DateTime.Now;
 
+                // Thêm dimInfoMst vào cơ sở dữ liệu
                 _db.DimInfoMsts.Add(dimInfoMst);
                 await _db.SaveChangesAsync();
 
@@ -75,6 +112,8 @@ namespace projectsem3_backend.Service
                 return new CustomResult(500, e.Message, null);
                 }
             }
+
+
 
         public async Task<CustomResult> UpdateDimInfoMst( DimInfoMst dimInfoMst, IFormFile file )
             {
@@ -118,22 +157,24 @@ namespace projectsem3_backend.Service
             {
             try
                 {
-                var dimInfo = await _db.DimInfoMsts.FindAsync(id);
+                var dimInfo = await _db.DimInfoMsts.SingleOrDefaultAsync(i => i.DimID == id);
                 if (dimInfo == null)
                     {
-                    return new CustomResult(404, "Not Found", null);
+                    return new CustomResult(404, "Item not found", null);
                     }
-
-                _db.DimInfoMsts.Remove(dimInfo);
-                await _db.SaveChangesAsync();
-
-                return new CustomResult(200, "Delete Success", dimInfo);
+                else
+                    {
+                    _db.DimInfoMsts.Remove(dimInfo);
+                    var result = await _db.SaveChangesAsync();
+                    return result == 1 ? new CustomResult(200, "Delete Success", dimInfo) : new CustomResult(201, "Delete Error", null);
+                    }
                 }
-            catch (Exception e)
+            catch (Exception ex)
                 {
-                return new CustomResult(500, e.Message, null);
+                return new CustomResult(402, ex.Message, null);
                 }
             }
+
 
         public async Task<CustomResult> UpdateVisibility( string id )
             {

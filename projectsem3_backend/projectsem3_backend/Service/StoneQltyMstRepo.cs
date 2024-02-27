@@ -14,32 +14,43 @@ namespace projectsem3_backend.Service
         {
             this.db = db;
         }
-        public async Task<CustomResult> CreateStoneQltyMst(StoneQltyMst stoneQltyMst)
-        {
+        public async Task<CustomResult> CreateStoneQltyMst( StoneQltyMst stoneQltyMst )
+            {
             try
-            {
+                {
+                if (stoneQltyMst == null)
+                    {
+                    return new CustomResult(400, "Invalid input. StoneQltyMst is null.", null);
+                    }
+
+                // Kiểm tra xem Stone Quality đã tồn tại trong cơ sở dữ liệu chưa
+                var existingStoneQlty = await db.StoneQltyMsts.FirstOrDefaultAsync(s => s.StoneQlty == stoneQltyMst.StoneQlty);
+                if (existingStoneQlty != null)
+                    {
+                    return new CustomResult(400, "Stone Quality already exists.", null);
+                    }
+
+                // Kiểm tra xem Stone Quality đã tồn tại trong cơ sở dữ liệu chưa
+                var existingStoneQltyWithSameID = await db.StoneQltyMsts.FirstOrDefaultAsync(s => s.StoneQlty_ID == stoneQltyMst.StoneQlty_ID);
+                if (existingStoneQltyWithSameID != null)
+                    {
+                    return new CustomResult(400, "Another Stone Quality with the same ID already exists.", null);
+                    }
+
+                // Tạo một StoneQlty_ID mới
                 stoneQltyMst.StoneQlty_ID = Guid.NewGuid().ToString();
-                // Thiết lập thời gian tạo và cập nhật
-                stoneQltyMst.CreatedAt = DateTime.Now;
-                stoneQltyMst.UpdatedAt = DateTime.Now;
 
-
-                await db.StoneQltyMsts.AddAsync(stoneQltyMst);
+                db.StoneQltyMsts.Add(stoneQltyMst);
                 var result = await db.SaveChangesAsync();
-                if (result == 1)
-                {
-                    return new CustomResult(200, "Create New Stone Quantity Success", stoneQltyMst);
+
+                return result > 0 ? new CustomResult(201, "Created Success", stoneQltyMst) : new CustomResult(204, "No changes were made in the database", null);
                 }
-                else
-                {
-                    return new CustomResult(201, "Create New Stone Quantity Error", null);
-                }
-            }
             catch (Exception ex)
-            {
+                {
                 return new CustomResult(500, ex.Message, null);
+                }
             }
-        }
+
 
         public async Task<CustomResult> DeleteStoneQltyMst(string id)
         {

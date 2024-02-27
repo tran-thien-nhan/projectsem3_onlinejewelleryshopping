@@ -58,6 +58,22 @@ namespace projectsem3_backend.Service
                     return new CustomResult(400, "Invalid input. DimQltySubMst is null.", null);
                     }
 
+                // Kiểm tra xem dimQlty đã tồn tại trong cơ sở dữ liệu chưa
+                // Kiểm tra xem dimQlty đã tồn tại trong cơ sở dữ liệu chưa
+                var existingDimQltySub = await _db.DimQltySubMsts.FirstOrDefaultAsync(d => d.DimQlty == dimQltySubMst.DimQlty);
+                if (existingDimQltySub != null)
+                    {
+                    return new CustomResult(400, "DimQltySub already exists.", null);
+                    }
+
+                // Check if the new DimQltySubMst has a duplicate DimSubType_ID
+                var existingDimQltySubWithSameDimSubTypeID = await _db.DimQltySubMsts.FirstOrDefaultAsync(d => d.DimSubType_ID == dimQltySubMst.DimSubType_ID);
+                if (existingDimQltySubWithSameDimSubTypeID != null)
+                    {
+                    return new CustomResult(400, "Another DimQltySub with the same DimSubType_ID already exists.", null);
+                    }
+
+
                 // Tạo một DimSubType_ID mới
                 dimQltySubMst.DimSubType_ID = Guid.NewGuid().ToString();
 
@@ -105,14 +121,15 @@ namespace projectsem3_backend.Service
                     {
                     _db.DimQltySubMsts.Remove(dimQltySubMst);
                     var result = await _db.SaveChangesAsync();
-                    return result == 1 ? new CustomResult(200, "Delete Success", dimQltySubMst) : new CustomResult(204, "No changes were made in the database", null);
+                    return result == 1 ? new CustomResult(200, "Delete Success", dimQltySubMst) : new CustomResult(201, "Delete Error", null);
                     }
                 }
-            catch (Exception e)
+            catch (Exception ex)
                 {
-                return new CustomResult(500, e.Message, null);
+                return new CustomResult(402, ex.Message, null);
                 }
             }
+
 
         public async Task<CustomResult> UpdateVisibility( string id )
             {

@@ -58,23 +58,34 @@ namespace projectsem3_backend.Service
                     return new CustomResult(400, "Invalid input. JewelTypeMst is null.", null);
                     }
 
+                // Kiểm tra xem JewelType đã tồn tại trong cơ sở dữ liệu chưa
+                var existingJewelType = await _db.JewelTypeMsts.FirstOrDefaultAsync(j => j.Jewellery_Type == jewelType.Jewellery_Type);
+                if (existingJewelType != null)
+                    {
+                    return new CustomResult(400, "JewelType already exists.", null);
+                    }
+
+                // Kiểm tra xem JewelType đã tồn tại trong cơ sở dữ liệu chưa
+                var existingJewelTypeWithSameID = await _db.JewelTypeMsts.FirstOrDefaultAsync(j => j.Jewellery_ID == jewelType.Jewellery_ID);
+                if (existingJewelTypeWithSameID != null)
+                    {
+                    return new CustomResult(400, "Another JewelType with the same ID already exists.", null);
+                    }
+
                 // Tạo một Jewellery_ID mới
                 jewelType.Jewellery_ID = Guid.NewGuid().ToString();
 
-                // Thiết lập thời gian tạo và cập nhật
-                jewelType.CreatedAt = DateTime.Now;
-                jewelType.UpdatedAt = DateTime.Now;
-
                 _db.JewelTypeMsts.Add(jewelType);
-                await _db.SaveChangesAsync();
+                var result = await _db.SaveChangesAsync();
 
-                return new CustomResult(200, "Create Success", jewelType);
+                return result > 0 ? new CustomResult(201, "Created Success", jewelType) : new CustomResult(204, "No changes were made in the database", null);
                 }
-            catch (Exception ex)
+            catch (Exception e)
                 {
-                return HandleDbException(ex, jewelType);
+                return new CustomResult(500, e.Message, null);
                 }
             }
+
 
         public async Task<CustomResult> UpdateJewelType( JewelTypeMst jewelType )
             {
@@ -123,18 +134,20 @@ namespace projectsem3_backend.Service
                 {
                 var jewelType = await _db.JewelTypeMsts.SingleOrDefaultAsync(j => j.Jewellery_ID == id);
 
-                if (jewelType != null)
+                if (jewelType == null)
+                    {
+                    return new CustomResult(404, "Jewel Type not found", null);
+                    }
+                else
                     {
                     _db.JewelTypeMsts.Remove(jewelType);
-                    await _db.SaveChangesAsync();
-                    return new CustomResult(200, "Delete Success", jewelType);
+                    var result = await _db.SaveChangesAsync();
+                    return result == 1 ? new CustomResult(200, "Delete Success", jewelType) : new CustomResult(201, "Delete Error", null);
                     }
-
-                return new CustomResult(404, "Not Found", null);
                 }
             catch (Exception ex)
                 {
-                return HandleDbException(ex, null);
+                return new CustomResult(402, ex.Message, null);
                 }
             }
 
