@@ -137,26 +137,29 @@ namespace projectsem3_backend.Service
         }
 
 
-        public async Task<CustomResult> DeleteDimMstAsync(string dimId)
-        {
+        public async Task<CustomResult> DeleteDimMstAsync( string id )
+            {
             try
-            {
-                var existingDimMst = await db.DimMsts.SingleOrDefaultAsync(i => i.DimMst_ID == dimId);
-                if (existingDimMst == null)
                 {
+                var dimMst = await db.DimMsts.SingleOrDefaultAsync(i => i.DimMst_ID == id);
+
+                if (dimMst == null)
+                    {
                     return new CustomResult(404, "DimMst not found", null);
+                    }
+                else
+                    {
+                    db.DimMsts.Remove(dimMst);
+                    var result = await db.SaveChangesAsync();
+                    return result == 1 ? new CustomResult(200, "Delete Success", dimMst) : new CustomResult(201, "Delete Error", null);
+                    }
                 }
-
-                db.DimMsts.Remove(existingDimMst);
-                await db.SaveChangesAsync();
-
-                return new CustomResult(200, "Delete DimMst success", existingDimMst);
+            catch (Exception ex)
+                {
+                return new CustomResult(402, ex.Message, null);
+                }
             }
-            catch (Exception e)
-            {
-                return new CustomResult(500, e.Message, null);
-            }
-        }
+
 
         public async Task<CustomResult> UpdateDimVisibility(string dimId)
         {

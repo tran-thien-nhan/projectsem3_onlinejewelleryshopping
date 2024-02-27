@@ -58,23 +58,34 @@ namespace projectsem3_backend.Service
                     return new CustomResult(400, "Invalid input. ProdMst is null.", null);
                     }
 
-                // Tạo một Style_Code mới
+                // Kiểm tra xem tên sản phẩm đã tồn tại trong cơ sở dữ liệu chưa
+                var existingProd = await _db.ProdMsts.FirstOrDefaultAsync(p => p.Prod_Type == prodMst.Prod_Type);
+                if (existingProd != null)
+                    {
+                    return new CustomResult(400, "Product with the same name already exists.", null);
+                    }
+
+                // Kiểm tra xem sản phẩm đã tồn tại trong cơ sở dữ liệu chưa
+                var existingProdWithSameID = await _db.ProdMsts.FirstOrDefaultAsync(p => p.Prod_ID == prodMst.Prod_ID);
+                if (existingProdWithSameID != null)
+                    {
+                    return new CustomResult(400, "Another product with the same ID already exists.", null);
+                    }
+
+                // Tạo một Prod_ID mới
                 prodMst.Prod_ID = Guid.NewGuid().ToString();
 
-                // Thiết lập thời gian tạo và cập nhật
-                prodMst.CreatedAt = DateTime.Now;
-                prodMst.UpdatedAt = DateTime.Now;
-
                 _db.ProdMsts.Add(prodMst);
-                await _db.SaveChangesAsync();
+                var result = await _db.SaveChangesAsync();
 
-                return new CustomResult(200, "Create Success", prodMst);
+                return result > 0 ? new CustomResult(201, "Created Success", prodMst) : new CustomResult(204, "No changes were made in the database", null);
                 }
             catch (Exception ex)
                 {
-                return HandleDbException(ex, prodMst);
+                return new CustomResult(500, ex.Message, null);
                 }
             }
+
 
 
         private int GenerateUniqueNumericId()
@@ -132,18 +143,20 @@ namespace projectsem3_backend.Service
                 {
                 var prodMst = await _db.ProdMsts.SingleOrDefaultAsync(p => p.Prod_ID == id);
 
-                if (prodMst != null)
+                if (prodMst == null)
+                    {
+                    return new CustomResult(404, "Item not found", null);
+                    }
+                else
                     {
                     _db.ProdMsts.Remove(prodMst);
-                    await _db.SaveChangesAsync();
-                    return new CustomResult(200, "Delete Success", prodMst);
+                    var result = await _db.SaveChangesAsync();
+                    return result == 1 ? new CustomResult(200, "Delete Success", prodMst) : new CustomResult(201, "Delete Error", null);
                     }
-
-                return new CustomResult(404, "Not Found", null);
                 }
             catch (Exception ex)
                 {
-                return HandleDbException(ex, null);
+                return new CustomResult(402, ex.Message, null);
                 }
             }
 
