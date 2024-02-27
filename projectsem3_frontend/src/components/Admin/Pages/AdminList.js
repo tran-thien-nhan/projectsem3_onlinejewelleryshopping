@@ -145,7 +145,7 @@ const AdminList = () => {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="2">
+                <td colSpan="7">
                   <div
                     style={{
                       display: "flex",

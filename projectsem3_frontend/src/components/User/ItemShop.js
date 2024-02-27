@@ -24,7 +24,7 @@ const ItemShop = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(4);
+  const [productsPerPage] = useState(12);
   const [filterBrand, setFilterBrand] = useState("All");
   const [filterCategory, setFilterCategory] = useState("All");
   const [sortByPrice, setSortByPrice] = useState(null);
@@ -214,8 +214,8 @@ const ItemShop = () => {
           {t("Advance Search")} ▼
         </button>
         <div id="demo3" className="collapse">
-          <div className="d-flex">
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+          <div className="container">
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={filterBrand}
@@ -229,7 +229,7 @@ const ItemShop = () => {
                 ))}
               </select>
             </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={filterCategory}
@@ -243,7 +243,7 @@ const ItemShop = () => {
                 ))}
               </select>
             </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={sortByPrice}
@@ -254,7 +254,7 @@ const ItemShop = () => {
                 <option value="desc">{t("Price: High to Low")}</option>
               </select>
             </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={filterCertificate}
@@ -268,7 +268,7 @@ const ItemShop = () => {
                 ))}
               </select>
             </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={filterProd}
@@ -282,21 +282,25 @@ const ItemShop = () => {
                 ))}
               </select>
             </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={filterGold}
                 onChange={handleFilterGold}
               >
                 <option value="All">{t("All Gold Kinds")} ▼</option>
-                {golds.map((g) => (
-                  <option key={g.goldType_ID} value={g.gold_Crt}>
-                    {g.gold_Crt}
-                  </option>
-                ))}
+                {golds.map((g) => {
+                  if (g.gold_Crt !== "None") {
+                    return (
+                      <option key={g.goldType_ID} value={g.gold_Crt}>
+                        {g.gold_Crt}
+                      </option>
+                    );
+                  }
+                })}
               </select>
             </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={filterJewellery}
@@ -310,9 +314,47 @@ const ItemShop = () => {
                 ))}
               </select>
             </div>
+            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+              <select
+                className="form-control"
+                value={filterStoneQlty}
+                onChange={handleFilterStoneQlty}
+              >
+                <option value="All">{t("All Stone Qualities")} ▼</option>
+                {stoneQualities.map((s) => {
+                  if (s.stoneQlty !== "None") {
+                    return (
+                      <option key={s.stoneQlty_ID} value={s.stoneQlty}>
+                        {s.stoneQlty}
+                      </option>
+                    );
+                  }
+                })}
+              </select>
+            </div>
+            <div className="d-flex">
+              <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
+                <input
+                  type="number"
+                  placeholder={t("Min Price")}
+                  className="form-control"
+                  value={minPrice}
+                  onChange={handleMinPriceChange}
+                />
+              </div>
+              <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
+                <input
+                  type="number"
+                  placeholder={t("Max Price")}
+                  className="form-control"
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                />
+              </div>
+            </div>
           </div>
           <div className="d-flex mt-2">
-            <div className="col-auto" style={{ marginRight: "5px" }}>
+            {/* <div className="col-auto" style={{ marginRight: "5px" }}>
               <select
                 className="form-control"
                 value={filterStoneQlty}
@@ -347,7 +389,7 @@ const ItemShop = () => {
                 value={maxPrice}
                 onChange={handleMaxPriceChange}
               />
-            </div>
+            </div> */}
           </div>
           <hr />
         </div>

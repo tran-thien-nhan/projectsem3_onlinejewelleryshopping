@@ -329,6 +329,14 @@ namespace projectsem3_backend.Service
                     var cartItems = await db.CartLists.Where(cl => cl.Style_Code == id).ToListAsync();
                     db.CartLists.RemoveRange(cartItems); // Xóa tất cả các mục trong giỏ hàng có liên quan đến mặt hàng này
 
+                    //xóa trong wishlist
+                    var wishListItems = await db.Wishlists.Where(wl => wl.Style_Code == id).ToListAsync();
+                    db.Wishlists.RemoveRange(wishListItems);
+
+                    //xóa trong dimmst
+                    var dimItems = await db.DimMsts.Where(d => d.Style_Code == id).ToListAsync();
+                    db.DimMsts.RemoveRange(dimItems);
+
                     // Xóa mặt hàng từ ItemMsts
                     db.ItemMsts.Remove(item);
 

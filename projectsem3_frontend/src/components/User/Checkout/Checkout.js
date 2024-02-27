@@ -204,8 +204,26 @@ const Checkout = () => {
         }
       }
 
+      if(orderPayment === 2){
+        if(creditCardNo === "" || cvv === ""){
+          Swal.fire(t("Error"), t("Please enter credit card number and cvv"), "error");
+          return;
+        }
+
+        if(creditCardNo.length !== 16){
+          Swal.fire(t("Error"), t("Credit card number must be 16 digits!"), "error");
+          return;
+        }
+
+        if(cvv.length < 3){
+          Swal.fire(t("Error"), t("CVV must be 3-4 digits!"), "error");
+          return;
+        }
+      }
+
       if (orderPayment === 3) {
         setLoading(false);
+
         const response = await Swal.fire({
           title: t("Momo Payment"),
           text: t("Do you want to proceed with Momo payment?"),
@@ -218,6 +236,10 @@ const Checkout = () => {
         });
 
         if (response.isConfirmed) {
+          if(subTotal * 24000 > 30000000){
+            Swal.fire(t("Error"), t("Momo payment limit is 1250 $"), "error");
+            return;
+          }
           setLoading(false);
           try {
             const modelmomo = await axios.post(

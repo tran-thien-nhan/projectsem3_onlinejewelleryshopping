@@ -143,12 +143,8 @@ const AdminItemList = () => {
           `https://localhost:7241/api/ItemMst/${styleCode}`
         );
         console.log(res.data);
-        if (res.data.status === 200) {
-          Swal.fire("Success", res.data.message, "success");
-          setTimeout(() => {
-            Swal.close(); // Close the SweetAlert2 message
-            window.location.reload();
-          }, 1000);
+        if (res.data.status === 201) {
+          window.location.reload();
         } else if (res.data.status === 409) {
           Swal.fire("Error", res.data.message, "error");
         } else if (res.data.status === 402) {
@@ -311,7 +307,7 @@ const AdminItemList = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="4">No items found.</td>
+                <td colSpan="7">No items found.</td>
               </tr>
             )}
           </tbody>

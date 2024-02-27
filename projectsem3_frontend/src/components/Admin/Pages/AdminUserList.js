@@ -277,7 +277,7 @@
           <table className="table table-bordered">
             <thead>
               <tr>
-                <th>User ID</th>
+                {/* <th>User ID</th> */}
                 <th>Username</th>
                 <th>Mob No</th>
                 <th>Status</th>
@@ -320,7 +320,7 @@
               ) : (
                 sortedUserList.map((user) => (
                   <tr key={user.userID}>
-                    <td>{user.userID}</td>
+                    {/* <td>{user.userID}</td> */}
                     <td>{user.userName}</td>
                     <td>{user.mobNo}</td>
                     <td>

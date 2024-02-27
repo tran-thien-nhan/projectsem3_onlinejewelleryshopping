@@ -260,44 +260,44 @@ const UserDiamond = () => {
       </button>
 
       <div id="demo3" className="collapse">
-        <div className="d-flex">
-          <div className="col-auto" style={{ marginRight: "5px" }}>
+        <div className="container">
+          <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
             <select
               className="form-select"
               aria-label="Default select example"
               onChange={handleFilterChange}
             >
               <option value="All">{t("Select Diamond Sub Quality")} ▼</option>
-              {itemsDiamond.map((sub) => (
+              {dimQltySub.map((sub) => (
                 <option
-                  key={sub.dimMsts.dimQltySubMst.dimSubtype_ID}
-                  value={sub.dimMsts.dimQltySubMst.dimQlty}
+                  key={sub.dimSubtype_ID}
+                  value={sub.dimQlty}
                 >
-                  {t(sub.dimMsts.dimQltySubMst.dimQlty)}
+                  {t(sub.dimQlty)}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="col-auto" style={{ marginRight: "5px" }}>
+          <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
             <select
               className="form-select"
               aria-label="Default select example"
               onChange={handleFilterChangeDimQltyMst}
             >
               <option value="All">{t("Select Diamond Quality")} ▼</option>
-              {itemsDiamond.map((sub) => (
+              {dimQlty.map((sub) => (
                 <option
-                  key={sub.dimMsts.dimQltyMst.dimQlty_ID}
-                  value={sub.dimMsts.dimQltyMst.dimQlty}
+                  key={sub.dimQlty_ID}
+                  value={sub.dimQlty}
                 >
-                  {t(sub.dimMsts.dimQltyMst.dimQlty)}
+                  {t(sub.dimQlty)}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="col-auto" style={{ marginRight: "5px" }}>
+          <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
             <select
               className="form-select"
               aria-label="Default select example"
@@ -306,18 +306,18 @@ const UserDiamond = () => {
               <option value="All">
                 {t("Select")} {t("Type Of Diamond")} ▼
               </option>
-              {itemsDiamond.map((sub) => (
+              {dimInfo.map((sub) => (
                 <option
-                  key={sub.dimMsts.dimInfoMst.dimID}
-                  value={sub.dimMsts.dimInfoMst.dimType}
+                  key={sub.dimID}
+                  value={sub.dimType}
                 >
-                  {sub.dimMsts.dimInfoMst.dimType}
+                  {sub.dimType}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="col-auto" style={{ marginRight: "5px" }}>
+          {/* <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
             <select
               className="form-select"
               aria-label="Default select example"
@@ -326,20 +326,20 @@ const UserDiamond = () => {
               <option value="All">
                 {t("Select")} {t("Sub Type Of Diamond")} ▼
               </option>
-              {itemsDiamond.map((sub) => (
+              {dim.map((sub) => (
                 <option
-                  key={sub.dimMsts.dimInfoMst.dimID}
-                  value={sub.dimMsts.dimInfoMst.dimSubType}
+                  key={sub.dimID}
+                  value={sub.dimSubType}
                 >
-                  {t(sub.dimMsts.dimInfoMst.dimSubType)}
+                  {t(sub.dimSubType)}
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
 
         <div className="d-flex">
-          <div className="col-auto" style={{ marginRight: "5px" }}>
+          <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
             <input
               type="number"
               className="form-control"
@@ -349,7 +349,7 @@ const UserDiamond = () => {
             />
           </div>
 
-          <div className="col-auto" style={{ marginRight: "5px" }}>
+          <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
             <input
               type="number"
               className="form-control"
@@ -403,7 +403,7 @@ const UserDiamond = () => {
           </div>
         ))}
       </div>
-      <div
+      {/* <div
         className="container my-4 d-flex justify-content-center align-items-center"
         style={{
           margin: "auto",
@@ -414,7 +414,7 @@ const UserDiamond = () => {
           alt="banner"
           style={{ width: "50%", height: "auto" }}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

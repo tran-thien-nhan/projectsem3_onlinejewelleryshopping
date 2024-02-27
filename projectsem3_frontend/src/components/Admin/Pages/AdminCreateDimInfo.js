@@ -53,6 +53,7 @@ const AdminCreateDimInfo = () => {
       setTimeout(() => {
         Swal.close();
         navigate("/dimInfo");
+        window.location.reload();
       }, 1000);
     } catch (error) {
       console.error("Error creating DimInfo:", error);

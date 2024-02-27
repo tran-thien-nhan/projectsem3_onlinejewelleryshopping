@@ -24,7 +24,7 @@ const CartList = () => {
 
     if (userId === null) {
       setIsLogin(false);
-      Swal.fire("Error", "Please login to continue", "error");
+      Swal.fire(t("Error"), t("Please login to continue"), "error");
       setTimeout(() => {
         Swal.close();
         navigate("/login");

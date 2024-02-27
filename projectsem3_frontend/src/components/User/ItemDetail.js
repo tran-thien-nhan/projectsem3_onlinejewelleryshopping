@@ -54,7 +54,7 @@ function ItemDetail() {
   const isWishListExist = wistlistByUserId.some(
     (item) => item.style_Code === styleCode
   );
-  console.log(isWishListExist);
+  console.log(items);
 
   const selectedItem = items.find((item) => item.style_Code === styleCode);
   // sp liên quan
@@ -116,6 +116,11 @@ function ItemDetail() {
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
+
+    if (!sessionStorage.getItem("userID")) {
+      Swal.fire(t("Error"), t("Please login to add item to cart"), "error");
+      return;
+    }
 
     try {
       const formData = new FormData();
@@ -477,11 +482,14 @@ function ItemDetail() {
                   <>
                     {t("with one part of")} {t("making of")} {t("stones of")}{" "}
                     {selectedItem.stoneQltyMst.stoneQlty},{" "}
-                    {t("the type of stone")} {t("found in the year")}{" "}
-                    {selectedItem.stoneQltyMst.stone_Year}.{" "}
+                    {/* {t("the type of stone")} {t("found in the year")} {selectedItem.stoneQltyMst.stone_Year}.{" "} */}
                   </>
                 )}
-                ,{t("The product")} {t("has")} {selectedItem.pairs} {t("Pairs")}{" "}
+                {/* {t("The product")}{" "} */}
+                {selectedItem.goldKrtMst.gold_Crt !== "None"
+                  ? `${t("is gold")} ${selectedItem.goldKrtMst.gold_Crt}`
+                  : ""}{" "}
+                {t("has")} {selectedItem.pairs} {t("Pairs")} {""}
                 {t("and is certified by")}{" "}
                 {selectedItem.certifyMst.certify_Type}. {t("The product")}{" "}
                 {t("belongs to the")} {t("type of")}{" "}
@@ -544,6 +552,10 @@ function ItemDetail() {
                     <td>{selectedItem.certifyMst.certify_Type}</td>
                   </tr>
                   <tr>
+                    <td>{t("Category")}</td>
+                    <td>{t(selectedItem.catMst.cat_Name)}</td>
+                  </tr>
+                  <tr>
                     <td>{t("Jewelry Type")}</td>
                     <td>{t(selectedItem.jewelTypeMst.jewellery_Type)}</td>
                   </tr>
@@ -553,6 +565,14 @@ function ItemDetail() {
                       <td>{t(selectedItem.stoneQltyMst.stoneQlty)}</td>
                     </tr>
                   )}
+                  {
+                    selectedItem.goldKrtMst.gold_Crt !== "None" && (
+                      <tr>
+                        <td>{t("Gold Carat")}</td>
+                        <td>{selectedItem.goldKrtMst.gold_Crt}</td>
+                      </tr>
+                    )
+                  }
                 </tbody>
               </table>
             </div>
