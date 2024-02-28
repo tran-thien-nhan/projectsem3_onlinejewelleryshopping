@@ -291,7 +291,7 @@ const AdminAllOrders = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th scope="col">Order ID</th>
+              <th scope="col">Order </th>
               <th scope="col">
                 <a
                   className=""
@@ -324,7 +324,7 @@ const AdminAllOrders = () => {
               currentOrders.map((order) => (
                 <tr key={order.order_ID}>
                   <td>
-                    {order.order_ID}{" "}
+                    {/* {order.order_ID}{" "} */}
                     <span className={isNewOrder(order) ? "new-order" : ""}>
                       {isNewOrder(order) ? "(new)" : ""}
                     </span>

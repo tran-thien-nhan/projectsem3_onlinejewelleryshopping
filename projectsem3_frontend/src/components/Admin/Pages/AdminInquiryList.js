@@ -133,7 +133,7 @@ const AdminInquiry = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>New</th>
               <th>Name</th>
               <th>City</th>
               <th>Contact</th>
@@ -154,7 +154,7 @@ const AdminInquiry = () => {
               filteredInquiries.map((inquiryItem) => (
                 <tr key={inquiryItem.id}>
                   <td>
-                    {inquiryItem.id}
+  
                     {new Date(inquiryItem.cdate).toDateString() ===
                       new Date().toDateString() && (
                       <span className="badge bg-success mx-2">New today</span>
