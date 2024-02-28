@@ -205,270 +205,246 @@ const ItemShop = () => {
         <button className="btn btn-success my-2 mx-2" onClick={handleReset}>
           {t("Reset")}
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="collapse"
-          data-bs-target="#demo3"
-        >
-          {t("Advance Search")} ▼
-        </button>
-        <div id="demo3" className="collapse">
-          <div className="container">
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterBrand}
-                onChange={handleFilterBrand}
-              >
-                <option value="All">{t("All Brands")} ▼</option>
-                {brands.map((brand) => (
-                  <option key={brand.brand_ID} value={brand.brand_Type}>
-                    {t(brand.brand_Type)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterCategory}
-                onChange={handleFilterCategory}
-              >
-                <option value="All">{t("All Categories")} ▼</option>
-                {categories.map((cate) => (
-                  <option key={cate.cat_ID} value={cate.cat_Name}>
-                    {t(cate.cat_Name)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={sortByPrice}
-                onChange={handleSortByPrice}
-              >
-                <option value="">{t("Sort by Price")} ▼</option>
-                <option value="asc">{t("Price: Low to High")}</option>
-                <option value="desc">{t("Price: High to Low")}</option>
-              </select>
-            </div>
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterCertificate}
-                onChange={handleFilterCertificate}
-              >
-                <option value="All">{t("All Certificates")} ▼</option>
-                {certifies.map((cer) => (
-                  <option key={cer.certify_ID} value={cer.certify_Type}>
-                    {cer.certify_Type}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterProd}
-                onChange={handleFilterProd}
-              >
-                <option value="All">{t("All Kind Products")} ▼</option>
-                {prod.map((p) => (
-                  <option key={p.prod_ID} value={p.prod_Type}>
-                    {t(p.prod_Type)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterGold}
-                onChange={handleFilterGold}
-              >
-                <option value="All">{t("All Gold Kinds")} ▼</option>
-                {golds.map((g) => {
-                  if (g.gold_Crt !== "None") {
-                    return (
-                      <option key={g.goldType_ID} value={g.gold_Crt}>
-                        {g.gold_Crt}
+
+        <div className="d-flex">
+          <div className="col-2">
+            {" "}
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="collapse"
+              data-bs-target="#demo3"
+            >
+              {t("Advance Search")} ▼
+            </button>
+            <div id="demo3" className="collapse mt-2">
+              <div className="container">
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={filterBrand}
+                    onChange={handleFilterBrand}
+                  >
+                    <option value="All">{t("All Brands")} ▼</option>
+                    {brands.map((brand) => (
+                      <option key={brand.brand_ID} value={brand.brand_Type}>
+                        {t(brand.brand_Type)}
                       </option>
-                    );
-                  }
-                })}
-              </select>
-            </div>
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterJewellery}
-                onChange={hangleFilterJewellery}
-              >
-                <option value="All">{t("All Jewellery Types")} ▼</option>
-                {jewelry.map((j) => (
-                  <option key={j.jewellery_ID} value={j.jewellery_Type}>
-                    {t(j.jewellery_Type)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterStoneQlty}
-                onChange={handleFilterStoneQlty}
-              >
-                <option value="All">{t("All Stone Qualities")} ▼</option>
-                {stoneQualities.map((s) => {
-                  if (s.stoneQlty !== "None") {
-                    return (
-                      <option key={s.stoneQlty_ID} value={s.stoneQlty}>
-                        {s.stoneQlty}
+                    ))}
+                  </select>
+                </div>
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={filterCategory}
+                    onChange={handleFilterCategory}
+                  >
+                    <option value="All">{t("All Categories")} ▼</option>
+                    {categories.map((cate) => (
+                      <option key={cate.cat_ID} value={cate.cat_Name}>
+                        {t(cate.cat_Name)}
                       </option>
-                    );
-                  }
-                })}
-              </select>
-            </div>
-            <div className="d-flex">
-              <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
-                <input
-                  type="number"
-                  placeholder={t("Min Price")}
-                  className="form-control"
-                  value={minPrice}
-                  onChange={handleMinPriceChange}
-                />
+                    ))}
+                  </select>
+                </div>
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={sortByPrice}
+                    onChange={handleSortByPrice}
+                  >
+                    <option value="">{t("Sort by Price")} ▼</option>
+                    <option value="asc">{t("Price: Low to High")}</option>
+                    <option value="desc">{t("Price: High to Low")}</option>
+                  </select>
+                </div>
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={filterCertificate}
+                    onChange={handleFilterCertificate}
+                  >
+                    <option value="All">{t("All Certificates")} ▼</option>
+                    {certifies.map((cer) => (
+                      <option key={cer.certify_ID} value={cer.certify_Type}>
+                        {cer.certify_Type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={filterProd}
+                    onChange={handleFilterProd}
+                  >
+                    <option value="All">{t("All Kind Products")} ▼</option>
+                    {prod.map((p) => (
+                      <option key={p.prod_ID} value={p.prod_Type}>
+                        {t(p.prod_Type)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={filterGold}
+                    onChange={handleFilterGold}
+                  >
+                    <option value="All">{t("All Gold Kinds")} ▼</option>
+                    {golds.map((g) => {
+                      if (g.gold_Crt !== "None") {
+                        return (
+                          <option key={g.goldType_ID} value={g.gold_Crt}>
+                            {g.gold_Crt}
+                          </option>
+                        );
+                      }
+                    })}
+                  </select>
+                </div>
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={filterJewellery}
+                    onChange={hangleFilterJewellery}
+                  >
+                    <option value="All">{t("All Jewellery Types")} ▼</option>
+                    {jewelry.map((j) => (
+                      <option key={j.jewellery_ID} value={j.jewellery_Type}>
+                        {t(j.jewellery_Type)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                  <select
+                    className="form-control"
+                    value={filterStoneQlty}
+                    onChange={handleFilterStoneQlty}
+                  >
+                    <option value="All">{t("All Stone Qualities")} ▼</option>
+                    {stoneQualities.map((s) => {
+                      if (s.stoneQlty !== "None") {
+                        return (
+                          <option key={s.stoneQlty_ID} value={s.stoneQlty}>
+                            {s.stoneQlty}
+                          </option>
+                        );
+                      }
+                    })}
+                  </select>
+                </div>
+                <div className="mb-2" style={{ marginRight: "5px" }}>
+                  <input
+                    type="number"
+                    placeholder={t("Min Price")}
+                    className="form-control"
+                    value={minPrice}
+                    onChange={handleMinPriceChange}
+                  />
+                </div>
+                <div className="mb-2" style={{ marginRight: "5px" }}>
+                  <input
+                    type="number"
+                    placeholder={t("Max Price")}
+                    className="form-control"
+                    value={maxPrice}
+                    onChange={handleMaxPriceChange}
+                  />
+                </div>
               </div>
-              <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
-                <input
-                  type="number"
-                  placeholder={t("Max Price")}
-                  className="form-control"
-                  value={maxPrice}
-                  onChange={handleMaxPriceChange}
-                />
-              </div>
+              <hr />
             </div>
           </div>
-          <div className="d-flex mt-2">
-            {/* <div className="col-auto" style={{ marginRight: "5px" }}>
-              <select
-                className="form-control"
-                value={filterStoneQlty}
-                onChange={handleFilterStoneQlty}
+          <div className="col-10">
+            {loading ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100vh",
+                }}
               >
-                <option value="All">{t("All Stone Qualities")} ▼</option>
-                {stoneQualities.map((s) => {
-                  if (s.stoneQlty !== "None") {
-                    return (
-                      <option key={s.stoneQlty_ID} value={s.stoneQlty}>
-                        {s.stoneQlty}
-                      </option>
-                    );
-                  }
-                })}
-              </select>
-            </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
-              <input
-                type="number"
-                placeholder={t("Min Price")}
-                className="form-control"
-                value={minPrice}
-                onChange={handleMinPriceChange}
-              />
-            </div>
-            <div className="col-auto" style={{ marginRight: "5px" }}>
-              <input
-                type="number"
-                placeholder={t("Max Price")}
-                className="form-control"
-                value={maxPrice}
-                onChange={handleMaxPriceChange}
-              />
-            </div> */}
+                <TailSpin color="red" radius={8} />
+              </div>
+            ) : (
+              <>
+                {error ? (
+                  <p className="alert alert-danger">
+                    Có lỗi xảy ra: {error.message}
+                  </p>
+                ) : (
+                  <>
+                    <div className="row">
+                      {Array.isArray(currentProducts) &&
+                      currentProducts.length > 0 ? (
+                        currentProducts.map((item) => (
+                          <div key={item.style_Code} className="col-md-3 mb-3">
+                            <Link
+                              to={`/item/${item.style_Code}`}
+                              className="card-link"
+                              style={{ textDecoration: "none" }}
+                            >
+                              <div className="card custom-card">
+                                <img
+                                  src={
+                                    item.imagePath ||
+                                    "https://us.pandora.net/dw/image/v2/AAVX_PRD/on/demandware.static/-/Sites-pandora-master-catalog/default/dwf277c8d8/productimages/singlepackshot/593008C01_RGB.jpg?sw=900&sh=900&sm=fit&sfrm=png&bgcolor=F5F5F5"
+                                  }
+                                  className="card-img-top"
+                                  alt={item.product_Name}
+                                  height={350}
+                                  width={300}
+                                />
+                                <div className="card-body">
+                                  <h5 className="card-title">
+                                    {item.product_Name}
+                                  </h5>
+                                </div>
+                                <a
+                                  className="btn btn-secondary mb-2 mx-4"
+                                  href={`/item/${item.style_Code}`}
+                                >
+                                  {t("View Details")}
+                                </a>
+                              </div>
+                            </Link>
+                          </div>
+                        ))
+                      ) : (
+                        <p>No Item Found.</p>
+                      )}
+                    </div>
+                    <div className="pagination justify-content-center">
+                      {Array.from(
+                        {
+                          length: Math.ceil(
+                            searchResults.length / productsPerPage
+                          ),
+                        },
+                        (_, index) => (
+                          <button
+                            key={index}
+                            className={`pagination-button page-link ${
+                              currentPage === index + 1 ? "active" : ""
+                            }`}
+                            onClick={() => paginate(index + 1)}
+                          >
+                            {index + 1}
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </>
+                )}
+              </>
+            )}
           </div>
-          <hr />
         </div>
       </div>
-      {loading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <TailSpin color="red" radius={8} />
-        </div>
-      ) : (
-        <>
-          {error ? (
-            <p className="alert alert-danger">Có lỗi xảy ra: {error.message}</p>
-          ) : (
-            <>
-              <div className="row">
-                {Array.isArray(currentProducts) &&
-                currentProducts.length > 0 ? (
-                  currentProducts.map((item) => (
-                    <div key={item.style_Code} className="col-md-3 mb-3">
-                      <Link
-                        to={`/item/${item.style_Code}`}
-                        className="card-link"
-                        style={{ textDecoration: "none" }}
-                      >
-                        <div className="card custom-card">
-                          <img
-                            src={
-                              item.imagePath ||
-                              "https://us.pandora.net/dw/image/v2/AAVX_PRD/on/demandware.static/-/Sites-pandora-master-catalog/default/dwf277c8d8/productimages/singlepackshot/593008C01_RGB.jpg?sw=900&sh=900&sm=fit&sfrm=png&bgcolor=F5F5F5"
-                            }
-                            className="card-img-top"
-                            alt={item.product_Name}
-                            height={350}
-                            width={300}
-                          />
-                          <div className="card-body">
-                            <h5 className="card-title">{item.product_Name}</h5>
-                          </div>
-                          <a
-                            className="btn btn-secondary mb-2 mx-4"
-                            href={`/item/${item.style_Code}`}
-                          >
-                            {t("View Details")}
-                          </a>
-                        </div>
-                      </Link>
-                    </div>
-                  ))
-                ) : (
-                  <p>No Item Found.</p>
-                )}
-              </div>
-              <div className="pagination justify-content-center">
-                {Array.from(
-                  { length: Math.ceil(searchResults.length / productsPerPage) },
-                  (_, index) => (
-                    <button
-                      key={index}
-                      className={`pagination-button page-link ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
-                      onClick={() => paginate(index + 1)}
-                    >
-                      {index + 1}
-                    </button>
-                  )
-                )}
-              </div>
-            </>
-          )}
-        </>
-      )}
     </div>
   );
 };

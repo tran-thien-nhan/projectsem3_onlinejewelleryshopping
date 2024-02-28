@@ -171,6 +171,11 @@ namespace projectsem3_backend.Service
                         return new CustomResult(404, "Send mail failed", null);
                     }
 
+                    //userMst.UserFname = null;
+                    //userMst.UserLname = null;
+                    //userMst.City = null;
+                    //userMst.State = null;
+
                     userMst.Password = UserSecurity.HashPassword(userMst.Password);
                     userMst.CDate = DateTime.Now;
                     userMst.CreatedAt = DateTime.Now;
@@ -227,7 +232,6 @@ namespace projectsem3_backend.Service
                 }
             }
         }
-
 
         public async Task<CustomResult> UpdateStatusUser(string userid)
         {
@@ -446,6 +450,7 @@ namespace projectsem3_backend.Service
                 user.Activate = !user.Activate;
                 if(user.Activate == false)
                 {
+                    await UpdateOnlineStatusLogout(userid);
                     await emailService.SendMailBanUserAsync(user.EmailID);
                 }
                 await db.SaveChangesAsync();

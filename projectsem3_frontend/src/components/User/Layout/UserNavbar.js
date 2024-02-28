@@ -7,68 +7,73 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useData } from "../../../Context/DataContext";
+import { use } from "i18next";
 
 const UserNavbar = () => {
   const navigate = useNavigate();
+  const { userList } = useData();
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+  const [getOneUser, setGetOneUser] = useState({});
 
   useEffect(() => {
-    // Khi component được tạo, đặt ngôn ngữ theo giá trị đã lưu
-    const storedLanguage = localStorage.getItem("language");
-    if (storedLanguage) {
-      setSelectedLanguage(storedLanguage);
-      i18n.changeLanguage(storedLanguage);
-    } else {
-      // Nếu không có ngôn ngữ đã lưu, đặt ngôn ngữ mặc định
-      setSelectedLanguage(i18n.language);
+    try {
+      const thisUserID = sessionStorage.getItem("userID");
+      const getUser = async () => {
+        const response = await axios.get(
+          `https://localhost:7241/api/User/getuserbyid/${thisUserID}`
+        );
+        if (response.status === 200) {
+          if (!response.data || !response.data.data) {
+            // Swal.fire(t("Error"), t("User not found"), "error");
+            console.log("User not found");
+          } else {
+            console.log(response.data.data.activate);
+            if (response.data.data.activate === false) {
+              Swal.fire(
+                t("Error"),
+                t("Your account has been deactivated"),
+                "error"
+              );
+              sessionStorage.clear();
+              setTimeout(() => {
+                navigate("/login");
+              }, 2000);
+            }
+            setGetOneUser(response.data);
+          }
+        }
+      };
+      getUser();
+    } catch (error) {
+      console.error(error);
     }
+  }, [userList]);
 
-    // Thiết lập hẹn giờ cho việc logout sau 15 phút không thao tác
-    let timeout = setTimeout(() => {
-      handleLogout(); // Gọi hàm handleLogout khi hết thời gian
-    }, 15 * 60 * 1000); // 15 phút * 60 giây/phút * 1000 miligiây/giây
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language") || i18n.language;
+    setSelectedLanguage(storedLanguage);
+    i18n.changeLanguage(storedLanguage);
 
-    // Đặt sự kiện cho các hoạt động người dùng để làm mới hẹn giờ
+    const timeout = setTimeout(handleLogout, 15 * 60 * 1000);
+
     const resetTimeout = () => {
-      clearTimeout(timeout); // Xóa hẹn giờ hiện tại
-      // Thiết lập lại hẹn giờ mới
-      timeout = setTimeout(() => {
-        handleLogout();
-      }, 15 * 60 * 1000);
+      clearTimeout(timeout);
+      setTimeout(handleLogout, 15 * 60 * 1000);
     };
 
-    // Đặt sự kiện cho các hoạt động người dùng để làm mới hẹn giờ
     document.addEventListener("mousemove", resetTimeout);
     document.addEventListener("mousedown", resetTimeout);
     document.addEventListener("keypress", resetTimeout);
-    document.addEventListener("touchmove", resetTimeout);
 
-    // Xóa các sự kiện khi component unmount
     return () => {
       clearTimeout(timeout);
       document.removeEventListener("mousemove", resetTimeout);
       document.removeEventListener("mousedown", resetTimeout);
       document.removeEventListener("keypress", resetTimeout);
-      document.removeEventListener("touchmove", resetTimeout);
     };
   }, [i18n]);
-
-  // useEffect(() => {
-  //   const handleWindowClose = () => {
-  //     handleLogout();
-  //   };
-
-  //   window.addEventListener("beforeunload", handleWindowClose);
-
-  //   window.onunload = function () {
-  //     handleLogout();
-  //   };
-
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleWindowClose);
-  //   };
-  // }, []);
 
   const changeLanguage = (lng) => {
     setSelectedLanguage(lng);

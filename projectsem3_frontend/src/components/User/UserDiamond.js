@@ -196,8 +196,8 @@ const UserDiamond = () => {
                   }}
                 >
                   {t("Product")} {t("Diamond")} {t(dim.dimType)} {t("with")}{" "}
-                  {t("shape")} {t(dim.dimSubType)} {t("and")} {dim.dimCrt}{" "}
-                  carat  {""}
+                  {t("shape")} {t(dim.dimSubType)} {t("and")} {dim.dimCrt} carat{" "}
+                  {""}
                   {/* {t("was discovered in")} {dim.dimYear} */}
                 </h5>
               </div>
@@ -251,171 +251,135 @@ const UserDiamond = () => {
         {t("Reset")}
       </button>
 
-      <button
-        type="button"
-        class="btn btn-primary mb-2"
-        data-bs-toggle="collapse"
-        data-bs-target="#demo3"
-      >
-        {t("Advance Search")} ▼
-      </button>
-
-      <div id="demo3" className="collapse">
-        <div className="container">
-          <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-            <select
-              className="form-select"
-              aria-label="Default select example"
-              onChange={handleFilterChange}
-            >
-              <option value="All">{t("Select Diamond Sub Quality")} ▼</option>
-              {dimQltySub.map((sub) => (
-                <option
-                  key={sub.dimSubtype_ID}
-                  value={sub.dimQlty}
-                >
-                  {t(sub.dimQlty)}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-            <select
-              className="form-select"
-              aria-label="Default select example"
-              onChange={handleFilterChangeDimQltyMst}
-            >
-              <option value="All">{t("Select Diamond Quality")} ▼</option>
-              {dimQlty.map((sub) => (
-                <option
-                  key={sub.dimQlty_ID}
-                  value={sub.dimQlty}
-                >
-                  {t(sub.dimQlty)}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-            <select
-              className="form-select"
-              aria-label="Default select example"
-              onChange={handleFilterChangeDimTypeDimInfoMst}
-            >
-              <option value="All">
-                {t("Select")} {t("Type Of Diamond")} ▼
-              </option>
-              {dimInfo.map((sub) => (
-                <option
-                  key={sub.dimID}
-                  value={sub.dimType}
-                >
-                  {sub.dimType}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
-            <select
-              className="form-select"
-              aria-label="Default select example"
-              onChange={handleFilterChangeDimSubTypeDimInfoMst}
-            >
-              <option value="All">
-                {t("Select")} {t("Sub Type Of Diamond")} ▼
-              </option>
-              {dim.map((sub) => (
-                <option
-                  key={sub.dimID}
-                  value={sub.dimSubType}
-                >
-                  {t(sub.dimSubType)}
-                </option>
-              ))}
-            </select>
-          </div> */}
-        </div>
-
-        <div className="d-flex">
-          <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
-            <input
-              type="number"
-              className="form-control"
-              placeholder={t("Min Carat")}
-              value={minDimCrt}
-              onChange={handleMinDimCrtChange}
-            />
-          </div>
-
-          <div className="col-5 mb-2" style={{ marginRight: "5px" }}>
-            <input
-              type="number"
-              className="form-control"
-              placeholder={t("Max Carat")}
-              value={maxDimCrt}
-              onChange={handleMaxDimCrtChange}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div
-        className="row my-2"
-        style={{ justifyContent: "center", alignItems: "center" }}
-      >
-        {filteredItemsByDimCrt.map((item, index) => (
-          <div
-            key={index}
-            className="card mx-2 my-4"
-            style={{
-              width: "18rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+      <div className="d-flex">
+        <div className="col-2">
+          <button
+            type="button"
+            class="btn btn-primary mb-2"
+            data-bs-toggle="collapse"
+            data-bs-target="#demo3"
           >
-            <Link
-              to={`/item/${item.style_Code}`}
-              className="card-link"
-              style={{ textDecoration: "none" }}
-            >
-              <img
-                src={
-                  item.imagePath ||
-                  "https://us.pandora.net/dw/image/v2/AAVX_PRD/on/demandware.static/-/Sites-pandora-master-catalog/default/dwf277c8d8/productimages/singlepackshot/593008C01_RGB.jpg?sw=900&sh=900&sm=fit&sfrm=png&bgcolor=F5F5F5"
-                }
-                className="card-img-top"
-                alt={item.product_Name}
-                style={{ height: "200px", objectFit: "cover" }}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{item.product_Name}</h5>
-                <a
-                  className="btn btn-secondary"
-                  href={`/item/${item.style_Code}`}
+            {t("Advance Search")} ▼
+          </button>
+
+          <div id="demo3" className="collapse">
+            <div className="container">
+              <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  onChange={handleFilterChange}
                 >
-                  {t("View Details")}
-                </a>
+                  <option value="All">
+                    {t("Select Diamond Sub Quality")} ▼
+                  </option>
+                  {dimQltySub.map((sub) => (
+                    <option key={sub.dimSubtype_ID} value={sub.dimQlty}>
+                      {t(sub.dimQlty)}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </Link>
+
+              <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  onChange={handleFilterChangeDimQltyMst}
+                >
+                  <option value="All">{t("Select Diamond Quality")} ▼</option>
+                  {dimQlty.map((sub) => (
+                    <option key={sub.dimQlty_ID} value={sub.dimQlty}>
+                      {t(sub.dimQlty)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-12 mb-2" style={{ marginRight: "5px" }}>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  onChange={handleFilterChangeDimTypeDimInfoMst}
+                >
+                  <option value="All">
+                    {t("Select")} {t("Type Of Diamond")} ▼
+                  </option>
+                  {dimInfo.map((sub) => (
+                    <option key={sub.dimID} value={sub.dimType}>
+                      {sub.dimType}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="mb-2" style={{ marginRight: "12px" }}>
+              <input
+                type="number"
+                className="form-control"
+                placeholder={t("Min Carat")}
+                value={minDimCrt}
+                onChange={handleMinDimCrtChange}
+              />
+            </div>
+
+            <div className="mb-2" style={{ marginRight: "5px" }}>
+              <input
+                type="number"
+                className="form-control"
+                placeholder={t("Max Carat")}
+                value={maxDimCrt}
+                onChange={handleMaxDimCrtChange}
+              />
+            </div>
           </div>
-        ))}
+        </div>
+        <div className="col-10">
+          <div
+            className="row my-2"
+            style={{ justifyContent: "center", alignItems: "center" }}
+          >
+            {filteredItemsByDimCrt.map((item, index) => (
+              <div
+                key={index}
+                className="card mx-2 my-4"
+                style={{
+                  width: "18rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Link
+                  to={`/item/${item.style_Code}`}
+                  className="card-link"
+                  style={{ textDecoration: "none" }}
+                >
+                  <img
+                    src={
+                      item.imagePath ||
+                      "https://us.pandora.net/dw/image/v2/AAVX_PRD/on/demandware.static/-/Sites-pandora-master-catalog/default/dwf277c8d8/productimages/singlepackshot/593008C01_RGB.jpg?sw=900&sh=900&sm=fit&sfrm=png&bgcolor=F5F5F5"
+                    }
+                    className="card-img-top"
+                    alt={item.product_Name}
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{item.product_Name}</h5>
+                    <a
+                      className="btn btn-secondary"
+                      href={`/item/${item.style_Code}`}
+                    >
+                      {t("View Details")}
+                    </a>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      {/* <div
-        className="container my-4 d-flex justify-content-center align-items-center"
-        style={{
-          margin: "auto",
-        }}
-      >
-        <img
-          src="https://trangkimluxury.vn/upload_images/images/2023/03/16/giac-cat-kim-cuong-1.jpg"
-          alt="banner"
-          style={{ width: "50%", height: "auto" }}
-        />
-      </div> */}
     </div>
   );
 };

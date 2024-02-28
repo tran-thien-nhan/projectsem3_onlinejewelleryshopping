@@ -18,7 +18,7 @@ function App() {
     <div className="">
       <DataProvider>
         <Router>
-          {role == "admin" ? (
+          {role === "admin" ? (
             <div>
               <>
                 <div>

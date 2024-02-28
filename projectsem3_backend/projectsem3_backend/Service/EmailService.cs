@@ -589,14 +589,14 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("Tran Thien Nhan", "pipclupnomad@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
-                message.Subject = "Alert !";
+                message.Subject = "Ban Notification";
 
                 var builder = new BodyBuilder();
 
                 // Template
-                var htmlBody = $@"
+                var htmlBody = @"
                 <!DOCTYPE html>
                 <html>
                 <head>
@@ -604,13 +604,13 @@ namespace projectsem3_backend.Service
                     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                     <style>
-                        body {{
+                        body {
                             font-family: Arial, sans-serif;
                             margin: 0;
                             padding: 0;
                             background-color: #f4f4f4;
-                        }}
-                        .container {{
+                        }
+                        .container {
                             max-width: 600px;
                             margin: auto;
                             padding: 20px;
@@ -618,25 +618,31 @@ namespace projectsem3_backend.Service
                             background-color: #fff;
                             border-radius: 10px;
                             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                        }}
-                        h2 {{
+                        }
+                        h2 {
                             color: #333;
-                        }}
-                        p {{
-                            margin: 10px 0;
-                        }}
+                        }
+                        .ban-message {
+                            background-color: #ff3333;
+                            color: #fff;
+                            padding: 10px;
+                            border-radius: 5px;
+                        }
                     </style>
                 </head>
                 <body>
                     <div class='container'>
                         <h2>Ban Notification</h2>
-                        <p><strong>You are banned</strong></p>
+                        <p>You have been banned from our platform.</p>
+                        <p>Please contact support for further information.</p>
+                        <p>Thank you.</p>
                     </div>
                 </body>
                 </html>";
 
                 builder.HtmlBody = htmlBody;
                 message.Body = builder.ToMessageBody();
+
                 try
                 {
                     using (var client = new SmtpClient())
@@ -661,5 +667,6 @@ namespace projectsem3_backend.Service
                 return 0; // Gửi email không thành công
             }
         }
+
     }
 }

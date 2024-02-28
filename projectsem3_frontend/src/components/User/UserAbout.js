@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useData } from "../../Context/DataContext";
 
 const UserAbout = () => {
+  const { items, userList, loading, error } = useData();
   const { t, i18n } = useTranslation();
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const thisUser = userList.find(
+  //     (user) => user.userID === sessionStorage.getItem("userID")
+  //   );
+
+  //   if(thisUser === undefined){
+  //     sessionStorage.clear();
+  //     // navigate("/login");
+  //   }
+  // }, []);
   return (
     <div
       className="container my-4 justify-content-center align-items-center text-center"

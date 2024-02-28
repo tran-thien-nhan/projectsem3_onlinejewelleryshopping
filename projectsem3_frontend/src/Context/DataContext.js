@@ -2,11 +2,15 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { TailSpin } from "react-loader-spinner";
+// import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   //Nhan's state
+  // const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [items, setItems] = useState([]);
   const [cartList, setCartList] = useState([]);
   const [totalMoney, setTotalMoney] = useState(0);
@@ -15,7 +19,7 @@ export const DataProvider = ({ children }) => {
   const [allOrderList, setAllOrderList] = useState([]);
   const [adminList, setAdminList] = useState([]);
   const [itemListWithDim, setItemListWithDim] = useState([]);
-  const [wistlist, setWistlist] = useState([]); 
+  const [wistlist, setWistlist] = useState([]);
 
   //Phi's state
   const [brands, setBrands] = useState([]);
@@ -155,7 +159,6 @@ export const DataProvider = ({ children }) => {
         //console.log(response.data.data);
         setUserList(response.data.data);
       } catch (error) {
-        //console.error("list error:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -526,5 +529,6 @@ export const DataProvider = ({ children }) => {
 
 export const useData = () => {
   const context = useContext(DataContext);
+  //console.log("context", context);
   return context;
 };

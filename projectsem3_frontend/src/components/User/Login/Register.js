@@ -14,9 +14,9 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
     userID: "",
-    username: "",
     fname: "",
     lname: "",
+    username: "",
     address: "",
     city: "",
     state: "",
@@ -36,11 +36,9 @@ const Register = () => {
     //xử lý nếu có 1 trường nào đó trống
     if (
       user.username === "" ||
-      user.fname === "" ||
-      user.lname === "" ||
+
       user.address === "" ||
-      user.city === "" ||
-      user.state === "" ||
+
       user.email === "" ||
       user.phone === "" ||
       user.dob === "" ||
@@ -130,11 +128,11 @@ const Register = () => {
     const formData = new FormData();
     formData.append("userID", 1);
     formData.append("username", user.username);
-    formData.append("userFname", user.fname);
-    formData.append("userLname", user.lname);
+    formData.append("userFname", "null");
+    formData.append("userLname", "null");
     formData.append("address", user.address);
-    formData.append("city", user.city);
-    formData.append("state", user.state);
+    formData.append("city", "null");
+    formData.append("state", "null");
     formData.append("emailID", user.email);
     formData.append("mobNo", user.phone);
     formData.append("dob", user.dob);
@@ -237,7 +235,7 @@ const Register = () => {
                     onChange={handleChangeInput}
                   />
                 </div>
-                <div class="mb-3 mt-3">
+                {/* <div class="mb-3 mt-3">
                   <label for="fname">{t("First Name")}:</label>
                   <input
                     type="text"
@@ -260,7 +258,7 @@ const Register = () => {
                     value={user.lname}
                     onChange={handleChangeInput}
                   />
-                </div>
+                </div> */}
                 <div class="mb-3 mt-3">
                   <label for="address">{t("Address")}:</label>
                   <input
@@ -273,7 +271,7 @@ const Register = () => {
                     onChange={handleChangeInput}
                   />
                 </div>
-                <div class="mb-3 mt-3">
+                {/* <div class="mb-3 mt-3">
                   <label for="city">{t("City")}:</label>
                   <input
                     type="text"
@@ -296,7 +294,7 @@ const Register = () => {
                     value={user.state}
                     onChange={handleChangeInput}
                   />
-                </div>
+                </div> */}
                 <div class="mb-3 mt-3">
                   <label for="email">{t("Email")}:</label>
                   <input

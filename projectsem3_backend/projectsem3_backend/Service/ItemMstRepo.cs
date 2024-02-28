@@ -33,6 +33,7 @@ namespace projectsem3_backend.Service
                                 Include(i => i.JewelTypeMst).
                                 Include(i => i.StoneQltyMst).
                                 Include(i => i.DimMsts).
+                                AsNoTracking().
                                 ToListAsync();
                 if (result == null)
                 {

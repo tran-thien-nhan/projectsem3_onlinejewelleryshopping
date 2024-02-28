@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 
 function ItemDetail() {
-  const navigate = useNavigate();
   const { styleCode } = useParams();
   const {
     items,
@@ -26,6 +25,7 @@ function ItemDetail() {
     dimInfo,
     itemListWithDim,
     wistlist,
+    userList
   } = useData();
   const [quantity, setQuantity] = useState(1);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
@@ -33,6 +33,25 @@ function ItemDetail() {
   const [isAddedToWishlist, setIsAddedToWishlist] = useState(false);
   const [updatewistlist, setUpdateWistlist] = useState([]);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const thisUser = userList.find(
+  //     (user) => user.userID === sessionStorage.getItem("userID")
+  //   );
+
+  //   if(thisUser === undefined){
+  //     sessionStorage.clear();
+  //     // navigate("/login");
+  //   }
+  // }, []);
+  
+  //console.log(userList);
+
+  // const thisUser = userList.find(
+  //   (user) => user.userID === sessionStorage.getItem("userID")
+  // );
+  // console.log(thisUser);
 
   if (loading) {
     return <p>Đang tải...</p>;
@@ -54,7 +73,7 @@ function ItemDetail() {
   const isWishListExist = wistlistByUserId.some(
     (item) => item.style_Code === styleCode
   );
-  console.log(items);
+  //console.log(items);
 
   const selectedItem = items.find((item) => item.style_Code === styleCode);
   // sp liên quan
@@ -74,6 +93,16 @@ function ItemDetail() {
       Swal.fire(t("Error"), t("Please login to add item to wishlist"), "error");
       return;
     }
+
+    // if(thisUser.activate === false){
+    //   Swal.fire(t("Error"), t("Your account is not activated"), "error");
+    //   setTimeout(() => {
+    //     Swal.close();
+    //     sessionStorage.clear();
+    //     navigate("/login");
+    //   }, 1000);
+    //   return;
+    // }
 
     if (isWishListExist) {
       handleDeleteFromWishList(wistlistByUserId[0].whistList_ID, e);
@@ -121,6 +150,16 @@ function ItemDetail() {
       Swal.fire(t("Error"), t("Please login to add item to cart"), "error");
       return;
     }
+
+    // if(thisUser.activate === false){
+    //   Swal.fire(t("Error"), t("Your account is not activated"), "error");
+    //   setTimeout(() => {
+    //     Swal.close();
+    //     sessionStorage.clear();
+    //     navigate("/login");
+    //   }, 1000);
+    //   return;
+    // }
 
     try {
       const formData = new FormData();

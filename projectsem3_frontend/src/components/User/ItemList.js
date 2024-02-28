@@ -1,14 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useData } from "../../Context/DataContext";
 import "../../asset/css/userstyle.css";
 import HeroSection from "./Layout/HeroSection";
 import { TailSpin } from "react-loader-spinner";
 import HeroSection1 from "./Layout/HeroSection1";
+import { use } from "i18next";
 
 function ItemList() {
-  const { items, loading, error } = useData();
+  const { items, userList, loading, error } = useData();
   const limititems = items.slice(0, 8);
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const thisUser = userList.find(
+  //     (user) => user.userID === sessionStorage.getItem("userID")
+  //   );
+
+  //   if(thisUser === undefined){
+  //     sessionStorage.clear();
+  //     // navigate("/login");
+  //   }
+  // }, []);
+
   return (
     <div className="container my-2">
       {loading ? (

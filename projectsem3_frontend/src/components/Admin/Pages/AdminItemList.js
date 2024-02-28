@@ -15,6 +15,8 @@ const AdminItemList = () => {
   const [visibilityFilter, setVisibilityFilter] = useState("all");
   const [quantityFilter, setQuantityFilter] = useState("all");
   const [createItemLoading, setCreateItemLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   const handlecheckQuantity = async () => {
     try {
@@ -106,6 +108,13 @@ const AdminItemList = () => {
     );
   });
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems
+    .slice(indexOfFirstItem, indexOfLastItem)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const handleReset = () => {
     setSearchTerm("");
     setSortOrder("");
@@ -150,8 +159,7 @@ const AdminItemList = () => {
         } else if (res.data.status === 402) {
           Swal.fire("Error", "Cannot Delete This Item", "error");
         }
-      }
-      else if(!confirm.isConfirmed){
+      } else if (!confirm.isConfirmed) {
         Swal.fire("Cancelled", "Your Item is safe :)", "success");
       }
       // await window.location.reload();
@@ -211,7 +219,6 @@ const AdminItemList = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th>Product ID</th>
               <th>Image</th>
               <th>Product Name</th>
               <th>
@@ -249,9 +256,8 @@ const AdminItemList = () => {
                 <TailSpin color="red" radius={8} />{" "}
               </div>
             ) : Array.isArray(sortedItems) && sortedItems.length > 0 ? (
-              filteredItems.map((item) => (
+              currentItems.map((item) => (
                 <tr key={item.style_Code}>
-                  <td>{item.style_Code}</td>
                   <td>
                     <img
                       src={
@@ -312,6 +318,24 @@ const AdminItemList = () => {
             )}
           </tbody>
         </table>
+        <div className="pagination justify-content-center">
+          <ul className="pagination">
+            {Array.from({
+              length: Math.ceil(filteredItems.length / itemsPerPage),
+            }).map((_, index) => (
+              <li
+                key={index}
+                className={`page-item ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+              >
+                <button key={index} className="page-link" onClick={() => paginate(index + 1)}>
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className="mb-3 d-flex">
         <button className="btn btn-secondary" onClick={handleReset}>
