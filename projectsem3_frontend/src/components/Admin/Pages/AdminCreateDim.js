@@ -6,7 +6,8 @@ import { useData } from "../../../Context/DataContext";
 
 const AdminCreateDim = () => {
   const navigate = useNavigate();
-  const { items, itemListWithDim, dimQlty, dimInfo, dimQltySub } = useData();
+  const { items, itemListWithDim, categories, dimQlty, dimInfo, dimQltySub } =
+    useData();
   const [dim, setDim] = useState([]);
   const [selectedOption, setSelectedOption] = useState(true);
   const [dim_Crt, setDim_Crt] = useState(0);
@@ -16,13 +17,18 @@ const AdminCreateDim = () => {
   const [dim_Rate, setDim_Rate] = useState(0);
   const [dim_Amt, setDim_Amt] = useState(0);
   const [dimVisibility, setDimVisibility] = useState(true);
+  const [cate, setCate] = useState("");
   const [style_Code, setStyle_Code] = useState("");
+  const [img, setImg] = useState("");
+
+  //console.log(cate);
 
   const itemDiamond = items.filter(
-    (item) => item.catMst.cat_ID === "3" && item.dimMsts == null
+    (item) => item.catMst.cat_ID === cate && item.dimMsts == null
   );
   //console.log(itemDiamond);
   //console.log(items);
+  //console.log(categories);
 
   function handleDimChange(e) {
     let { name, value } = e.target;
@@ -51,9 +57,20 @@ const AdminCreateDim = () => {
     setDim({ ...dim, dimID: e.target.value });
   };
 
+  const handleCateChange = (e) => {
+    const selectedCate = e.target.value;
+    setCate(selectedCate);
+  };
+
   const handleProductChange = (e) => {
     setDim({ ...dim, style_Code: e.target.value });
+    //lấy hình ảnh imagePath
+    const selectedProduct = e.target.value;
+    const item = items.find((item) => item.style_Code === selectedProduct);
+    console.log(item.imagePath);
+    setImg(item.imagePath);
   };
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -227,6 +244,21 @@ const AdminCreateDim = () => {
         </div>
 
         <div className="mb-3 mt-3">
+          <label for="category">Category:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={handleCateChange}
+            value={cate || ""}
+          >
+            <option selected>Select Category</option>
+            {categories.map((category) => (
+              <option value={category.cat_ID}>{category.cat_Name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-3 mt-3">
           <label for="Stone Quality">Product:</label>
           <select
             class="form-select"
@@ -239,6 +271,15 @@ const AdminCreateDim = () => {
               <option value={d.style_Code}>{d.product_Name}</option>
             ))}
           </select>
+        </div>
+
+        {/* hiển thị hình ảnh được chọn  */}
+        <div className="mb-3 mt-3">
+          <img
+            src={img || "https://via.placeholder.com/150"}
+            alt="Image Preview"
+            style={{ marginTop: "10px", maxWidth: "100px" }}
+          />
         </div>
 
         <div className="mb-3 mt-3">

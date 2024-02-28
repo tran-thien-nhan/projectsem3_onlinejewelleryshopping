@@ -7,7 +7,10 @@ import { useData } from "../../../Context/DataContext";
 const AdminEditDim = () => {
   const navigate = useNavigate();
   const { dimMst_ID } = useParams();
-  const { items, dimQlty, dimQltySub, dimInfo, loading, error } = useData();
+  const { items, dimQlty, categories, dimQltySub, dimInfo, loading, error } =
+    useData();
+  const [cate, setCate] = useState("");
+  const [img, setImg] = useState("");
   const [dim, setDim] = useState({
     style_Code: "",
     dimMst_ID: "",
@@ -31,8 +34,10 @@ const AdminEditDim = () => {
     dim_Amt: "",
   });
   const itemDiamond = items.filter(
-    (item) => item.catMst.cat_ID === "3" && item.dimMsts === null
+    (item) => item.catMst.cat_ID === cate && item.dimMsts == null
   );
+
+  console.log(dim);
 
   useEffect(() => {
     const fetchDim = async () => {
@@ -56,6 +61,20 @@ const AdminEditDim = () => {
       ...prevDim,
       [name]: value,
     }));
+
+    if (name === "style_Code") {
+      const selectedDim = items.find((item) => item.style_Code === value);
+      setDim((prevDim) => ({
+        ...prevDim,
+        dimMst_ID: selectedDim.dimMst_ID,
+      }));
+      setImg(selectedDim.imagePath);
+    }
+  };
+
+  const handleCateChange = (e) => {
+    const selectedCate = e.target.value;
+    setCate(selectedCate);
   };
 
   const handleUpdateDim = async (e) => {
@@ -89,8 +108,8 @@ const AdminEditDim = () => {
     }
 
     const formData = new FormData();
+    formData.append("dimMst_ID", dimMst_ID);
     formData.append("style_Code", dim.style_Code);
-    formData.append("dimMst_ID", dim.dimMst_ID);
     formData.append("dimQlty_ID", dim.dimQlty_ID);
     formData.append("dimSubType_ID", dim.dimSubType_ID);
     formData.append("dimID", dim.dimID);
@@ -131,6 +150,7 @@ const AdminEditDim = () => {
           window.location.reload();
         }, 1500);
       } else {
+        console.log(response);
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -138,8 +158,8 @@ const AdminEditDim = () => {
         });
         setTimeout(() => {
           Swal.close();
-          navigate("/dim");
-          window.location.reload();
+          // navigate("/dim");
+          // window.location.reload();
         }, 1500);
       }
     } catch (error) {
@@ -161,8 +181,12 @@ const AdminEditDim = () => {
     <div className="container">
       <h1>Edit Dim</h1>
       <form onSubmit={handleUpdateDim} className="my-4">
-        <div className="mb-3 mt-3" style={{ display: "none" }}>
-          <label htmlFor="dimMst_ID" className="form-label">
+        <div className="mb-3 mt-3">
+          <label
+            htmlFor="dimMst_ID"
+            className="form-label"
+            style={{ display: "none" }}
+          >
             Dim Master ID
           </label>
           <input
@@ -174,6 +198,21 @@ const AdminEditDim = () => {
             onChange={handleInputChange}
             readOnly
           />
+        </div>
+
+        <div className="mb-3 mt-3">
+          <label for="category">Category:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={handleCateChange}
+            value={cate || ""}
+          >
+            <option selected>Select Category</option>
+            {categories.map((category) => (
+              <option value={category.cat_ID}>{category.cat_Name}</option>
+            ))}
+          </select>
         </div>
 
         <div className="mb-3">
@@ -194,6 +233,14 @@ const AdminEditDim = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="mb-3 mt-3">
+          <img
+            src={img || "https://via.placeholder.com/150"}
+            alt="Image Preview"
+            style={{ marginTop: "10px", maxWidth: "100px" }}
+          />
         </div>
 
         <div className="mb-3">
