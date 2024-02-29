@@ -15,7 +15,7 @@ namespace projectsem3_backend.Service
         public async Task SendEmailConfirmationAsync(string toEmail, string orderId, List<OrderDetailMst> orderDetails, string orderpayment)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+            message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
             message.To.Add(new MailboxAddress("", toEmail));
             message.Subject = "Order Confirmation";
 
@@ -77,7 +77,7 @@ namespace projectsem3_backend.Service
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.gmail.com", 587, false);
-                await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
             }
@@ -86,7 +86,7 @@ namespace projectsem3_backend.Service
         public async Task<int> SendMailVerifyUserAsync(string toEmail, string token)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+            message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
             message.To.Add(new MailboxAddress("", toEmail));
             message.Subject = "Verify Email";
 
@@ -140,7 +140,7 @@ namespace projectsem3_backend.Service
                 using (var client = new SmtpClient())
                 {
                     await client.ConnectAsync("smtp.gmail.com", 587, false);
-                    await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                    await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                     await client.SendAsync(message);
                     await client.DisconnectAsync(true);
                 }
@@ -158,7 +158,7 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = "Reset Password";
 
@@ -209,7 +209,7 @@ namespace projectsem3_backend.Service
                     using (var client = new SmtpClient())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 587, false);
-                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                         await client.SendAsync(message);
                         await client.DisconnectAsync(true);
                     }
@@ -234,7 +234,7 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = "Cancel Order";
 
@@ -274,7 +274,7 @@ namespace projectsem3_backend.Service
                     using (var client = new SmtpClient())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 587, false);
-                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                         await client.SendAsync(message);
                         await client.DisconnectAsync(true);
                     }
@@ -299,7 +299,7 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = "OTP";
 
@@ -355,7 +355,7 @@ namespace projectsem3_backend.Service
                     using (var client = new SmtpClient())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 587, false);
-                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                         await client.SendAsync(message);
                         await client.DisconnectAsync(true);
                     }
@@ -380,7 +380,7 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = "Order Is Shipping";
 
@@ -420,7 +420,7 @@ namespace projectsem3_backend.Service
                     using (var client = new SmtpClient())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 587, false);
-                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                         await client.SendAsync(message);
                         await client.DisconnectAsync(true);
                     }
@@ -445,7 +445,7 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = "Order Shipping Success !";
 
@@ -485,7 +485,7 @@ namespace projectsem3_backend.Service
                     using (var client = new SmtpClient())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 587, false);
-                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                         await client.SendAsync(message);
                         await client.DisconnectAsync(true);
                     }
@@ -510,7 +510,7 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("tran thien nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("tran thien nhan", "pipclup28061997@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = "Reply Inquiry !";
 
@@ -564,7 +564,7 @@ namespace projectsem3_backend.Service
                     using (var client = new SmtpClient())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 587, false);
-                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                         await client.SendAsync(message);
                         await client.DisconnectAsync(true);
                     }
@@ -589,7 +589,7 @@ namespace projectsem3_backend.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Tran Thien Nhan", "pipclupnomad@gmail.com"));
+                message.From.Add(new MailboxAddress("Tran Thien Nhan", "pipclup28061997@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = "Ban Notification";
 
@@ -648,7 +648,7 @@ namespace projectsem3_backend.Service
                     using (var client = new SmtpClient())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 587, false);
-                        await client.AuthenticateAsync("pipclupnomad@gmail.com", "gujv vlgk njad ghlt");
+                        await client.AuthenticateAsync("pipclup28061997@gmail.com", "dxoy efnz styi fwvh");
                         await client.SendAsync(message);
                         await client.DisconnectAsync(true);
                     }
