@@ -64,12 +64,16 @@ const AdminEditGold = () => {
       return;
     }
 
-    // Kiểm tra chỉ được nhập số dương cho gold_Year (không kiểm tra số âm)
-    if (parseInt(gold.gold_Year) < 0 || isNaN(parseInt(gold.gold_Year))) {
+    const currentYear = new Date().getFullYear();
+    if (
+      gold.gold_Year <= 0 ||
+      isNaN(gold.gold_Year) ||
+      gold.gold_Year > currentYear
+    ) {
       Swal.fire({
         icon: "error",
         title: "Invalid Input",
-        text: "Gold Year should be a non-negative number",
+        text: "Please enter a valid year.",
       });
       return;
     }

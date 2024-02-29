@@ -61,7 +61,19 @@ const AdminCreateGold = () => {
       });
       return;
     }
-
+    const currentYear = new Date().getFullYear();
+    if (
+      gold.gold_Year <= 0 ||
+      isNaN(gold.gold_Year) ||
+      gold.gold_Year > currentYear
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Input",
+        text: "Please enter a valid year.",
+      });
+      return;
+    }
     const formData = new FormData();
     formData.append("goldType_ID", "goldType_ID");
     formData.append("gold_Crt", gold.gold_Crt);

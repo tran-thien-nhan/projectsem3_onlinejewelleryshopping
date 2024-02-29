@@ -59,8 +59,12 @@ const AdminCreateBrand = () => {
       return;
     }
 
-    // Kiểm tra nếu năm âm hoặc không hợp lệ
-    if (brand.brand_Year <= 0 || isNaN(brand.brand_Year)) {
+    const currentYear = new Date().getFullYear();
+    if (
+      brand.brand_Year <= 0 ||
+      isNaN(brand.brand_Year) ||
+      brand.brand_Year > currentYear
+    ) {
       Swal.fire({
         icon: "error",
         title: "Invalid Input",

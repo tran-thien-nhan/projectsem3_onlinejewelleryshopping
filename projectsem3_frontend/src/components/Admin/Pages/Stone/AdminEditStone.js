@@ -76,47 +76,13 @@ const AdminEditStone = () => {
     //formData.append("stone_Amt", stone.stone_Amt);
     formData.append("visible", stone.visible);
 
-    // Kiểm tra chỉ nhập chữ cái và số dương
-    if (!/^[A-Za-z\s]+$/.test(stone.stone_Rate)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Input",
-        text: "Stone Rate should only contain letters and spaces",
-      });
-      return;
-    }
-
-    // Kiểm tra chỉ được nhập số dương cho stone_Gm, stone_Pcs, stone_Crt và stone_Rate (không kiểm tra số âm và số 0)
-    if (
-      parseInt(stone.stone_Gm) <= 0 ||
-      isNaN(parseInt(stone.stone_Gm)) ||
-      parseInt(stone.stone_Pcs) <= 0 ||
-      isNaN(parseInt(stone.stone_Pcs)) ||
-      parseInt(stone.stone_Crt) <= 0 ||
-      isNaN(parseInt(stone.stone_Crt)) ||
-      parseInt(stone.stone_Rate) <= 0 ||
-      isNaN(parseInt(stone.stone_Rate))
-    ) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Input",
-        text: "Stone Weight, Total Stone Per Pieces, Carat Per Stone, and Stone Rate should be positive numbers",
-      });
-      return;
-    }
-
-    // if (
-    //     stones.some(
-    //         (s) =>
-    //             s.stone_ID !== stone.stone_ID
-    //     )
-    // ) {
-    //     Swal.fire({
-    //         icon: "error",
-    //         title: "Error",
-    //         text: "That Stone already exists!",
-    //     });
-    //     return;
+    // if (stones.some((s) => s.stone_ID !== stone.stone_ID)) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: "That Stone already exists!",
+    //   });
+    //   return;
     // }
 
     axios

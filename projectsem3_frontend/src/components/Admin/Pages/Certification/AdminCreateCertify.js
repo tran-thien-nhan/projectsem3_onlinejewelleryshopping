@@ -34,7 +34,7 @@ const AdminCreateCertify = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Kiểm tra xem certify_Type chỉ chứa chữ cái và số dương hay không
+
     if (!/^[a-zA-Z0-9]+$/.test(certify.certify_Type)) {
       Swal.fire({
         icon: "error",
@@ -44,7 +44,6 @@ const AdminCreateCertify = () => {
       return;
     }
 
-    // Kiểm tra certify_Type không phải là số dương
     if (parseInt(certify.certify_Type) <= 0) {
       Swal.fire({
         icon: "error",

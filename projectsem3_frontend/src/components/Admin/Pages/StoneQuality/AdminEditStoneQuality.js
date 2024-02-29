@@ -66,18 +66,19 @@ const AdminEditStoneQuality = () => {
       return;
     }
 
-    // Kiểm tra chỉ được nhập số dương cho stone_Year (không kiểm tra số âm và số 0)
-    // if (
-    //   parseInt(stoneQuality.stone_Year) <= 0 ||
-    //   isNaN(parseInt(stoneQuality.stone_Year))
-    // ) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Invalid Input",
-    //     text: "Stone Quality Year should be a positive number",
-    //   });
-    //   return;
-    // }
+    const currentYear = new Date().getFullYear();
+    if (
+      stoneQuality.stone_Year <= 0 ||
+      isNaN(stoneQuality.stone_Year) ||
+      stoneQuality.stone_Year > currentYear
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Input",
+        text: "Please enter a valid year.",
+      });
+      return;
+    }
     if (
       stoneQualities.some(
         (s) =>

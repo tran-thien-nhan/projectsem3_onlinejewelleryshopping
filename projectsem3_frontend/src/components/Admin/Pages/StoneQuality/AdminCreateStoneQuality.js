@@ -61,12 +61,16 @@ const AdminCreateStoneQuality = () => {
       return;
     }
 
-    // Kiểm tra stone_Year là số dương
-    if (stoneQuality.stone_Year <= 0) {
+    const currentYear = new Date().getFullYear();
+    if (
+      stoneQuality.stone_Year <= 0 ||
+      isNaN(stoneQuality.stone_Year) ||
+      stoneQuality.stone_Year > currentYear
+    ) {
       Swal.fire({
         icon: "error",
         title: "Invalid Input",
-        text: "Please enter a positive number for Stone Quality Year",
+        text: "Please enter a valid year.",
       });
       return;
     }

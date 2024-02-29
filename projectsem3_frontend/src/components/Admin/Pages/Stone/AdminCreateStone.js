@@ -91,7 +91,8 @@ const AdminCreateStone = () => {
     //xử lý trùng lặp stone_Gm
     if (
       stones.some(
-        (s) => s.stone_Gm === stone.stone_Gm && s.stone_ID !== stone.stone_ID
+        (s) =>
+          s.stoneQlty_ID === stone.stoneQlty_ID && s.stone_ID !== stone.stone_ID
       )
     ) {
       Swal.fire({
