@@ -178,6 +178,7 @@ const AdminCreateDimInfo = () => {
             name="dimYear"
             value={dimInfo.dimYear}
             onChange={handleChange}
+            maxLength={4}
             required
           />
         </div>

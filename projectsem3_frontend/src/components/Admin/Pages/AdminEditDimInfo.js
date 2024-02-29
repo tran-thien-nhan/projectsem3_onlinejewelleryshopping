@@ -215,6 +215,7 @@ const EditDimInfo = () => {
             name="dimYear"
             value={dimInfo.dimYear}
             onChange={handleChange}
+            maxLength={4}
           />
           {errors.dimYear && (
             <div className="invalid-feedback">{errors.dimYear}</div>
