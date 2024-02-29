@@ -63,6 +63,19 @@ const AdminEditBrand = () => {
       });
       return;
     }
+    const currentYear = new Date().getFullYear();
+    if (
+      brand.brand_Year <= 0 ||
+      isNaN(brand.brand_Year) ||
+      brand.brand_Year > currentYear
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Input",
+        text: "Please enter a valid year.",
+      });
+      return;
+    }
     if (
       brands.some(
         (b) =>

@@ -403,7 +403,7 @@ const privateRouter = [
   {
     path: "/dimQlty",
     element: <AdminDimQlty />,
-    name: "DimQlty ",
+    name: "Diamond Qlty ",
     visible: true,
     icon: <i className="fas fa-gem mx-2"></i>,
   },
@@ -425,7 +425,7 @@ const privateRouter = [
   {
     path: "/dim",
     element: <AdminDim />,
-    name: "DimMst",
+    name: "Diamond",
     visible: true,
     icon: <i className="fas fa-ruler mx-2"></i>, // Biểu tượng cho kích thước
   },
@@ -488,7 +488,7 @@ const privateRouter = [
   {
     path: "/dimInfo",
     element: <AdminDimInfo />,
-    name: "DimInfo",
+    name: "Diamond Info",
     visible: true,
     icon: <i className="fas fa-info-circle mx-2"></i>, // Biểu tượng cho thông tin kích thước
   },
@@ -532,8 +532,8 @@ const privateRouter = [
     element: <AdminInquiryList />,
     name: "Inquiry",
     visible: true,
-    icon: <i className="fas fa-list-alt mx-2"></i>, 
-  }
+    icon: <i className="fas fa-list-alt mx-2"></i>,
+  },
 ];
 
 export { publicRouter, privateRouter };

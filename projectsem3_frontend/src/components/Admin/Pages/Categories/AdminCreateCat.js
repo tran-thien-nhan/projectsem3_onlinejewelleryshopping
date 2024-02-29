@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 const AdminCreateCat = () => {
   const navigate = useNavigate();
-  const { cats, loading, error } = useData();
+  const { categories, loading, error } = useData();
 
   const [cat, setCat] = useState([
     {
@@ -32,34 +32,35 @@ const AdminCreateCat = () => {
     setSelectedOption(e.target.value === "true");
   };
 
-  // const handleCatVisibilityChange = (e) => {
-  //     setCat({ ...cat, visible: e.target.value });
-  // };
+  const handleCatVisibilityChange = (e) => {
+    setCat({ ...cat, visible: e.target.value });
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("cat_ID", "cat_ID");
-    formData.append("cat_Name", cat.cat_Name);
-    formData.append("visible", selectedOption.toString());
-
-    // Kiểm tra xem cat_Name chỉ chứa chữ cái và số dương hay không
-    if (!/^[a-zA-Z0-9]+$/.test(cat.cat_Name)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Input",
-        text: "Please enter only letters and positive numbers for Categories Name",
-      });
-      return;
-    }
-
-    // Kiểm tra xem cat_Name không phải là số dương
     if (parseInt(cat.cat_Name) <= 0) {
       Swal.fire({
         icon: "error",
         title: "Invalid Input",
         text: "Please enter a positive number for Categories Name",
+      });
+      return;
+    }
+    const formData = new FormData();
+    formData.append("cat_ID", "cat_ID");
+    formData.append("cat_Name", cat.cat_Name);
+    formData.append("visible", selectedOption.toString());
+
+    if (
+      categories.some(
+        (ca) => ca.cat_Name === cat.cat_Name && ca.cat_ID !== cat.cat_ID
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Certification Type Already Exists",
       });
       return;
     }
@@ -79,7 +80,7 @@ const AdminCreateCat = () => {
           }, 1500);
         }
       })
-      .catch((error) => {
+      .catch((err) => {
         console.log(error);
         Swal.fire({
           icon: "error",

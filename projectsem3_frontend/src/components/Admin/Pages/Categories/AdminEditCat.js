@@ -53,22 +53,11 @@ const AdminEditCat = () => {
     formData.append("cat_Name", cat.cat_Name);
     formData.append("visible", cat.visible);
 
-    // Kiểm tra chỉ nhập chữ cái và số dương
-    if (!/^[A-Za-z\s]+$/.test(cat.cat_Name)) {
+    if (parseInt(cat.cat_Name) <= 0) {
       Swal.fire({
         icon: "error",
         title: "Invalid Input",
-        text: "Category Name should only contain letters and spaces",
-      });
-      return;
-    }
-
-    // Kiểm tra chỉ được nhập số dương cho cat_ID (không kiểm tra số âm và số 0)
-    if (parseInt(cat.cat_ID) <= 0 || isNaN(parseInt(cat.cat_ID))) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Input",
-        text: "Category ID should be a positive number",
+        text: "Please enter a positive number for Categories Name",
       });
       return;
     }
