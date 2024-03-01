@@ -181,11 +181,10 @@ const AdminEditDim = () => {
     <div className="container">
       <h1>Edit Dim</h1>
       <form onSubmit={handleUpdateDim} className="my-4">
-        <div className="mb-3 mt-3">
+        <div className="mb-3 mt-3" style={{ display: "none" }}>
           <label
             htmlFor="dimMst_ID"
             className="form-label"
-            style={{ display: "none" }}
           >
             Dim Master ID
           </label>

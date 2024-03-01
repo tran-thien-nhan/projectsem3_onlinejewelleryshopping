@@ -26,12 +26,11 @@ const UserDiamond = () => {
     (item) => item.style_Code === dim.style_Code
   );
 
-  //console.log(itemListWithDim);
+  console.log(itemListWithDim);
   //console.log(items);
 
   const itemsDiamond = itemListWithDim.filter(
     (item) =>
-      item.cat_ID === "3" &&
       item.style_Code !== null &&
       item.visible &&
       item.dimMsts.dimMst_ID !== null &&
